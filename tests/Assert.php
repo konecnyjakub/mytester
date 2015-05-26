@@ -1,5 +1,5 @@
 <?php
-namespace MyTester\tests;
+namespace MyTester\Tests;
 
 require "../src/bootstrap.php";
 
