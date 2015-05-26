@@ -2,23 +2,38 @@
 namespace MyTester;
 
 /**
- * Description of Job
+ * One job of the test suite
  *
  * @author Jakub Konečný
  */
 class Job {
+  /** @var string Name of the job */
   private $name;
+  /** @var callable Task */
   private $callback;
+  /** @var array Results of the task */
   private $output;
+  
   function __construct($name, $callback) {
     if(is_string($name)) $this->name = $name;
     if(is_callable($callback)) { $this->callback = $callback; }
   }
   
+  /**
+   * Records result of a test
+   * 
+   * @param string $text
+   * @return void
+   */
   private function write($text) {
     $this->output[] = $text;
   }
   
+  /**
+   * Executes the task
+   * 
+   * @return array Results of the test
+   */
   function execute() {
     ob_start(array($this, "write"));
     echo "*****Starting job $this->name*****\n";

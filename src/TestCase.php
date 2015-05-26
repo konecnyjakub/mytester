@@ -2,13 +2,15 @@
 namespace MyTester;
 
 /**
- * Description of TestCase
+ * One test suit
  *
  * @author Jakub Konečný
  */
 abstract class TestCase {
   const METHOD_PATTERN = '#^test[A-Z0-9_]#';
+  /** @var \MyTester\Runner */
   private $runner;
+  
   function run() {
     $className = get_class($this);
     $this->runner = new Runner($className);

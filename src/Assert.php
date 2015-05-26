@@ -2,7 +2,7 @@
 namespace MyTester;
 
 /**
- * Description of Assert
+ * Assertions
  *
  * @author Jakub Konečný
  */
