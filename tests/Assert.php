@@ -12,6 +12,11 @@ use MyTester\Assert;
  * @author Jakub Konečný
  */
 class AssertTest extends MT\TestCase {
+  /**
+   * Test assertion function
+   * 
+   * @return void
+   */
   function testAssertion() {
     Assert::same("abc", "abc");
     Assert::notSame("abc", "def");
@@ -25,6 +30,11 @@ class AssertTest extends MT\TestCase {
     Assert::count(1, $testArray);
   }
   
+  /**
+   * Test assertion function, all should produce error
+   * 
+   * @return void
+   */
   function testAssertionFails() {
     $actual = "abc";
     Assert::contains("abc", $actual);
