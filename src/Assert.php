@@ -88,5 +88,17 @@ class Assert {
     }
   }
   
+  static function count($count, $value) {
+    if(!is_array($value) AND !$value instanceof \Countable) {
+      echo "Assertion failed: \$value is not array or countable object\n";
+      return;
+    }
+    if(count($value) == $count) {
+      echo "Assertion succeeded: Count of \$value is $count\n";
+    } else {
+      echo "Assertion failed: Count of \$value is not $count\n";
+    }
+  }
+  
   static function type($type, $value) { }
 }
