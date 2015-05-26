@@ -24,6 +24,13 @@ class AssertTest extends MT\TestCase {
     Assert::notContains("def", $testArray);
     Assert::count(1, $testArray);
   }
+  
+  function testAssertionFails() {
+    $actual = "abc";
+    Assert::contains("abc", $actual);
+    Assert::notContains("abc", $actual);
+    Assert::count(1, $actual);
+  }
 }
 
 MT\Environment::setup();
