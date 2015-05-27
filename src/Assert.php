@@ -92,12 +92,17 @@ abstract class Assert {
    * @return void
    */
   static function contains($needle, $actual) {
-    if(!is_array($actual)) {
-      Environment::testResult("\$actual is not array.", false);
-    } elseif(!is_string($needle) AND !is_array($needle)) {
+    if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("\$needle is not string or array.", false);
-    } elseif(in_array($needle, $actual)) {
-      Environment::testResult("$needle is in \$actual.");
+    } elseif(is_string($needle)) {
+      if($needle !== "" AND strpos($actual, $needle) !== FALSE) {
+        Environment::testResult("$needle is in \$actual.");
+      } else {
+        Environment::testResult("$needle is not in \$actual.", false);
+      }
+    } elseif(is_array($needle)) {
+      if(in_array($needle, $actual)) Environment::testResult("$needle is in \$actual.");
+      else Environment::testResult("$needle is not in \$actual.", false);
     } else {
       Environment::testResult("$needle is not in \$actual.", false);
     }
@@ -111,14 +116,19 @@ abstract class Assert {
    * @return void
    */
   static function notContains($needle, $actual) {
-    if(!is_array($actual)) {
-      Environment::testResult("\$actual is not array.", false);
-    } elseif(!is_string($needle) AND !is_array($needle)) {
+    if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("\$needle is not string or array.", false);
-    } elseif(!in_array($needle, $actual)) {
-      Environment::testResult("$needle is not in \$actual.");
+    } elseif(is_string($needle)) {
+      if($needle === "" OR strpos($actual, $needle) === FALSE) {
+        Environment::testResult("$needle is not in \$actual.");
+      } else {
+        Environment::testResult("$needle is in \$actual.", false);
+      }
+    } elseif(!is_array($needle)) {
+      if(in_array($needle, $actual)) Environment::testResult("$needle is not in \$actual.");
+      else Environment::testResult("$needle is in \$actual.", false);
     } else {
-      Environment::testResult("$needle is in \$actual.", false);
+      Environment::testResult("$needle is not in \$actual.", false);
     }
   }
   
