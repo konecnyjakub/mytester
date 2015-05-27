@@ -149,11 +149,27 @@ abstract class Assert {
   
   /**
    * Is $value of type $type?
-   * @todo implement
    * 
    * @param string $type
    * @param mixed $value
    * @return void
    */
-  static function type($type, $value) { }
+  static function type($type, $value) {
+    if(!is_object($type) AND !is_string($type)) {
+      Environment::testResult("Type must be string or object.", false);
+    } elseif(in_array($type, array("array", "bool", "callable", "float",
+      "int", "integer", "null", "object", "resource", "scalar", "string"), TRUE)) {
+      if(!call_user_func("is_$type", $value)) {
+        Environment::testResult(gettype($value) . " should be $type.", false);
+      } else {
+        Environment::testResult("\$value is $type.");
+      }
+    } elseif (!$value instanceof $type) {
+      $actual = is_object($value) ? get_class($value) : gettype($value);
+      Environment::testResult("\$value should be instance of $type.", false);
+    } else {;
+      Environment::testResult("\$value is instance of $type.");
+    }
+  }
 }
+?>
