@@ -12,6 +12,9 @@ class Runner {
   /** @var array */
   private $jobs = array();
   
+  /**
+   * @param string $name Name of the runner
+   */
   function __construct($name) {
     if(is_string($name)) $this->name = $name;
   }
