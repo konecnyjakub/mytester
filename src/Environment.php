@@ -35,7 +35,7 @@ class Environment {
       assert_options(ASSERT_CALLBACK, array(__CLASS__, "assertionFail"));
       self::$set = true;
     } else {
-      echo "Warrning: Testing Environment was already set up.";
+      echo "Warrning: Testing Environment was already set up.\n";
     }
   }
 }
