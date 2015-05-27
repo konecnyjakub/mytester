@@ -22,7 +22,7 @@ abstract class TestCase {
       return $rm->getName();
     }, $r->getMethods())));
     foreach($methods as $method) {
-      $runner->addJob($className . "::$method", array($this, $method));
+      $runner->addJob("$className::$method", array($this, $method));
     }
     $output = $runner->run();
     foreach($output as $line) {
