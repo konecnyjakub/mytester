@@ -14,6 +14,10 @@ class Job {
   /** @var array Results of the task */
   private $output = array();
   
+  /**
+   * @param string $name Name of the job
+   * @param callable $callback The task
+   */
   function __construct($name, callable $callback) {
     if(is_string($name)) $this->name = $name;
     $this->callback = $callback;
