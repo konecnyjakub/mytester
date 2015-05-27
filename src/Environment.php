@@ -15,13 +15,13 @@ class Environment {
   private function __construct() { }
   
   /**
-   * Prints result of a custom test
+   * Prints result of a test
    * 
    * @param string $text Details
    * @param bool $success Whetever the test was successful
    * @return void
    */
-  static function test($text, $success = true) {
+  static function testResult($text, $success = true) {
     self::incCounter();
     $output = "Test " . self::$taskCount . " ";
     if($success) $output .= "passed";

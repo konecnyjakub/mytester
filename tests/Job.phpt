@@ -3,7 +3,7 @@ namespace MyTester;
 
 class JobTest {
   function test() {
-    Environment::test("Test");
+    Environment::testResult("Test");
   }
 }
 
