@@ -58,6 +58,8 @@ abstract class Environment {
   /**
    * Called when an assertion fails, prints details about the failure
    * 
+   * @deprecated
+   * 
    * @param string $file File where assertion failed
    * @param string $line Line where assertion failed
    * @param string $code Assertion
@@ -75,7 +77,7 @@ abstract class Environment {
     if(!self::$set) {
       assert_options(ASSERT_QUIET_EVAL, 1);
       assert_options(ASSERT_WARNING, 0);
-      assert_options(ASSERT_CALLBACK, array(__CLASS__, "assertionFail"));
+      //assert_options(ASSERT_CALLBACK, array(__CLASS__, "assertionFail"));
       self::$set = true;
     } else {
       echo "Warrning: Testing Environment was already set up.\n";

@@ -17,6 +17,8 @@ abstract class Assert {
   static function tryAssertion($code) {
     if(assert($code)) {
       Environment::testResult("Assertion \"$code\" is true.");
+    } else {
+      Environment::testResult("Assertion \"$code\" is not true.", false);
     }
   }
   
