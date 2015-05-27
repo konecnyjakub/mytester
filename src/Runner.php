@@ -8,9 +8,9 @@ namespace MyTester;
  */
 class Runner {
   /** @var string Name of the runner */
-  private $name;
+  protected $name;
   /** @var array */
-  private $jobs = array();
+  protected $jobs = array();
   
   /**
    * @param string $name Name of the runner

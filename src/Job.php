@@ -8,11 +8,11 @@ namespace MyTester;
  */
 class Job {
   /** @var string Name of the job */
-  private $name;
+  protected $name;
   /** @var callable Task */
-  private $callback;
+  protected $callback;
   /** @var array Results of the task */
-  private $output = array();
+  protected $output = array();
   
   /**
    * @param string $name Name of the job
@@ -29,7 +29,7 @@ class Job {
    * @param string $text
    * @return void
    */
-  private function write($text) {
+  protected function write($text) {
     $this->output[] = $text;
   }
   
