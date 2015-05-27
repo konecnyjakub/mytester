@@ -9,6 +9,11 @@ namespace MyTester;
 abstract class TestCase {
   const METHOD_PATTERN = '#^test[A-Z0-9_]#';
   
+  /**
+   * Runs the test suit
+   * 
+   * @return void
+   */
   function run() {
     $className = get_class($this);
     $runner = new Runner($className);
