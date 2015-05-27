@@ -65,7 +65,7 @@ class Environment {
    * @param string $code Assertion
    */
   static function assertionFail($file, $line, $code) {
-    echo "Test " . self::$taskCount . " failed. Assertion $code is not true.\n";
+    self::testResult("Assertion $code is not true.", false);
   }
   
   /**
