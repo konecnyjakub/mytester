@@ -136,18 +136,14 @@ abstract class Assert {
    * @return void
    */
   static function count($count, $value) {
-    //Environment::incCounter();
     if(!is_array($value) AND !$value instanceof \Countable) {
       Environment::testResult("\$value is not array or countable object.", false);
-      //echo "Test " . Environment::$taskCount . " failed. \n";
       return;
     }
     if(count($value) == $count) {
       Environment::testResult("Count of \$value is $count.");
-      //echo "Test " . Environment::$taskCount . " passed. \n";
     } else {
       Environment::testResult("Count of \$value is not $count.", false);
-      //echo "Test " . Environment::$taskCount . " failed. \n";
     }
   }
   
