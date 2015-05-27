@@ -1,0 +1,7 @@
+/nbproject      export-ignore
+/tests          export-ignore
+.gitattributes  export-ignore
+.gitignore      export-ignore
+apigen.neon     export-ignore
+create_phar.php export-ignore
+run_tests.php   export-ignore
