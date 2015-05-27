@@ -45,13 +45,16 @@ class Runner {
       Environment::setup();
     }
     Environment::resetCounter();
-    $output = array();
-    $output[] = "***Starting suit $this->name***\n";
+    $output = "***Starting suit $this->name***\n";
     foreach($this->jobs as $job) {
       $result = $job->execute();
-      $output = array_merge($output, $result);
+      $output .= $result;
     }
-    $output[] = "***Finished suit $this->name***\n";
+    $testsPassed = substr_count($output, " passed. ");
+    $testsFailed = substr_count($output, " failed. ");
+    $testsTotal = $testsPassed + $testsFailed;
+    $output .= "Executed $testsTotal tests in total. $testsPassed passed, $testsFailed failed.\n";
+    $output .= "***Finished suit $this->name***\n";
     return $output;
   }
 }

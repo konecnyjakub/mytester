@@ -25,8 +25,9 @@ abstract class TestCase {
       $runner->addJob("$className::$method", array($this, $method));
     }
     $output = $runner->run();
-    foreach($output as $line) {
+    echo $output;
+    /*foreach($output as $line) {
       echo "$line";
-    }
+    }*/
   }
 }

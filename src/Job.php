@@ -40,11 +40,19 @@ class Job {
    */
   function execute() {
     Environment::resetCounter();
-    ob_start(array($this, "write"));
+    ob_start(/*array($this, "write")*/);
     echo "*****Starting job $this->name*****\n";
     if(isset($this->callback)) call_user_func($this->callback);
+    $output = ob_get_contents();
+    $testsPassed = substr_count($output, " passed. ");
+    $testsFailed = substr_count($output, " failed. ");
+    ob_clean();
+    $testsTotal = Environment::$taskCount;
+    echo "Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.\n";
     echo "*****Finished job $this->name*****\n";
+    $output .= ob_get_contents();
+    ob_clean();
     ob_end_flush();
-    return $this->output;
+    return $output;
   }
 }
