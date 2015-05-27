@@ -1,12 +1,15 @@
 <?php
 namespace MyTester;
 
-function testRunnerJob() {
-  echo "Test\n";
+class RunnerTest {
+  function test() {
+    echo "Test\n";
+  }
 }
 
+$test = new RunnerTest();
 $runner = new Runner("Test Runner");
-$runner->addJob("Test Job", "testRunnerJob");
+$runner->addJob("Test Job", array($test, "test"));
 
 $output = $runner->run();
 foreach($output as $line) {

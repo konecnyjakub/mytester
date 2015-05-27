@@ -1,11 +1,14 @@
 <?php
 namespace MyTester;
 
-function testJob() {
-  echo "Test";
+class JobTest {
+  function test() {
+    echo "Test\n";
+  }
 }
 
-$job = new Job("Test Job", "testJob");
+$test = new JobTest();
+$job = new Job("Test Job", array($test, "test"));
 $result = $job->execute();
 
 foreach($result as $line) {
