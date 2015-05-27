@@ -11,18 +11,40 @@ class Environment {
   static private $set = false;
   private function __construct() { }
   
+  /**
+   * Checks if environment was set
+   * 
+   * @return bool
+   */
   static function isSetUp() {
     return self::$set;
   }
   
+  /**
+   * Increases task counter
+   * 
+   * @return void
+   */
   static function incCounter() {
     self::$taskCount++;
   }
   
+  /**
+   * Resets task counter
+   * 
+   * @return void
+   */
   static function resetCounter() {
     self::$taskCount = 0;
   }
   
+  /**
+   * Called when an assertion fails, prints details about the failure
+   * 
+   * @param string $file File where assertion failed
+   * @param string $line Line where assertion failed
+   * @param string $code Assertion
+   */
   static function assertionFail($file, $line, $code) {
     echo "Test " . self::$taskCount . " failed. Assertion $code is not true.\n";
   }
