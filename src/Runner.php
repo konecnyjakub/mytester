@@ -40,6 +40,7 @@ class Runner {
    * @return array Results of the test suit
    */
   function run() {
+    Environment::resetCounter();
     $output = array();
     $output[] = "***Starting suit $this->name***\n";
     foreach($this->jobs as $job) {

@@ -39,6 +39,7 @@ class Job {
    * @return array Results of the test
    */
   function execute() {
+    Environment::resetCounter();
     ob_start(array($this, "write"));
     echo "*****Starting job $this->name*****\n";
     if(isset($this->callback)) call_user_func($this->callback);
