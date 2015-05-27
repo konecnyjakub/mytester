@@ -26,8 +26,5 @@ abstract class TestCase {
     }
     $output = $runner->run();
     echo $output;
-    /*foreach($output as $line) {
-      echo "$line";
-    }*/
   }
 }
