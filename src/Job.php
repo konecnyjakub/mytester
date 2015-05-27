@@ -11,8 +11,6 @@ class Job {
   protected $name;
   /** @var callable Task */
   protected $callback;
-  /** @var array Results of the task */
-  protected $output = array();
   
   /**
    * @param string $name Name of the job
@@ -21,16 +19,6 @@ class Job {
   function __construct($name, callable $callback) {
     if(is_string($name)) $this->name = $name;
     $this->callback = $callback;
-  }
-  
-  /**
-   * Records result of a test
-   * 
-   * @param string $text
-   * @return void
-   */
-  protected function write($text) {
-    $this->output[] = $text;
   }
   
   /**
