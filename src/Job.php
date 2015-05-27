@@ -36,8 +36,8 @@ class Job {
     $testsFailed = substr_count($output, " failed. ");
     ob_clean();
     $testsTotal = Environment::$taskCount;
-    echo "Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.\n";
     echo "*****Finished job $this->name*****\n";
+    echo "Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.\n";
     $output .= ob_get_contents();
     ob_clean();
     ob_end_flush();
