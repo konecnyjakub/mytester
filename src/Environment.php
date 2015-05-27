@@ -6,13 +6,11 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-class Environment {
+abstract class Environment {
   /** @var int */
   static $taskCount = 0;
   /** @var bool */
-  static private $set = false;
-  
-  private function __construct() { }
+  static protected $set = false;
   
   /**
    * Prints result of a test

@@ -6,8 +6,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-class Assert {
-  private function __construct() { }
+abstract class Assert {
   
   /**
    * Tries an assertion
@@ -15,7 +14,7 @@ class Assert {
    * @param string $code Assertion to try
    * @return void
    */
-  static protected function tryAssertion($code) {
+  static function tryAssertion($code) {
     if(assert($code)) {
       Environment::testResult("Assertion $code is true.");
     }
