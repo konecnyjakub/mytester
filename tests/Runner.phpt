@@ -3,7 +3,7 @@ namespace MyTester;
 
 class RunnerTest {
   function test() {
-    echo "Test\n";
+    Environment::test("Test", false);
   }
 }
 

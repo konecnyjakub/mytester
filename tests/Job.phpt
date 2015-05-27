@@ -3,7 +3,7 @@ namespace MyTester;
 
 class JobTest {
   function test() {
-    echo "Test\n";
+    Environment::test("Test");
   }
 }
 

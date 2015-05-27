@@ -15,6 +15,22 @@ class Environment {
   private function __construct() { }
   
   /**
+   * Prints result of a custom test
+   * 
+   * @param string $text Details
+   * @param bool $success Whetever the test was successful
+   * @return void
+   */
+  static function test($text, $success = true) {
+    self::incCounter();
+    $output = "Test " . self::$taskCount . " ";
+    if($success) $output .= "passed";
+    else $output .= "failed";
+    $output .= ". $text\n";
+    echo $output;
+  }
+  
+  /**
    * Checks if environment was set
    * 
    * @return bool
