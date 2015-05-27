@@ -92,13 +92,9 @@ abstract class Assert {
   static function contains($needle, $actual) {
     if(!is_array($actual)) {
       Environment::testResult("\$actual is not array.", false);
-      return;
-    }
-    if(!is_string($needle) AND !is_array($needle)) {
+    } elseif(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("\$needle is not string or array.", false);
-      return;
-    }
-    if(in_array($needle, $actual)) {
+    } elseif(in_array($needle, $actual)) {
       Environment::testResult("$needle is in \$actual.");
     } else {
       Environment::testResult("$needle is not in \$actual.", false);
@@ -115,13 +111,9 @@ abstract class Assert {
   static function notContains($needle, $actual) {
     if(!is_array($actual)) {
       Environment::testResult("\$actual is not array.", false);
-      return;
-    }
-    if(!is_string($needle) AND !is_array($needle)) {
+    } elseif(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("\$needle is not string or array.", false);
-      return;
-    }
-    if(!in_array($needle, $actual)) {
+    } elseif(!in_array($needle, $actual)) {
       Environment::testResult("$needle is not in \$actual.");
     } else {
       Environment::testResult("$needle is in \$actual.", false);
@@ -138,9 +130,7 @@ abstract class Assert {
   static function count($count, $value) {
     if(!is_array($value) AND !$value instanceof \Countable) {
       Environment::testResult("\$value is not array or countable object.", false);
-      return;
-    }
-    if(count($value) == $count) {
+    } elseif(count($value) == $count) {
       Environment::testResult("Count of \$value is $count.");
     } else {
       Environment::testResult("Count of \$value is not $count.", false);
