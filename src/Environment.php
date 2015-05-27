@@ -63,7 +63,7 @@ abstract class Environment {
    * @param string $code Assertion
    */
   static function assertionFail($file, $line, $code) {
-    self::testResult("Assertion $code is not true.", false);
+    self::testResult("Assertion \"$code\" is not true.", false);
   }
   
   /**
