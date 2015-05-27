@@ -40,6 +40,10 @@ class Runner {
    * @return array Results of the test suit
    */
   function run() {
+    if(!Environment::isSetUp()) {
+      echo "Warrning: Testing Environment is not set. Setting up ...\n";
+      Environment::setup();
+    }
     Environment::resetCounter();
     $output = array();
     $output[] = "***Starting suit $this->name***\n";

@@ -11,6 +11,10 @@ class Environment {
   static private $set = false;
   private function __construct() { }
   
+  static function isSetUp() {
+    return self::$set;
+  }
+  
   static function incCounter() {
     self::$taskCount++;
   }
