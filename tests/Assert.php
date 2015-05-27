@@ -1,8 +1,6 @@
 <?php
 namespace MyTester\Tests;
 
-require_once "../src/bootstrap.php";
-
 use MyTester as MT;
 use MyTester\Assert;
 
@@ -42,8 +40,6 @@ class AssertTest extends MT\TestCase {
     Assert::count(1, $actual);
   }
 }
-
-MT\Environment::setup();
 
 $suit = new AssertTest();
 $suit->run();
