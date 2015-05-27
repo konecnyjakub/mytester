@@ -1,7 +1,7 @@
 <?php
 namespace MyTester\Tests;
 
-require "../src/bootstrap.php";
+require_once "../src/bootstrap.php";
 
 use MyTester as MT;
 use MyTester\Assert;
