@@ -11,9 +11,5 @@ $test = new RunnerTest();
 $runner = new Runner("Test Runner");
 $runner->addJob("Test Job", array($test, "test"));
 
-$output = $runner->run();
-echo $output;
-/*foreach($output as $line) {
-  echo "$line";
-}*/
+echo $runner->run();
 ?>
