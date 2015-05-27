@@ -29,14 +29,14 @@ class Job {
   function execute() {
     Environment::resetCounter();
     ob_start();
-    echo "*****Starting job $this->name*****\n";
+    echo "****Starting job $this->name****\n";
     if(isset($this->callback)) call_user_func($this->callback);
     $output = ob_get_contents();
     $testsPassed = substr_count($output, " passed. ");
     $testsFailed = substr_count($output, " failed. ");
     ob_clean();
     $testsTotal = Environment::$taskCount;
-    echo "*****Finished job $this->name*****\n";
+    echo "****Finished job $this->name****\n";
     echo "Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.\n";
     $output .= ob_get_contents();
     ob_clean();
