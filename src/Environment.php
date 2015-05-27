@@ -11,6 +11,8 @@ abstract class Environment {
   static $taskCount = 0;
   /** @var bool */
   static protected $set = false;
+  /** @var string */
+  static $output;
   
   /**
    * Prints result of a test
@@ -71,13 +73,21 @@ abstract class Environment {
   /**
    * Sets up the environment
    * 
+   * @param string $output Where print results   
    * @return void
    */
-  static function setup() {
+  static function setup($output = "screen") {
     if(!self::$set) {
       assert_options(ASSERT_QUIET_EVAL, 1);
       assert_options(ASSERT_WARNING, 0);
       //assert_options(ASSERT_CALLBACK, array(__CLASS__, "assertionFail"));
+      $outputs = array("screen", "file");
+      if(in_array($output, $outputs)) {
+        self::$output = $output;
+      } else {
+        echo "Warrrning: Entered invalid output. Expecting screen.\n";
+        self::$output = "screen";
+      }
       self::$set = true;
     } else {
       echo "Warrning: Testing Environment was already set up.\n";

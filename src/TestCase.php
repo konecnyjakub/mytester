@@ -25,6 +25,17 @@ abstract class TestCase {
       $runner->addJob("$className::$method", array($this, $method));
     }
     $output = $runner->run();
-    echo $output;
+    if(Environment::$output == "screen") {
+      echo $output;
+    } else {
+      $time = date("o-m-d-h-i-s");
+      $filename = "../$className-$time.log";
+      echo "Trying to create file $filename ...\n";
+      if(file_put_contents($filename, $output)) {
+        echo "Successfuly created.";
+      } else {
+        echo "An error occurred.";
+      }
+    }
   }
 }
