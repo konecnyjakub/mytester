@@ -7,8 +7,11 @@ namespace MyTester;
  * @author Jakub Konečný
  */
 class Environment {
+  /** @var int */
   static $taskCount = 0;
+  /** @var bool */
   static private $set = false;
+  
   private function __construct() { }
   
   /**
