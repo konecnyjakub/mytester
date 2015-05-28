@@ -54,3 +54,4 @@ class Job {
     return $output;
   }
 }
+?>
