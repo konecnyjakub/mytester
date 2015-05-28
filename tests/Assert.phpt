@@ -61,13 +61,22 @@ class AssertTest extends MT\TestCase {
     Assert::tryAssertion("abc != def");
   }
   
-  function testParams($params) {
+  /**
+   * Test parameters
+   * 
+   * @param array $params
+   * @param string $text
+   * @return void
+   */
+  function testParams($params, $text) {
     $actual = $params[0];
     Assert::same("abc", $actual);
+    Assert::same("def", $text);
   }
 }
 
 $params = array("abc");
+$text = "def";
 $suit = new AssertTest();
 $suit->run();
 ?>
