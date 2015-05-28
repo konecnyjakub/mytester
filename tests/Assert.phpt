@@ -38,7 +38,7 @@ class AssertTest extends MT\TestCase {
    */
   function testAssertionFails() {
     $actual = "abc";
-    Assert::contains("abc", $actual);
+    Assert::contains("def", $actual);
     Assert::notContains("abc", $actual);
     Assert::count(1, $actual);
     Assert::same("abc", "def");
