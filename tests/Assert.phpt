@@ -60,8 +60,14 @@ class AssertTest extends MT\TestCase {
     Assert::tryAssertion("2 <= 5");
     Assert::tryAssertion("abc != def");
   }
+  
+  function testParams($params) {
+    $actual = $params[0];
+    Assert::same("abc", $actual);
+  }
 }
 
+$params = array("abc");
 $suit = new AssertTest();
 $suit->run();
 ?>

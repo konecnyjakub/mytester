@@ -22,7 +22,16 @@ abstract class TestCase {
       return $rm->getName();
     }, $r->getMethods())));
     foreach($methods as $method) {
-      $runner->addJob("$className::$method", array($this, $method));
+      $parameter = false;
+      $params = $r->getMethod($method)->getParameters();
+      if(count($params) === 1) {
+        foreach($params as $param) { }
+        $paramName = $param->getName();
+        global $$paramName;
+        if(is_array($$paramName)) $parameter = $$paramName;
+      }
+      if(is_array($parameter)) $runner->addJob("$className::$method", array($this, $method), $parameter);
+      else $runner->addJob("$className::$method", array($this, $method));
     }
     $output = $runner->run();
     if(Environment::$output == "screen") {
