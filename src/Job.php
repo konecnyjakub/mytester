@@ -31,6 +31,7 @@ class Job {
    * @return array Results of the test
    */
   function execute() {
+    $time_start = microtime(true);
     Environment::resetCounter();
     ob_start();
     echo "****Starting job $this->name****\n";
@@ -44,6 +45,9 @@ class Job {
     $testsTotal = Environment::$taskCount;
     echo "****Finished job $this->name****\n";
     echo "Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.\n";
+    $time_end = microtime(true);
+    $time = $time_end - $time_start;
+    echo "Execution time: $time second(s)\n";
     $output .= ob_get_contents();
     ob_clean();
     ob_end_flush();

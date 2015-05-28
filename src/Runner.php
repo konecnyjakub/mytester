@@ -42,6 +42,7 @@ class Runner {
    * @return array Results of the test suit
    */
   function run() {
+    $time_start = microtime(true);
     if(!Environment::isSetUp()) {
       echo "Warrning: Testing Environment is not set. Setting up ...\n";
       Environment::setup();
@@ -57,6 +58,9 @@ class Runner {
     $testsTotal = $testsPassed + $testsFailed;
     $output .= "**Finished suit $this->name**\n";
     $output .= "Executed $testsTotal tests in total. $testsPassed passed, $testsFailed failed.\n";
+    $time_end = microtime(true);
+    $time = $time_end - $time_start;
+    $output .= "Execution time: $time second(s)\n";
     return $output;
   }
 }
