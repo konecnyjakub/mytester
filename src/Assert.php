@@ -124,7 +124,7 @@ abstract class Assert {
       } else {
         Environment::testResult("$needle is in \$actual.", false);
       }
-    } elseif(!is_array($needle)) {
+    } elseif(is_array($needle)) {
       if(in_array($needle, $actual)) Environment::testResult("$needle is not in \$actual.");
       else Environment::testResult("$needle is in \$actual.", false);
     } else {
