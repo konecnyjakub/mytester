@@ -168,8 +168,8 @@ abstract class Assert {
       }
     } elseif (!$value instanceof $type) {
       $actual = is_object($value) ? get_class($value) : gettype($value);
-      Environment::testResult("\$value should be instance of $type.", false);
-    } else {;
+      Environment::testResult("$actual should be instance of $type.", false);
+    } else {
       Environment::testResult("\$value is instance of $type.");
     }
   }
