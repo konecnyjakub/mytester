@@ -46,6 +46,20 @@ class AssertTest extends MT\TestCase {
     Assert::type("abc", $this);
     Assert::type("string", true);
   }
+  
+  
+  /**
+   * Test custom assertions
+   *
+   * @return void      
+   */     
+  function testCustomAssertion() {
+    Assert::tryAssertion("5 > 2");
+    Assert::tryAssertion("5 >= 2");
+    Assert::tryAssertion("2 < 5");
+    Assert::tryAssertion("2 <= 5");
+    Assert::tryAssertion("abc != def");
+  }
 }
 
 $suit = new AssertTest();
