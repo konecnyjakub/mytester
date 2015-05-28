@@ -5,6 +5,8 @@ namespace MyTester;
  * One test suit
  *
  * @author Jakub Konečný
+ * @copyright (c) 2015, Jakub Konečný
+ * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class TestCase {
   const METHOD_PATTERN = '#^test[A-Z0-9_]#';

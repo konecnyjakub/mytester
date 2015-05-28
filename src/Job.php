@@ -5,6 +5,8 @@ namespace MyTester;
  * One job of the test suite
  *
  * @author Jakub Konečný
+ * @copyright (c) 2015, Jakub Konečný
+ * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 class Job {
   /** @var string Name of the job */

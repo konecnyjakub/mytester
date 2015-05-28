@@ -5,6 +5,8 @@ namespace MyTester;
  * Testing Environment
  *
  * @author Jakub Konečný
+ * @copyright (c) 2015, Jakub Konečný
+ * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class Environment {
   /** @var int */
