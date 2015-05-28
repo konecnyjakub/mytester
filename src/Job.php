@@ -11,14 +11,18 @@ class Job {
   protected $name;
   /** @var callable Task */
   protected $callback;
+  /** @var array Additional parameters */
+  protected $params = array();
   
   /**
    * @param string $name Name of the job
    * @param callable $callback The task
+   * @param array $params Additional parameters for the job   
    */
-  function __construct($name, callable $callback) {
+  function __construct($name, callable $callback, $params = array()) {
     if(is_string($name)) $this->name = $name;
     $this->callback = $callback;
+    if(is_array($params)) $this->params = $params;
   }
   
   /**
@@ -30,7 +34,7 @@ class Job {
     Environment::resetCounter();
     ob_start();
     echo "****Starting job $this->name****\n";
-    if(isset($this->callback)) call_user_func($this->callback);
+    if(isset($this->callback)) call_user_func($this->callback, $this->params);
     $output = ob_get_contents();
     $testsPassed = substr_count($output, " passed. ");
     $testsFailed = substr_count($output, " failed. ");
