@@ -94,13 +94,13 @@ abstract class Assert {
   static function contains($needle, $actual) {
     if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("\$needle is not string or array.", false);
-    } elseif(is_string($needle)) {
+    } elseif(is_string($actual)) {
       if($needle !== "" AND strpos($actual, $needle) !== FALSE) {
         Environment::testResult("$needle is in \$actual.");
       } else {
         Environment::testResult("$needle is not in \$actual.", false);
       }
-    } elseif(is_array($needle)) {
+    } elseif(is_array($actual)) {
       if(in_array($needle, $actual)) Environment::testResult("$needle is in \$actual.");
       else Environment::testResult("$needle is not in \$actual.", false);
     } else {
@@ -118,13 +118,13 @@ abstract class Assert {
   static function notContains($needle, $actual) {
     if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("\$needle is not string or array.", false);
-    } elseif(is_string($needle)) {
+    } elseif(is_string($actual)) {
       if($needle === "" OR strpos($actual, $needle) === FALSE) {
         Environment::testResult("$needle is not in \$actual.");
       } else {
         Environment::testResult("$needle is in \$actual.", false);
       }
-    } elseif(is_array($needle)) {
+    } elseif(is_array($actual)) {
       if(!in_array($needle, $actual)) Environment::testResult("$needle is not in \$actual.");
       else Environment::testResult("$needle is in \$actual.", false);
     } else {
