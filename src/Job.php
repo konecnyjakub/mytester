@@ -41,15 +41,10 @@ class Job {
       call_user_func_array($this->callback, $this->params);
     }
     $output = ob_get_contents();
-    $testsPassed = substr_count($output, " passed. ");
-    $testsFailed = substr_count($output, " failed. ");
     ob_clean();
-    $testsTotal = Environment::$taskCount;
     Environment::printLine("****Finished job $this->name****");
-    Environment::printLine("Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.");
     $time_end = microtime(true);
-    $time = $time_end - $time_start;
-    Environment::printLine("Execution time: $time second(s)");
+    Environment::testStats($output, $time_start, $time_end);
     $output .= ob_get_contents();
     ob_clean();
     ob_end_flush();

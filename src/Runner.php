@@ -58,15 +58,10 @@ class Runner {
       $result = $job->execute();
       $output .= $result;
     }
-    $testsPassed = substr_count($output, " passed. ");
-    $testsFailed = substr_count($output, " failed. ");
-    $testsTotal = $testsPassed + $testsFailed;
     ob_start();
     Environment::printLine("**Finished suit $this->name**");
-    Environment::printLine("Executed $testsTotal tests in total. $testsPassed passed, $testsFailed failed.");
     $time_end = microtime(true);
-    $time = $time_end - $time_start;
-    Environment::printLine("Execution time: $time second(s)");
+    Environment::testStats($output, $time_start, $time_end);
     $output .= ob_get_contents();
     ob_clean();
     ob_end_flush();

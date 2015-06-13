@@ -34,6 +34,23 @@ abstract class Environment {
   }
   
   /**
+   * Print stats for a test
+   * 
+   * @param string $results
+   * @param int $time_start
+   * @param int $time_end
+   * @return void
+   */
+  static function testStats($results, $time_start, $time_end) {
+    $testsPassed = substr_count($results, " passed. ");
+    $testsFailed = substr_count($results, " failed. ");
+    $testsTotal = self::$taskCount;
+    self::printLine("Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.");
+    $time = $time_end - $time_start;
+    self::printLine("Execution time: $time second(s)");
+  }
+  
+  /**
    * Checks if environment was set
    * 
    * @return bool
