@@ -44,7 +44,7 @@ abstract class Environment {
   static function testStats($results, $time_start, $time_end) {
     $testsPassed = substr_count($results, " passed. ");
     $testsFailed = substr_count($results, " failed. ");
-    $testsTotal = self::$taskCount;
+    $testsTotal = $testsPassed + $testsFailed;
     self::printLine("Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.");
     $time = $time_end - $time_start;
     self::printLine("Execution time: $time second(s)");
