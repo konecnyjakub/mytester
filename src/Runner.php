@@ -50,7 +50,6 @@ class Runner {
       Environment::printLine("Warrning: Testing Environment is not set. Setting up ...");
       Environment::setup();
     }
-    Environment::resetCounter();
     Environment::printLine("**Starting suit $this->name**");
     $output = ob_get_contents();
     ob_clean();
