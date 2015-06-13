@@ -47,11 +47,11 @@ class Runner {
     $time_start = microtime(true);
     ob_start();
     if(!Environment::isSetUp()) {
-      echo "Warrning: Testing Environment is not set. Setting up ...\n";
+      Environment::printLine("Warrning: Testing Environment is not set. Setting up ...");
       Environment::setup();
     }
     Environment::resetCounter();
-    echo "**Starting suit $this->name**\n";
+    Environment::printLine("**Starting suit $this->name**");
     $output = ob_get_contents();
     ob_clean();
     foreach($this->jobs as $job) {
@@ -62,11 +62,11 @@ class Runner {
     $testsFailed = substr_count($output, " failed. ");
     $testsTotal = $testsPassed + $testsFailed;
     ob_start();
-    echo "**Finished suit $this->name**\n";
-    echo "Executed $testsTotal tests in total. $testsPassed passed, $testsFailed failed.\n";
+    Environment::printLine("**Finished suit $this->name**");
+    Environment::printLine("Executed $testsTotal tests in total. $testsPassed passed, $testsFailed failed.");
     $time_end = microtime(true);
     $time = $time_end - $time_start;
-    echo "Execution time: $time second(s)\n";
+    Environment::printLine("Execution time: $time second(s)");
     $output .= ob_get_contents();
     ob_clean();
     ob_end_flush();
