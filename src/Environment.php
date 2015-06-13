@@ -73,7 +73,7 @@ abstract class Environment {
    * @param string $text Text to print
    */
   static function printLine($text) {
-    if(self::$mode == "http") echo "$text<br>\n";
+    if(self::$mode == "http" AND self::$output == "screen") echo "$text<br>\n";
     else echo "$text\n";
   }
   
