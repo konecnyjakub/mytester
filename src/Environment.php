@@ -30,8 +30,7 @@ abstract class Environment {
     $output = "Test " . self::$taskCount . " ";
     if($success) $output .= "passed";
     else $output .= "failed";
-    $output .= ". $text\n";
-    echo $output;
+    self::printLine($output . ". $text");
   }
   
   /**
@@ -69,6 +68,16 @@ abstract class Environment {
   }
   
   /**
+   * Prints entered text with correct line ending
+   * 
+   * @param string $text Text to print
+   */
+  static function printLine($text) {
+    if(self::$mode == "http") echo "$text<br>\n";
+    else echo "$text\n";
+  }
+  
+  /**
    * Called when an assertion fails, prints details about the failure
    * 
    * @deprecated
@@ -97,12 +106,12 @@ abstract class Environment {
       if(in_array($output, $outputs)) {
         self::$output = $output;
       } else {
-        echo "Warrrning: Entered invalid output. Expecting screen.\n";
+        self::printLine("Warrrning: Entered invalid output. Expecting screen.");
         self::$output = "screen";
       }
       self::$set = true;
     } else {
-      echo "Warrning: Testing Environment was already set up.\n";
+      self::printLine("Warrning: Testing Environment was already set up.");
     }
   }
 }

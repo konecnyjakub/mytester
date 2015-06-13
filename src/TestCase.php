@@ -42,7 +42,7 @@ abstract class TestCase {
     } else {
       $time = date("o-m-d-h-i-s");
       $filename = "../$className-$time.log";
-      echo "Trying to create file $filename ...\n";
+      Environment::printLine("Trying to create file $filename ...");
       if(file_put_contents($filename, $output)) {
         echo "Successfuly created.";
       } else {
