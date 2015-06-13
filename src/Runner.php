@@ -55,8 +55,7 @@ class Runner {
     $output = ob_get_contents();
     ob_clean();
     foreach($this->jobs as $job) {
-      $result = $job->execute();
-      $output .= $result;
+      $output .= $job->execute();
     }
     ob_start();
     Environment::printLine("**Finished suit $this->name**");
