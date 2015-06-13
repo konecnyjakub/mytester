@@ -15,6 +15,8 @@ abstract class Environment {
   static protected $set = false;
   /** @var string */
   static $output;
+  /** @var string */
+  static protected $mode;
   
   /**
    * Prints result of a test
@@ -60,6 +62,13 @@ abstract class Environment {
   }
   
   /**
+   * @return string
+   */     
+  static function getMode() {
+    return self::$mode;
+  }
+  
+  /**
    * Called when an assertion fails, prints details about the failure
    * 
    * @deprecated
@@ -83,6 +92,7 @@ abstract class Environment {
       assert_options(ASSERT_QUIET_EVAL, 1);
       assert_options(ASSERT_WARNING, 0);
       //assert_options(ASSERT_CALLBACK, array(__CLASS__, "assertionFail"));
+      self::$mode = (PHP_SAPI == "cli" ? "cli": "http");
       $outputs = array("screen", "file");
       if(in_array($output, $outputs)) {
         self::$output = $output;

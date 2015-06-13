@@ -6,6 +6,7 @@ use MyTester\Assert;
 
 class EnvironmentTest extends MT\TestCase {
   function testEnvironment() {
+    Assert::same("cli", MT\Environment::getMode());
     Assert::true(MT\Environment::isSetUp());
     Assert::same(1, MT\Environment::$taskCount);
     MT\Environment::incCounter();
