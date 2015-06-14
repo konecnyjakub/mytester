@@ -4,7 +4,17 @@ namespace MyTester\Tests;
 use MyTester as MT;
 use MyTester\Assert;
 
+/**
+ * Test suite for class Environment
+ *
+ * @author Jakub Konečný
+ */
 class EnvironmentTest extends MT\TestCase {
+  /**
+   * Tests for Environment
+   * 
+   * @return void
+   */
   function testEnvironment() {
     Assert::same("cli", MT\Environment::getMode());
     Assert::true(MT\Environment::isSetUp());

@@ -1,7 +1,17 @@
 <?php
 namespace MyTester;
 
+/**
+ * Test suite for class Runner
+ *
+ * @author Jakub Konečný
+ */
 class RunnerTest {
+  /**
+   * Test for Environment::testResult()
+   * 
+   * @return void
+   */
   function test() {
     Environment::testResult("Test", false);
   }
