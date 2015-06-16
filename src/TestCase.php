@@ -44,9 +44,9 @@ abstract class TestCase {
       $filename = "../$className-$time.log";
       Environment::printLine("Trying to create file $filename ...");
       if(file_put_contents($filename, $output)) {
-        echo "Successfuly created.";
+        Environment::printLine("Successfuly created.");
       } else {
-        echo "An error occurred.";
+        Environment::printLine("An error occurred.");
       }
     }
   }
