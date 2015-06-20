@@ -42,11 +42,11 @@ abstract class TestCase {
     } else {
       $time = date("o-m-d-h-i-s");
       $filename = "../$className-$time.log";
-      Environment::printLine("Trying to create file $filename ...");
+      Environment::printLine("Trying to create file $filename ...", true);
       if(file_put_contents($filename, $output)) {
-        Environment::printLine("Successfuly created.");
+        Environment::printLine("Successfuly created.", true);
       } else {
-        Environment::printLine("An error occurred.");
+        Environment::printLine("An error occurred.", true);
       }
     }
   }
