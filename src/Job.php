@@ -21,7 +21,7 @@ class Job {
    * @param \callable $callback The task
    * @param array $params Additional parameters for the job   
    */
-  function __construct($name, \callable $callback, $params = "") {
+  function __construct($name, callable $callback, $params = "") {
     if(is_string($name)) $this->name = $name;
     $this->callback = $callback;
     if(is_array($params)) $this->params = $params;
