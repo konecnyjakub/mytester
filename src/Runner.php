@@ -25,11 +25,11 @@ class Runner {
    * Adds new job to the runner
    * 
    * @param string $name Name of the job
-   * @param callable $callback Task
+   * @param \callable $callback Task
    * @param array $params Additional parameters for job
    * @return \MyTester\Job
    */
-  function addJob($name, callable $callback, $params = array()) {
+  function addJob($name, \callable $callback, $params = array()) {
     if(is_array($params) AND count($params) > 0) $job = new Job($name, $callback, $params);
     else $job = new Job($name, $callback);
     $count = count($this->jobs);
