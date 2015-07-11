@@ -12,6 +12,35 @@ abstract class TestCase {
   const METHOD_PATTERN = '#^test[A-Z0-9_]#';
   
   /**
+   * Get list of jobs with parameters for current test suit
+   * 
+   * @return array
+   */
+  protected function getJobs() {
+    $className = get_class($this);
+    $jobs = array();
+    $r = new \ReflectionObject($this);
+    $methods = array_values(preg_grep(self::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
+      return $rm->getName();
+    }, $r->getMethods())));
+    foreach($methods as $method) {
+      $params = $r->getMethod($method)->getParameters();
+      $job = array(
+        "name" => "$className::$method", "callback" => array($this, $method), "params" => array()
+      );
+      if(count($params) > 0) {
+        foreach($params as $param) {
+          $paramName = $param->getName();
+          global $$paramName;
+          $job["params"][] = $$paramName;
+        }
+      }
+      $jobs[] = $job;
+    }
+    return $jobs;
+  }
+  
+  /**
    * Runs the test suit
    * 
    * @return void
@@ -19,22 +48,10 @@ abstract class TestCase {
   function run() {
     $className = get_class($this);
     $runner = new Runner($className);
-    $r = new \ReflectionObject($this);
-    $methods = array_values(preg_grep(self::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
-      return $rm->getName();
-    }, $r->getMethods())));
-    foreach($methods as $method) {
-      $parameters = false;
-      $params = $r->getMethod($method)->getParameters();
-      if(count($params) > 0) {
-        foreach($params as $param) {
-          $paramName = $param->getName();
-          global $$paramName;
-          $parameters[] = $$paramName;
-        }
-      }
-      if(is_array($parameters)) $runner->addJob("$className::$method", array($this, $method), $parameters);
-      else $runner->addJob("$className::$method", array($this, $method));
+    $jobs = $this->getJobs();
+    foreach($jobs as $job) {
+      if(count($job["params"] > 0)) $runner->addJob($job["name"], $job["callback"], $job["params"]);
+      else $runner->addJob($job["name"], $job["callback"]);
     }
     $output = $runner->run();
     if(Environment::$output == "screen") {
