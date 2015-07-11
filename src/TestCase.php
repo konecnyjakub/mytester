@@ -26,7 +26,7 @@ abstract class TestCase {
     foreach($methods as $method) {
       $params = $r->getMethod($method)->getParameters();
       $job = array(
-        "name" => "$className::$method", "callback" => array($this, $method), "params" => array()
+        "name" => "$className::$method", "callback" => array($this, $method), "params" => NULL
       );
       if(count($params) > 0) {
         foreach($params as $param) {
@@ -50,8 +50,7 @@ abstract class TestCase {
     $runner = new Runner($className);
     $jobs = $this->getJobs();
     foreach($jobs as $job) {
-      if(count($job["params"] > 0)) $runner->addJob($job["name"], $job["callback"], $job["params"]);
-      else $runner->addJob($job["name"], $job["callback"]);
+      $runner->addJob($job["name"], $job["callback"], $job["params"]);
     }
     $output = $runner->run();
     if(Environment::$output == "screen") {
