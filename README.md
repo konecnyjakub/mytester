@@ -5,10 +5,11 @@ My Tester allows to run simple tests. Requires PHP 5.4 or later.
 
 Installation
 ------------
-There are currently 2 ways to install My Tester.
+There are currently 3 ways to install My Tester.
 
 1. Download an archive from the repository. It's best to donwload archive of latest tagged verson as it's considered stable. But you can try out master branch if you want to.
 2. It's also possible to use phar archive. At the moment, phar archives aren't published anywhere, you have to download/fork the repository and run create_phar.php script to obtain it.
+3. Use composer to obtain it. Add konecnyjakub/mystester to your dependencies (section require/require-dev). It is not on packagist yet, so you need to add https://gitlab.com/konecnyjakub/mytester/ to repositories (its type is vcs).
 
 Usage
 -----
@@ -38,6 +39,23 @@ Assert::type("string", $string);
 ```
 .
 ### Test Case
-To be added.
+It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automaticaly launched when you call method "run". An example:
+```php
+class Tests extends MyTester\TestCase {
+  function testA() {
+    $actual = someCall();
+    $text = anotherCall();
+    Assert::same("abc", $actual);
+    Assert::same("def", $text);
+  }
+}
 
-For more examples of usage see included tests of My Tester (in folder tests).
+$suit = new Tests();
+$suit->run();
+```
+
+#### Parameters for test methods
+Test methods of TestCase descendants can take global variables as their parameters.
+
+### More examples
+For more examples of usage, see included tests of My Tester (in folder tests).
