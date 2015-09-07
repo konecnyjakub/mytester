@@ -2,10 +2,5 @@ source: src
 destination: api
 title: My Tester
 todo: yes
-internal: yes
 charset:
     0: UTF-8
-accessLevels:
-    0: public
-    1: protected
-    2: private
