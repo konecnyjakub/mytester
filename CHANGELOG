@@ -1,4 +1,8 @@
-Vesrion 0.9.1a
+Version 0.91a+dev
+- raised minimal version of PHP to 5.4
+- added automated tests runner (requires package nette/robot-loader)
+
+Version 0.9.1a
 - small code refactoring
 - added README with documentation
 - made possible installation via composer
