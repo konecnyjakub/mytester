@@ -18,6 +18,12 @@
     "require": {
         "php": ">=5.4.0"
     },
+    "require-dev": {
+        "nette/robot-loader": "2.3.x"
+    },
+    "suggest": {
+        "nette/robot-loader": "Needed for automated tests runner."
+    },
     "autoload": {
         "psr-4": { "MyTester\\": "src/" }
     }

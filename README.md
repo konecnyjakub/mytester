@@ -57,5 +57,19 @@ $suit->run();
 #### Parameters for test methods
 Test methods of TestCase descendants can take global variables as their parameters.
 
+### Automated tests runner
+It is possible to use automated tests runner that will scan specified folder for .phpt files and run their TestCases (described in section Test Case). An example of usage:
+```php
+require __DIR__ . "/vendor/autoload.php";
+$folder = dirname(__DIR__ . "/tests");
+$output = "screen";
+
+MyTester\Environment::setup($output);
+
+$tester = new MyTester\Tester($folder);
+$tester->execute();
+```
+The automaded tests runner needs package nette/robot-loader.
+
 ### More examples
 For more examples of usage, see included tests of My Tester (in folder tests).

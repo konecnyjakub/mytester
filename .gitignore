@@ -1,3 +1,5 @@
 api/
 nbproject/
+vendor/
 mytester.phar
+composer.lock
