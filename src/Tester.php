@@ -7,6 +7,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @copyright (c) 2015, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
+ * @property-read array $suits
  */
 class Tester {
   /** @var array */
@@ -42,6 +43,10 @@ class Tester {
       }
     }
     return $suits;
+  }
+  
+  function getSuits() {
+    return $this->suits;
   }
   
   /**
