@@ -16,7 +16,7 @@
         "issues": "https://gitlab.com/konecnyjakub/mytester/issues"
    },
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.4.0"
     },
     "autoload": {
         "psr-4": { "MyTester\\": "src/" }
