@@ -8,8 +8,8 @@ Installation
 There are currently 3 ways to install My Tester.
 
 1. Download an archive from the repository. It's best to donwload archive of latest tagged verson as it's considered stable. But you can try out master branch if you want to.
-2. It's also possible to use phar archive. At the moment, phar archives aren't published anywhere, you have to download/fork the repository and run create_phar.php script to obtain it.
-3. Use composer to obtain it. Add konecnyjakub/mystester to your dependencies (section require/require-dev). It is not on packagist yet, so you need to add https://gitlab.com/konecnyjakub/mytester/ to repositories (its type is vcs).
+2. It's also possible to use phar archive. Phar archives for all versions are in [GitHub repository](https://github.com/konecnyjakub/mytester). Alternatively you can download/fork the repository and run create_phar.php script to obtain it.
+3. Use composer to obtain it. Just add konecnyjakub/mystester to your (dev)dependencies.
 
 Usage
 -----
@@ -57,7 +57,8 @@ $suit->run();
 #### Parameters for test methods
 Test methods of TestCase descendants can take global variables as their parameters.
 
-### Automated tests runner
+Automated tests runner
+----------------------
 It is possible to use automated tests runner that will scan specified folder for .phpt files and run their TestCases (described in section Test Case). An example of usage:
 ```php
 require __DIR__ . "/vendor/autoload.php";
@@ -71,5 +72,6 @@ $tester->execute();
 ```
 The automaded tests runner needs package nette/robot-loader.
 
-### More examples
+More examples
+-------------
 For more examples of usage, see included tests of My Tester (in folder tests).
