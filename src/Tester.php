@@ -38,7 +38,7 @@ class Tester {
     foreach(array_keys($classes) as $class) {
       $rc = new \ReflectionClass($class);
       if(!$rc->isAbstract() AND $rc->isSubclassOf("MyTester\TestCase")) {
-        $this->suits[] = $rc->getName();
+        $suits[] = $rc->getName();
       }
     }
     return $suits;
