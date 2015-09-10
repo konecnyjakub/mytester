@@ -38,6 +38,7 @@ Assert::count(5, $array);
 Assert::type("string", $string);
 ```
 .
+
 ### Test Case
 It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automaticaly launched when you call method "run". An example:
 ```php
