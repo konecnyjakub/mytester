@@ -11,6 +11,9 @@ There are currently 3 ways to install My Tester.
 2. It's also possible to use phar archive. Phar archives for all versions are in [GitHub repository](https://github.com/konecnyjakub/mytester). Alternatively you can download/fork the repository and run create_phar.php script to obtain it.
 3. Use composer to obtain it. Just add konecnyjakub/mystester to your (dev)dependencies.
 
+### Dependencies
+My Tester has some dependencies that are neither included in the repository nor in the phar archive (though some of them are optional). You have to either install them manually or use composer  to obtain them. In manual installation you have to tell your scripts where to look for them.
+
 Usage
 -----
 ### Setting up
