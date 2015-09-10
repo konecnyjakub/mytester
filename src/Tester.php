@@ -45,11 +45,16 @@ class Tester {
     return $suits;
   }
   
+  /**
+   * @return array
+   */
   function getSuits() {
     return $this->suits;
   }
   
   /**
+   * Execute all tests
+   * 
    * @return void
    */
   function execute() {
