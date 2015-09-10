@@ -27,10 +27,11 @@ class Runner {
    * @param string $name Name of the job
    * @param \callable $callback Task
    * @param array $params Additional parameters for job
+   * @param bool $skip
    * @return \MyTester\Job
    */
-  function addJob($name, callable $callback, $params = NULL) {
-    $job = new Job($name, $callback, $params);
+  function addJob($name, callable $callback, $params = NULL, $skip = false) {
+    $job = new Job($name, $callback, $params, $skip);
     $count = count($this->jobs);
     $this->jobs[$count] = $job;
     $return = & $this->jobs[$count];

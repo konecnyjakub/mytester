@@ -32,6 +32,17 @@ class TestCaseTest extends MT\TestCase {
   function testTestName() {
     Assert::true(1);
   }
+  
+  /**
+   * Test skipping
+   * 
+   * @test Skipped test
+   * @skip
+   * @return void
+   */
+  function testSkip() {
+    Assert::true(1);
+  }
 }
 
 $params = array("abc");

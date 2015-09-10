@@ -27,9 +27,10 @@ abstract class TestCase {
       $rm = $r->getMethod($method);
       $params = $rm->getParameters();
       $job = array(
-        "name" => "$className::$method", "callback" => array($this, $method), "params" => NULL
+        "name" => "$className::$method", "callback" => array($this, $method), "params" => NULL, "skip" => false
       );
       if($rm->hasAnnotation("test")) $job["name"] = (string) $rm->getAnnotation("test");
+      if($rm->hasAnnotation("skip")) $job["skip"] = true;
       if(count($params) > 0) {
         foreach($params as $param) {
           $paramName = $param->getName();
@@ -52,7 +53,7 @@ abstract class TestCase {
     $runner = new Runner($className);
     $jobs = $this->getJobs();
     foreach($jobs as $job) {
-      $runner->addJob($job["name"], $job["callback"], $job["params"]);
+      $runner->addJob($job["name"], $job["callback"], $job["params"], $job["skip"]);
     }
     $output = $runner->run();
     if(Environment::$output == "screen") {

@@ -31,7 +31,7 @@ MyTester\Environment::setup("file");
 . The name of created file(s) will be displayed.
 
 ### Tests
-After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples(hopefully self exlaining) :
+After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples (hopefully self exlaining):
 ```php
 use MyTester\Assert;
 
@@ -73,6 +73,20 @@ class Tests extends MyTester\TestCase {
   }
 }
 ```
+
+#### Skipping tests
+It is possible to unconditionally skip a test. Just add documentation comment @skip. Example:
+```php
+class Tests extends MyTester\TestCase {
+  /**
+   * @skip
+   */
+  function testTestName() {
+    Assert::true(1);
+  }
+}
+```
+. Skipped tests are shown in output.
 
 Automated tests runner
 ----------------------

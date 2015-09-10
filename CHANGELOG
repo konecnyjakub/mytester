@@ -3,6 +3,7 @@ Version 0.91a+dev
 - added automated tests runner (requires package nette/robot-loader)
 - added dependency on nette/reflection
 - tests can have custom names
+- tests (in TestCase) can be skipped
 
 Version 0.9.1a
 - small code refactoring
