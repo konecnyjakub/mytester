@@ -24,10 +24,12 @@ abstract class TestCase {
       return $rm->getName();
     }, $r->getMethods())));
     foreach($methods as $method) {
-      $params = $r->getMethod($method)->getParameters();
+      $rm = $r->getMethod($method);
+      $params = $rm->getParameters();
       $job = array(
         "name" => "$className::$method", "callback" => array($this, $method), "params" => NULL
       );
+      if($rm->hasAnnotation("test")) $job["name"] = (string) $rm->getAnnotation("test");
       if(count($params) > 0) {
         foreach($params as $param) {
           $paramName = $param->getName();

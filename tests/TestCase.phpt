@@ -22,6 +22,16 @@ class TestCaseTest extends MT\TestCase {
     Assert::same("abc", $actual);
     Assert::same("def", $text);
   }
+  
+  /**
+   * Test custome test's name
+   * 
+   * @test Custom name
+   * @return void
+   */
+  function testTestName() {
+    Assert::true(1);
+  }
 }
 
 $params = array("abc");

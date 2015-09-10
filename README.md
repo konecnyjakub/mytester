@@ -58,6 +58,19 @@ $suit->run();
 #### Parameters for test methods
 Test methods of TestCase descendants can take global variables as their parameters.
 
+#### Custom names for tests
+You can give test methods custom names that will be displayed in the output instead of standart NameOfClass::nameOfMethod. It is done via documentation comment @test. Example:
+```php
+class Tests extends MyTester\TestCase {
+  /**
+   * @test Custom name
+   */
+  function testTestName() {
+    Assert::true(1);
+  }
+}
+```
+
 Automated tests runner
 ----------------------
 It is possible to use automated tests runner that will scan specified folder for .phpt files and run their TestCases (described in section Test Case). An example of usage:
