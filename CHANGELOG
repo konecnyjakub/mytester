@@ -1,4 +1,4 @@
-Version 0.91a+dev
+Version 0.9.2
 - raised minimal version of PHP to 5.4
 - added automated tests runner (requires package nette/robot-loader)
 - added dependency on nette/reflection
