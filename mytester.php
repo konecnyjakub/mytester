@@ -2,7 +2,7 @@
 require __DIR__ . "/vendor/autoload.php";
 require __DIR__ . "/src/bootstrap.php";
 
-$folder = dirname(__DIR__ . "/tests");
+$folder = __DIR__ . "/tests";
 $output = "screen";
 
 MyTester\Environment::setup($output);
