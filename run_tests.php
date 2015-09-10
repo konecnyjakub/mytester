@@ -1,4 +1,5 @@
 <?php
+require "./vendor/autoload.php";
 require "./src/bootstrap.php";
 MyTester\Environment::setup();
 
