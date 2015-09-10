@@ -49,6 +49,7 @@ class Job {
       }
       $output = ob_get_contents();
       ob_clean();
+      ob_start();
       Environment::printLine("****Finished job $this->name****");
       $time_end = microtime(true);
       Environment::testStats($output, $time_start, $time_end);
