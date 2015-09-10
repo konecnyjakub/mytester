@@ -97,19 +97,6 @@ abstract class Environment {
   }
   
   /**
-   * Called when an assertion fails, prints details about the failure
-   * 
-   * @deprecated
-   * 
-   * @param string $file File where assertion failed
-   * @param string $line Line where assertion failed
-   * @param string $code Assertion
-   */
-  static function assertionFail($file, $line, $code) {
-    self::testResult("Assertion \"$code\" is not true.", false);
-  }
-  
-  /**
    * Sets up the environment
    * 
    * @param string $output Where print results   
@@ -120,7 +107,6 @@ abstract class Environment {
       assert_options(ASSERT_ACTIVE, 1);
       assert_options(ASSERT_QUIET_EVAL, 1);
       assert_options(ASSERT_WARNING, 0);
-      //assert_options(ASSERT_CALLBACK, array(__CLASS__, "assertionFail"));
       self::$mode = (PHP_SAPI == "cli" ? "cli": "http");
       $outputs = array("screen", "file");
       if(in_array($output, $outputs)) {
