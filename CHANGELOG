@@ -1,5 +1,6 @@
 Version 0.9.2+dev
 - test suits can have custom names
+- possible BC break: made Environment::$taskCount protected (use Environment::getCounter() to get its value)
 
 Version 0.9.2
 - raised minimal version of PHP to 5.4

@@ -10,7 +10,7 @@ namespace MyTester;
  */
 abstract class Environment {
   /** @var int */
-  static $taskCount = 0;
+  static protected $taskCount = 0;
   /** @var bool */
   static protected $set = false;
   /** @var string */
@@ -75,6 +75,10 @@ abstract class Environment {
    */
   static function resetCounter() {
     self::$taskCount = 0;
+  }
+  
+  static function getCounter() {
+    return self::$taskCount;
   }
   
   /**
