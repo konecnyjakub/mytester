@@ -126,7 +126,7 @@ abstract class Environment {
       if(in_array($output, $outputs)) {
         self::$output = $output;
       } else {
-        self::printLine("Warrrning: Entered invalid output. Expecting screen.");
+        self::printLine("Warrrning: Entered invalid output. Expecting screen or file.");
         self::$output = "screen";
       }
       self::$set = true;
