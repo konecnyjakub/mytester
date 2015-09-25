@@ -49,6 +49,8 @@ abstract class TestCase {
    */
   protected function getSuitName() {
     $suitName = get_class($this);
+    $r = new \Nette\Reflection\ClassType($suitName);
+    if($r->hasAnnotation("testSuit")) $suitName = (string) $r->getAnnotation("testSuit");
     return $suitName;
   }
   

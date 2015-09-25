@@ -7,6 +7,7 @@ use MyTester\Assert;
 /**
  * Test suite for class TestCase
  * 
+ * @testSuit TestCase
  * @author Jakub Konečný
  */
 class TestCaseTest extends MT\TestCase {

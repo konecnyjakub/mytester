@@ -64,8 +64,11 @@ $suit->run();
 Test methods of TestCase descendants can take global variables as their parameters.
 
 #### Custom names for tests
-You can give test methods custom names that will be displayed in the output instead of standart NameOfClass::nameOfMethod. It is done via documentation comment @test. Example:
+You can give test methods and whole test suits custom names that will be displayed in the output instead of standart NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
 ```php
+/**
+ * @testSuit MyTests
+*/
 class Tests extends MyTester\TestCase {
   /**
    * @test Custom name
