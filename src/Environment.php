@@ -14,7 +14,7 @@ abstract class Environment {
   /** @var bool */
   static protected $set = false;
   /** @var string */
-  static $output;
+  static protected $output;
   /** @var string */
   static protected $mode;
   
@@ -77,8 +77,18 @@ abstract class Environment {
     self::$taskCount = 0;
   }
   
+  /**
+   * @return string
+   */
   static function getCounter() {
     return self::$taskCount;
+  }
+  
+  /**
+   * @return string
+   */
+  static function getOutput() {
+    return self::$output;
   }
   
   /**

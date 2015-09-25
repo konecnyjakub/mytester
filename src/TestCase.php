@@ -67,7 +67,7 @@ abstract class TestCase {
       $runner->addJob($job["name"], $job["callback"], $job["params"], $job["skip"]);
     }
     $output = $runner->run();
-    if(Environment::$output == "screen") {
+    if(Environment::getOutput() == "screen") {
       echo $output;
     } else {
       $time = date("o-m-d-h-i-s");
