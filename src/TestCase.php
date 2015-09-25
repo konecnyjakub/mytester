@@ -17,9 +17,8 @@ abstract class TestCase {
    * @return array
    */
   protected function getJobs() {
-    $className = get_class($this);
     $jobs = array();
-    $r = new \Nette\Reflection\ClassType($className);
+    $r = new \Nette\Reflection\ClassType(get_class($this));
     $methods = array_values(preg_grep(self::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
       return $rm->getName();
     }, $r->getMethods())));
@@ -27,7 +26,7 @@ abstract class TestCase {
       $rm = $r->getMethod($method);
       $params = $rm->getParameters();
       $job = array(
-        "name" => "$className::$method", "callback" => array($this, $method), "params" => NULL, "skip" => false
+        "name" => $this->getSuitName() . "::$method", "callback" => array($this, $method), "params" => NULL, "skip" => false
       );
       if($rm->hasAnnotation("test")) $job["name"] = (string) $rm->getAnnotation("test");
       if($rm->hasAnnotation("skip")) $job["skip"] = true;
@@ -44,13 +43,23 @@ abstract class TestCase {
   }
   
   /**
+   * Get name of current test suit
+   * 
+   * @return string
+   */
+  protected function getSuitName() {
+    $suitName = get_class($this);
+    return $suitName;
+  }
+  
+  /**
    * Runs the test suit
    * 
    * @return void
    */
   function run() {
-    $className = get_class($this);
-    $runner = new Runner($className);
+    $suitName = $this->getSuitName();
+    $runner = new Runner($suitName);
     $jobs = $this->getJobs();
     foreach($jobs as $job) {
       $runner->addJob($job["name"], $job["callback"], $job["params"], $job["skip"]);
@@ -60,7 +69,7 @@ abstract class TestCase {
       echo $output;
     } else {
       $time = date("o-m-d-h-i-s");
-      $filename = "../$className-$time.log";
+      $filename = "../$suitName-$time.log";
       Environment::printLine("Trying to create file $filename ...", true);
       if(file_put_contents($filename, $output)) {
         Environment::printLine("Successfuly created.", true);
