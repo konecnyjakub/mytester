@@ -26,11 +26,11 @@ abstract class Environment {
    * @return void
    */
   static function testResult($text, $success = true) {
-    self::incCounter();
-    $output = "Test " . self::$taskCount . " ";
+    static::incCounter();
+    $output = "Test " . static::$taskCount . " ";
     if($success) $output .= "passed";
     else $output .= "failed";
-    self::printLine($output . ". $text");
+    static::printLine($output . ". $text");
   }
   
   /**
@@ -45,9 +45,9 @@ abstract class Environment {
     $testsPassed = substr_count($results, " passed. ");
     $testsFailed = substr_count($results, " failed. ");
     $testsTotal = $testsPassed + $testsFailed;
-    self::printLine("Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.");
+    static::printLine("Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.");
     $time = $time_end - $time_start;
-    self::printLine("Execution time: $time second(s)");
+    static::printLine("Execution time: $time second(s)");
   }
   
   /**
@@ -56,7 +56,7 @@ abstract class Environment {
    * @return bool
    */
   static function isSetUp() {
-    return self::$set;
+    return static::$set;
   }
   
   /**
@@ -65,7 +65,7 @@ abstract class Environment {
    * @return void
    */
   static function incCounter() {
-    self::$taskCount++;
+    static::$taskCount++;
   }
   
   /**
@@ -74,28 +74,28 @@ abstract class Environment {
    * @return void
    */
   static function resetCounter() {
-    self::$taskCount = 0;
+    static::$taskCount = 0;
   }
   
   /**
    * @return string
    */
   static function getCounter() {
-    return self::$taskCount;
+    return static::$taskCount;
   }
   
   /**
    * @return string
    */
   static function getOutput() {
-    return self::$output;
+    return static::$output;
   }
   
   /**
    * @return string
    */     
   static function getMode() {
-    return self::$mode;
+    return static::$mode;
   }
   
   /**
@@ -105,8 +105,8 @@ abstract class Environment {
    * @param bool $ignoreOutput Whetever to ignore output, useful only in http mode
    */
   static function printLine($text, $ignoreOutput = false) {
-    if(self::$mode == "http" AND $ignoreOutput) echo "$text<br>\n";
-    elseif(self::$mode == "http" AND self::$output == "screen") echo "$text<br>\n";
+    if(static::$mode == "http" AND $ignoreOutput) echo "$text<br>\n";
+    elseif(static::$mode == "http" AND static::$output == "screen") echo "$text<br>\n";
     else echo "$text\n";
   }
   
@@ -117,21 +117,21 @@ abstract class Environment {
    * @return void
    */
   static function setup($output = "screen") {
-    if(!self::$set) {
+    if(!static::$set) {
       assert_options(ASSERT_ACTIVE, 1);
       assert_options(ASSERT_QUIET_EVAL, 1);
       assert_options(ASSERT_WARNING, 0);
-      self::$mode = (PHP_SAPI == "cli" ? "cli": "http");
+      static::$mode = (PHP_SAPI == "cli" ? "cli": "http");
       $outputs = array("screen", "file");
       if(in_array($output, $outputs)) {
-        self::$output = $output;
+        static::$output = $output;
       } else {
-        self::printLine("Warrrning: Entered invalid output. Expecting screen or file.");
-        self::$output = "screen";
+        static::printLine("Warrrning: Entered invalid output. Expecting screen or file.");
+        static::$output = "screen";
       }
-      self::$set = true;
+      static::$set = true;
     } else {
-      self::printLine("Warrning: Testing Environment was already set up.");
+      static::printLine("Warrning: Testing Environment was already set up.");
     }
   }
 }

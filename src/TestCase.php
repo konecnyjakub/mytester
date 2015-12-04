@@ -41,7 +41,7 @@ abstract class TestCase {
   protected function getJobs() {
     $jobs = array();
     $r = new \Nette\Reflection\ClassType(get_class($this));
-    $methods = array_values(preg_grep(self::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
+    $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
       return $rm->getName();
     }, $r->getMethods())));
     foreach($methods as $method) {

@@ -32,7 +32,7 @@ abstract class Assert {
    * @return void
    */
   static function same($expected, $actual) {
-    self::tryAssertion("$expected == $actual");
+    static::tryAssertion("$expected == $actual");
   }
   
   /**
@@ -43,7 +43,7 @@ abstract class Assert {
    * @return void
    */
   static function notSame($expected, $actual) {
-    self::tryAssertion("$expected !== $actual");
+    static::tryAssertion("$expected !== $actual");
   }
   
   /**
@@ -53,7 +53,7 @@ abstract class Assert {
    * @return void
    */
   static function true($actual) {
-    self::tryAssertion($actual);
+    static::tryAssertion($actual);
   }
   
   /**
@@ -63,7 +63,7 @@ abstract class Assert {
    * @return void
    */
   static function false($actual) {
-    self::tryAssertion(!$actual);
+    static::tryAssertion(!$actual);
   }
   
   /**
@@ -73,7 +73,7 @@ abstract class Assert {
    * @return void
    */
   static function null($actual) {
-    self::tryAssertion($actual == NULL);
+    static::tryAssertion($actual == NULL);
   }
   
   /**
@@ -83,7 +83,7 @@ abstract class Assert {
    * @return void
    */
   static function notNull($actual) {
-    self::tryAssertion($actual !== NULL);
+    static::tryAssertion($actual !== NULL);
   }
   
   /**
