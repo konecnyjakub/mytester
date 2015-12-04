@@ -24,20 +24,23 @@ abstract class TestCase {
     }, $r->getMethods())));
     foreach($methods as $method) {
       $rm = $r->getMethod($method);
-      $params = $rm->getParameters();
+      $data = NULL;
       $job = array(
         "name" => $this->getSuitName() . "::$method", "callback" => array($this, $method), "params" => NULL, "skip" => false
       );
       if($rm->hasAnnotation("test")) $job["name"] = (string) $rm->getAnnotation("test");
       if($rm->hasAnnotation("skip")) $job["skip"] = true;
-      if(count($params) > 0) {
-        foreach($params as $param) {
-          $paramName = $param->getName();
-          global $$paramName;
-          $job["params"][] = $$paramName;
-        }
+      if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
+        $data = (array) $rm->getAnnotation("data");
       }
-      $jobs[] = $job;
+      if(is_array($data)) {
+        foreach($data as $value) {
+          $job["params"][0] = $value;
+          $jobs[] = $job;
+        }
+      } else {
+        $jobs[] = $job;
+      }
     }
     return $jobs;
   }

@@ -3,6 +3,7 @@ Version 0.9.2+dev
 - possible BC break: made Environment::$taskCount protected (use Environment::getCounter() to get its value)
 - possible BC break: made Environment::$output protected (use Environment::getOutput() to get its value)
 - clarified error message when trying to set invalid output mode
+- BC break: reworked parameters for test methods in TestCase, see README for more info
 
 Version 0.9.2
 - raised minimal version of PHP to 5.4

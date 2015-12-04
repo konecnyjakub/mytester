@@ -14,14 +14,12 @@ class TestCaseTest extends MT\TestCase {
   /**
    * Test parameters
    * 
-   * @param array $params
    * @param string $text
    * @return void
+   * @data(abc, adef)   
    */
-  function testParams($params, $text) {
-    $actual = $params[0];
-    Assert::same("abc", $actual);
-    Assert::same("def", $text);
+  function testParams($text) {
+    Assert::contains("a", $text);
   }
   
   /**

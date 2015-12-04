@@ -61,7 +61,18 @@ $suit->run();
 ```
 
 #### Parameters for test methods
-Test methods of TestCase descendants can take global variables as their parameters.
+Test methods of TestCase descendants can take one parameter. Its value is taken from annotation @data. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
+```php
+class Tests extends MyTester\TestCase {
+  /**
+   * @param string $text
+   * @data(abc, adef)   
+   */
+  function testParams($text) {
+    Assert::contains("a", $text);
+  }
+}
+```
 
 #### Custom names for tests
 You can give test methods and whole test suits custom names that will be displayed in the output instead of standart NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
