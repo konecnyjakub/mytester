@@ -19,6 +19,7 @@ class TestCaseTest extends MT\TestCase {
    * @data(abc, adef)   
    */
   function testParams($text) {
+    Assert::type("string", $text);
     Assert::contains("a", $text);
   }
   
