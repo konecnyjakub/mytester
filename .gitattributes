@@ -4,3 +4,4 @@
 apigen.neon     export-ignore
 create_phar.php export-ignore
 run_tests.php   export-ignore
+mytester.php    export-ignore
