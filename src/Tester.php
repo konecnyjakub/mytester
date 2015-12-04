@@ -37,7 +37,7 @@ class Tester {
     $robot->register();
     $classes = $robot->indexedClasses;
     foreach(array_keys($classes) as $class) {
-      $rc = new \ReflectionClass($class);
+      $rc = new \Nette\Reflection\ClassType($class);
       if(!$rc->isAbstract() AND $rc->isSubclassOf("MyTester\TestCase")) {
         $suits[] = $rc->getName();
       }
