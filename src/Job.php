@@ -25,7 +25,7 @@ class Job {
    * @param bool $skip
    */
   function __construct($name, callable $callback, $params = "", $skip = false) {
-    if(is_string($name)) $this->name = $name;
+    $this->name = (string) $name;
     $this->callback = $callback;
     if(is_array($params)) $this->params = $params;
     $this->skip = (bool) $skip;
