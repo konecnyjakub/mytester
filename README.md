@@ -11,10 +11,10 @@ There are currently 3 ways to install My Tester.
 
 1. Download an archive from the repository. It's best to donwload archive of latest tagged verson as it's considered stable. But you can try out master branch if you want to.
 2. It's also possible to use phar archive. Phar archives for all versions are in [GitHub repository](https://github.com/konecnyjakub/mytester). Alternatively you can download/fork the repository and run create_phar.php script to obtain it.
-3. Use composer to obtain it. Just add konecnyjakub/mystester to your (dev) dependencies.
+3. Use composer to obtain it. Just add konecnyjakub/mystester to your (dev) dependencies. (RECOMMENDED WAY)
 
 ### Dependencies
-My Tester has some dependencies that are neither included in the repository nor in the phar archive (though some of them are optional). You have to either install them manually or use composer  to obtain them. In manual installation you have to tell your scripts where to look for them.
+My Tester has some dependencies that are neither included in the repository nor in the phar archive (though some of them are optional). You have to either install them manually or use composer  to obtain them. In manual installation you have to tell your scripts where to look for them. All dependencies are listed in file composer.json in sections require, require-dev and suggest.
 
 Usage
 -----
@@ -23,7 +23,8 @@ Firstly, you have to include My Tester's bootstrap and set up environement for t
 
 ```php
 require "path_to_mytester/src/bootstrap.php"; // if you downloaded archive of repository
-require "path_to_mytester/mytester.phar"; // or if you have phar archive
+require "path_to_mytester/mytester.phar"; // if you have phar archive
+require "path_to_your_project/vendor/autoload.php"; // if you use composer
 MyTester\Environment::setup();
 ```
 By default, the output is printed in browser/console. If you want to save it to a file, use this:
@@ -42,7 +43,7 @@ Assert::true(someCondition);
 Assert::count(5, $array);
 Assert::type("string", $string);
 ```
-.
+. It is also possible to run custom assertions with Assert::tryAssertion().
 
 ### Test Case
 It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automaticaly launched when you call method "run". An example:
