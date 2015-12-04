@@ -9,7 +9,7 @@ namespace MyTester;
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read array $suits
  */
-class Tester {
+class Tester extends \Nette\Object {
   /** @var array */
   protected $suits;
   

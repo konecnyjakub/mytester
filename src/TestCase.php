@@ -8,7 +8,7 @@ namespace MyTester;
  * @copyright (c) 2015, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
-abstract class TestCase {
+abstract class TestCase extends \Nette\Object {
   const METHOD_PATTERN = '#^test[A-Z0-9_]#';
   
   /**

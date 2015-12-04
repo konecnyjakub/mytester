@@ -8,7 +8,7 @@ namespace MyTester;
  * @copyright (c) 2015, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
-class Job {
+class Job extends \Nette\Object {
   /** @var string Name of the job */
   protected $name;
   /** @var callable Task */
