@@ -103,7 +103,20 @@ class Tests extends MyTester\TestCase {
   }
 }
 ```
-. Skipped tests are shown in output.
+. You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. Only one key is supported at the moment - "php". If your version of PHP is lesser than its value, the test is skipped. Skipped tests are shown in output. Examples:
+```php
+class Tests extends MyTester\TestCase {
+  /**
+   * @skip(1)
+   * @skip(true)
+   * @skip(abc)
+   * @skip(php=5.4.1)
+   */
+  function testTestName() {
+    Assert::true(1);
+  }
+}
+```
 
 Automated tests runner
 ----------------------
