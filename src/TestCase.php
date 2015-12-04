@@ -19,7 +19,11 @@ abstract class TestCase {
    */
   protected function checkSkip(\Nette\Reflection\Method $method) {
     if(!$method->hasAnnotation("skip")) return false;
-    else return true;
+    $value = $method->getAnnotation("skip");
+    if(is_string($value) OR is_int($value) OR is_float($value) OR is_bool($value)) {
+      if($value) return true;
+    }
+    return false;
   }
   
   /**
