@@ -12,6 +12,17 @@ abstract class TestCase {
   const METHOD_PATTERN = '#^test[A-Z0-9_]#';
   
   /**
+   * Check whetever to skip a test method
+   * 
+   * @param \Nette\Reflection\Method $method
+   * @return bool
+   */
+  protected function checkSkip(\Nette\Reflection\Method $method) {
+    if(!$method->hasAnnotation("skip")) return false;
+    else return true;
+  }
+  
+  /**
    * Get list of jobs with parameters for current test suit
    * 
    * @return array
@@ -26,10 +37,9 @@ abstract class TestCase {
       $rm = $r->getMethod($method);
       $data = NULL;
       $job = array(
-        "name" => $this->getSuitName() . "::$method", "callback" => array($this, $method), "params" => NULL, "skip" => false
+        "name" => $this->getSuitName() . "::$method", "callback" => array($this, $method), "params" => NULL, "skip" => $this->checkSkip($rm)
       );
       if($rm->hasAnnotation("test")) $job["name"] = (string) $rm->getAnnotation("test");
-      if($rm->hasAnnotation("skip")) $job["skip"] = true;
       if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
         $data = (array) $rm->getAnnotation("data");
       }
