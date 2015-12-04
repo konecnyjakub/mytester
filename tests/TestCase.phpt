@@ -36,7 +36,7 @@ class TestCaseTest extends MT\TestCase {
    * Test skipping
    * 
    * @test Skipped test
-   * @skip
+   * @skip(php=8)
    * @return void
    */
   function testSkip() {
