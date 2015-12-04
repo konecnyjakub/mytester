@@ -48,9 +48,8 @@ abstract class TestCase {
       $rm = $r->getMethod($method);
       $data = NULL;
       $job = array(
-        "name" => $this->getSuitName() . "::$method", "callback" => array($this, $method), "params" => NULL, "skip" => $this->checkSkip($rm)
+        "name" => $this->getJobName($rm), "callback" => array($this, $method), "params" => NULL, "skip" => $this->checkSkip($rm)
       );
-      if($rm->hasAnnotation("test")) $job["name"] = (string) $rm->getAnnotation("test");
       if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
         $data = (array) $rm->getAnnotation("data");
       }
@@ -76,6 +75,17 @@ abstract class TestCase {
     $r = new \Nette\Reflection\ClassType($suitName);
     if($r->hasAnnotation("testSuit")) $suitName = (string) $r->getAnnotation("testSuit");
     return $suitName;
+  }
+  
+  /**
+   * Get name for a job
+   * 
+   * @param \Nette\Reflection\Method $method
+   * @return string
+   */
+  protected function getJobName(\Nette\Reflection\Method $method) {
+    if($method->hasAnnotation("test")) return (string) $method->getAnnotation("test");
+    else return $this->getSuitName() . "::" . $method->getName();
   }
   
   /**
