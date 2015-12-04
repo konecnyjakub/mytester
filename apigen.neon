@@ -3,4 +3,4 @@ destination: api
 title: My Tester
 todo: yes
 charset:
-    0: UTF-8
+    - UTF-8
