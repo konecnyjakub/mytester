@@ -1,5 +1,6 @@
 Version 0.9.3+dev
 - allowed conditional skipping of tests (in TestCase)
+- small code refactoring
 
 Version 0.9.3
 - test suits can have custom names
