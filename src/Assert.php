@@ -9,7 +9,6 @@ namespace MyTester;
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class Assert extends \Nette\Object {
-  
   /**
    * Tries an assertion
    * 
@@ -162,7 +161,7 @@ abstract class Assert extends \Nette\Object {
     if(!is_object($type) AND !is_string($type)) {
       Environment::testResult("Type must be string or object.", false);
     } elseif(in_array($type, array("array", "bool", "callable", "float",
-      "int", "integer", "null", "object", "resource", "scalar", "string"), TRUE)) {
+      "int", "integer", "null", "object", "resource", "scalar", "string"), true)) {
       if(!call_user_func("is_$type", $value)) {
         Environment::testResult(gettype($value) . " should be $type.", false);
       } else {
