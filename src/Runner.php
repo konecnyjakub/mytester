@@ -11,7 +11,7 @@ namespace MyTester;
 class Runner extends \Nette\Object {
   /** @var string Name of the runner */
   protected $name;
-  /** @var array */
+  /** @var Job[] */
   protected $jobs = array();
   
   /**

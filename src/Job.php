@@ -20,7 +20,7 @@ class Job extends \Nette\Object {
   
   /**
    * @param string $name Name of the job
-   * @param \callable $callback The task
+   * @param callable $callback The task
    * @param array $params Additional parameters for the job   
    * @param bool $skip
    */

@@ -10,7 +10,7 @@ namespace MyTester;
  * @property-read array $suits
  */
 class Tester extends \Nette\Object {
-  /** @var array */
+  /** @var string[] */
   protected $suits;
   
   /**
@@ -25,7 +25,7 @@ class Tester extends \Nette\Object {
    * Find test suits to run
    * 
    * @param string $folder Where to look
-   * @return array
+   * @return string[]
    */
   protected function findSuits($folder) {
     $suits = array();
@@ -46,7 +46,7 @@ class Tester extends \Nette\Object {
   }
   
   /**
-   * @return array
+   * @return string[]
    */
   function getSuits() {
     return $this->suits;
