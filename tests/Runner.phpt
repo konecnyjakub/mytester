@@ -20,6 +20,7 @@ class RunnerTest {
 $test = new RunnerTest();
 $runner = new Runner("Test Runner");
 $runner->addJob("Test Job", array($test, "test"));
+$runner->addJob("Test Skipped Job", array($test, "test"), NULL, true);
 
 echo $runner->run();
 ?>
