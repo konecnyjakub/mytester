@@ -1,6 +1,7 @@
 Version 0.9.3+dev
 - allowed conditional skipping of tests (in TestCase)
 - small code refactoring
+- print number of finished and skipped jobs for TestCase
 
 Version 0.9.3
 - test suits can have custom names

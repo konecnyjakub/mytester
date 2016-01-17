@@ -46,6 +46,9 @@ abstract class Environment extends \Nette\Object {
     $testsFailed = substr_count($results, " failed. ");
     $testsTotal = $testsPassed + $testsFailed;
     static::printLine("Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.");
+    $jobsExecuted = substr_count($results, "*Finished ");
+    $jobsSkipped = substr_count($results, "*Skipping ");
+    if($jobsExecuted OR $jobsSkipped) static::printLine("Executed $jobsExecuted job(s), skipped $jobsSkipped.");
     $time = $time_end - $time_start;
     static::printLine("Execution time: $time second(s)");
   }
