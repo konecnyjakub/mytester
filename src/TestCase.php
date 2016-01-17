@@ -21,9 +21,8 @@ abstract class TestCase extends \Nette\Object {
     if(!$method->hasAnnotation("skip")) return false;
     $value = $method->getAnnotation("skip");
     if(is_string($value) OR is_int($value) OR is_float($value) OR is_bool($value)) {
-      if($value) return true;
-    }
-    if($value instanceof \Nette\Utils\ArrayHash) {
+      return (bool) $value;
+    } elseif($value instanceof \Nette\Utils\ArrayHash) {
       foreach($value as $k => $v) {
         if($k === "php") {
           return version_compare(PHP_VERSION, $v, "<");
