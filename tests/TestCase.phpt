@@ -34,13 +34,68 @@ class TestCaseTest extends MT\TestCase {
   }
   
   /**
-   * Test skipping
+   * Test unconditional skipping
    * 
-   * @test Skipped test
-   * @skip(php=8)
+   * @test Skip
+   * @skip
    * @return void
    */
   function testSkip() {
+    Assert::true(1);
+  }
+  
+  /**
+   * Test skipping based on boolean
+   * 
+   * @test Boolean
+   * @skip(true)
+   * @return void
+   */
+  function testSkipBoolean() {
+    Assert::true(1);
+  }
+  
+  /**
+   * Test skipping based on integer
+   * 
+   * @test Integer
+   * @skip(1)
+   * @return void
+   */
+  function testSkipInteger() {
+    Assert::true(1);
+  }
+  
+  /**
+   * Test skipping based on float
+   * 
+   * @test Float
+   * @skip(1.5)
+   * @return void
+   */
+  function testSkipFloat() {
+    Assert::true(1);
+  }
+  
+  /**
+   * Test skipping based on string
+   * 
+   * @test String
+   * @skip(abc)
+   * @return void
+   */
+  function testSkipString() {
+    Assert::true(1);
+  }
+  
+  /**
+   * Test skipping based on PHP version
+   * 
+   * @test PHP version
+   * @skip(php=8)
+   * @return void
+   */
+  function testSkipPhpVersion() {
     Assert::true(1);
   }
 }
