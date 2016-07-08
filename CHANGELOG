@@ -1,4 +1,4 @@
-Version 0.9.3+dev
+Version 0.9.4
 - allowed conditional skipping of tests (in TestCase)
 - small code refactoring
 - print number of finished and skipped jobs for TestCase
