@@ -17,10 +17,10 @@
    },
     "require": {
         "php": ">=5.4.0",
-        "nette/reflection": "2.3.x"
+        "nette/reflection": "~2.3"
     },
     "require-dev": {
-        "nette/robot-loader": "2.3.x"
+        "nette/robot-loader": "~2.3"
     },
     "suggest": {
         "nette/robot-loader": "Needed for automated tests runner."
