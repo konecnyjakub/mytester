@@ -39,6 +39,7 @@ class Job extends \Nette\Object {
   function execute() {
     $time_start = microtime(true);
     Environment::resetCounter();
+    $output  = "";
     ob_start();
     if($this->skip) {
       Environment::printLine("****Skipping job $this->name****");
@@ -47,7 +48,7 @@ class Job extends \Nette\Object {
       if(isset($this->callback)) {
         call_user_func_array($this->callback, $this->params);
       }
-      $output = ob_get_contents();
+      $output .= ob_get_contents();
       ob_clean();
       ob_start();
       Environment::printLine("****Finished job $this->name****");
