@@ -30,12 +30,12 @@ class Tester extends \Nette\Object {
   protected function findSuits($folder) {
     $suits = array();
     $robot = new \Nette\Loaders\RobotLoader;
-    $robot->cacheStorage = new \Nette\Caching\Storages\DevNullStorage;
+    $robot->setCacheStorage(new \Nette\Caching\Storages\DevNullStorage);
     $robot->addDirectory($folder);
     $robot->acceptFiles = "*.phpt";
     $robot->rebuild();
     $robot->register();
-    $classes = $robot->indexedClasses;
+    $classes = $robot->getIndexedClasses();
     foreach(array_keys($classes) as $class) {
       $rc = new \Nette\Reflection\ClassType($class);
       if(!$rc->isAbstract() AND $rc->isSubclassOf(TestCase::class)) {
