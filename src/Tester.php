@@ -38,7 +38,7 @@ class Tester extends \Nette\Object {
     $classes = $robot->indexedClasses;
     foreach(array_keys($classes) as $class) {
       $rc = new \Nette\Reflection\ClassType($class);
-      if(!$rc->isAbstract() AND $rc->isSubclassOf("MyTester\TestCase")) {
+      if(!$rc->isAbstract() AND $rc->isSubclassOf(TestCase::class)) {
         $suits[] = $rc->getName();
       }
     }
