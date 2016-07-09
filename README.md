@@ -3,7 +3,7 @@ My Tester
 
 [![Total Downloads](https://poser.pugx.org/konecnyjakub/mystester/downloads)](https://packagist.org/packages/konecnyjakub/mystester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mystester/v/stable)](https://github.com/konecnyjakub/mytester/releases) [![License](https://poser.pugx.org/konecnyjakub/mystester/license)](https://github.com/konecnyjakub/mytester/blob/master/LICENSE)
 
-My Tester allows to run simple tests. Requires PHP 5.4 or later.
+My Tester allows to run simple tests. Requires PHP 5.5 or later.
 
 Installation
 ------------
