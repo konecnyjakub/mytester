@@ -8,7 +8,9 @@ namespace MyTester;
  * @copyright (c) 2015, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
-abstract class Assert extends \Nette\Object {
+abstract class Assert {
+  use \Nette\StaticClass;
+  
   /**
    * Tries an assertion
    * 
