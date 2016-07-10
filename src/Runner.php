@@ -47,7 +47,7 @@ class Runner extends \Nette\Object {
     $time_start = microtime(true);
     ob_start();
     if(!Environment::isSetUp()) {
-      Environment::printLine("Warrning: Testing Environment is not set. Setting up ...");
+      Environment::printLine("Warning: Testing Environment is not set. Setting up ...");
       Environment::setup();
     }
     Environment::printLine("**Starting suit $this->name**");

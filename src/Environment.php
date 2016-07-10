@@ -129,12 +129,12 @@ abstract class Environment extends \Nette\Object {
       if(in_array($output, $outputs)) {
         static::$output = $output;
       } else {
-        static::printLine("Warrrning: Entered invalid output. Expecting screen or file.");
+        static::printLine("Warning: Entered invalid output. Expecting screen or file.");
         static::$output = "screen";
       }
       static::$set = true;
     } else {
-      static::printLine("Warrning: Testing Environment was already set up.");
+      static::printLine("Warning: Testing Environment was already set up.");
     }
   }
 }
