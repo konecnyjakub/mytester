@@ -5,7 +5,7 @@ namespace MyTester;
  * One job of the test suite
  *
  * @author Jakub Konečný
- * @copyright (c) 2015, Jakub Konečný
+ * @copyright (c) 2015-2016, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 class Job extends \Nette\Object {
