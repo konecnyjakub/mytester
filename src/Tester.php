@@ -10,6 +10,8 @@ namespace MyTester;
  * @property-read array $suits
  */
 class Tester extends \Nette\Object {
+  use \Nette\SmartObject;
+  
   /** @var string[] */
   protected $suits;
   

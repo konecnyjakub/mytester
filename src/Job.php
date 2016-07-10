@@ -8,7 +8,9 @@ namespace MyTester;
  * @copyright (c) 2015, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
-class Job extends \Nette\Object {
+class Job {
+  use \Nette\SmartObject;
+  
   /** @var string Name of the job */
   protected $name;
   /** @var callable Task */
