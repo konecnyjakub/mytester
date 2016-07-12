@@ -39,11 +39,10 @@ abstract class Environment {
    * Print stats for a test
    * 
    * @param string $results
-   * @param int $time_start
-   * @param int $time_end
+   * @param string $timer
    * @return void
    */
-  static function testStats($results, $time_start, $time_end) {
+  static function testStats($results, $timer) {
     $testsPassed = substr_count($results, " passed. ");
     $testsFailed = substr_count($results, " failed. ");
     $testsTotal = $testsPassed + $testsFailed;
@@ -51,7 +50,7 @@ abstract class Environment {
     $jobsExecuted = substr_count($results, "*Finished ");
     $jobsSkipped = substr_count($results, "*Skipping ");
     if($jobsExecuted OR $jobsSkipped) static::printLine("Executed $jobsExecuted job(s), skipped $jobsSkipped.");
-    $time = $time_end - $time_start;
+    $time = \Tracy\Debugger::timer($timer);
     static::printLine("Execution time: $time second(s)");
   }
   

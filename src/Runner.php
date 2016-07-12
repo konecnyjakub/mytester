@@ -46,7 +46,7 @@ class Runner {
    * @return array Results of the test suit
    */
   function run() {
-    $time_start = microtime(true);
+    \Tracy\Debugger::timer($this->name);
     ob_start();
     if(!Environment::isSetUp()) {
       Environment::printLine("Warning: Testing Environment is not set. Setting up ...");
@@ -60,8 +60,7 @@ class Runner {
     }
     ob_start();
     Environment::printLine("**Finished suit $this->name**");
-    $time_end = microtime(true);
-    Environment::testStats($output, $time_start, $time_end);
+    Environment::testStats($output, $this->name);
     $output .= ob_get_contents();
     ob_clean();
     ob_end_flush();
