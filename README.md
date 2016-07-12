@@ -133,6 +133,17 @@ $tester->execute();
 ```
 The automaded tests runner needs package nette/robot-loader.
 
+Nette applications
+------------------
+If you are developing a Nette application, you may want to use our extension for Nette DI container. It combines automated tests runner with powers of dependency injection. In other words, it automatically runs your test cases and passed them their dependencies from DI container. Its usage is simple, just add these lines to your config file:
+```
+extensions:
+    mytester: MyTester\Bridges\NetteDI\MyTesterExtension
+mytester:
+    folder: %wwwDir%/tests
+```
+. The extension needs just one paramater folder which tells it where to look for your test cases. But do not forgot to include files with their definitions, the extension cannot do it itself at the moment.
+
 More examples
 -------------
 For more examples of usage, see included tests of My Tester (in folder tests).
