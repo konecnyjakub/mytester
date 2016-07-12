@@ -1,7 +1,7 @@
 My Tester
 =========
 
-[![Total Downloads](https://poser.pugx.org/konecnyjakub/mystester/downloads)](https://packagist.org/packages/konecnyjakub/mystester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mystester/v/stable)](https://github.com/konecnyjakub/mytester/releases) [![License](https://poser.pugx.org/konecnyjakub/mystester/license)](https://github.com/konecnyjakub/mytester/blob/master/LICENSE)
+[![Total Downloads](https://poser.pugx.org/konecnyjakub/mystester/downloads)](https://packagist.org/packages/konecnyjakub/mytester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mytester/v/stable)](https://github.com/konecnyjakub/mytester/releases) [![License](https://poser.pugx.org/konecnyjakub/mystester/license)](https://github.com/konecnyjakub/mytester/blob/master/LICENSE)
 
 My Tester allows to run simple tests. Requires PHP 5.6 or later.
 
@@ -11,7 +11,7 @@ There are currently 3 ways to install My Tester.
 
 1. Download an archive from the repository. It's best to donwload archive of latest tagged verson as it's considered stable. But you can try out master branch if you want to.
 2. It's also possible to use phar archive. Phar archives for all versions are in [GitHub repository](https://github.com/konecnyjakub/mytester). Alternatively you can download/fork the repository and run create_phar.php script to obtain it.
-3. Use composer to obtain it. Just add konecnyjakub/mystester to your (dev) dependencies. (RECOMMENDED WAY)
+3. Use composer to obtain it. Just add konecnyjakub/mytester to your (dev) dependencies. (RECOMMENDED WAY)
 
 ### Dependencies
 My Tester has some dependencies that are neither included in the repository nor in the phar archive (though some of them are optional). You have to either install them manually or use composer  to obtain them. In manual installation you have to tell your scripts where to look for them. All dependencies are listed in file composer.json in sections require, require-dev and suggest.
