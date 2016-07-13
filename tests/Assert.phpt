@@ -49,16 +49,16 @@ class AssertTest extends MT\TestCase {
   
   
   /**
-   * Test custom assertions
+   * Test custom assertions and custom messages
    *
    * @return void      
    */     
   function testCustomAssertion() {
-    Assert::tryAssertion("5 > 2");
-    Assert::tryAssertion("5 >= 2");
-    Assert::tryAssertion("2 < 5");
-    Assert::tryAssertion("2 <= 5");
-    Assert::tryAssertion("abc != def");
+    Assert::tryAssertion("5 > 2", "5 is greater than 2.", "5 is not greater that 2.");
+    Assert::tryAssertion("5 >= 2", "5 is greater or equal to 2.", "5 is not greater or equal to 2.");
+    Assert::tryAssertion("2 < 5", "2 is lesser than 5.", "2 is not lesser than 5.");
+    Assert::tryAssertion("2 <= 5", "2 is lesser or equal to 5.", "2 is not lesser or equal to 5.");
+    Assert::tryAssertion("abc != def", "abc is not def.", "abc is def.");
   }
 }
 

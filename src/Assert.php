@@ -15,14 +15,19 @@ abstract class Assert {
    * Tries an assertion
    * 
    * @param string $code Assertion to try
+   * @param string $successText Text to print on success
+   * @param string $failureText Text to print on failure
    * @return void
    */
-  static function tryAssertion($code) {
+  static function tryAssertion($code, $successText = "", $failureText = "") {
+    $success = true;
     if(assert($code)) {
-      Environment::testResult("Assertion \"$code\" is true.");
+      $message = ($successText === "") ? "Assertion \"$code\" is true." : $successText;
     } else {
-      Environment::testResult("Assertion \"$code\" is not true.", false);
+      $success = false;
+      $message = ($failureText === "") ? "Assertion \"$code\" is not true." : $failureText;
     }
+    Environment::testResult($message, $success);
   }
   
   /**
