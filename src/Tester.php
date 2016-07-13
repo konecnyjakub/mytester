@@ -12,7 +12,7 @@ namespace MyTester;
 class Tester {
   use \Nette\SmartObject;
   
-  /** @var string[] */
+  /** @var array */
   protected $suits;
   
   /**
@@ -38,10 +38,10 @@ class Tester {
     $robot->rebuild();
     $robot->register();
     $classes = $robot->getIndexedClasses();
-    foreach(array_keys($classes) as $class) {
+    foreach($classes as $class => $file) {
       $rc = new \Nette\Reflection\ClassType($class);
       if(!$rc->isAbstract() AND $rc->isSubclassOf(TestCase::class)) {
-        $suits[] = $rc->getName();
+        $suits[] = [$rc->getName(), $file];
       }
     }
     return $suits;

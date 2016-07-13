@@ -142,7 +142,7 @@ extensions:
 mytester:
     folder: %wwwDir%/tests
 ```
-. The extension needs just one paramater folder which tells it where to look for your test cases. But do not forgot to include files with their definitions, the extension cannot do it itself at the moment.
+. The extension needs just one paramater folder which tells it where to look for your test cases.
 
 More examples
 -------------

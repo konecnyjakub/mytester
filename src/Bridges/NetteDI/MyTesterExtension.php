@@ -9,6 +9,9 @@ namespace MyTester\Bridges\NetteDI;
 class MyTesterExtension extends \Nette\DI\CompilerExtension {
   const TAG = "mytester.test";
   
+  /** @var array */
+  private $suits;
+  
   /**
    * @return void
    * @throws \Exception
@@ -22,10 +25,10 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $builder->addDefinition($this->prefix("runner"))
       ->setClass("MyTester\Bridges\NetteDI\TestsRunner");
     $tester = new \MyTester\Tester($config["folder"]);
-    $suits = $tester->getSuits();
-    foreach($suits as $index => $suit) {
+    $this->suits = $tester->getSuits();
+    foreach($this->suits as $index => $suit) {
       $builder->addDefinition($this->prefix($index))
-        ->setClass($suit)
+        ->setClass($suit[0])
         ->addTag(self::TAG);
     }
   }
@@ -35,6 +38,9 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $initialize = $class->methods["initialize"];
     $initialize->addBody('MyTester\Environment::setup();');
     $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
+    $initialize->addBody('spl_autoload_extensions(spl_autoload_extensions() . ",.phpt");
+MyTester\Bridges\NetteDI\TestsRunner::$autoloader = ?;
+spl_autoload_register(?);', [$this->suits, __NAMESPACE__ . "\\autoload"]);
     foreach($container->findByTag(self::TAG) as $suit => $foo) {
       $initialize->addBody('$runner->addSuit($this->getService(?));', [$suit]);
     }

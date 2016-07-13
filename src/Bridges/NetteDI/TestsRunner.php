@@ -11,6 +11,8 @@ use \MyTester\TestCase;
 class TestsRunner {
   /** @var TestCase[] */
   protected $suits = [];
+  /** @var array */
+  static $autoloader = [];
   
   function addSuit(TestCase $suit) {
     $this->suits[] = $suit;
