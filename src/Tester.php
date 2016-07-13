@@ -60,8 +60,8 @@ class Tester {
    * @return void
    */
   function execute() {
-    foreach($this->suits as $class) {
-      $suit = new $class;
+    foreach($this->suits as $suit) {
+      $suit = new $suit[0];
       $suit->run();
     }
   }
