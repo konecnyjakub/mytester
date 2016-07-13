@@ -1,3 +1,7 @@
+Version 0.9.4b
+- raised minimal version of PHP to 5.6
+- corrected a typo
+
 Version 0.9.4a
 - raised minimal version of PHP to 5.5
 - require version 2.4 of packages nette/reflection and nette/robot-loader
