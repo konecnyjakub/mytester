@@ -5,6 +5,8 @@ namespace MyTester\Bridges\NetteDI;
  * MyTester Extension for Nette DIC
  *
  * @author Jakub Konečný
+ * @copyright (c) 2016, Jakub Konečný
+ * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 class MyTesterExtension extends \Nette\DI\CompilerExtension {
   const TAG = "mytester.test";
@@ -33,6 +35,10 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     }
   }
   
+  /**
+   * @param \Nette\PhpGenerator\ClassType $class
+   * @return void
+   */
   function afterCompile(\Nette\PhpGenerator\ClassType $class) {
     $container = $this->getContainerBuilder();
     $initialize = $class->methods["initialize"];

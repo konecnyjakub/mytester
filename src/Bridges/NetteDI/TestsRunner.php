@@ -7,6 +7,8 @@ use \MyTester\TestCase;
  * Tests Runner
  *
  * @author Jakub Konečný
+ * @copyright (c) 2016, Jakub Konečný
+ * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 class TestsRunner {
   /** @var TestCase[] */
