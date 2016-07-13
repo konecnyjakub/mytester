@@ -3,6 +3,7 @@ Version 1.0-dev
 - BC break: Environment::testStats() takes 2 paramaters now, second one is name is Tracy's timer
 - added integration for nette/di
 - Assert::tryAssertion() now supports custom messages for succes and failure
+- improved success and failure messages for some built-in assertions
 
 Version 0.9.4b
 - raised minimal version of PHP to 5.6
