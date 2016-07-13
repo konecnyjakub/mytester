@@ -100,9 +100,6 @@ class TestCaseTest extends MT\TestCase {
   }
 }
 
-$params = ["abc"];
-$text = "def";
-
 $suit = new TestCaseTest();
 $suit->run();
 ?>
