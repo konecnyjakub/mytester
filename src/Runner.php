@@ -14,7 +14,7 @@ class Runner {
   /** @var string Name of the runner */
   protected $name;
   /** @var Job[] */
-  protected $jobs = array();
+  protected $jobs = [];
   
   /**
    * @param string $name Name of the runner

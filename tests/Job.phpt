@@ -30,12 +30,12 @@ class JobTest {
 }
 
 $test = new JobTest();
-$job = new Job("Test Job", array($test, "test"));
-$params = array(
-  array("abc"), "def"
-);
-$job2 = new Job("Test Job with Params", array($test, "testParams"), $params);
-$job3 = new Job("Test Skipped Job", array($test, "test"), NULL, true);
+$job = new Job("Test Job", [$test, "test"]);
+$params = [
+  ["abc"], "def"
+];
+$job2 = new Job("Test Job with Params", [$test, "testParams"], $params);
+$job3 = new Job("Test Skipped Job", [$test, "test"], NULL, true);
 
 echo $job->execute();
 echo $job2->execute();

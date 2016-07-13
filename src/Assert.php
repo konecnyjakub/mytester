@@ -162,8 +162,8 @@ abstract class Assert {
   static function type($type, $value) {
     if(!is_object($type) AND !is_string($type)) {
       Environment::testResult("Type must be string or object.", false);
-    } elseif(in_array($type, array("array", "bool", "callable", "float",
-      "int", "integer", "null", "object", "resource", "scalar", "string"), true)) {
+    } elseif(in_array($type, ["array", "bool", "callable", "float",
+      "int", "integer", "null", "object", "resource", "scalar", "string"], true)) {
       if(!call_user_func("is_$type", $value)) {
         Environment::testResult(gettype($value) . " should be $type.", false);
       } else {

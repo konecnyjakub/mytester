@@ -30,7 +30,7 @@ class Tester {
    * @return string[]
    */
   protected function findSuits($folder) {
-    $suits = array();
+    $suits = [];
     $robot = new \Nette\Loaders\RobotLoader;
     $robot->setCacheStorage(new \Nette\Caching\Storages\DevNullStorage);
     $robot->addDirectory($folder);

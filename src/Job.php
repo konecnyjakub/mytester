@@ -16,7 +16,7 @@ class Job {
   /** @var callable Task */
   protected $callback;
   /** @var array Additional parameters */
-  protected $params = array();
+  protected $params = [];
   /** @var bool */
   protected $skip;
   

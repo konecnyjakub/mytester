@@ -10,7 +10,7 @@ use \MyTester\TestCase;
  */
 class TestsRunner {
   /** @var TestCase[] */
-  protected $suits = array();
+  protected $suits = [];
   
   function addSuit(TestCase $suit) {
     $this->suits[] = $suit;

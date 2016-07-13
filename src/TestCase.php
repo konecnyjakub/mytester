@@ -40,7 +40,7 @@ abstract class TestCase {
    * @return array
    */
   protected function getJobs() {
-    $jobs = array();
+    $jobs = [];
     $r = new \Nette\Reflection\ClassType(get_class($this));
     $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
       return $rm->getName();
@@ -48,9 +48,9 @@ abstract class TestCase {
     foreach($methods as $method) {
       $rm = $r->getMethod($method);
       $data = NULL;
-      $job = array(
-        "name" => $this->getJobName($rm), "callback" => array($this, $method), "params" => NULL, "skip" => $this->checkSkip($rm)
-      );
+      $job = [
+        "name" => $this->getJobName($rm), "callback" => [$this, $method], "params" => NULL, "skip" => $this->checkSkip($rm)
+      ];
       if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
         $data = (array) $rm->getAnnotation("data");
       }

@@ -22,7 +22,7 @@ class AssertTest extends MT\TestCase {
     Assert::false(0);
     Assert::null(NULL);
     Assert::notNull("abc");
-    $testArray = array("abc");
+    $testArray = ["abc"];
     Assert::contains("abc", $testArray);
     Assert::notContains("def", $testArray);
     Assert::count(1, $testArray);

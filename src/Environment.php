@@ -126,7 +126,7 @@ abstract class Environment {
       assert_options(ASSERT_QUIET_EVAL, 1);
       assert_options(ASSERT_WARNING, 0);
       static::$mode = (PHP_SAPI == "cli" ? "cli": "http");
-      $outputs = array("screen", "file");
+      $outputs = ["screen", "file"];
       if(in_array($output, $outputs)) {
         static::$output = $output;
       } else {

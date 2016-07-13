@@ -34,9 +34,9 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $container = $this->getContainerBuilder();
     $initialize = $class->methods["initialize"];
     $initialize->addBody('MyTester\Environment::setup();');
-    $initialize->addBody('$runner = $this->getService(?);', array($this->prefix("runner")));
+    $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
     foreach($container->findByTag(self::TAG) as $suit => $foo) {
-      $initialize->addBody('$runner->addSuit($this->getService(?));', array($suit));
+      $initialize->addBody('$runner->addSuit($this->getService(?));', [$suit]);
     }
   }
 }
