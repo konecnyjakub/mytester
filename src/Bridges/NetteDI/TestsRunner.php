@@ -11,6 +11,8 @@ use \MyTester\TestCase;
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 class TestsRunner {
+  use \Nette\SmartObject;
+  
   /** @var TestCase[] */
   protected $suits = [];
   /** @var array */
