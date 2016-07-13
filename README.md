@@ -1,7 +1,7 @@
 My Tester
 =========
 
-[![Total Downloads](https://poser.pugx.org/konecnyjakub/mystester/downloads)](https://packagist.org/packages/konecnyjakub/mytester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mytester/v/stable)](https://github.com/konecnyjakub/mytester/releases) [![License](https://poser.pugx.org/konecnyjakub/mystester/license)](https://github.com/konecnyjakub/mytester/blob/master/LICENSE)
+[![Total Downloads](https://poser.pugx.org/konecnyjakub/mytester/downloads)](https://packagist.org/packages/konecnyjakub/mytester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mytester/v/stable)](https://github.com/konecnyjakub/mytester/releases) [![License](https://poser.pugx.org/konecnyjakub/mytester/license)](https://github.com/konecnyjakub/mytester/blob/master/LICENSE)
 
 My Tester allows to run simple tests. Requires PHP 5.6 or later.
 
