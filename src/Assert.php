@@ -59,7 +59,7 @@ abstract class Assert {
    * @return void
    */
   static function true($actual) {
-    static::tryAssertion($actual);
+    static::tryAssertion($actual, "The expression is true.", "The expression is not true.");
   }
   
   /**
@@ -69,7 +69,7 @@ abstract class Assert {
    * @return void
    */
   static function false($actual) {
-    static::tryAssertion(!$actual);
+    static::tryAssertion(!$actual, "The expression is false.", "The expression is not false.");
   }
   
   /**
