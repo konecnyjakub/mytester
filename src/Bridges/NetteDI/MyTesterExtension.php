@@ -29,7 +29,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $tester = new \MyTester\Tester($config["folder"]);
     $this->suits = $tester->getSuits();
     foreach($this->suits as $index => $suit) {
-      $builder->addDefinition($this->prefix($index + 1))
+      $builder->addDefinition($this->prefix("test." . ($index + 1)))
         ->setClass($suit[0])
         ->addTag(self::TAG);
     }
