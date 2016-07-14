@@ -4,6 +4,7 @@ Version 1.0-dev
 - added integration for nette/di
 - Assert::tryAssertion() now supports custom messages for succes and failure
 - improved success and failure messages for some built-in assertions
+- code refactoring
 
 Version 0.9.4b
 - raised minimal version of PHP to 5.6

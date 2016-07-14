@@ -126,8 +126,7 @@ abstract class Environment {
       assert_options(ASSERT_QUIET_EVAL, 1);
       assert_options(ASSERT_WARNING, 0);
       static::$mode = (PHP_SAPI == "cli" ? "cli": "http");
-      $outputs = ["screen", "file"];
-      if(in_array($output, $outputs)) {
+      if(in_array($output, ["screen", "file"])) {
         static::$output = $output;
       } else {
         static::printLine("Warning: Entered invalid output. Expecting screen or file.");
