@@ -38,7 +38,14 @@ abstract class Assert {
    * @return void
    */
   static function same($expected, $actual) {
-    static::tryAssertion("$expected == $actual", "The value is $expected.", "The value is not $expected but $actual.");
+    $success = true;
+    if($expected == $actual) {
+      $message = "The value is $expected.";
+    } else {
+      $message = "The value is not $expected but $actual.";
+      $success = false;
+    }
+    Environment::testResult($message, $success);
   }
   
   /**
