@@ -31,6 +31,8 @@ abstract class TestCase {
           case "php":
             $skip = version_compare(PHP_VERSION, $v, "<");
             break;
+          case "extension":
+            $skip = !extension_loaded($v);
         }
         if($skip) return true;
       }

@@ -98,6 +98,16 @@ class TestCaseTest extends MT\TestCase {
   function testSkipPhpVersion() {
     Assert::true(1);
   }
+  
+  /**
+   * Test skipping based on loaded extension
+   * 
+   * @test Extension
+   * @skip(extension=abc)
+   */
+  function testSkipExtension() {
+    Assert::true(1);
+  }
 }
 
 $suit = new TestCaseTest();
