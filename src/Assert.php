@@ -156,12 +156,12 @@ abstract class Assert {
    */
   static function count($count, $value) {
     if(!is_array($value) AND !$value instanceof \Countable) {
-      Environment::testResult("\$value is not array or countable object.", false);
+      Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) == $count) {
-      Environment::testResult("Count of \$value is $count.");
+      Environment::testResult("Count of the variable is $count.");
     } else {
       $actual = count($value);
-      Environment::testResult("Count of \$value is $actual.", false);
+      Environment::testResult("Count of the variable is $actual.", false);
     }
   }
   
