@@ -160,7 +160,8 @@ abstract class Assert {
     } elseif(count($value) == $count) {
       Environment::testResult("Count of \$value is $count.");
     } else {
-      Environment::testResult("Count of \$value is not $count.", false);
+      $actual = count($value);
+      Environment::testResult("Count of \$value is $actual.", false);
     }
   }
   
