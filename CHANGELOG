@@ -6,6 +6,7 @@ Version 1.0-dev
 - improved success and failure messages for some built-in assertions
 - code refactoring
 - added new assertion notCount
+- all items of array are now evaluated in TestCase::checkSkip()
 
 Version 0.9.4c
 - fixed assertion same

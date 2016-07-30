@@ -25,10 +25,14 @@ abstract class TestCase {
     if(is_string($value) OR is_int($value) OR is_float($value) OR is_bool($value)) {
       return (bool) $value;
     } elseif($value instanceof \Nette\Utils\ArrayHash) {
+      $skip = false;
       foreach($value as $k => $v) {
-        if($k === "php") {
-          return version_compare(PHP_VERSION, $v, "<");
+        switch ($k) {
+          case "php":
+            $skip = version_compare(PHP_VERSION, $v, "<");
+            break;
         }
+        if($skip) return true;
       }
     }
     return false;
