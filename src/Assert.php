@@ -31,7 +31,12 @@ abstract class Assert extends \Nette\Object {
    * @return void
    */
   static function same($expected, $actual) {
-    static::tryAssertion("$expected == $actual");
+    $code = "$expected == $actual";
+    if($expected == $actual) {
+      Environment::testResult("Assertion \"$code\" is true.");
+    } else {
+      Environment::testResult("Assertion \"$code\" is not true.", false);
+    }
   }
   
   /**
