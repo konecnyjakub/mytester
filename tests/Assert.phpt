@@ -41,6 +41,7 @@ class AssertTest extends MT\TestCase {
     Assert::contains("def", $actual);
     Assert::notContains("abc", $actual);
     Assert::count(1, $actual);
+    Assert::count(0, [$actual]);
     Assert::same("abc", "def");
     Assert::type("array", $actual);
     Assert::type("abc", $this);
