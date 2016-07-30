@@ -139,10 +139,13 @@ If you are developing a Nette application, you may want to use our extension for
 ```
 extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
+```
+The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder paramter to the extension:
+```
 mytester:
     folder: %wwwDir%/tests
 ```
-. The extension needs just one paramater folder which tells it where to look for your test cases.
+.
 
 More examples
 -------------
