@@ -178,13 +178,13 @@ abstract class Assert {
     } elseif(in_array($type, ["array", "bool", "callable", "float",
       "int", "integer", "null", "object", "resource", "scalar", "string"], true)) {
       if(!call_user_func("is_$type", $value)) {
-        Environment::testResult(gettype($value) . " should be $type.", false);
+        Environment::testResult("The variable is " . gettype($value) . ".", false);
       } else {
         Environment::testResult("The variable is $type.");
       }
     } elseif (!$value instanceof $type) {
       $actual = is_object($value) ? get_class($value) : gettype($value);
-      Environment::testResult("$actual should be instance of $type.", false);
+      Environment::testResult("The variable is instance of $actual.", false);
     } else {
       Environment::testResult("The variable is instance of $type.");
     }
