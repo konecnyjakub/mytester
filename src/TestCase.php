@@ -96,6 +96,24 @@ abstract class TestCase {
   }
   
   /**
+   * Called before each job
+   * 
+   * @return void
+   */
+  function setUp() {
+    
+  }
+  
+  /**
+   * Called after each job
+   * 
+   * @return void
+   */
+  function tearDown() {
+    
+  }
+  
+  /**
    * Runs the test suit
    * 
    * @return void
@@ -113,7 +131,9 @@ abstract class TestCase {
     $output = ob_get_contents();
     ob_clean();
     foreach($jobs as $job) {
+      if(!$job["skip"]) $this->setUp();
       $output .= (new Job($job["name"], $job["callback"], $job["params"], $job["skip"]))->execute();
+      if(!$job["skip"]) $this->tearDown();
     }
     ob_start();
     Environment::printLine("**Finished suit $suitName**");

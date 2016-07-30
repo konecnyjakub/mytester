@@ -9,6 +9,7 @@ Version 1.0-dev
 - all items of array are now evaluated in TestCase::checkSkip()
 - added option to skip test if an extension is not loaded
 - deprecated Runner
+- added methods setUp and tearDown to TestCase which are called before/after each test method
 
 Version 0.9.4c
 - fixed assertion same

@@ -119,6 +119,9 @@ class Tests extends MyTester\TestCase {
 }
 ```
 
+#### Setup and clean up
+If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown.
+
 Automated tests runner
 ----------------------
 It is possible to use automated tests runner that will scan specified folder for .phpt files and run their TestCases (described in section Test Case). An example of usage:

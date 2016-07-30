@@ -9,8 +9,23 @@ use MyTester\Assert;
  * 
  * @testSuit TestCase
  * @author Jakub Konečný
+ * @property-read bool|int $one
  */
 class TestCaseTest extends MT\TestCase {
+  private $one = false;
+  
+  function getOne() {
+    return $this->one;
+  }
+  
+  function setUp() {
+    $this->one = 1;
+  }
+  
+  function tearDown() {
+    $this->one = false;
+  }
+  
   /**
    * Test parameters
    * 
@@ -30,7 +45,7 @@ class TestCaseTest extends MT\TestCase {
    * @return void
    */
   function testTestName() {
-    Assert::true(1);
+    Assert::same(1, $this->one);
   }
   
   /**
@@ -112,4 +127,6 @@ class TestCaseTest extends MT\TestCase {
 
 $suit = new TestCaseTest();
 $suit->run();
+
+Assert::false($suit->one);
 ?>
