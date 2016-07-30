@@ -5,6 +5,8 @@ Version 1.0-dev
 - Assert::tryAssertion() now supports custom messages for succes and failure
 - improved success and failure messages for some built-in assertions
 - code refactoring
+
+Version 0.9.4c
 - fixed assertion same
 
 Version 0.9.4b
