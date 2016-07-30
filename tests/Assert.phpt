@@ -26,6 +26,7 @@ class AssertTest extends MT\TestCase {
     Assert::contains("abc", $testArray);
     Assert::notContains("def", $testArray);
     Assert::count(1, $testArray);
+    Assert::notCount(0, $testArray);
     Assert::type("array", $testArray);
     Assert::type(__CLASS__, $this);
     Assert::type("string", "abc");
@@ -47,6 +48,8 @@ class AssertTest extends MT\TestCase {
     Assert::notContains("abc", $actual);
     Assert::count(1, $actual);
     Assert::count(0, [$actual]);
+    Assert::notCount(1, $actual);
+    Assert::notCount(1, [$actual]);
     Assert::same("abc", "def");
     Assert::type("array", $actual);
     Assert::type("abc", $this);

@@ -166,6 +166,24 @@ abstract class Assert {
   }
   
   /**
+   * Does $value not contain $count items?
+   * 
+   * @param int $count
+   * @param array|\Countable $value
+   * @return void
+   */
+  static function notCount($count, $value) {
+    if(!is_array($value) AND !$value instanceof \Countable) {
+      Environment::testResult("The variable is not array or countable object.", false);
+    } elseif(count($value) == $count) {
+      $actual = count($value);
+      Environment::testResult("Count of the variable is $actual.", false);
+    } else {
+      Environment::testResult("Count of the variable is is not $count.");
+    }
+  }
+  
+  /**
    * Is $value of type $type?
    * 
    * @param string $type
