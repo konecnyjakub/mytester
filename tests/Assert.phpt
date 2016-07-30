@@ -29,6 +29,11 @@ class AssertTest extends MT\TestCase {
     Assert::type("array", $testArray);
     Assert::type(__CLASS__, $this);
     Assert::type("string", "abc");
+    Assert::type("bool", true);
+    Assert::type("int", 42);
+    Assert::type("null", NULL);
+    Assert::type("object", new \stdClass);
+    Assert::type("scalar", 42);
   }
   
   /**
@@ -46,6 +51,11 @@ class AssertTest extends MT\TestCase {
     Assert::type("array", $actual);
     Assert::type("abc", $this);
     Assert::type("string", true);
+    Assert::type("bool", $actual);
+    Assert::type("int", "42");
+    Assert::type("null", $actual);
+    Assert::type("object", true);
+    Assert::type("scalar", new \stdClass);
   }
   
   
