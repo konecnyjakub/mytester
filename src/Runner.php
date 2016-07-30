@@ -7,6 +7,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @copyright (c) 2015-2016, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
+ * @deprecated since version 1.0
  */
 class Runner {
   use \Nette\SmartObject;
@@ -18,9 +19,11 @@ class Runner {
   
   /**
    * @param string $name Name of the runner
+   * @deprecated since version 1.0
    */
   function __construct($name) {
     if(is_string($name)) $this->name = $name;
+    trigger_error(get_class() . " is now deprecated.", E_USER_DEPRECATED);
   }
   
   /**
@@ -31,8 +34,10 @@ class Runner {
    * @param array $params Additional parameters for job
    * @param bool $skip
    * @return \MyTester\Job
+   * @deprecated since version 1.0
    */
   function addJob($name, callable $callback, $params = NULL, $skip = false) {
+    trigger_error(get_class() . " is now deprecated.", E_USER_DEPRECATED);
     $job = new Job($name, $callback, $params, $skip);
     $count = count($this->jobs);
     $this->jobs[$count] = $job;
@@ -44,8 +49,10 @@ class Runner {
    * Executes all jobs of the runner
    * 
    * @return array Results of the test suit
+   * @deprecated since version 1.0
    */
   function run() {
+    trigger_error(get_class() . " is now deprecated.", E_USER_DEPRECATED);
     \Tracy\Debugger::timer($this->name);
     ob_start();
     if(!Environment::isSetUp()) {

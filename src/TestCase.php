@@ -102,12 +102,25 @@ abstract class TestCase {
    */
   function run() {
     $suitName = $this->getSuitName();
-    $runner = new Runner($suitName);
+    \Tracy\Debugger::timer($suitName);
     $jobs = $this->getJobs();
-    foreach($jobs as $job) {
-      $runner->addJob($job["name"], $job["callback"], $job["params"], $job["skip"]);
+    ob_start();
+    if(!Environment::isSetUp()) {
+      Environment::printLine("Warning: Testing Environment is not set. Setting up ...");
+      Environment::setup();
     }
-    $output = $runner->run();
+    Environment::printLine("**Starting suit $suitName**");
+    $output = ob_get_contents();
+    ob_clean();
+    foreach($jobs as $job) {
+      $output .= (new Job($job["name"], $job["callback"], $job["params"], $job["skip"]))->execute();
+    }
+    ob_start();
+    Environment::printLine("**Finished suit $suitName**");
+    Environment::testStats($output, $suitName);
+    $output .= ob_get_contents();
+    ob_clean();
+    ob_end_flush();
     if(Environment::getOutput() == "screen") {
       echo $output;
     } else {
