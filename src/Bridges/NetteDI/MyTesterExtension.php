@@ -13,17 +13,16 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
   
   /** @var array */
   private $suits;
+  /** @var array */
+  protected $defaults = ["folder" => "%appDir%/../tests"];
   
   /**
    * @return void
    * @throws \Exception
    */
   function loadConfiguration() {
-    $config = $this->getConfig();
+    $config = $this->getConfig($this->defaults);
     $builder = $this->getContainerBuilder();
-    if(!isset($config["folder"])) {
-      throw new \Exception("No folder is specified.");
-    }
     $builder->addDefinition($this->prefix("runner"))
       ->setClass("MyTester\Bridges\NetteDI\TestsRunner");
     $tester = new \MyTester\Tester($config["folder"]);
