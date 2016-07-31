@@ -18,10 +18,17 @@ class TestsRunner {
   /** @var array */
   static $autoloader = [];
   
+  /**
+   * @param TestCase $suit
+   * @return void
+   */
   function addSuit(TestCase $suit) {
     $this->suits[] = $suit;
   }
   
+  /**
+   * @return void
+   */
   function execute() {
     foreach($this->suits as $suit) {
       $suit->run();
