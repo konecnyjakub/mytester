@@ -1,5 +1,9 @@
 <?php
-namespace MyTester;
+namespace MyTester\Tests;
+
+use MyTester\Environment,
+    MyTester\Runner,
+    MyTester\Job;
 
 /**
  * Test suite for class Runner
