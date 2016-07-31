@@ -75,7 +75,4 @@ class AssertTest extends MT\TestCase {
     Assert::tryAssertion("abc != def", "abc is not def.", "abc is def.");
   }
 }
-
-$suit = new AssertTest();
-$suit->run();
 ?>

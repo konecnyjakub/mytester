@@ -51,7 +51,4 @@ class JobTest extends \MyTester\TestCase {
     return [$job, $job2, $job3];
   }
 }
-
-$suit = new JobTest();
-$suit->run();
 ?>

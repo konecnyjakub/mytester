@@ -25,7 +25,4 @@ class EnvironmentTest extends MT\TestCase {
     Assert::same(0, MT\Environment::getCounter());
   }
 }
-
-$suit = new EnvironmentTest();
-$suit->run();
 ?>

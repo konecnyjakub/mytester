@@ -128,7 +128,4 @@ class TestCaseTest extends MT\TestCase {
     Assert::true(1);
   }
 }
-
-$suit = new TestCaseTest();
-$suit->run();
 ?>

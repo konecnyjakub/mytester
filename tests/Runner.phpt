@@ -69,7 +69,4 @@ class RunnerTest extends \MyTester\TestCase {
     }
   }
 }
-
-$suit = new RunnerTest();
-$suit->run();
 ?>
