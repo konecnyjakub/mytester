@@ -26,6 +26,10 @@ class TestCaseTest extends MT\TestCase {
     $this->one = false;
   }
   
+  function shutDown() {
+    Assert::false($this->one);
+  }
+  
   /**
    * Test parameters
    * 
@@ -127,6 +131,4 @@ class TestCaseTest extends MT\TestCase {
 
 $suit = new TestCaseTest();
 $suit->run();
-
-Assert::false($suit->one);
 ?>

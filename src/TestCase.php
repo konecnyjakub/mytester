@@ -95,6 +95,24 @@ abstract class TestCase {
   }
   
   /**
+   * Called at start of the suit
+   * 
+   * @return void
+   */
+  function startUp() {
+    
+  }
+  
+  /**
+   * Called at end of the suit
+   * 
+   * @return void
+   */
+  function shutDown() {
+    
+  }
+  
+  /**
    * Called before each job
    * 
    * @return void
@@ -131,6 +149,7 @@ abstract class TestCase {
   function run() {
     $suitName = $this->getSuitName();
     \Tracy\Debugger::timer($suitName);
+    $this->startUp();
     $jobs = $this->getJobs();
     ob_start();
     if(!Environment::isSetUp()) {
@@ -149,6 +168,7 @@ abstract class TestCase {
     $output .= ob_get_contents();
     ob_clean();
     ob_end_flush();
+    $this->shutDown();
     if(Environment::getOutput() == "screen") {
       echo $output;
     } else {
