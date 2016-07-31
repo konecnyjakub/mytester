@@ -11,6 +11,7 @@ Version 1.0-dev
 - deprecated Runner
 - added methods setUp and tearDown to TestCase which are called before/after each test method
 - version of My Tester and PHP is shown at start now
+- BC break: TestCase::getJobs() now return array of Job
 
 Version 0.9.4c
 - fixed assertion same

@@ -7,6 +7,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @copyright (c) 2015-2016, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
+ * @property-read bool $skip
  */
 class Job {
   use \Nette\SmartObject;
@@ -31,6 +32,13 @@ class Job {
     $this->callback = $callback;
     if(is_array($params)) $this->params = $params;
     $this->skip = (bool) $skip;
+  }
+  
+  /**
+   * @return bool
+   */
+  function getSkip() {
+    return $this->skip;
   }
   
   /**

@@ -44,7 +44,7 @@ abstract class TestCase {
   /**
    * Get list of jobs with parameters for current test suit
    * 
-   * @return array
+   * @return Job[]
    */
   protected function getJobs() {
     $jobs = [];
@@ -64,11 +64,9 @@ abstract class TestCase {
       if(is_array($data)) {
         foreach($data as $value) {
           $job["params"][0] = $value;
-          $jobs[] = $job;
         }
-      } else {
-        $jobs[] = $job;
       }
+      $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"]);
     }
     return $jobs;
   }
@@ -132,9 +130,9 @@ abstract class TestCase {
     $output = ob_get_contents();
     ob_clean();
     foreach($jobs as $job) {
-      if(!$job["skip"]) $this->setUp();
-      $output .= (new Job($job["name"], $job["callback"], $job["params"], $job["skip"]))->execute();
-      if(!$job["skip"]) $this->tearDown();
+      if(!$job->skip) $this->setUp();
+      $output .= $job->execute();
+      if(!$job->skip) $this->tearDown();
     }
     ob_start();
     Environment::printLine("**Finished suit $suitName**");
