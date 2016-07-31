@@ -1,6 +1,5 @@
 <?php
 require "./vendor/autoload.php";
-require "./src/bootstrap.php";
 MyTester\Environment::setup();
 
 foreach(glob("./tests/*.phpt") as $filename) {
