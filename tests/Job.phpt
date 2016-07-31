@@ -6,11 +6,11 @@ use MyTester\Assert,
     MyTester\Environment;
 
 /**
- * Test suite for class Job
+ * Tests for class Job
  *
  * @author Jakub Konečný
  */
-class JobTest {
+class TestJobs {
   /**
    * Test for Environment::testResult()
    * 
@@ -33,15 +33,25 @@ class JobTest {
   }
 }
 
-$test = new JobTest();
-$job = new Job("Test Job", [$test, "test"]);
-$params = [
-  ["abc"], "def"
-];
-$job2 = new Job("Test Job with Params", [$test, "testParams"], $params);
-$job3 = new Job("Test Skipped Job", [$test, "test"], NULL, true);
+/**
+ * Test suite for class Job
+ *
+ * @author Jakub Konečný
+ * @testSuit JobTest
+ */
+class JobTest extends \MyTester\TestCase {
+  protected function getJobs() {
+    $test = new TestJobs();
+    $job = new Job("Test Job", [$test, "test"]);
+    $params = [
+      ["abc"], "def"
+    ];
+    $job2 = new Job("Test Job with Params", [$test, "testParams"], $params);
+    $job3 = new Job("Test Skipped Job", [$test, "test"], NULL, true);
+    return [$job, $job2, $job3];
+  }
+}
 
-echo $job->execute();
-echo $job2->execute();
-echo $job3->execute();
+$suit = new JobTest();
+$suit->run();
 ?>
