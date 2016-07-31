@@ -13,6 +13,7 @@
         }  
     ],
     "support": {
+        "sources": "https://github.com/konecnyjakub/mytester/",
         "issues": "https://gitlab.com/konecnyjakub/mytester/issues"
    },
     "require": {
