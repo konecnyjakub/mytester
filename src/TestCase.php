@@ -33,6 +33,7 @@ abstract class TestCase {
             break;
           case "extension":
             $skip = !extension_loaded($v);
+            break;
         }
         if($skip) return true;
       }
