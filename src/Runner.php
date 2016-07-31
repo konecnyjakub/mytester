@@ -29,18 +29,22 @@ class Runner {
   /**
    * Adds new job to the runner
    * 
-   * @param string $name Name of the job
+   * @param Job|string $name Name of the job
    * @param \callable $callback Task
    * @param array $params Additional parameters for job
    * @param bool $skip
    * @return \MyTester\Job
    * @deprecated since version 1.0
    */
-  function addJob($name, callable $callback, $params = NULL, $skip = false) {
+  function addJob($name, callable $callback = NULL, $params = NULL, $skip = false) {
     trigger_error(get_class() . " is now deprecated.", E_USER_DEPRECATED);
-    $job = new Job($name, $callback, $params, $skip);
     $count = count($this->jobs);
-    $this->jobs[$count] = $job;
+    if($name instanceof Job) {
+      $this->jobs[$count] = $name;
+    } else {
+      $job = new Job($name, $callback, $params, $skip);
+      $this->jobs[$count] = $job;
+    }
     $return = & $this->jobs[$count];
     return $return;
   }
