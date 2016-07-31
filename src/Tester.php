@@ -60,6 +60,7 @@ class Tester {
    * @return void
    */
   function execute() {
+    Environment::printInfo();
     foreach($this->suits as $suit) {
       $suit = new $suit[0];
       $suit->run();

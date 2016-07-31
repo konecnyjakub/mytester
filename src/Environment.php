@@ -11,6 +11,9 @@ namespace MyTester;
 abstract class Environment {
   use \Nette\StaticClass;
   
+  const NAME = "My Tester";
+  const VERSION = "1.0-dev";
+  
   /** @var int */
   static protected $taskCount = 0;
   /** @var bool */
@@ -112,6 +115,18 @@ abstract class Environment {
     if(static::$mode == "http" AND $ignoreOutput) echo "$text<br>\n";
     elseif(static::$mode == "http" AND static::$output == "screen") echo "$text<br>\n";
     else echo "$text\n";
+  }
+  
+  /**
+   * Print version of My Tester and PHP
+   * 
+   * @return void
+   */
+  static function printInfo() {
+    static::printLine(static::NAME . " " . static::VERSION, true);
+    static::printLine("", true);
+    static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")", true);
+    static::printLine("", true);
   }
   
   /**
