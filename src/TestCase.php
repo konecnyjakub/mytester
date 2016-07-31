@@ -113,6 +113,17 @@ abstract class TestCase {
   }
   
   /**
+   * @param \MyTester\Job $job
+   * @return array
+   */
+  protected function runJob(Job $job) {
+    if(!$job->skip) $this->setUp();
+    $output =  $job->execute();
+    if(!$job->skip) $this->tearDown();
+    return $output;
+  }
+  
+  /**
    * Runs the test suit
    * 
    * @return void
@@ -130,9 +141,7 @@ abstract class TestCase {
     $output = ob_get_contents();
     ob_clean();
     foreach($jobs as $job) {
-      if(!$job->skip) $this->setUp();
-      $output .= $job->execute();
-      if(!$job->skip) $this->tearDown();
+      $output .= $this->runJob($job);
     }
     ob_start();
     Environment::printLine("**Finished suit $suitName**");
