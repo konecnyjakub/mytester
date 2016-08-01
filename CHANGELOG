@@ -14,6 +14,7 @@ Version 1.0-dev
 - BC break: TestCase::getJobs() now return array of Job
 - first parameter of Runner::addJob() can be instance of Job now
 - added methods startUp and shutDown to TestCase which are called at start/end of the suit
+- automated tests runner now sets up the environment himself
 
 Version 0.9.4c
 - fixed assertion same

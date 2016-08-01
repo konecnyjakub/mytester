@@ -128,9 +128,6 @@ It is possible to use automated tests runner that will scan specified folder for
 ```php
 require __DIR__ . "/vendor/autoload.php";
 $folder = __DIR__ . "/tests";
-$output = "screen";
-
-MyTester\Environment::setup($output);
 
 $tester = new MyTester\Tester($folder);
 $tester->execute();
