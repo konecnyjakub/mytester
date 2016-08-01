@@ -120,7 +120,7 @@ class Tests extends MyTester\TestCase {
 ```
 
 #### Setup and clean up
-If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown.
+If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suit.
 
 Automated tests runner
 ----------------------
