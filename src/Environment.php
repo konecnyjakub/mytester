@@ -140,6 +140,11 @@ abstract class Environment {
       assert_options(ASSERT_ACTIVE, 1);
       assert_options(ASSERT_QUIET_EVAL, 1);
       assert_options(ASSERT_WARNING, 0);
+      register_shutdown_function(function() {
+        $time = \Tracy\Debugger::timer(static::NAME);
+        static::printLine("Total run time: $time second(s)");
+      });
+      \Tracy\Debugger::timer(static::NAME);
       static::$mode = (PHP_SAPI == "cli" ? "cli": "http");
       if(in_array($output, ["screen", "file"])) {
         static::$output = $output;
