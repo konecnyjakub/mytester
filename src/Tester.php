@@ -68,6 +68,12 @@ class Tester {
       $result = $suit->run();
       if(!$result) $failed = true;
     }
+    Environment::printLine("");
+    if(!$result) {
+      echo "Failed";
+    } else {
+      echo "OK";
+    }
     exit((int) $failed);
   }
 }
