@@ -1,5 +1,6 @@
 Version 2.0-dev
 - removed Runner
+- added option to mark test method as supposed to fail
 
 Version 1.0
 - added dependency on tracy/tracy

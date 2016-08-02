@@ -56,7 +56,7 @@ abstract class TestCase {
       $rm = $r->getMethod($method);
       $data = NULL;
       $job = [
-        "name" => $this->getJobName($rm), "callback" => [$this, $method], "params" => NULL, "skip" => $this->checkSkip($rm)
+        "name" => $this->getJobName($rm), "callback" => [$this, $method], "params" => NULL, "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
       ];
       if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
         $data = (array) $rm->getAnnotation("data");
@@ -66,7 +66,7 @@ abstract class TestCase {
           $job["params"][0] = $value;
         }
       }
-      $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"]);
+      $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);
     }
     return $jobs;
   }

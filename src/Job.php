@@ -21,20 +21,24 @@ class Job {
   protected $params = [];
   /** @var bool */
   protected $skip;
+  /** @var bool */
+  protected $shouldFail;
   /** @var string */
   protected $result = "passed";
   
   /**
    * @param string $name Name of the job
    * @param callable $callback The task
-   * @param array $params Additional parameters for the job   
+   * @param array $params Additional parameters for the job
    * @param bool $skip
+   * @param bool $shouldFail
    */
-  function __construct($name, callable $callback, $params = "", $skip = false) {
+  function __construct($name, callable $callback, $params = "", $skip = false, $shouldFail = false) {
     $this->name = (string) $name;
     $this->callback = $callback;
     if(is_array($params)) $this->params = $params;
     $this->skip = (bool) $skip;
+    $this->shouldFail = (bool) $shouldFail;
   }
   
   /**
@@ -67,7 +71,10 @@ class Job {
       $output .= ob_get_contents();
       ob_clean();
       ob_start();
-      if(Environment::checkFailed($output)) {
+      $failed = Environment::checkFailed($output);
+      if($failed AND !$this->shouldFail) {
+        $this->result = "failed";
+      } elseif(!$failed AND $this->shouldFail) {
         $this->result = "failed";
       }
     }

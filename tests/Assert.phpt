@@ -41,6 +41,7 @@ class AssertTest extends MT\TestCase {
    * Test assertion function, all should produce error
    * 
    * @return void
+   * @fail
    */
   function testAssertionFails() {
     $actual = "abc";
