@@ -7,24 +7,15 @@ My Tester allows to run simple tests. Requires PHP 5.6 or later.
 
 Installation
 ------------
-There are currently 3 ways to install My Tester.
-
-1. Download an archive from the repository. It's best to donwload archive of latest tagged verson as it's considered stable. But you can try out master branch if you want to.
-2. It's also possible to use phar archive. Phar archives for all versions are in [GitHub repository](https://github.com/konecnyjakub/mytester). Alternatively you can download/fork the repository and run create_phar.php script to obtain it.
-3. Use composer to obtain it. Just add konecnyjakub/mytester to your (dev) dependencies. (RECOMMENDED WAY)
-
-### Dependencies
-My Tester has some dependencies that are neither included in the repository nor in the phar archive (though some of them are optional). You have to either install them manually or use composer  to obtain them. In manual installation you have to tell your scripts where to look for them. All dependencies are listed in file composer.json in sections require, require-dev and suggest.
+The best way to install My Tester is via Composer. Just add konecnyjakub/mytester to your (dev) dependencies.
 
 Usage
 -----
 ### Setting up
-Firstly, you have to include My Tester's bootstrap and set up environement for testing.
+Firstly, you have to include My Tester's files and set up environement for testing.
 
 ```php
-require "path_to_mytester/src/bootstrap.php"; // if you downloaded archive of repository
-require "path_to_mytester/mytester.phar"; // if you have phar archive
-require "path_to_your_project/vendor/autoload.php"; // if you use composer
+require "path_to_your_project/vendor/autoload.php";
 MyTester\Environment::setup();
 ```
 By default, the output is printed in browser/console. If you want to save it to a file, use this:
