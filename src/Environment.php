@@ -44,8 +44,10 @@ abstract class Environment {
    * @param string $results
    * @param string $timer
    * @return void
+   * @deprecated
    */
   static function testStats($results, $timer) {
+    trigger_error(get_class() . "::" . __METHOD__ . " is now deprecated.", E_USER_DEPRECATED);
     $testsPassed = substr_count($results, " passed. ");
     $testsFailed = substr_count($results, " failed. ");
     $testsTotal = $testsPassed + $testsFailed;
@@ -55,6 +57,15 @@ abstract class Environment {
     if($jobsExecuted OR $jobsSkipped) static::printLine("Executed $jobsExecuted job(s), skipped $jobsSkipped.");
     $time = \Tracy\Debugger::timer($timer);
     static::printLine("Execution time: $time second(s)");
+  }
+   
+   /**
+   * @param string $results
+   * @return bool
+   */
+  static function checkFailed($results) {
+    $testsFailed = substr_count($results, " failed. ");
+    return (bool) $testsFailed;
   }
   
   /**
@@ -142,6 +153,7 @@ abstract class Environment {
       assert_options(ASSERT_WARNING, 0);
       register_shutdown_function(function() {
         $time = \Tracy\Debugger::timer(static::NAME);
+        static::printLine("");
         static::printLine("Total run time: $time second(s)");
       });
       \Tracy\Debugger::timer(static::NAME);

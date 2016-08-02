@@ -62,10 +62,13 @@ class Tester {
   function execute() {
     Environment::setup();
     Environment::printInfo();
+    $failed = false;
     foreach($this->suits as $suit) {
       $suit = new $suit[0];
-      $suit->run();
+      $result = $suit->run();
+      if(!$result) $failed = true;
     }
+    exit((int) $failed);
   }
 }
 ?>

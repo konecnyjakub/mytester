@@ -132,13 +132,23 @@ abstract class TestCase {
   
   /**
    * @param \MyTester\Job $job
-   * @return array
+   * @return string
    */
   protected function runJob(Job $job) {
     if(!$job->skip) $this->setUp();
-    $output =  $job->execute();
+    $job->execute();
     if(!$job->skip) $this->tearDown();
-    return $output;
+    switch ($job->result) {
+      case "passed":
+        return ".";
+        break;
+      case "skipped":
+        return "s";
+        break;
+      case "failed":
+        return "F";
+        break;
+      }
   }
   
   /**
@@ -147,32 +157,20 @@ abstract class TestCase {
    * @return void
    */
   function run() {
-    $suitName = $this->getSuitName();
-    \Tracy\Debugger::timer($suitName);
     $this->startUp();
     $jobs = $this->getJobs();
-    ob_start();
-    if(!Environment::isSetUp()) {
-      Environment::printLine("Warning: Testing Environment is not set. Setting up ...");
-      Environment::setup();
-    }
-    Environment::printLine("**Starting suit $suitName**");
-    $output = ob_get_contents();
-    ob_clean();
+    $output = "";
+    $passed = true;
     foreach($jobs as $job) {
       $output .= $this->runJob($job);
+      if($job->result === "failed") $passed = false;
     }
-    ob_start();
-    Environment::printLine("**Finished suit $suitName**");
-    Environment::testStats($output, $suitName);
-    $output .= ob_get_contents();
-    ob_clean();
-    ob_end_flush();
     $this->shutDown();
     if(Environment::getOutput() == "screen") {
       echo $output;
     } else {
       $time = date("o-m-d-h-i-s");
+      $suitName = $this->getSuitName();
       $filename = "../$suitName-$time.log";
       Environment::printLine("Trying to create file $filename ...", true);
       if(file_put_contents($filename, $output)) {
@@ -181,6 +179,7 @@ abstract class TestCase {
         Environment::printLine("An error occurred.", true);
       }
     }
+    return $passed;
   }
 }
 ?>

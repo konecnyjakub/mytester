@@ -8,6 +8,7 @@ namespace MyTester;
  * @copyright (c) 2015-2016, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read bool $skip
+ * @property-read string $result
  */
 class Job {
   use \Nette\SmartObject;
@@ -20,6 +21,8 @@ class Job {
   protected $params = [];
   /** @var bool */
   protected $skip;
+  /** @var string */
+  protected $result = "passed";
   
   /**
    * @param string $name Name of the job
@@ -41,6 +44,10 @@ class Job {
     return $this->skip;
   }
   
+  function getResult() {
+    return $this->result;
+  }
+  
   /**
    * Executes the task
    * 
@@ -52,22 +59,18 @@ class Job {
     $output  = "";
     ob_start();
     if($this->skip) {
-      Environment::printLine("****Skipping job $this->name****");
+      $this->result = "skipped";
     } else {
-      Environment::printLine("****Starting job $this->name****");
       if(isset($this->callback)) {
         call_user_func_array($this->callback, $this->params);
       }
       $output .= ob_get_contents();
       ob_clean();
       ob_start();
-      Environment::printLine("****Finished job $this->name****");
-      Environment::testStats($output, $this->name);
+      if(Environment::checkFailed($output)) {
+        $this->result = "failed";
+      }
     }
-    $output .= ob_get_contents();
-    ob_clean();
-    ob_end_flush();
-    return $output;
   }
 }
 ?>
