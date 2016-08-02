@@ -68,9 +68,7 @@ class Job {
       if(isset($this->callback)) {
         call_user_func_array($this->callback, $this->params);
       }
-      $output .= ob_get_contents();
-      ob_clean();
-      ob_start();
+      $output .= ob_get_clean();
       $failed = Environment::checkFailed($output);
       if($failed AND !$this->shouldFail) {
         $this->result = "failed";
