@@ -30,6 +30,7 @@ class TestsRunner {
    * @return void
    */
   function execute() {
+    \MyTester\Environment::setup();
     \MyTester\Environment::printInfo();
     foreach($this->suits as $suit) {
       $suit->run();

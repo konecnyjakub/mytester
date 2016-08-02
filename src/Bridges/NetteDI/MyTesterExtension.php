@@ -42,7 +42,6 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
   function afterCompile(\Nette\PhpGenerator\ClassType $class) {
     $container = $this->getContainerBuilder();
     $initialize = $class->methods["initialize"];
-    $initialize->addBody('MyTester\Environment::setup();');
     $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
     $initialize->addBody('spl_autoload_extensions(spl_autoload_extensions() . ",.phpt");
 MyTester\Bridges\NetteDI\TestsRunner::$autoloader = ?;
