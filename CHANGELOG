@@ -1,4 +1,4 @@
-Version 1.0-dev
+Version 1.0
 - added dependency on tracy/tracy
 - BC break: Environment::testStats() takes 2 paramaters now, second one is name is Tracy's timer
 - added integration for nette/di

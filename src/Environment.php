@@ -12,7 +12,7 @@ abstract class Environment {
   use \Nette\StaticClass;
   
   const NAME = "My Tester";
-  const VERSION = "1.0-dev";
+  const VERSION = "1.0";
   
   /** @var int */
   static protected $taskCount = 0;
