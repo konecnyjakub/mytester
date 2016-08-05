@@ -23,7 +23,7 @@ class Runner {
    */
   function __construct($name) {
     if(is_string($name)) $this->name = $name;
-    trigger_error(get_class() . " is now deprecated.", E_USER_DEPRECATED);
+    trigger_error(get_class() . " is deprecated and will be removed in version 2.0.", E_USER_DEPRECATED);
   }
   
   /**
@@ -37,7 +37,7 @@ class Runner {
    * @deprecated since version 1.0
    */
   function addJob($name, callable $callback = NULL, $params = NULL, $skip = false) {
-    trigger_error(get_class() . " is now deprecated.", E_USER_DEPRECATED);
+    trigger_error(get_class() . " is deprecated and will be removed in version 2.0.", E_USER_DEPRECATED);
     $count = count($this->jobs);
     if($name instanceof Job) {
       $this->jobs[$count] = $name;
@@ -56,7 +56,7 @@ class Runner {
    * @deprecated since version 1.0
    */
   function run() {
-    trigger_error(get_class() . " is now deprecated.", E_USER_DEPRECATED);
+    trigger_error(get_class() . " is ndeprecated and will be removed in version 2.0.", E_USER_DEPRECATED);
     \Tracy\Debugger::timer($this->name);
     ob_start();
     if(!Environment::isSetUp()) {
