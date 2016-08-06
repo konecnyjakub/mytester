@@ -24,5 +24,27 @@ class EnvironmentTest extends MT\TestCase {
     MT\Environment::resetCounter();
     Assert::same(0, MT\Environment::getCounter());
   }
+  
+  /**
+   * Test skipping based on sapi
+   * 
+   * @return void
+   * @test CGI sapi
+   * @skip(sapi=cgi-fcgi)
+   */
+  function testCgiSapi() {
+    Assert::same("http", MT\Environment::getMode());
+  }
+  
+  /**
+   * Test skipping based on sapi
+   * 
+   * @return void
+   * @test CLI sapi
+   * @skip(sapi=cli)
+   */
+  function testCliSapi() {
+    Assert::same("cli", MT\Environment::getMode());
+  }
 }
 ?>

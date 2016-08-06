@@ -94,7 +94,7 @@ class Tests extends MyTester\TestCase {
   }
 }
 ```
-. You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. Skipped tests are shown in output. Examples:
+. You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be exectued if the current sapi is different. Skipped tests are shown in output. Examples:
 ```php
 class Tests extends MyTester\TestCase {
   /**
@@ -103,6 +103,7 @@ class Tests extends MyTester\TestCase {
    * @skip(abc)
    * @skip(php=5.4.1)
    * @skip(extension=abc)
+   * @skip(sapi=cgi)
    */
   function testTestName() {
     Assert::true(1);

@@ -35,7 +35,11 @@ abstract class TestCase {
             break;
           case "extension":
             $skip = !extension_loaded($v);
-            if($skip) $reason = "extensin $v is not loaded";
+            if($skip) $reason = "extension $v is not loaded";
+            break;
+          case "sapi":
+            $skip = php_sapi_name() != $v;
+            if($skip) $reason = "the sapi is not $v";
             break;
         }
         if($skip) return $reason;
