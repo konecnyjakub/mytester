@@ -16,7 +16,7 @@ class EnvironmentTest extends MT\TestCase {
    * @return void
    */
   function testEnvironment() {
-    Assert::same("cli", MT\Environment::getMode());
+    Assert::type("string", MT\Environment::getMode());
     Assert::true(MT\Environment::isSetUp());
     Assert::same(2, MT\Environment::getCounter());
     MT\Environment::incCounter();
