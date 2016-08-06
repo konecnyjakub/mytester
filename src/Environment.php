@@ -139,6 +139,10 @@ abstract class Environment {
     static::$skipped[] = ["name" => $jobName, "reason" => $reason];
   }
   
+  static function getSkipped() { 
+    return static::$skipped;
+  }
+  
   /**
    * Print version of My Tester and PHP
    * 
@@ -165,11 +169,6 @@ abstract class Environment {
       register_shutdown_function(function() {
         $time = \Tracy\Debugger::timer(static::NAME);
         static::printLine("");
-        foreach(static::$skipped as $skipped) {
-          if($skipped["reason"]) $reason = ": {$skipped["reason"]}";
-          else $reason = "";
-          static::printLine("Skipped {$skipped["name"]}$reason");
-        }
         static::printLine("Total run time: $time second(s)");
       });
       \Tracy\Debugger::timer(static::NAME);
