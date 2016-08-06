@@ -1,3 +1,7 @@
+Version 1.1-dev
+- the environment for nette di extension is now set up in TestsRunner::execute()
+- improved deprecation message for Runner
+
 Version 1.0
 - added dependency on tracy/tracy
 - BC break: Environment::testStats() takes 2 paramaters now, second one is name is Tracy's timer
