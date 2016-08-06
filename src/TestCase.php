@@ -34,6 +34,9 @@ abstract class TestCase {
           case "extension":
             $skip = !extension_loaded($v);
             break;
+          case "sapi":
+            $skip = php_sapi_name() != $v;
+            break;
         }
         if($skip) return true;
       }
