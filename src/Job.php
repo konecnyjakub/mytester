@@ -58,7 +58,6 @@ class Job {
    * @return array Results of the test
    */
   function execute() {
-    \Tracy\Debugger::timer($this->name);
     Environment::resetCounter();
     $output  = "";
     ob_start();
