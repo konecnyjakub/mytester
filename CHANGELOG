@@ -1,6 +1,10 @@
 Version 2.0-dev
 - removed Runner
+- simplified output
+- automated tests runner exits with 0/1 depending on whetever all tests passed
+- deprecated Environment::testStats()
 - added option to mark test method as supposed to fail
+- added option to skip a test if current sapi is different
 
 Version 1.0
 - added dependency on tracy/tracy
