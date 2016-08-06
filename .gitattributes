@@ -3,3 +3,4 @@
 .gitignore      export-ignore
 apigen.neon     export-ignore
 mytester.php    export-ignore
+.travis.yml	export-ignore
