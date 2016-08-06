@@ -17,7 +17,7 @@ abstract class TestCase {
    * Check whetever to skip a test method
    * 
    * @param \Nette\Reflection\Method $method
-   * @return bool
+   * @return bool|string
    */
   protected function checkSkip(\Nette\Reflection\Method $method) {
     if(!$method->hasAnnotation("skip")) return false;
@@ -26,16 +26,19 @@ abstract class TestCase {
       return (bool) $value;
     } elseif($value instanceof \Nette\Utils\ArrayHash) {
       $skip = false;
+      $reason = "";
       foreach($value as $k => $v) {
         switch ($k) {
           case "php":
             $skip = version_compare(PHP_VERSION, $v, "<");
+            if($skip) $reason = "PHP version is lesser than $v";
             break;
           case "extension":
             $skip = !extension_loaded($v);
+            if($skip) $reason = "extensin $v is not loaded";
             break;
         }
-        if($skip) return true;
+        if($skip) return $reason;
       }
     }
     return false;

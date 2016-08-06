@@ -22,6 +22,8 @@ abstract class Environment {
   static protected $output;
   /** @var string */
   static protected $mode;
+  /** @var array */
+  static protected $skipped = [];
   
   /**
    * Prints result of a test
@@ -129,6 +131,15 @@ abstract class Environment {
   }
   
   /**
+   * @param string $jobName
+   * @param string $reason
+   * @return void
+   */
+  static function addSkipped($jobName, $reason = "") {
+    static::$skipped[] = ["name" => $jobName, "reason" => $reason];
+  }
+  
+  /**
    * Print version of My Tester and PHP
    * 
    * @return void
@@ -154,6 +165,11 @@ abstract class Environment {
       register_shutdown_function(function() {
         $time = \Tracy\Debugger::timer(static::NAME);
         static::printLine("");
+        foreach(static::$skipped as $skipped) {
+          if($skipped["reason"]) $reason = ": {$skipped["reason"]}";
+          else $reason = "";
+          static::printLine("Skipped {$skipped["name"]}$reason");
+        }
         static::printLine("Total run time: $time second(s)");
       });
       \Tracy\Debugger::timer(static::NAME);

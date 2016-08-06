@@ -30,14 +30,14 @@ class Job {
    * @param string $name Name of the job
    * @param callable $callback The task
    * @param array $params Additional parameters for the job
-   * @param bool $skip
+   * @param bool|string $skip
    * @param bool $shouldFail
    */
   function __construct($name, callable $callback, $params = "", $skip = false, $shouldFail = false) {
     $this->name = (string) $name;
     $this->callback = $callback;
     if(is_array($params)) $this->params = $params;
-    $this->skip = (bool) $skip;
+    $this->skip = $skip;
     $this->shouldFail = (bool) $shouldFail;
   }
   
@@ -64,6 +64,7 @@ class Job {
     ob_start();
     if($this->skip) {
       $this->result = "skipped";
+      Environment::addSkipped($this->name, (!is_bool($this->skip)? $this->skip: ""));
     } else {
       if(isset($this->callback)) {
         call_user_func_array($this->callback, $this->params);
