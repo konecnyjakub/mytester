@@ -17,7 +17,6 @@ class Tester {
   
   /**
    * @param string $folder
-   * @param string $output screen/file
    */
   function __construct($folder) {
     $this->suits = $this->findSuits($folder);
