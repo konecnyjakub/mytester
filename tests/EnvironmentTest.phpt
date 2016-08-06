@@ -13,7 +13,7 @@ class EnvironmentTest extends TestCase {
    * @return void
    */
   function testEnvironment() {
-    Assert::same("cli", Environment::getMode());
+    Assert::type("string", Environment::getMode());
     Assert::true(Environment::isSetUp());
     Assert::same(2, Environment::getCounter());
     Environment::incCounter();
