@@ -39,6 +39,11 @@ class TestsRunner {
       if(!$result) $failed = true;
     }
     Environment::printLine("");
+    foreach(Environment::getSkipped() as $skipped) {
+      if($skipped["reason"]) $reason = ": {$skipped["reason"]}";
+      else $reason = "";
+      Environment::printLine("Skipped {$skipped["name"]}$reason");
+    }
     if($failed) {
       echo "Failed";
     } else {
