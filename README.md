@@ -18,11 +18,6 @@ Firstly, you have to include My Tester's files and set up environement for testi
 require "path_to_your_project/vendor/autoload.php";
 MyTester\Environment::setup();
 ```
-By default, the output is printed in browser/console. If you want to save it to a file, use this:
-```php
-MyTester\Environment::setup("file");
-```
-. The name of created file(s) will be displayed.
 
 ### Tests
 After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples (hopefully self exlaining):

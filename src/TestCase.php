@@ -173,19 +173,7 @@ abstract class TestCase {
       if($job->result === "failed") $passed = false;
     }
     $this->shutDown();
-    if(Environment::getOutput() == "screen") {
-      echo $output;
-    } else {
-      $time = date("o-m-d-h-i-s");
-      $suitName = $this->getSuitName();
-      $filename = "../$suitName-$time.log";
-      Environment::printLine("Trying to create file $filename ...", true);
-      if(file_put_contents($filename, $output)) {
-        Environment::printLine("Successfuly created.", true);
-      } else {
-        Environment::printLine("An error occurred.", true);
-      }
-    }
+    echo $output;
     return $passed;
   }
 }

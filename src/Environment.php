@@ -19,8 +19,6 @@ abstract class Environment {
   /** @var bool */
   static protected $set = false;
   /** @var string */
-  static protected $output;
-  /** @var string */
   static protected $mode;
   /** @var array */
   static protected $skipped = [];
@@ -106,13 +104,6 @@ abstract class Environment {
   
   /**
    * @return string
-   */
-  static function getOutput() {
-    return static::$output;
-  }
-  
-  /**
-   * @return string
    */     
   static function getMode() {
     return static::$mode;
@@ -122,11 +113,9 @@ abstract class Environment {
    * Prints entered text with correct line ending
    * 
    * @param string $text Text to print
-   * @param bool $ignoreOutput Whetever to ignore output, useful only in http mode
    */
-  static function printLine($text, $ignoreOutput = false) {
-    if(static::$mode == "http" AND $ignoreOutput) echo "$text<br>\n";
-    elseif(static::$mode == "http" AND static::$output == "screen") echo "$text<br>\n";
+  static function printLine($text) {
+    if(static::$mode == "http") echo "$text<br>\n";
     else echo "$text\n";
   }
   
@@ -139,6 +128,9 @@ abstract class Environment {
     static::$skipped[] = ["name" => $jobName, "reason" => $reason];
   }
   
+  /**
+   * @return array
+   */
   static function getSkipped() { 
     return static::$skipped;
   }
@@ -149,19 +141,18 @@ abstract class Environment {
    * @return void
    */
   static function printInfo() {
-    static::printLine(static::NAME . " " . static::VERSION, true);
+    static::printLine(static::NAME . " " . static::VERSION);
     static::printLine("", true);
-    static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")", true);
-    static::printLine("", true);
+    static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")");
+    static::printLine("");
   }
   
   /**
    * Sets up the environment
-   * 
-   * @param string $output Where print results   
+   *   
    * @return void
    */
-  static function setup($output = "screen") {
+  static function setup() {
     if(!static::$set) {
       assert_options(ASSERT_ACTIVE, 1);
       assert_options(ASSERT_QUIET_EVAL, 1);
@@ -173,12 +164,6 @@ abstract class Environment {
       });
       \Tracy\Debugger::timer(static::NAME);
       static::$mode = (PHP_SAPI == "cli" ? "cli": "http");
-      if(in_array($output, ["screen", "file"])) {
-        static::$output = $output;
-      } else {
-        static::printLine("Warning: Entered invalid output. Expecting screen or file.");
-        static::$output = "screen";
-      }
       static::$set = true;
     } else {
       static::printLine("Warning: Testing Environment was already set up.");
