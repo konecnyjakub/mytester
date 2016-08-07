@@ -73,7 +73,7 @@ class Tester {
       else $reason = "";
       Environment::printLine("Skipped {$skipped["name"]}$reason");
     }
-    if(!$result) {
+    if($failed) {
       echo "Failed";
     } else {
       echo "OK";
