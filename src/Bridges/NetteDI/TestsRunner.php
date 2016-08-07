@@ -1,7 +1,8 @@
 <?php
 namespace MyTester\Bridges\NetteDI;
 
-use \MyTester\TestCase;
+use MyTester\TestCase,
+    MyTester\Environment;
 
 /**
  * Tests Runner
@@ -30,10 +31,18 @@ class TestsRunner {
    * @return void
    */
   function execute() {
-    \MyTester\Environment::setup();
-    \MyTester\Environment::printInfo();
+    Environment::setup();
+    Environment::printInfo();
+    $failed = false;
     foreach($this->suits as $suit) {
-      $suit->run();
+      $result = $suit->run();
+      if(!$result) $failed = true;
+    }
+    Environment::printLine("");
+    if($failed) {
+      echo "Failed";
+    } else {
+      echo "OK";
     }
   }
 }
