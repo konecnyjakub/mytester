@@ -142,9 +142,12 @@ abstract class TestCase {
    * @return string
    */
   protected function runJob(Job $job) {
+    $jobName = $this->getJobName(\Nette\Reflection\Method::from($job->callback[0], $job->callback[1]));
+    Environment::$currentJob = $jobName;
     if(!$job->skip) $this->setUp();
     $job->execute();
     if(!$job->skip) $this->tearDown();
+    Environment::$currentJob = "";
     switch ($job->result) {
       case "passed":
         return ".";

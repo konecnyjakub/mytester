@@ -22,6 +22,8 @@ abstract class Environment {
   static protected $mode;
   /** @var array */
   static protected $skipped = [];
+  /** @var string */
+  static $currentJob = "";
   
   /**
    * Prints result of a test

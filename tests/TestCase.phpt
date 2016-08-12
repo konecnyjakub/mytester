@@ -28,6 +28,7 @@ class TestCaseTest extends MT\TestCase {
   
   function shutDown() {
     Assert::false($this->one);
+    Assert::same("", \MyTester\Environment::$currentJob);
   }
   
   /**
@@ -49,6 +50,7 @@ class TestCaseTest extends MT\TestCase {
    * @return void
    */
   function testTestName() {
+    Assert::same("Custom name", \MyTester\Environment::$currentJob);
     Assert::same(1, $this->one);
   }
   
