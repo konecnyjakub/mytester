@@ -7,6 +7,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @copyright (c) 2015-2016, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
+ * @property-read callable $callback
  * @property-read bool $skip
  * @property-read string $result
  */
@@ -39,6 +40,13 @@ class Job {
     if(is_array($params)) $this->params = $params;
     $this->skip = $skip;
     $this->shouldFail = (bool) $shouldFail;
+  }
+  
+  /**
+   * @return callable
+   */
+  function getCallback() {
+    return $this->callback;
   }
   
   /**
