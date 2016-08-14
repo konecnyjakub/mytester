@@ -14,7 +14,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
   /** @var array */
   private $suits;
   /** @var array */
-  protected $defaults = ["folder" => "%appDir%/../tests"];
+  protected $defaults = ["folder" => "%appDir%/../tests", "onExecute" => []];
   
   /**
    * @return void
@@ -40,6 +40,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
    * @return void
    */
   function afterCompile(\Nette\PhpGenerator\ClassType $class) {
+    $config = $this->getConfig($this->defaults);
     $container = $this->getContainerBuilder();
     $initialize = $class->methods["initialize"];
     $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
@@ -49,6 +50,17 @@ spl_autoload_register(?);', [$this->suits, __NAMESPACE__ . "\\autoload"]);
     foreach($container->findByTag(self::TAG) as $suit => $foo) {
       $initialize->addBody('$runner->addSuit($this->getService(?));', [$suit]);
     }
+    $onExecute = array_merge(["MyTester\Environment::setup", "MyTester\Environment::printInfo"], $config["onExecute"]);
+    foreach($onExecute as &$task) {
+      if(!is_array($task)) {
+        $task = explode("::", $task);
+      } elseif(substr($task[0], 0, 1) === "@") {
+        $initialize->addBody('$runner->onExecute[] = [$this->getService(?), ?];', [substr($task[0], 1), $task[1]]);
+        continue;
+      }
+      $initialize->addBody('$runner->onExecute[] = [?, ?];', [$task[0], $task[1]]);
+    }
   }
 }
 ?>
+
