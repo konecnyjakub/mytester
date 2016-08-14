@@ -53,7 +53,7 @@ Test methods of TestCase descendants can take one parameter. Its value is taken 
 class Tests extends MyTester\TestCase {
   /**
    * @param string $text
-   * @data(abc, adef)   
+   * @data(abc, adef)
    */
   function testParams($text) {
     Assert::contains("a", $text);
@@ -133,7 +133,14 @@ The extension expects your test cases to be place in your_project_root/tests. If
 mytester:
     folder: %wwwDir%/tests
 ```
-.
+. And if you need to do some tasks before your tests, you can use option onExecute. It is an array of callbacks. Examples:
+```
+mytester:
+    onExecute:
+        - Class::staticMethod
+        - [@service, method]
+        - [Class, staticMethod]
+```
 
 More examples
 -------------

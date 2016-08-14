@@ -10,6 +10,7 @@ use MyTester\TestCase,
  * @author Jakub Konečný
  * @copyright (c) 2016, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
+ * @method void onExecute()
  */
 class TestsRunner {
   use \Nette\SmartObject;
@@ -18,6 +19,8 @@ class TestsRunner {
   protected $suits = [];
   /** @var array */
   static $autoloader = [];
+  /** @var array */
+  public $onExecute = [];
   
   /**
    * @param TestCase $suit
@@ -31,8 +34,7 @@ class TestsRunner {
    * @return void
    */
   function execute() {
-    Environment::setup();
-    Environment::printInfo();
+    $this->onExecute();
     $failed = false;
     foreach($this->suits as $suit) {
       $result = $suit->run();
