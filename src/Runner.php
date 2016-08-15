@@ -56,7 +56,7 @@ class Runner {
    * @deprecated since version 1.0
    */
   function run() {
-    trigger_error(get_class() . " is ndeprecated and will be removed in version 2.0.", E_USER_DEPRECATED);
+    trigger_error(get_class() . " is deprecated and will be removed in version 2.0.", E_USER_DEPRECATED);
     \Tracy\Debugger::timer($this->name);
     ob_start();
     if(!Environment::isSetUp()) {
