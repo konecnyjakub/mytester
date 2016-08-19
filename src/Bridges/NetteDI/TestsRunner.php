@@ -31,7 +31,7 @@ class TestsRunner {
   }
   
   /**
-   * @return void
+   * @return bool
    */
   function execute() {
     $this->onExecute();
@@ -51,6 +51,7 @@ class TestsRunner {
     } else {
       echo "OK";
     }
+    return $failed;
   }
 }
 ?>
