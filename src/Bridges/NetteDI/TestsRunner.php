@@ -30,13 +30,14 @@ class TestsRunner {
   }
   
   /**
-   * @return void
+   * @return bool
    */
   function execute() {
     $this->onExecute();
     foreach($this->suits as $suit) {
       $suit->run();
     }
+    return $failed;
   }
 }
 ?>

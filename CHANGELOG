@@ -3,6 +3,7 @@ Version 1.1-dev
 - improved deprecation message for Runner
 - added option to skip a test if current sapi is different
 - added event onExecute to TestsRunner
+- TestsRunner::execute() now returns whetever the tests failed
 
 Version 1.0
 - added dependency on tracy/tracy
