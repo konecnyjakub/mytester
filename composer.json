@@ -26,8 +26,7 @@
         "nette/di": "~2.4"
     },
     "suggest": {
-        "nette/robot-loader": "Needed for automated tests runner.",
-        "nette/di": ""
+        "nette/robot-loader": "Needed for automated tests runner."
     },
     "autoload": {
         "psr-4": {
