@@ -20,6 +20,7 @@ install:
   
 script:
     - $PHP_BIN ./mytester.php
+    - $PHP_BIN ./tests/NetteDI.php
 
 cache:
     directories:
