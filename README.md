@@ -121,6 +121,11 @@ $tester->execute();
 ```
 The automaded tests runner needs package nette/robot-loader.
 
+You may also use prepared script *./vendor/bin/mytester*. It will use folder your_project_root/tests but you can specify any folder as its first argument:
+```
+./vendor/bin/mytester tests/unit
+```
+
 Nette applications
 ------------------
 If you are developing a Nette application, you may want to use our extension for Nette DI container. It combines automated tests runner with powers of dependency injection. In other words, it automatically runs your test cases and passed them their dependencies from DI container. Its usage is simple, just add these lines to your config file:
