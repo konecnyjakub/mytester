@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+function findVendorDirectory() {
+  $recursionLimit = 10;
+  $findVendor = function ($dirName = "vendor/bin", $dir = __DIR__) use (&$findVendor, &$recursionLimit) {
+    if (!$recursionLimit--) {
+      throw new \Exception("Cannot find vendor directory.");
+    }
+    $found = $dir . "/$dirName";
+    if (is_dir($found) || is_file($found)) {
+      return dirname($found);
+    }
+    return $findVendor($dirName, dirname($dir));
+  };
+  return $findVendor();
+}
+
+$vendorDir = findVendorDirectory();
+
+require $vendorDir . "/autoload.php";
+
+if(!isset($_SERVER["argv"][1])) $testsDir = dirname($vendorDir) . "/tests";
+else $testsDir = $_SERVER["argv"][1];
+$tester = new MyTester\Tester($testsDir);
+$tester->execute();
+?>
