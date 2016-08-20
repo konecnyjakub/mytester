@@ -20,7 +20,7 @@ install:
     - composer install --no-interaction --prefer-dist
   
 script:
-    - $PHP_BIN ./mytester.php
+    - $PHP_BIN ./src/mytester
     - $PHP_BIN ./tests/NetteDI.php
 
 cache:
