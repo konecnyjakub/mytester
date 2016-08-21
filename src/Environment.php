@@ -161,7 +161,7 @@ abstract class Environment {
    */
   static function printInfo() {
     static::printLine(static::NAME . " " . static::VERSION);
-    static::printLine("", true);
+    static::printLine("");
     static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")");
     static::printLine("");
   }
