@@ -23,6 +23,8 @@ class EnvironmentTest extends MT\TestCase {
     Assert::same(4, MT\Environment::getCounter());
     MT\Environment::resetCounter();
     Assert::same(0, MT\Environment::getCounter());
+    Assert::type("bool", MT\Environment::getShouldFail());
+    Assert::false(MT\Environment::getShouldFail());
   }
   
   /**

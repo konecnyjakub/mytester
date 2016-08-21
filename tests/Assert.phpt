@@ -10,6 +10,10 @@ use MyTester\Assert;
  * @author Jakub Konečný
  */
 class AssertTest extends MT\TestCase {
+  function shutDown() {
+    Assert::false(MT\Environment::getShouldFail());
+  }
+  
   /**
    * Test assertion function
    * 
@@ -61,7 +65,6 @@ class AssertTest extends MT\TestCase {
     Assert::type("object", true);
     Assert::type("scalar", new \stdClass);
   }
-  
   
   /**
    * Test custom assertions and custom messages

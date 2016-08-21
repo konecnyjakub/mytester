@@ -24,6 +24,8 @@ abstract class Environment {
   static protected $skipped = [];
   /** @var string */
   static $currentJob = "";
+  /** @var bool */
+  static $shouldFail = false;
   
   /**
    * Prints result of a test
@@ -135,6 +137,21 @@ abstract class Environment {
    */
   static function getSkipped() { 
     return static::$skipped;
+  }
+  
+  /**
+   * @return bool
+   */
+  static function getShouldFail() {
+    return static::$shouldFail;
+  }
+  
+  /**
+   * @param bool $value
+   * @return void
+   */
+  static function setShouldFail($value) {
+    static::$shouldFail = (bool) $value;
   }
   
   /**

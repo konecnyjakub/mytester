@@ -40,6 +40,7 @@ class Job {
     if(is_array($params)) $this->params = $params;
     $this->skip = $skip;
     $this->shouldFail = (bool) $shouldFail;
+    Environment::setShouldFail($this->shouldFail);
   }
   
   /**
@@ -80,10 +81,9 @@ class Job {
       $failed = Environment::checkFailed($output);
       if($failed AND !$this->shouldFail) {
         $this->result = "failed";
-      } elseif(!$failed AND $this->shouldFail) {
-        $this->result = "failed";
       }
     }
+    Environment::setShouldFail(false);
   }
 }
 ?>
