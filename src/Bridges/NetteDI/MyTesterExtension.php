@@ -46,7 +46,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
     $initialize->addBody('spl_autoload_extensions(spl_autoload_extensions() . ",.phpt");
 MyTester\Bridges\NetteDI\TestsRunner::$autoloader = ?;
-spl_autoload_register(?);', [$this->suits, __NAMESPACE__ . "\\autoload"]);
+spl_autoload_register(?);', [$this->suits, TestsRunner::class . "::autoload"]);
     foreach($container->findByTag(self::TAG) as $suit => $foo) {
       $initialize->addBody('$runner->addSuit($this->getService(?));', [$suit]);
     }

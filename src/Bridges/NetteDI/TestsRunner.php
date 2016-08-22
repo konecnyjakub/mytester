@@ -31,6 +31,21 @@ class TestsRunner {
   }
   
   /**
+   * Autoloader for test suits
+   *
+   * @param string $class
+   * @return void
+   */
+  static function autoload($class) {
+    foreach(static::$autoloader as $suit) {
+      if($suit[0] === $class) {
+        require $suit[1];
+        return;
+      }
+    }
+  }
+  
+  /**
    * @return bool
    */
   function execute() {
