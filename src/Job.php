@@ -40,7 +40,6 @@ class Job {
     if(is_array($params)) $this->params = $params;
     $this->skip = $skip;
     $this->shouldFail = (bool) $shouldFail;
-    Environment::setShouldFail($this->shouldFail);
   }
   
   /**
@@ -68,6 +67,7 @@ class Job {
    */
   function execute() {
     Environment::resetCounter();
+    Environment::setShouldFail($this->shouldFail);
     $output  = "";
     ob_start();
     if($this->skip) {
