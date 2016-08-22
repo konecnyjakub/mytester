@@ -31,8 +31,7 @@
     "autoload": {
         "psr-4": {
             "MyTester\\": "src/"
-        },
-        "files": ["src/Bridges/NetteDI/autoload.php"]
+        }
     },
     "extra": {
         "branch-alias": {
