@@ -18,7 +18,6 @@ before_install:
 
 install:
     - composer install --no-interaction --prefer-dist
-    - mkdir vendor/bin
   
 script:
     - if [ "$PHP_BIN" != "php" ]; then ./vendor/bin/parallel-lint src tests -e php,phpt; fi
