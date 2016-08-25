@@ -24,9 +24,6 @@ script:
     - $PHP_BIN ./src/mytester
     - $PHP_BIN ./tests/NetteDI.php
 
-before_cache:
-    - rmdir vendor/bin
-
 cache:
     directories:
         - $HOME/.composer/cache
