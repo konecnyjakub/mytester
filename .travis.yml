@@ -21,6 +21,7 @@ install:
   
 script:
     - if [ "$PHP_BIN" = "php" ]; then ./vendor/bin/parallel-lint src tests -e php,phpt; fi
+    - if [ "$PHP_BIN" = "php" ]; then ./vendor/bin/phpcs --extensions=php,phpt . --standard=ruleset.xml --colors; fi
     - $PHP_BIN ./src/mytester
     - $PHP_BIN ./tests/NetteDI.php
 

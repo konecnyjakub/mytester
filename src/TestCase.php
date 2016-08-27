@@ -38,7 +38,7 @@ abstract class TestCase {
             if($skip) $reason = "extension $v is not loaded";
             break;
           case "sapi":
-            $skip = php_sapi_name() != $v;
+            $skip = PHP_SAPI != $v;
             if($skip) $reason = "the sapi is not $v";
             break;
         }
@@ -158,7 +158,7 @@ abstract class TestCase {
       case "failed":
         return "F";
         break;
-      }
+    }
   }
   
   /**

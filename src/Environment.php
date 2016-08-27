@@ -23,9 +23,9 @@ abstract class Environment {
   /** @var array */
   static protected $skipped = [];
   /** @var string */
-  static $currentJob = "";
+  static public $currentJob = "";
   /** @var bool */
-  static $shouldFail = false;
+  static public $shouldFail = false;
   
   /**
    * Prints result of a test

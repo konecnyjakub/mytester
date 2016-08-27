@@ -63,4 +63,3 @@ spl_autoload_register(?);', [$this->suits, TestsRunner::class . "::autoload"]);
   }
 }
 ?>
-
