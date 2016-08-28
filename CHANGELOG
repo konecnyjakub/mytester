@@ -1,4 +1,4 @@
-Version 1.1-dev
+Version 1.1
 - the environment for nette di extension is now set up in TestsRunner::execute()
 - improved deprecation message for Runner
 - added option to skip a test if current sapi is different
