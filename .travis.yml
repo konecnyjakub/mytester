@@ -10,7 +10,6 @@ notifications:
 
 env:
     - PHP_BIN=php
-    - PHP_BIN=php-cgi
     
 before_install:
     - if [ "$TRAVIS_PHP_VERSION" != "7.1" ]; then phpenv config-rm xdebug.ini; fi
@@ -21,6 +20,7 @@ install:
   
 script:
     - if [ "$PHP_BIN" = "php" ]; then ./vendor/bin/parallel-lint src tests -e php,phpt; fi
+    - if [ "$PHP_BIN" = "php" ]; then ./vendor/bin/phpcs --extensions=php,phpt . --standard=ruleset.xml --colors; fi
 
 cache:
     directories:

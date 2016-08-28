@@ -17,7 +17,7 @@ class TestsRunner {
   /** @var TestCase[] */
   protected $suits = [];
   /** @var array */
-  static $autoloader = [];
+  static public $autoloader = [];
   /** @var array */
   public $onExecute = [];
   
