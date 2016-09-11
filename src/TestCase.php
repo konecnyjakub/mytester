@@ -71,9 +71,12 @@ abstract class TestCase {
       if(is_array($data)) {
         foreach($data as $value) {
           $job["params"][0] = $value;
+          $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);
+          $job["params"] = [];
         }
+      } else {
+        $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]); 
       }
-      $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);
     }
     return $jobs;
   }
