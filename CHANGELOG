@@ -1,12 +1,12 @@
 Version 2.0-dev
-- removed Runner
+- BC break: removed Runner
 - simplified output
 - automated tests runner exits with 0/1 depending on whetever all tests passed
 - deprecated Environment::testStats()
 - added option to mark test method as supposed to fail
 - removed option to save the output to file(s)
-- removed method Environment::getOutput()
-- removed second parameter of Environment::printLine()
+- BC break: removed method Environment::getOutput()
+- BC break: removed second parameter of Environment::printLine()
 - added script for automated tests runner, see README
 
 Version 1.1
