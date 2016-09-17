@@ -24,7 +24,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $config = $this->getConfig($this->defaults);
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("runner"))
-      ->setClass("MyTester\Bridges\NetteDI\TestsRunner");
+      ->setClass(TestsRunner::class);
     if(!is_dir($config["folder"])) throw new \Exception("Invalid folder {$config["folder"]} for $this->name.folder");
     $tester = new \MyTester\Tester($config["folder"]);
     $this->suits = $tester->getSuits();
