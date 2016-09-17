@@ -14,7 +14,7 @@ abstract class TestCase {
   const METHOD_PATTERN = '#^test[A-Z0-9_]#';
   
   /**
-   * Check whetever to skip a test method
+   * Check whether to skip a test method
    * 
    * @param \Nette\Reflection\Method $method
    * @return bool|string

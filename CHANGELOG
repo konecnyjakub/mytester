@@ -1,7 +1,7 @@
 Version 2.0-dev
 - BC break: removed Runner
 - simplified output
-- automated tests runner exits with 0/1 depending on whetever all tests passed
+- automated tests runner exits with 0/1 depending on whether all tests passed
 - deprecated Environment::testStats()
 - added option to mark test method as supposed to fail
 - removed option to save the output to file(s)
@@ -15,13 +15,13 @@ Version 1.1
 - improved deprecation message for Runner
 - added option to skip a test if current sapi is different
 - added event onExecute to TestsRunner
-- TestsRunner::execute() now returns whetever the tests failed
+- TestsRunner::execute() now returns whatever the tests failed
 
 Version 1.0
 - added dependency on tracy/tracy
-- BC break: Environment::testStats() takes 2 paramaters now, second one is name is Tracy's timer
+- BC break: Environment::testStats() takes 2 parameters now, second one is name is Tracy's timer
 - added integration for nette/di
-- Assert::tryAssertion() now supports custom messages for succes and failure
+- Assert::tryAssertion() now supports custom messages for success and failure
 - improved success and failure messages for some built-in assertions
 - code refactoring
 - added new assertion notCount
@@ -72,8 +72,8 @@ Version 0.9.1a
 - made possible installation via composer
 
 Version 0.9.1
-- print correct line ending when run from browswer
+- print correct line ending when run from browser
 - small code refactoring
 
 Version 0.9.0
-- initital version
+- initial version

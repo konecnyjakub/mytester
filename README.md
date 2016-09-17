@@ -12,7 +12,7 @@ The best way to install My Tester is via Composer. Just add konecnyjakub/myteste
 Usage
 -----
 ### Setting up
-Firstly, you have to include My Tester's files and set up environement for testing.
+Firstly, you have to include My Tester's files and set up environment for testing.
 
 ```php
 require "path_to_your_project/vendor/autoload.php";
@@ -20,7 +20,7 @@ MyTester\Environment::setup();
 ```
 
 ### Tests
-After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples (hopefully self exlaining):
+After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples (hopefully self explaining):
 ```php
 use MyTester\Assert;
 
@@ -32,7 +32,7 @@ Assert::type("string", $string);
 . It is also possible to run custom assertions with Assert::tryAssertion().
 
 ### Test Case
-It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automaticaly launched when you call method "run". An example:
+It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automatically launched when you call method "run". An example:
 ```php
 class Tests extends MyTester\TestCase {
   function testA() {
@@ -62,7 +62,7 @@ class Tests extends MyTester\TestCase {
 ```
 
 #### Custom names for tests
-You can give test methods and whole test suits custom names that will be displayed in the output instead of standart NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
+You can give test methods and whole test suits custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
 ```php
 /**
  * @testSuit MyTests
@@ -89,7 +89,7 @@ class Tests extends MyTester\TestCase {
   }
 }
 ```
-. You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be exectued if the current sapi is different. Skipped tests are shown in output. Examples:
+. You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. Skipped tests are shown in output. Examples:
 ```php
 class Tests extends MyTester\TestCase {
   /**
@@ -119,7 +119,7 @@ $folder = __DIR__ . "/tests";
 $tester = new MyTester\Tester($folder);
 $tester->execute();
 ```
-The automaded tests runner needs package nette/robot-loader.
+The automated tests runner needs package nette/robot-loader.
 
 You may also use prepared script *./vendor/bin/mytester*. It will use folder your_project_root/tests but you can specify any folder as its first argument:
 ```
@@ -133,7 +133,7 @@ If you are developing a Nette application, you may want to use our extension for
 extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 ```
-The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder paramter to the extension:
+The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder parameter to the extension:
 ```
 mytester:
     folder: %wwwDir%/tests
