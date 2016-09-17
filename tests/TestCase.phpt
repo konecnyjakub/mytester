@@ -44,7 +44,7 @@ class TestCaseTest extends MT\TestCase {
   }
   
   /**
-   * Test custome test's name
+   * Test custom test's name
    * 
    * @test Custom name
    * @return void

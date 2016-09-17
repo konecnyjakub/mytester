@@ -8,6 +8,7 @@ Version 2.0-dev
 - BC break: removed method Environment::getOutput()
 - BC break: removed second parameter of Environment::printLine()
 - added script for automated tests runner, see README
+- BC break: parameter $params in Job::__construct() must always be an array
 
 Version 1.1
 - the environment for nette di extension is now set up in TestsRunner::execute()

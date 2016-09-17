@@ -63,6 +63,7 @@ class Tester {
     Environment::printInfo();
     $failed = false;
     foreach($this->suits as $suit) {
+      /** @var TestCase $suit */
       $suit = new $suit[0];
       $result = $suit->run();
       if(!$result) $failed = true;

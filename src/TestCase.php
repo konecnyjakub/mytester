@@ -63,7 +63,7 @@ abstract class TestCase {
       $rm = $r->getMethod($method);
       $data = NULL;
       $job = [
-        "name" => $this->getJobName($rm), "callback" => [$this, $method], "params" => NULL, "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
+        "name" => $this->getJobName($rm), "callback" => [$this, $method], "params" => [], "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
       ];
       if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
         $data = (array) $rm->getAnnotation("data");
@@ -162,12 +162,13 @@ abstract class TestCase {
         return "F";
         break;
     }
+    return "";
   }
   
   /**
    * Runs the test suit
    * 
-   * @return void
+   * @return bool
    */
   function run() {
     $this->startUp();
