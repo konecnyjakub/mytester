@@ -50,7 +50,7 @@ spl_autoload_register(?);', [$this->suits, TestsRunner::class . "::autoload"]);
     foreach($container->findByTag(self::TAG) as $suit => $foo) {
       $initialize->addBody('$runner->addSuit($this->getService(?));', [$suit]);
     }
-    $onExecute = array_merge(["MyTester\Environment::setup", "MyTester\Environment::printInfo"], $config["onExecute"]);
+    $onExecute = array_merge(['MyTester\Environment::setup', 'MyTester\Environment::printInfo'], $config["onExecute"]);
     foreach($onExecute as &$task) {
       if(!is_array($task)) {
         $task = explode("::", $task);
