@@ -36,9 +36,8 @@ abstract class Environment {
    */
   static function testResult($text, $success = true) {
     static::incCounter();
-    $output = "Test " . static::$taskCount . " ";
-    if($success) $output .= "passed";
-    else $output .= "failed";
+    if($success) return;
+    $output = "Test " . static::$taskCount . " failed";
     static::printLine($output . ". $text");
   }
    
