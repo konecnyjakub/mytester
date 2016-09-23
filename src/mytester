@@ -15,12 +15,14 @@ function findVendorDirectory() {
   return $findVendor();
 }
 
-$vendorDir = findVendorDirectory();
+function getTestsDirectory() {
+  if(!isset($_SERVER["argv"][1])) return dirname(findVendorDirectory()) . "/tests";
+  else return $_SERVER["argv"][1];
+}
 
-require $vendorDir . "/autoload.php";
+require findVendorDirectory() . "/autoload.php";
 
-if(!isset($_SERVER["argv"][1])) $testsDir = dirname($vendorDir) . "/tests";
-else $testsDir = $_SERVER["argv"][1];
+$testsDir = getTestsDirectory();
 $tester = new MyTester\Tester($testsDir);
 $tester->execute();
 ?>
