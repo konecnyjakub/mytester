@@ -20,13 +20,9 @@ abstract class Assert {
    * @return void
    */
   static function tryAssertion($code, $successText = "", $failureText = "") {
-    $success = true;
     if(!assert($code)) $success = false;
-    if($success AND Environment::getShouldFail()) {
-      $success = false;
-    } elseif(!$success AND Environment::getShouldFail()) {
-      $success = true;
-    }
+    else $success = true;
+    if(Environment::getShouldFail()) $success = !$success;
     if($success) $message = ($successText === "") ? "Assertion \"$code\" is true." : $successText;
     else $message = ($failureText === "") ? "Assertion \"$code\" is not true." : $failureText;
     Environment::testResult($message, $success);
@@ -40,13 +36,9 @@ abstract class Assert {
    * @return void
    */
   static function same($expected, $actual) {
-    $success = true;
     if($expected != $actual) $success = false;
-    if($success AND Environment::getShouldFail()) {
-      $success = false;
-    } elseif(!$success AND Environment::getShouldFail()) {
-      $success = true;
-    }
+    else $success = true;
+    if(Environment::getShouldFail()) $success = !$success;
     if($success) $message = "The value is $expected.";
     else $message = "The value is not $expected but $actual.";
     Environment::testResult($message, $success);
