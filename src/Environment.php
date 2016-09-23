@@ -95,6 +95,7 @@ abstract class Environment {
    * Prints entered text with correct line ending
    * 
    * @param string $text Text to print
+   * @return void
    */
   static function printLine($text) {
     if(static::$mode == "http") echo "$text<br>\n";
