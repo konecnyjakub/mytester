@@ -41,27 +41,6 @@ abstract class Environment {
     else $output .= "failed";
     static::printLine($output . ". $text");
   }
-  
-  /**
-   * Print stats for a test
-   * 
-   * @param string $results
-   * @param string $timer
-   * @return void
-   * @deprecated
-   */
-  static function testStats($results, $timer) {
-    trigger_error(get_class() . "::" . __METHOD__ . " is now deprecated.", E_USER_DEPRECATED);
-    $testsPassed = substr_count($results, " passed. ");
-    $testsFailed = substr_count($results, " failed. ");
-    $testsTotal = $testsPassed + $testsFailed;
-    static::printLine("Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.");
-    $jobsExecuted = substr_count($results, "*Finished ");
-    $jobsSkipped = substr_count($results, "*Skipping ");
-    if($jobsExecuted OR $jobsSkipped) static::printLine("Executed $jobsExecuted job(s), skipped $jobsSkipped.");
-    $time = \Tracy\Debugger::timer($timer);
-    static::printLine("Execution time: $time second(s)");
-  }
    
    /**
    * @param string $results
