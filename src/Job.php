@@ -1,6 +1,8 @@
 <?php
 namespace MyTester;
 
+require_once __DIR__ . "/functions.php";
+
 /**
  * One job of the test suite
  *
@@ -82,6 +84,7 @@ class Job {
       if($failed AND !$this->shouldFail) {
         $this->result = "failed";
       }
+      if(strlen($output) AND $this->result === "failed") file_put_contents(\getTestsDirectory() . "/$this->name.errors", $output);
     }
     Environment::setShouldFail(false);
   }

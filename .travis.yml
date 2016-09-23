@@ -25,6 +25,9 @@ script:
     - $PHP_BIN ./src/mytester
     - $PHP_BIN ./tests/NetteDI.php
 
+after_failure:
+    - for i in $(find ./tests -name \*.errors); do echo "--- $i"; cat $i; echo; echo; done
+
 cache:
     directories:
         - $HOME/.composer/cache
