@@ -12,7 +12,7 @@ The best way to install My Tester is via Composer. Just add konecnyjakub/myteste
 Usage
 -----
 ### Setting up
-Firstly, you have to include My Tester's files and set up environement for testing.
+Firstly, you have to include My Tester's files and set up environment for testing.
 
 ```php
 require "path_to_your_project/vendor/autoload.php";
@@ -25,7 +25,7 @@ MyTester\Environment::setup("file");
 . The name of created file(s) will be displayed.
 
 ### Tests
-After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples (hopefully self exlaining):
+After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples (hopefully self explaining):
 ```php
 use MyTester\Assert;
 
@@ -37,7 +37,7 @@ Assert::type("string", $string);
 . It is also possible to run custom assertions with Assert::tryAssertion().
 
 ### Test Case
-It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automaticaly launched when you call method "run". An example:
+It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automatically launched when you call method "run". An example:
 ```php
 class Tests extends MyTester\TestCase {
   function testA() {
@@ -67,7 +67,7 @@ class Tests extends MyTester\TestCase {
 ```
 
 #### Custom names for tests
-You can give test methods and whole test suits custom names that will be displayed in the output instead of standart NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
+You can give test methods and whole test suits custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
 ```php
 /**
  * @testSuit MyTests
@@ -124,7 +124,7 @@ $folder = __DIR__ . "/tests";
 $tester = new MyTester\Tester($folder);
 $tester->execute();
 ```
-The automaded tests runner needs package nette/robot-loader.
+The automated tests runner needs package nette/robot-loader.
 
 Nette applications
 ------------------
@@ -133,7 +133,7 @@ If you are developing a Nette application, you may want to use our extension for
 extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 ```
-The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder paramter to the extension:
+The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder parameter to the extension:
 ```
 mytester:
     folder: %wwwDir%/tests

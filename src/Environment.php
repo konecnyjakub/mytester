@@ -27,7 +27,7 @@ abstract class Environment {
    * Prints result of a test
    * 
    * @param string $text Details
-   * @param bool $success Whetever the test was successful
+   * @param bool $success Whether the test was successful
    * @return void
    */
   static function testResult($text, $success = true) {
