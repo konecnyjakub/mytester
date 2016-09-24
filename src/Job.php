@@ -70,16 +70,15 @@ class Job {
   function execute() {
     Environment::resetCounter();
     Environment::setShouldFail($this->shouldFail);
-    $output  = "";
-    ob_start();
     if($this->skip) {
       $this->result = "skipped";
       Environment::addSkipped($this->name, (!is_bool($this->skip)? $this->skip: ""));
     } else {
+      ob_start();
       if(isset($this->callback)) {
         call_user_func_array($this->callback, $this->params);
       }
-      $output .= ob_get_clean();
+      $output = ob_get_clean();
       $failed = Environment::checkFailed($output);
       if($failed AND !$this->shouldFail) {
         $this->result = "failed";
