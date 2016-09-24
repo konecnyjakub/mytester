@@ -1,6 +1,8 @@
 <?php
 namespace MyTester;
 
+use Nette\Utils\Finder;
+
 /**
  * Automated tests runner
  * 
@@ -75,9 +77,15 @@ class Tester {
       Environment::printLine("Skipped {$skipped["name"]}$reason");
     }
     if($failed) {
-      echo "Failed";
+      Environment::printLine("Failed");
+      Environment::printLine("");
+      $files = Finder::findFiles("*.errors")->in(\getTestsDirectory());
+      foreach($files as $name => $file) {
+        Environment::printLine("--- ". substr($file->getBaseName(), 0 , -7));
+        echo file_get_contents($name);
+      }
     } else {
-      echo "OK";
+      Environment::printLine("OK");
     }
     exit((int) $failed);
   }

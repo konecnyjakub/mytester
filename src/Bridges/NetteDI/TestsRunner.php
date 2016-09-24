@@ -2,7 +2,8 @@
 namespace MyTester\Bridges\NetteDI;
 
 use MyTester\TestCase,
-    MyTester\Environment;
+    MyTester\Environment,
+    Nette\Utils\Finder;
 
 /**
  * Tests Runner
@@ -62,7 +63,13 @@ class TestsRunner {
       Environment::printLine("Skipped {$skipped["name"]}$reason");
     }
     if($failed) {
-      echo "Failed";
+      Environment::printLine("Failed");
+      Environment::printLine("");
+      $files = Finder::findFiles("*.errors")->in(\getTestsDirectory());
+      foreach($files as $name => $file) {
+        Environment::printLine("--- ". substr($file->getBaseName(), 0 , -7));
+        echo file_get_contents($name);
+      }
     } else {
       echo "OK";
     }
