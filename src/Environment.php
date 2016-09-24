@@ -110,6 +110,7 @@ abstract class Environment {
    * 
    * @param string $text Text to print
    * @param bool $ignoreOutput Whetever to ignore output, useful only in http mode
+   * @return void
    */
   static function printLine($text, $ignoreOutput = false) {
     if(static::$mode == "http" AND $ignoreOutput) echo "$text<br>\n";
