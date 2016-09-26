@@ -133,6 +133,12 @@ If you are developing a Nette application, you may want to use our extension for
 extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 ```
+Then you get service named mytester.runner (of type MyTester\Bridges\NetteDI\TestsRunner) from the container and run its method execute.
+```php
+$container->getService("mytester.runner")->execute(); //or
+$container->getByType(MyTester\Bridges\NetteDI\TestsRunner::class)->execute();
+```
+
 The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder parameter to the extension:
 ```
 mytester:
