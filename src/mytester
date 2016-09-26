@@ -4,7 +4,6 @@ require_once __DIR__ . "/functions.php";
 
 require findVendorDirectory() . "/autoload.php";
 
-$testsDir = getTestsDirectory();
-$tester = new MyTester\Tester($testsDir);
+$tester = new MyTester\Tester(getTestsDirectory());
 $tester->execute();
 ?>
