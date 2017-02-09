@@ -20,7 +20,9 @@ abstract class TestCase {
    * @return bool|string
    */
   protected function checkSkip(\Nette\Reflection\Method $method) {
-    if(!$method->hasAnnotation("skip")) return false;
+    if(!$method->hasAnnotation("skip")) {
+      return false;
+    }
     $value = $method->getAnnotation("skip");
     if(is_scalar($value)) {
       return (bool) $value;
@@ -31,18 +33,26 @@ abstract class TestCase {
         switch ($k) {
           case "php":
             $skip = version_compare(PHP_VERSION, $v, "<");
-            if($skip) $reason = "PHP version is lesser than $v";
+            if($skip) {
+              $reason = "PHP version is lesser than $v";
+            }
             break;
           case "extension":
             $skip = !extension_loaded($v);
-            if($skip) $reason = "extension $v is not loaded";
+            if($skip) {
+              $reason = "extension $v is not loaded";
+            }
             break;
           case "sapi":
             $skip = PHP_SAPI != $v;
-            if($skip) $reason = "the sapi is not $v";
+            if($skip) {
+              $reason = "the sapi is not $v";
+            }
             break;
         }
-        if($skip) return $reason;
+        if($skip) {
+          return $reason;
+        }
       }
     }
     return false;
@@ -89,7 +99,9 @@ abstract class TestCase {
   protected function getSuitName() {
     $suitName = get_class($this);
     $r = new \Nette\Reflection\ClassType($suitName);
-    if($r->hasAnnotation("testSuit")) $suitName = (string) $r->getAnnotation("testSuit");
+    if($r->hasAnnotation("testSuit")) {
+      $suitName = (string) $r->getAnnotation("testSuit");
+    }
     return $suitName;
   }
   
@@ -100,8 +112,11 @@ abstract class TestCase {
    * @return string
    */
   protected function getJobName(\Nette\Reflection\Method $method) {
-    if($method->hasAnnotation("test")) return (string) $method->getAnnotation("test");
-    else return $this->getSuitName() . "::" . $method->getName();
+    if($method->hasAnnotation("test")) {
+      return (string) $method->getAnnotation("test");
+    } else {
+      return $this->getSuitName() . "::" . $method->getName();
+    }
   }
   
   /**
@@ -147,9 +162,13 @@ abstract class TestCase {
   protected function runJob(Job $job) {
     $jobName = $this->getJobName(\Nette\Reflection\Method::from($job->callback[0], $job->callback[1]));
     Environment::$currentJob = $jobName;
-    if(!$job->skip) $this->setUp();
+    if(!$job->skip) {
+      $this->setUp();
+    }
     $job->execute();
-    if(!$job->skip) $this->tearDown();
+    if(!$job->skip) {
+      $this->tearDown();
+    }
     Environment::$currentJob = "";
     switch ($job->result) {
       case "passed":
@@ -177,7 +196,9 @@ abstract class TestCase {
     $passed = true;
     foreach($jobs as $job) {
       $output .= $this->runJob($job);
-      if($job->result === "failed") $passed = false;
+      if($job->result === "failed")  {
+        $passed = false;
+      }
     }
     $this->shutDown();
     echo $output;

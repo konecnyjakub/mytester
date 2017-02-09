@@ -15,7 +15,10 @@ function findVendorDirectory() {
 }
 
 function getTestsDirectory() {
-  if(!isset($_SERVER["argv"][1])) return dirname(findVendorDirectory()) . "/tests";
-  else return $_SERVER["argv"][1];
+  if(!isset($_SERVER["argv"][1])) {
+    return dirname(findVendorDirectory()) . "/tests";
+  } else {
+    return $_SERVER["argv"][1];
+  }
 }
 ?>

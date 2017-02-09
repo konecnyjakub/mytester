@@ -7,7 +7,7 @@ require_once __DIR__ . "/functions.php";
  * One job of the test suite
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2016, Jakub Konečný
+ * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read callable $callback
  * @property-read bool $skip
@@ -83,7 +83,9 @@ class Job {
       if($failed AND !$this->shouldFail) {
         $this->result = "failed";
       }
-      if(strlen($output) AND $this->result === "failed") file_put_contents(\getTestsDirectory() . "/$this->name.errors", $output);
+      if(strlen($output) AND $this->result === "failed") {
+        file_put_contents(\getTestsDirectory() . "/$this->name.errors", $output);
+      }
     }
     Environment::setShouldFail(false);
   }

@@ -9,7 +9,7 @@ use MyTester\TestCase,
  * Tests Runner
  *
  * @author Jakub Konečný
- * @copyright (c) 2016, Jakub Konečný
+ * @copyright (c) 2016-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @method void onExecute()
  */
@@ -54,12 +54,17 @@ class TestsRunner {
     $failed = false;
     foreach($this->suits as $suit) {
       $result = $suit->run();
-      if(!$result) $failed = true;
+      if(!$result) {
+        $failed = true;
+      }
     }
     Environment::printLine("");
     foreach(Environment::getSkipped() as $skipped) {
-      if($skipped["reason"]) $reason = ": {$skipped["reason"]}";
-      else $reason = "";
+      if($skipped["reason"]) {
+        $reason = ": {$skipped["reason"]}";
+      } else {
+        $reason = "";
+      }
       Environment::printLine("Skipped {$skipped["name"]}$reason");
     }
     if($failed) {

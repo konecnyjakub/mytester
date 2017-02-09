@@ -7,7 +7,7 @@ use Nette\Utils\Finder;
  * Automated tests runner
  * 
  * @author Jakub Konečný
- * @copyright (c) 2015-2016, Jakub Konečný
+ * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read array $suits
  */
@@ -68,12 +68,17 @@ class Tester {
       /** @var TestCase $suit */
       $suit = new $suit[0];
       $result = $suit->run();
-      if(!$result) $failed = true;
+      if(!$result) {
+        $failed = true;
+      }
     }
     Environment::printLine("");
     foreach(Environment::getSkipped() as $skipped) {
-      if($skipped["reason"]) $reason = ": {$skipped["reason"]}";
-      else $reason = "";
+      if($skipped["reason"]) {
+        $reason = ": {$skipped["reason"]}";
+      } else {
+        $reason = "";
+      }
       Environment::printLine("Skipped {$skipped["name"]}$reason");
     }
     if($failed) {

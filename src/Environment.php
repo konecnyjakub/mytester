@@ -5,7 +5,7 @@ namespace MyTester;
  * Testing Environment
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2016, Jakub Konečný
+ * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class Environment {
@@ -36,7 +36,9 @@ abstract class Environment {
    */
   static function testResult($text, $success = true) {
     static::incCounter();
-    if($success) return;
+    if($success) {
+      return;
+    }
     $output = "Test " . static::$taskCount . " failed";
     static::printLine($output . ". $text");
   }
@@ -98,8 +100,11 @@ abstract class Environment {
    * @return void
    */
   static function printLine($text) {
-    if(static::$mode == "http") echo "$text<br>\n";
-    else echo "$text\n";
+    if(static::$mode == "http") {
+      echo "$text<br>\n";
+    } else {
+      echo "$text\n";
+    }
   }
   
   /**
