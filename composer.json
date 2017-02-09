@@ -17,7 +17,7 @@
         "issues": "https://github.com/konecnyjakub/mytester/issues"
    },
     "require": {
-        "php": ">=5.6.0",
+        "php": ">=7.0.0",
         "nette/reflection": "~2.4",
         "tracy/tracy": "~2.4"
     },
