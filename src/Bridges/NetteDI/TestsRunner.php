@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
+require_once __DIR__ . "/../../functions.php";
+
 use MyTester\TestCase,
     MyTester\Environment,
     Nette\Utils\Finder;

@@ -1,0 +1,8 @@
+parameters:
+    excludes_analyse:
+        - %rootDir%/../../../tests/temp/*
+    fileExtensions:
+        - php
+        - phpt
+    autoload_directories:
+        - %rootDir%/../../../tests
