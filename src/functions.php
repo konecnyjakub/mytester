@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 function findVendorDirectory() {
   $recursionLimit = 10;
   $findVendor = function ($dirName = "vendor/bin", $dir = __DIR__) use (&$findVendor, &$recursionLimit) {

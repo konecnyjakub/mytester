@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace MyTester;
 
 /**
@@ -32,7 +34,7 @@ abstract class TestCase {
       foreach($value as $k => $v) {
         switch ($k) {
           case "php":
-            $skip = version_compare(PHP_VERSION, $v, "<");
+            $skip = version_compare(PHP_VERSION, (string) $v, "<");
             if($skip) {
               $reason = "PHP version is lesser than $v";
             }
