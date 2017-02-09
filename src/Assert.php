@@ -5,7 +5,7 @@ namespace MyTester;
  * Assertions
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2016, Jakub Konečný
+ * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class Assert {
@@ -116,8 +116,11 @@ abstract class Assert {
         Environment::testResult("$needle is not in the variable.", false);
       }
     } elseif(is_array($actual)) {
-      if(in_array($needle, $actual)) Environment::testResult("$needle is in the variable.");
-      else Environment::testResult("$needle is not in the variable.", false);
+      if(in_array($needle, $actual)) {
+        Environment::testResult("$needle is in the variable.");
+      } else {
+        Environment::testResult("$needle is not in the variable.", false);
+      }
     } else {
       Environment::testResult("$needle is not in the variable.", false);
     }
@@ -140,8 +143,11 @@ abstract class Assert {
         Environment::testResult("$needle is in the variable.", false);
       }
     } elseif(is_array($actual)) {
-      if(!in_array($needle, $actual)) Environment::testResult("$needle is not in the variable.");
-      else Environment::testResult("$needle is in the variable.", false);
+      if(!in_array($needle, $actual)) {
+        Environment::testResult("$needle is not in the variable.");
+      } else {
+        Environment::testResult("$needle is in the variable.", false);
+      }
     } else {
       Environment::testResult("$needle is not in the variable.", false);
     }

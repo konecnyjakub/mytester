@@ -5,7 +5,7 @@ namespace MyTester;
  * Runner for test suit
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2016, Jakub Konečný
+ * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @deprecated since version 1.0
  */
@@ -22,7 +22,9 @@ class Runner {
    * @deprecated since version 1.0
    */
   function __construct($name) {
-    if(is_string($name)) $this->name = $name;
+    if(is_string($name)) {
+      $this->name = $name;
+    }
     trigger_error(get_class() . " is deprecated and will be removed in version 2.0.", E_USER_DEPRECATED);
   }
   

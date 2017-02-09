@@ -5,7 +5,7 @@ namespace MyTester;
  * One job of the test suite
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2016, Jakub Konečný
+ * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read bool $skip
  */
@@ -30,7 +30,9 @@ class Job {
   function __construct($name, callable $callback, $params = "", $skip = false) {
     $this->name = (string) $name;
     $this->callback = $callback;
-    if(is_array($params)) $this->params = $params;
+    if(is_array($params)) {
+      $this->params = $params;
+    }
     $this->skip = (bool) $skip;
   }
   

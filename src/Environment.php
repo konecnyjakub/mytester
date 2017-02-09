@@ -5,7 +5,7 @@ namespace MyTester;
  * Testing Environment
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2016, Jakub Konečný
+ * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class Environment {
@@ -33,8 +33,11 @@ abstract class Environment {
   static function testResult($text, $success = true) {
     static::incCounter();
     $output = "Test " . static::$taskCount . " ";
-    if($success) $output .= "passed";
-    else $output .= "failed";
+    if($success) {
+      $output .= "passed";
+    } else {
+      $output .= "failed";
+    }
     static::printLine($output . ". $text");
   }
   
@@ -52,7 +55,9 @@ abstract class Environment {
     static::printLine("Executed $testsTotal tests. $testsPassed passed, $testsFailed failed.");
     $jobsExecuted = substr_count($results, "*Finished ");
     $jobsSkipped = substr_count($results, "*Skipping ");
-    if($jobsExecuted OR $jobsSkipped) static::printLine("Executed $jobsExecuted job(s), skipped $jobsSkipped.");
+    if($jobsExecuted OR $jobsSkipped) {
+      static::printLine("Executed $jobsExecuted job(s), skipped $jobsSkipped.");
+    }
     $time = \Tracy\Debugger::timer($timer);
     static::printLine("Execution time: $time second(s)");
   }
@@ -113,9 +118,13 @@ abstract class Environment {
    * @return void
    */
   static function printLine($text, $ignoreOutput = false) {
-    if(static::$mode == "http" AND $ignoreOutput) echo "$text<br>\n";
-    elseif(static::$mode == "http" AND static::$output == "screen") echo "$text<br>\n";
-    else echo "$text\n";
+    if(static::$mode == "http" AND $ignoreOutput) {
+      echo "$text<br>\n";
+    } elseif(static::$mode == "http" AND static::$output == "screen") {
+      echo "$text<br>\n";
+    } else {
+      echo "$text\n";
+    }
   }
   
   /**

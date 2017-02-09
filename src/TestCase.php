@@ -20,7 +20,9 @@ abstract class TestCase {
    * @return bool
    */
   protected function checkSkip(\Nette\Reflection\Method $method) {
-    if(!$method->hasAnnotation("skip")) return false;
+    if(!$method->hasAnnotation("skip")) {
+      return false;
+    }
     $value = $method->getAnnotation("skip");
     if(is_scalar($value)) {
       return (bool) $value;
@@ -38,7 +40,9 @@ abstract class TestCase {
             $skip = PHP_SAPI != $v;
             break;
         }
-        if($skip) return true;
+        if($skip) {
+          return true;
+        }
       }
     }
     return false;
@@ -85,7 +89,9 @@ abstract class TestCase {
   protected function getSuitName() {
     $suitName = get_class($this);
     $r = new \Nette\Reflection\ClassType($suitName);
-    if($r->hasAnnotation("testSuit")) $suitName = (string) $r->getAnnotation("testSuit");
+    if($r->hasAnnotation("testSuit")) {
+      $suitName = (string) $r->getAnnotation("testSuit");
+    }
     return $suitName;
   }
   
@@ -96,8 +102,11 @@ abstract class TestCase {
    * @return string
    */
   protected function getJobName(\Nette\Reflection\Method $method) {
-    if($method->hasAnnotation("test")) return (string) $method->getAnnotation("test");
-    else return $this->getSuitName() . "::" . $method->getName();
+    if($method->hasAnnotation("test")) {
+      return (string) $method->getAnnotation("test");
+    } else {
+      return $this->getSuitName() . "::" . $method->getName();
+    }
   }
   
   /**
@@ -141,9 +150,13 @@ abstract class TestCase {
    * @return array
    */
   protected function runJob(Job $job) {
-    if(!$job->skip) $this->setUp();
+    if(!$job->skip) {
+      $this->setUp();
+    }
     $output =  $job->execute();
-    if(!$job->skip) $this->tearDown();
+    if(!$job->skip) {
+      $this->tearDown();
+    }
     return $output;
   }
   
