@@ -65,7 +65,7 @@ abstract class TestCase {
    * 
    * @return Job[]
    */
-  protected function getJobs() {
+  protected function getJobs(): array {
     $jobs = [];
     $r = new \Nette\Reflection\ClassType(get_class($this));
     $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
@@ -98,7 +98,7 @@ abstract class TestCase {
    * 
    * @return string
    */
-  protected function getSuitName() {
+  protected function getSuitName(): string {
     $suitName = get_class($this);
     $r = new \Nette\Reflection\ClassType($suitName);
     if($r->hasAnnotation("testSuit")) {
@@ -113,7 +113,7 @@ abstract class TestCase {
    * @param \Nette\Reflection\Method $method
    * @return string
    */
-  protected function getJobName(\Nette\Reflection\Method $method) {
+  protected function getJobName(\Nette\Reflection\Method $method): string {
     if($method->hasAnnotation("test")) {
       return (string) $method->getAnnotation("test");
     } else {
@@ -161,7 +161,7 @@ abstract class TestCase {
    * @param \MyTester\Job $job
    * @return string
    */
-  protected function runJob(Job $job) {
+  protected function runJob(Job $job): string {
     $jobName = $this->getJobName(\Nette\Reflection\Method::from($job->callback[0], $job->callback[1]));
     Environment::$currentJob = $jobName;
     if(!$job->skip) {
@@ -191,7 +191,7 @@ abstract class TestCase {
    * 
    * @return bool
    */
-  function run() {
+  function run(): bool {
     $this->startUp();
     $jobs = $this->getJobs();
     $output = "";

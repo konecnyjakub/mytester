@@ -38,8 +38,8 @@ class Job {
    * @param bool|string $skip
    * @param bool $shouldFail
    */
-  function __construct($name, callable $callback, array $params = [], $skip = false, $shouldFail = false) {
-    $this->name = (string) $name;
+  function __construct(string $name, callable $callback, array $params = [], $skip = false, bool $shouldFail = false) {
+    $this->name = $name;
     $this->callback = $callback;
     $this->params = $params;
     $this->skip = $skip;
@@ -49,7 +49,7 @@ class Job {
   /**
    * @return callable
    */
-  function getCallback() {
+  function getCallback(): callable {
     return $this->callback;
   }
   
@@ -60,7 +60,10 @@ class Job {
     return $this->skip;
   }
   
-  function getResult() {
+  /**
+   * @return string
+   */
+  function getResult(): string {
     return $this->result;
   }
   

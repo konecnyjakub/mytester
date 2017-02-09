@@ -29,7 +29,7 @@ class TestJobs {
    * @param string $text
    * @return void
    */
-  function testParams($params, $text) {
+  function testParams(array $params, string $text) {
     Assert::same("abc", $params[0]);
     Assert::same("def", $text);
   }
@@ -42,7 +42,7 @@ class TestJobs {
  * @testSuit JobTest
  */
 class JobTest extends \MyTester\TestCase {
-  protected function getJobs() {
+  protected function getJobs(): array {
     $test = new TestJobs();
     $job = new Job("Test Job", [$test, "test"]);
     $params = [

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-function findVendorDirectory() {
+function findVendorDirectory(): string {
   $recursionLimit = 10;
   $findVendor = function ($dirName = "vendor/bin", $dir = __DIR__) use (&$findVendor, &$recursionLimit) {
     if (!$recursionLimit--) {
@@ -16,7 +16,7 @@ function findVendorDirectory() {
   return $findVendor();
 }
 
-function getTestsDirectory() {
+function getTestsDirectory(): string {
   if(!isset($_SERVER["argv"][1])) {
     return dirname(findVendorDirectory()) . "/tests";
   } else {

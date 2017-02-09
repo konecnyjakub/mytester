@@ -39,7 +39,7 @@ class TestsRunner {
    * @param string $class
    * @return void
    */
-  static function autoload($class) {
+  static function autoload(string $class) {
     foreach(static::$autoloader as $suit) {
       if($suit[0] === $class) {
         require $suit[1];
@@ -51,7 +51,7 @@ class TestsRunner {
   /**
    * @return bool
    */
-  function execute() {
+  function execute(): bool {
     $this->onExecute();
     $failed = false;
     foreach($this->suits as $suit) {

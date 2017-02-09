@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 namespace MyTester\Tests;
 
 use MyTester as MT;
@@ -40,7 +38,7 @@ class TestCaseTest extends MT\TestCase {
    * @return void
    * @data(abc, adef)   
    */
-  function testParams($text) {
+  function testParams(string $text) {
     Assert::type("string", $text);
     Assert::contains("a", $text);
   }

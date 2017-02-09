@@ -36,7 +36,7 @@ abstract class Environment {
    * @param bool $success Whether the test was successful
    * @return void
    */
-  static function testResult($text, $success = true) {
+  static function testResult(string $text, bool $success = true) {
     static::incCounter();
     if($success) {
       return;
@@ -49,7 +49,7 @@ abstract class Environment {
    * @param string $results
    * @return bool
    */
-  static function checkFailed($results) {
+  static function checkFailed(string $results): bool {
     $testsFailed = substr_count($results, " failed. ");
     return (bool) $testsFailed;
   }
@@ -59,7 +59,7 @@ abstract class Environment {
    * 
    * @return bool
    */
-  static function isSetUp() {
+  static function isSetUp(): bool {
     return static::$set;
   }
   
@@ -84,14 +84,14 @@ abstract class Environment {
   /**
    * @return int
    */
-  static function getCounter() {
+  static function getCounter(): int {
     return static::$taskCount;
   }
   
   /**
    * @return string
    */     
-  static function getMode() {
+  static function getMode(): string {
     return static::$mode;
   }
   
@@ -101,7 +101,7 @@ abstract class Environment {
    * @param string $text Text to print
    * @return void
    */
-  static function printLine($text) {
+  static function printLine(string $text) {
     if(static::$mode == "http") {
       echo "$text<br>\n";
     } else {
@@ -114,21 +114,21 @@ abstract class Environment {
    * @param string|bool $reason
    * @return void
    */
-  static function addSkipped($jobName, $reason = "") {
+  static function addSkipped(string $jobName, $reason = "") {
     static::$skipped[] = ["name" => $jobName, "reason" => $reason];
   }
   
   /**
    * @return array
    */
-  static function getSkipped() { 
+  static function getSkipped(): array {
     return static::$skipped;
   }
   
   /**
    * @return bool
    */
-  static function getShouldFail() {
+  static function getShouldFail(): bool {
     return static::$shouldFail;
   }
   
@@ -136,8 +136,8 @@ abstract class Environment {
    * @param bool $value
    * @return void
    */
-  static function setShouldFail($value) {
-    static::$shouldFail = (bool) $value;
+  static function setShouldFail(bool $value) {
+    static::$shouldFail = $value;
   }
   
   /**

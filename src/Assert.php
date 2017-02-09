@@ -21,7 +21,7 @@ abstract class Assert {
    * @param string $failureText Text to print on failure
    * @return void
    */
-  static function tryAssertion($code, $successText = "", $failureText = "") {
+  static function tryAssertion($code, string $successText = "", string $failureText = "") {
     if(!assert($code)) {
       $success = false;
     } else {
@@ -174,7 +174,7 @@ abstract class Assert {
    * @param string|array|\Countable $value
    * @return void
    */
-  static function count($count, $value) {
+  static function count(int $count, $value) {
     if(!is_array($value) AND !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) == $count) {
@@ -192,7 +192,7 @@ abstract class Assert {
    * @param string|array|\Countable $value
    * @return void
    */
-  static function notCount($count, $value) {
+  static function notCount(int $count, $value) {
     if(!is_array($value) AND !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) == $count) {

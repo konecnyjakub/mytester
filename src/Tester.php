@@ -22,7 +22,7 @@ class Tester {
   /**
    * @param string $folder
    */
-  function __construct($folder) {
+  function __construct(string $folder) {
     $this->suits = $this->findSuits($folder);
   }
   
@@ -32,7 +32,7 @@ class Tester {
    * @param string $folder Where to look
    * @return string[]
    */
-  protected function findSuits($folder) {
+  protected function findSuits(string $folder): array {
     $suits = [];
     $robot = new \Nette\Loaders\RobotLoader;
     $robot->setCacheStorage(new \Nette\Caching\Storages\DevNullStorage);
@@ -53,7 +53,7 @@ class Tester {
   /**
    * @return string[]
    */
-  function getSuits() {
+  function getSuits(): array {
     return $this->suits;
   }
   
