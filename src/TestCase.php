@@ -5,7 +5,7 @@ namespace MyTester;
  * One test suit
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2016, Jakub Konečný
+ * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class TestCase {
@@ -22,7 +22,7 @@ abstract class TestCase {
   protected function checkSkip(\Nette\Reflection\Method $method) {
     if(!$method->hasAnnotation("skip")) return false;
     $value = $method->getAnnotation("skip");
-    if(is_string($value) OR is_int($value) OR is_float($value) OR is_bool($value)) {
+    if(is_scalar($value)) {
       return (bool) $value;
     } elseif($value instanceof \Nette\Utils\ArrayHash) {
       $skip = false;
