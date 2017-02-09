@@ -22,7 +22,7 @@ class Job {
   protected $callback;
   /** @var array Additional parameters */
   protected $params = [];
-  /** @var bool */
+  /** @var bool|string */
   protected $skip;
   /** @var bool */
   protected $shouldFail;
@@ -52,7 +52,7 @@ class Job {
   }
   
   /**
-   * @return bool
+   * @return bool|string
    */
   function getSkip() {
     return $this->skip;

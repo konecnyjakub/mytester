@@ -80,7 +80,7 @@ abstract class Environment {
   }
   
   /**
-   * @return string
+   * @return int
    */
   static function getCounter() {
     return static::$taskCount;
@@ -109,7 +109,7 @@ abstract class Environment {
   
   /**
    * @param string $jobName
-   * @param string $reason
+   * @param string|bool $reason
    * @return void
    */
   static function addSkipped($jobName, $reason = "") {

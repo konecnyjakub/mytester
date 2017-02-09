@@ -14,7 +14,7 @@ abstract class Assert {
   /**
    * Tries an assertion
    * 
-   * @param string $code Assertion to try
+   * @param mixed $code Assertion to try
    * @param string $successText Text to print on success
    * @param string $failureText Text to print on failure
    * @return void
@@ -115,7 +115,7 @@ abstract class Assert {
    * Does $actual contain $needle?
    * 
    * @param string|array $needle
-   * @param array $actual
+   * @param string|array $actual
    * @return void
    */
   static function contains($needle, $actual) {
@@ -142,7 +142,7 @@ abstract class Assert {
    * Does $actual not contain $needle?
    * 
    * @param string|array $needle
-   * @param array $actual
+   * @param string|array $actual
    * @return void
    */
   static function notContains($needle, $actual) {
@@ -169,7 +169,7 @@ abstract class Assert {
    * Does $value contain $count items?
    * 
    * @param int $count
-   * @param array|\Countable $value
+   * @param string|array|\Countable $value
    * @return void
    */
   static function count($count, $value) {
@@ -187,7 +187,7 @@ abstract class Assert {
    * Does $value not contain $count items?
    * 
    * @param int $count
-   * @param array|\Countable $value
+   * @param string|array|\Countable $value
    * @return void
    */
   static function notCount($count, $value) {
