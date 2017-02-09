@@ -1,5 +1,4 @@
 /tests          export-ignore
-.gitattributes  export-ignore
-.gitignore      export-ignore
+.git*           export-ignore
 apigen.neon     export-ignore
 mytester.php    export-ignore
