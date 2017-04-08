@@ -46,6 +46,13 @@
       <property name="indent" value="2"/>
     </properties>
   </rule>
+  <rule ref="Squiz.Classes.DuplicateProperty"/>
+  <rule ref="Squiz.Classes.ValidClassName"/>
+  <rule ref="Squiz.ControlStructures">
+    <exclude name="Squiz.ControlStructures.ControlSignature"/>
+    <exclude name="Squiz.ControlStructures.ElseIfDeclaration"/>
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration"/>
+  </rule>
   <rule ref="Squiz.PHP.CommentedOutCode"/>
   <rule ref="Squiz.PHP.DiscouragedFunctions"/>
   <rule ref="Squiz.PHP.Eval"/>
