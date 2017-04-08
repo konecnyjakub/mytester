@@ -17,9 +17,9 @@ install:
     - composer install --no-interaction --prefer-dist
   
 script:
-    - if [ "$PHP_BIN" = "php" ]; then ./vendor/bin/parallel-lint src tests -e php,phpt; fi
-    - if [ "$PHP_BIN" = "php" ]; then ./vendor/bin/phpcs --extensions=php,phpt . --standard=ruleset.xml --colors; fi
-    - if [ "$PHP_BIN" = "php" ]; then ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests; fi
+    - ./vendor/bin/parallel-lint src tests -e php,phpt
+    - ./vendor/bin/phpcs --extensions=php,phpt . --standard=ruleset.xml --colors
+    - ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests
     - $PHP_BIN ./src/mytester
     - $PHP_BIN ./tests/NetteDI.php
 
