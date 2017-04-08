@@ -36,7 +36,7 @@ abstract class Environment {
    * @param bool $success Whether the test was successful
    * @return void
    */
-  static function testResult(string $text, bool $success = true) {
+  static function testResult(string $text, bool $success = true): void {
     static::incCounter();
     if($success) {
       return;
@@ -68,7 +68,7 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function incCounter() {
+  static function incCounter(): void {
     static::$taskCount++;
   }
   
@@ -77,7 +77,7 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function resetCounter() {
+  static function resetCounter(): void {
     static::$taskCount = 0;
   }
   
@@ -101,7 +101,7 @@ abstract class Environment {
    * @param string $text Text to print
    * @return void
    */
-  static function printLine(string $text) {
+  static function printLine(string $text): void {
     if(static::$mode == "http") {
       echo "$text<br>\n";
     } else {
@@ -114,7 +114,7 @@ abstract class Environment {
    * @param string|bool $reason
    * @return void
    */
-  static function addSkipped(string $jobName, $reason = "") {
+  static function addSkipped(string $jobName, $reason = ""): void {
     static::$skipped[] = ["name" => $jobName, "reason" => $reason];
   }
   
@@ -136,7 +136,7 @@ abstract class Environment {
    * @param bool $value
    * @return void
    */
-  static function setShouldFail(bool $value) {
+  static function setShouldFail(bool $value): void {
     static::$shouldFail = $value;
   }
   
@@ -145,7 +145,7 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function printInfo() {
+  static function printInfo(): void {
     static::printLine(static::NAME . " " . static::VERSION);
     static::printLine("");
     static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")");
@@ -157,7 +157,7 @@ abstract class Environment {
    *   
    * @return void
    */
-  static function setup() {
+  static function setup(): void {
     if(!static::$set) {
       assert_options(ASSERT_ACTIVE, 1);
       assert_options(ASSERT_QUIET_EVAL, 1);

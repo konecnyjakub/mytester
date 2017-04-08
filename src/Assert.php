@@ -21,7 +21,7 @@ abstract class Assert {
    * @param string $failureText Text to print on failure
    * @return void
    */
-  static function tryAssertion($code, string $successText = "", string $failureText = "") {
+  static function tryAssertion($code, string $successText = "", string $failureText = ""): void {
     if(!assert($code)) {
       $success = false;
     } else {
@@ -45,7 +45,7 @@ abstract class Assert {
    * @param mixed $actual
    * @return void
    */
-  static function same($expected, $actual) {
+  static function same($expected, $actual): void {
     if($expected != $actual) {
       $success = false;
     } else {
@@ -69,7 +69,7 @@ abstract class Assert {
    * @param mixed $actual
    * @return void
    */
-  static function notSame($expected, $actual) {
+  static function notSame($expected, $actual): void {
     static::tryAssertion("$expected !== $actual", "The value is not $expected.", "The value is $expected.");
   }
   
@@ -79,7 +79,7 @@ abstract class Assert {
    * @param mixed $actual
    * @return void
    */
-  static function true($actual) {
+  static function true($actual): void {
     static::tryAssertion($actual, "The expression is true.", "The expression is not true.");
   }
   
@@ -89,7 +89,7 @@ abstract class Assert {
    * @param mixed $actual
    * @return void
    */
-  static function false($actual) {
+  static function false($actual): void {
     static::tryAssertion(!$actual, "The expression is false.", "The expression is not false.");
   }
   
@@ -99,7 +99,7 @@ abstract class Assert {
    * @param mixed $actual
    * @return void
    */
-  static function null($actual) {
+  static function null($actual): void {
     static::tryAssertion($actual == NULL, "The value is null.", "The value is not null.");
   }
   
@@ -109,7 +109,7 @@ abstract class Assert {
    * @param mixed $actual
    * @return void
    */
-  static function notNull($actual) {
+  static function notNull($actual): void {
     static::tryAssertion($actual !== NULL, "The value is not null.", "The value is null.");
   }
   
@@ -120,7 +120,7 @@ abstract class Assert {
    * @param string|array $actual
    * @return void
    */
-  static function contains($needle, $actual) {
+  static function contains($needle, $actual): void {
     if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual)) {
@@ -147,7 +147,7 @@ abstract class Assert {
    * @param string|array $actual
    * @return void
    */
-  static function notContains($needle, $actual) {
+  static function notContains($needle, $actual): void {
     if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual)) {
@@ -174,7 +174,7 @@ abstract class Assert {
    * @param string|array|\Countable $value
    * @return void
    */
-  static function count(int $count, $value) {
+  static function count(int $count, $value): void {
     if(!is_array($value) AND !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) == $count) {
@@ -192,7 +192,7 @@ abstract class Assert {
    * @param string|array|\Countable $value
    * @return void
    */
-  static function notCount(int $count, $value) {
+  static function notCount(int $count, $value): void {
     if(!is_array($value) AND !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) == $count) {
@@ -210,7 +210,7 @@ abstract class Assert {
    * @param mixed $value
    * @return void
    */
-  static function type($type, $value) {
+  static function type($type, $value): void {
     if(!is_object($type) AND !is_string($type)) {
       Environment::testResult("Type must be string or object.", false);
     } elseif(in_array($type, ["array", "bool", "callable", "float",

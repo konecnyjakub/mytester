@@ -62,7 +62,7 @@ class Tester {
    * 
    * @return void
    */
-  function execute() {
+  function execute(): void {
     Environment::setup();
     Environment::printInfo();
     $failed = false;

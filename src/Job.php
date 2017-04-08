@@ -72,7 +72,7 @@ class Job {
    * 
    * @return void
    */
-  function execute() {
+  function execute(): void {
     Environment::resetCounter();
     Environment::setShouldFail($this->shouldFail);
     if($this->skip) {
