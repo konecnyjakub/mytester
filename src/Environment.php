@@ -168,7 +168,7 @@ abstract class Environment {
         static::printLine("Total run time: $time second(s)");
       });
       \Tracy\Debugger::timer(static::NAME);
-      static::$mode = (PHP_SAPI == "cli" ? "cli": "http");
+      static::$mode = ((PHP_SAPI == "cli") ? "cli" : "http");
       static::$set = true;
     } else {
       static::printLine("Warning: Testing Environment was already set up.");

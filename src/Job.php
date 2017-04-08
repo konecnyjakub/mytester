@@ -77,7 +77,7 @@ class Job {
     Environment::setShouldFail($this->shouldFail);
     if($this->skip) {
       $this->result = "skipped";
-      Environment::addSkipped($this->name, (!is_bool($this->skip)? $this->skip: ""));
+      Environment::addSkipped($this->name, (!is_bool($this->skip) ? $this->skip : ""));
     } else {
       ob_start();
       if(isset($this->callback)) {
