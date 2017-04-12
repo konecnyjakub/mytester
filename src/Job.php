@@ -43,7 +43,7 @@ class Job {
     $this->callback = $callback;
     $this->params = $params;
     $this->skip = $skip;
-    $this->shouldFail = (bool) $shouldFail;
+    $this->shouldFail = $shouldFail;
   }
   
   /**
