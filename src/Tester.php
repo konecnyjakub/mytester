@@ -35,7 +35,11 @@ class Tester {
   protected function findSuits(string $folder): array {
     $suits = [];
     $robot = new \Nette\Loaders\RobotLoader;
-    $robot->setCacheStorage(new \Nette\Caching\Storages\DevNullStorage);
+    if(is_dir("$folder/_temp")) {
+      $robot->setTempDirectory("$folder/_temp/cache/Robot.Loader");
+    } else {
+      $robot->setTempDirectory("$folder/temp/cache/Robot.Loader");
+    }
     $robot->addDirectory($folder);
     $robot->acceptFiles = "*.phpt";
     $robot->rebuild();
