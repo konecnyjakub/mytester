@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Nette\Utils\Finder;
+use Nette\Utils\Finder,
+    Nette\Utils\FileSystem;
 
 /**
  * Automated tests runner
@@ -36,10 +37,12 @@ class Tester {
     $suits = [];
     $robot = new \Nette\Loaders\RobotLoader;
     if(is_dir("$folder/_temp")) {
-      $robot->setTempDirectory("$folder/_temp/cache/Robot.Loader");
+      $tempDir = "$folder/_temp/cache/Robot.Loader";
     } else {
-      $robot->setTempDirectory("$folder/temp/cache/Robot.Loader");
+      $tempDir = "$folder/temp/cache/Robot.Loader";
     }
+    FileSystem::createDir($tempDir);
+    $robot->setTempDirectory($tempDir);
     $robot->addDirectory($folder);
     $robot->acceptFiles = "*.phpt";
     $robot->rebuild();
