@@ -24,7 +24,7 @@ install:
 script:
     - ./vendor/bin/parallel-lint src tests -e php,phpt
     - ./vendor/bin/phpcs --extensions=php,phpt . --standard=ruleset.xml --colors
-    - ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests
+    - ./vendor/bin/phpstan analyze -l 7 -c phpstan.neon src tests
     - $PHP_BIN ./src/mytester
     - $PHP_BIN ./tests/NetteDI.php
 

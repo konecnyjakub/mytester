@@ -9,3 +9,5 @@ parameters:
         - phpt
     autoload_directories:
         - %rootDir%/../../../tests
+    ignoreErrors:
+        - '#Call to function count\(\) with argument type mixed\[\]\|Countable\|string will always result in number 1#'
