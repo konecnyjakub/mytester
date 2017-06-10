@@ -2,6 +2,7 @@ language: php
 
 php:
     - 7.1
+    - nightly
 
 notifications:
     email: false
@@ -9,7 +10,11 @@ notifications:
 env:
     - PHP_BIN=php
     - PHP_BIN=php-cgi
-    
+
+matrix:
+    allow_failures:
+        - php: nightly
+
 before_install:
     - composer self-update
 
