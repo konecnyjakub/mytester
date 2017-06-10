@@ -87,7 +87,7 @@ abstract class TestCase {
           $job["params"] = [];
         }
       } else {
-        $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]); 
+        $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);
       }
     }
     return $jobs;
