@@ -36,6 +36,11 @@
             "MyTester\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "MyTester\\": "tests/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-stable": "1.2.x-dev"
