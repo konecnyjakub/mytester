@@ -155,7 +155,7 @@ abstract class Environment {
         static::printLine("Total run time: $time second(s)");
       });
       \Tracy\Debugger::timer(static::NAME);
-      static::$mode = (PHP_SAPI == "cli" ? "cli": "http");
+      static::$mode = ((PHP_SAPI == "cli") ? "cli" : "http");
       if(in_array($output, ["screen", "file"])) {
         static::$output = $output;
       } else {

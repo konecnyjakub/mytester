@@ -17,11 +17,10 @@ before_install:
     - composer self-update
 
 install:
-    - composer install --no-interaction --prefer-dist
+    - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
   
 script:
-    - ./vendor/bin/parallel-lint src tests -e php,phpt
-    - ./vendor/bin/phpcs --extensions=php,phpt . --standard=ruleset.xml --colors
+    - ./phing -Dbinary=$PHP_BIN
 
 cache:
     directories:
