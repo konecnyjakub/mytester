@@ -1,11 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\Tests;
-
-use MyTester\Assert,
-    MyTester\Job,
-    MyTester\Environment;
+namespace MyTester;
 
 /**
  * Tests for class Job
@@ -41,7 +37,7 @@ class TestJobs {
  * @author Jakub Konečný
  * @testSuit JobTest
  */
-class JobTest extends \MyTester\TestCase {
+class JobTest extends TestCase {
   protected function getJobs(): array {
     $test = new TestJobs();
     $job = new Job("Test Job", [$test, "test"]);

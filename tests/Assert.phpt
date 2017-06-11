@@ -1,19 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\Tests;
-
-use MyTester as MT;
-use MyTester\Assert;
+namespace MyTester;
 
 /**
  * Test suite for class Assert
  *
  * @author Jakub Konečný
  */
-class AssertTest extends MT\TestCase {
+class AssertTest extends TestCase {
   function shutDown() {
-    Assert::false(MT\Environment::getShouldFail());
+    Assert::false(Environment::getShouldFail());
   }
   
   /**

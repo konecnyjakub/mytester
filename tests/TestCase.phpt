@@ -1,8 +1,5 @@
 <?php
-namespace MyTester\Tests;
-
-use MyTester as MT;
-use MyTester\Assert;
+namespace MyTester;
 
 /**
  * Test suite for class TestCase
@@ -11,7 +8,7 @@ use MyTester\Assert;
  * @author Jakub Konečný
  * @property-read bool|int $one
  */
-class TestCaseTest extends MT\TestCase {
+class TestCaseTest extends TestCase {
   private $one = false;
   
   function getOne() {
@@ -28,7 +25,7 @@ class TestCaseTest extends MT\TestCase {
   
   function shutDown() {
     Assert::false($this->one);
-    Assert::same("", \MyTester\Environment::$currentJob);
+    Assert::same("", Environment::$currentJob);
   }
   
   /**
@@ -50,7 +47,7 @@ class TestCaseTest extends MT\TestCase {
    * @return void
    */
   function testTestName() {
-    Assert::same("Custom name", \MyTester\Environment::$currentJob);
+    Assert::same("Custom name", Environment::$currentJob);
     Assert::same(1, $this->one);
   }
   
