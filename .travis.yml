@@ -19,14 +19,10 @@ before_install:
     - composer self-update
 
 install:
-    - composer install --no-interaction --prefer-dist
+    - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
   
 script:
-    - ./vendor/bin/parallel-lint src tests -e php,phpt
-    - ./vendor/bin/phpcs --extensions=php,phpt . --standard=ruleset.xml --colors
-    - ./vendor/bin/phpstan analyze -l 7 -c phpstan.neon src tests
-    - $PHP_BIN ./src/mytester
-    - $PHP_BIN ./tests/NetteDI.php
+    - ./phing -Dbinary=$PHP_BIN
 
 cache:
     directories:
