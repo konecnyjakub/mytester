@@ -1,15 +1,12 @@
 <?php
-namespace MyTester\Tests;
-
-use MyTester as MT;
-use MyTester\Assert;
+namespace MyTester;
 
 /**
  * Test suite for class Assert
  *
  * @author Jakub Konečný
  */
-class AssertTest extends MT\TestCase {
+class AssertTest extends TestCase {
   /**
    * Test assertion function
    * 

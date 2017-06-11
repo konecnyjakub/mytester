@@ -1,8 +1,5 @@
 <?php
-namespace MyTester\Tests;
-
-use MyTester as MT;
-use MyTester\Assert;
+namespace MyTester;
 
 /**
  * Test suite for class TestCase
@@ -11,7 +8,7 @@ use MyTester\Assert;
  * @author Jakub Konečný
  * @property-read bool|int $one
  */
-class TestCaseTest extends MT\TestCase {
+class TestCaseTest extends TestCase {
   private $one = false;
   
   function getOne() {

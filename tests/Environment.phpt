@@ -1,28 +1,25 @@
 <?php
-namespace MyTester\Tests;
-
-use MyTester as MT;
-use MyTester\Assert;
+namespace MyTester;
 
 /**
  * Test suite for class Environment
  *
  * @author Jakub Konečný
  */
-class EnvironmentTest extends MT\TestCase {
+class EnvironmentTest extends TestCase {
   /**
    * Tests for Environment
    * 
    * @return void
    */
   function testEnvironment() {
-    Assert::same("cli", MT\Environment::getMode());
-    Assert::true(MT\Environment::isSetUp());
-    Assert::same(2, MT\Environment::getCounter());
-    MT\Environment::incCounter();
-    Assert::same(4, MT\Environment::getCounter());
-    MT\Environment::resetCounter();
-    Assert::same(0, MT\Environment::getCounter());
+    Assert::same("cli", Environment::getMode());
+    Assert::true(Environment::isSetUp());
+    Assert::same(2, Environment::getCounter());
+    Environment::incCounter();
+    Assert::same(4, Environment::getCounter());
+    Environment::resetCounter();
+    Assert::same(0, Environment::getCounter());
   }
   
   /**
@@ -33,7 +30,7 @@ class EnvironmentTest extends MT\TestCase {
    * @skip(sapi=cgi-fcgi)
    */
   function testCgiSapi() {
-    Assert::same("http", MT\Environment::getMode());
+    Assert::same("http", Environment::getMode());
   }
   
   /**
@@ -44,7 +41,7 @@ class EnvironmentTest extends MT\TestCase {
    * @skip(sapi=cli)
    */
   function testCliSapi() {
-    Assert::same("cli", MT\Environment::getMode());
+    Assert::same("cli", Environment::getMode());
   }
 }
 ?>

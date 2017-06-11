@@ -1,9 +1,5 @@
 <?php
-namespace MyTester\Tests;
-
-use MyTester\Assert,
-    MyTester\Job,
-    MyTester\Environment;
+namespace MyTester;
 
 /**
  * Tests for class Job
