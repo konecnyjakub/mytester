@@ -18,7 +18,7 @@
    <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
      <arg value="--extensions=php,phpt"/>
      <arg value="."/>
-     <arg value="--standard=ruleset.xml"/>
+     <arg value="--standard=phpcs.xml"/>
      <arg value="--colors"/>
    </exec>
    <exec executable="${binary}" logoutput="true" passthru="true" checkreturn="true">
