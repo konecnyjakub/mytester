@@ -4,7 +4,7 @@ declare(strict_types=1);
 require __DIR__ . "/../vendor/autoload.php";
 
 $configurator = new Nette\Configurator;
-@mkdir(__DIR__ . "/temp");
+Nette\Utils\FileSystem::createDir(__DIR__ . "/temp");
 $configurator->setTempDirectory(__DIR__ . "/temp");
 $configurator->addConfig(__DIR__ . "/config.neon");
 $container = $configurator->createContainer();
