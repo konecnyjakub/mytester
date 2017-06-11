@@ -22,11 +22,7 @@ abstract class Assert {
    * @return void
    */
   static function tryAssertion($code, string $successText = "", string $failureText = ""): void {
-    if(!assert($code)) {
-      $success = false;
-    } else {
-      $success = true;
-    }
+    $success = assert($code);
     if(Environment::getShouldFail()) {
       $success = !$success;
     }
@@ -46,11 +42,7 @@ abstract class Assert {
    * @return void
    */
   static function same($expected, $actual): void {
-    if($expected != $actual) {
-      $success = false;
-    } else {
-      $success = true;
-    }
+    $success = ($expected == $actual);
     if(Environment::getShouldFail()) {
       $success = !$success;
     }

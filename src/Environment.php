@@ -103,10 +103,9 @@ abstract class Environment {
    */
   static function printLine(string $text): void {
     if(static::$mode == "http") {
-      echo "$text<br>\n";
-    } else {
-      echo "$text\n";
+      $text .= "<br>";
     }
+    echo "$text\n";
   }
   
   /**
@@ -158,21 +157,21 @@ abstract class Environment {
    * @return void
    */
   static function setup(): void {
-    if(!static::$set) {
-      assert_options(ASSERT_ACTIVE, 1);
-      assert_options(ASSERT_QUIET_EVAL, 1);
-      assert_options(ASSERT_WARNING, 0);
-      register_shutdown_function(function() {
-        $time = \Tracy\Debugger::timer(static::NAME);
-        static::printLine("");
-        static::printLine("Total run time: $time second(s)");
-      });
-      \Tracy\Debugger::timer(static::NAME);
-      static::$mode = ((PHP_SAPI == "cli") ? "cli" : "http");
-      static::$set = true;
-    } else {
+    if(static::$set) {
       static::printLine("Warning: Testing Environment was already set up.");
+      return;
     }
+    assert_options(ASSERT_ACTIVE, 1);
+    assert_options(ASSERT_QUIET_EVAL, 1);
+    assert_options(ASSERT_WARNING, 0);
+    register_shutdown_function(function() {
+      $time = \Tracy\Debugger::timer(static::NAME);
+      static::printLine("");
+      static::printLine("Total run time: $time second(s)");
+    });
+    \Tracy\Debugger::timer(static::NAME);
+    static::$mode = ((PHP_SAPI == "cli") ? "cli" : "http");
+    static::$set = true;
   }
 }
 ?>

@@ -36,10 +36,9 @@ class Tester {
   protected function findSuits(string $folder): array {
     $suits = [];
     $robot = new \Nette\Loaders\RobotLoader;
+    $tempDir = "$folder/temp/cache/Robot.Loader";
     if(is_dir("$folder/_temp")) {
       $tempDir = "$folder/_temp/cache/Robot.Loader";
-    } else {
-      $tempDir = "$folder/temp/cache/Robot.Loader";
     }
     FileSystem::createDir($tempDir);
     $robot->setTempDirectory($tempDir);
@@ -83,10 +82,9 @@ class Tester {
     }
     Environment::printLine("");
     foreach(Environment::getSkipped() as $skipped) {
+      $reason = "";
       if($skipped["reason"]) {
         $reason = ": {$skipped["reason"]}";
-      } else {
-        $reason = "";
       }
       Environment::printLine("Skipped {$skipped["name"]}$reason");
     }
