@@ -116,9 +116,8 @@ abstract class TestCase {
   protected function getJobName(\Nette\Reflection\Method $method): string {
     if($method->hasAnnotation("test")) {
       return (string) $method->getAnnotation("test");
-    } else {
-      return $this->getSuitName() . "::" . $method->getName();
     }
+    return $this->getSuitName() . "::" . $method->getName();
   }
   
   /**

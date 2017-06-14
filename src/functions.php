@@ -19,8 +19,7 @@ function findVendorDirectory(): string {
 function getTestsDirectory(): string {
   if(!isset($argv[1])) {
     return dirname(findVendorDirectory()) . "/tests";
-  } else {
-    return $argv[1];
   }
+  return $argv[1];
 }
 ?>
