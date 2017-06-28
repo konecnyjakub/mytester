@@ -150,7 +150,7 @@ coding_style:
                 finally_on_new_line: false
         upper_lower_casing:
             keywords:
-                general: undefined
+                general: lower
             constants:
                 true_false_null: undefined
 
@@ -160,5 +160,5 @@ build:
             version: 7.1
     tests:
         override:
-            - ./src/mytester
-            - ./tests/NetteDI.php
+            - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
+            - ./phing
