@@ -212,7 +212,7 @@ abstract class Assert {
       } else {
         Environment::testResult("The variable is $type.");
       }
-    } elseif (!$value instanceof $type) {
+    } elseif(!$value instanceof $type) {
       $actual = is_object($value) ? get_class($value) : gettype($value);
       Environment::testResult("The variable is instance of $actual.", false);
     } else {

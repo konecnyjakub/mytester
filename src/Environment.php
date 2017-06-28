@@ -31,7 +31,7 @@ abstract class Environment {
   
   /**
    * Prints result of a test
-   * 
+   *
    * @param string $text Details
    * @param bool $success Whether the test was successful
    * @return void
@@ -46,9 +46,9 @@ abstract class Environment {
   }
    
    /**
-   * @param string $results
-   * @return bool
-   */
+    * @param string $results
+    * @return bool
+    */
   public static function checkFailed(string $results): bool {
     $testsFailed = substr_count($results, " failed. ");
     return (bool) $testsFailed;

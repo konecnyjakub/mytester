@@ -194,7 +194,7 @@ abstract class TestCase {
     $passed = true;
     foreach($jobs as $job) {
       $output .= $this->runJob($job);
-      if($job->result === "failed")  {
+      if($job->result === "failed") {
         $passed = false;
       }
     }
