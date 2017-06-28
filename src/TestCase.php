@@ -125,7 +125,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function startUp() {
+  public function startUp() {
     
   }
   
@@ -134,7 +134,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function shutDown() {
+  public function shutDown() {
     
   }
   
@@ -143,7 +143,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function setUp() {
+  public function setUp() {
     
   }
   
@@ -152,7 +152,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function tearDown() {
+  public function tearDown() {
     
   }
   
@@ -190,7 +190,7 @@ abstract class TestCase {
    * 
    * @return bool
    */
-  function run(): bool {
+  public function run(): bool {
     $this->startUp();
     $jobs = $this->getJobs();
     $output = "";

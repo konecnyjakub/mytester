@@ -22,7 +22,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
    * @return void
    * @throws \Exception
    */
-  function loadConfiguration(): void {
+  public function loadConfiguration(): void {
     $config = $this->getConfig($this->defaults);
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("runner"))
@@ -43,7 +43,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
    * @param \Nette\PhpGenerator\ClassType $class
    * @return void
    */
-  function afterCompile(\Nette\PhpGenerator\ClassType $class): void {
+  public function afterCompile(\Nette\PhpGenerator\ClassType $class): void {
     $config = $this->getConfig($this->defaults);
     $container = $this->getContainerBuilder();
     $initialize = $class->methods["initialize"];

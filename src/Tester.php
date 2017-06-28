@@ -23,7 +23,7 @@ class Tester {
   /**
    * @param string $folder
    */
-  function __construct(string $folder) {
+  public function __construct(string $folder) {
     $this->suits = $this->findSuits($folder);
   }
   
@@ -59,7 +59,7 @@ class Tester {
   /**
    * @return string[]
    */
-  function getSuits(): array {
+  public function getSuits(): array {
     return $this->suits;
   }
   
@@ -68,7 +68,7 @@ class Tester {
    * 
    * @return void
    */
-  function execute(): void {
+  public function execute(): void {
     Environment::setup();
     Environment::printInfo();
     $failed = false;

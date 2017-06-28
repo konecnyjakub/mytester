@@ -25,9 +25,9 @@ abstract class Environment {
   /** @var array */
   static protected $skipped = [];
   /** @var string */
-  static public $currentJob = "";
+  public static $currentJob = "";
   /** @var bool */
-  static public $shouldFail = false;
+  public static $shouldFail = false;
   
   /**
    * Prints result of a test
@@ -36,7 +36,7 @@ abstract class Environment {
    * @param bool $success Whether the test was successful
    * @return void
    */
-  static function testResult(string $text, bool $success = true): void {
+  public static function testResult(string $text, bool $success = true): void {
     static::incCounter();
     if($success) {
       return;
@@ -49,7 +49,7 @@ abstract class Environment {
    * @param string $results
    * @return bool
    */
-  static function checkFailed(string $results): bool {
+  public static function checkFailed(string $results): bool {
     $testsFailed = substr_count($results, " failed. ");
     return (bool) $testsFailed;
   }
@@ -59,7 +59,7 @@ abstract class Environment {
    * 
    * @return bool
    */
-  static function isSetUp(): bool {
+  public static function isSetUp(): bool {
     return static::$set;
   }
   
@@ -68,7 +68,7 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function incCounter(): void {
+  public static function incCounter(): void {
     static::$taskCount++;
   }
   
@@ -77,21 +77,21 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function resetCounter(): void {
+  public static function resetCounter(): void {
     static::$taskCount = 0;
   }
   
   /**
    * @return int
    */
-  static function getCounter(): int {
+  public static function getCounter(): int {
     return static::$taskCount;
   }
   
   /**
    * @return string
    */     
-  static function getMode(): string {
+  public static function getMode(): string {
     return static::$mode;
   }
   
@@ -101,7 +101,7 @@ abstract class Environment {
    * @param string $text Text to print
    * @return void
    */
-  static function printLine(string $text): void {
+  public static function printLine(string $text): void {
     if(static::$mode == "http") {
       $text .= "<br>";
     }
@@ -113,21 +113,21 @@ abstract class Environment {
    * @param string|bool $reason
    * @return void
    */
-  static function addSkipped(string $jobName, $reason = ""): void {
+  public static function addSkipped(string $jobName, $reason = ""): void {
     static::$skipped[] = ["name" => $jobName, "reason" => $reason];
   }
   
   /**
    * @return array
    */
-  static function getSkipped(): array {
+  public static function getSkipped(): array {
     return static::$skipped;
   }
   
   /**
    * @return bool
    */
-  static function getShouldFail(): bool {
+  public static function getShouldFail(): bool {
     return static::$shouldFail;
   }
   
@@ -135,7 +135,7 @@ abstract class Environment {
    * @param bool $value
    * @return void
    */
-  static function setShouldFail(bool $value): void {
+  public static function setShouldFail(bool $value): void {
     static::$shouldFail = $value;
   }
   
@@ -144,7 +144,7 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function printInfo(): void {
+  public static function printInfo(): void {
     static::printLine(static::NAME . " " . static::VERSION);
     static::printLine("");
     static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")");
@@ -156,7 +156,7 @@ abstract class Environment {
    *   
    * @return void
    */
-  static function setup(): void {
+  public static function setup(): void {
     if(static::$set) {
       static::printLine("Warning: Testing Environment was already set up.");
       return;

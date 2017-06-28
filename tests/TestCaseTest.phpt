@@ -11,19 +11,19 @@ namespace MyTester;
 class TestCaseTest extends TestCase {
   private $one = false;
   
-  function getOne() {
+  public function getOne() {
     return $this->one;
   }
   
-  function setUp() {
+  public function setUp() {
     $this->one = 1;
   }
   
-  function tearDown() {
+  public function tearDown() {
     $this->one = false;
   }
   
-  function shutDown() {
+  public function shutDown() {
     Assert::false($this->one);
     Assert::same("", Environment::$currentJob);
   }
@@ -35,7 +35,7 @@ class TestCaseTest extends TestCase {
    * @return void
    * @data(abc, adef)   
    */
-  function testParams(string $text) {
+  public function testParams(string $text) {
     Assert::type("string", $text);
     Assert::contains("a", $text);
   }
@@ -46,7 +46,7 @@ class TestCaseTest extends TestCase {
    * @test Custom name
    * @return void
    */
-  function testTestName() {
+  public function testTestName() {
     Assert::same("Custom name", Environment::$currentJob);
     Assert::same(1, $this->one);
   }
@@ -58,7 +58,7 @@ class TestCaseTest extends TestCase {
    * @skip
    * @return void
    */
-  function testSkip() {
+  public function testSkip() {
     Assert::true(1);
   }
   
@@ -69,7 +69,7 @@ class TestCaseTest extends TestCase {
    * @skip(true)
    * @return void
    */
-  function testSkipBoolean() {
+  public function testSkipBoolean() {
     Assert::true(1);
   }
   
@@ -80,7 +80,7 @@ class TestCaseTest extends TestCase {
    * @skip(1)
    * @return void
    */
-  function testSkipInteger() {
+  public function testSkipInteger() {
     Assert::true(1);
   }
   
@@ -91,7 +91,7 @@ class TestCaseTest extends TestCase {
    * @skip(1.5)
    * @return void
    */
-  function testSkipFloat() {
+  public function testSkipFloat() {
     Assert::true(1);
   }
   
@@ -102,7 +102,7 @@ class TestCaseTest extends TestCase {
    * @skip(abc)
    * @return void
    */
-  function testSkipString() {
+  public function testSkipString() {
     Assert::true(1);
   }
   
@@ -113,7 +113,7 @@ class TestCaseTest extends TestCase {
    * @skip(php=8)
    * @return void
    */
-  function testSkipPhpVersion() {
+  public function testSkipPhpVersion() {
     Assert::true(1);
   }
   
@@ -123,7 +123,7 @@ class TestCaseTest extends TestCase {
    * @test Extension
    * @skip(extension=abc)
    */
-  function testSkipExtension() {
+  public function testSkipExtension() {
     Assert::true(1);
   }
 }

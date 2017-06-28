@@ -38,7 +38,7 @@ class Job {
    * @param bool|string $skip
    * @param bool $shouldFail
    */
-  function __construct(string $name, callable $callback, array $params = [], $skip = false, bool $shouldFail = false) {
+  public function __construct(string $name, callable $callback, array $params = [], $skip = false, bool $shouldFail = false) {
     $this->name = $name;
     $this->callback = $callback;
     $this->params = $params;
@@ -49,21 +49,21 @@ class Job {
   /**
    * @return callable
    */
-  function getCallback(): callable {
+  public function getCallback(): callable {
     return $this->callback;
   }
   
   /**
    * @return bool|string
    */
-  function getSkip() {
+  public function getSkip() {
     return $this->skip;
   }
   
   /**
    * @return string
    */
-  function getResult(): string {
+  public function getResult(): string {
     return $this->result;
   }
   
@@ -72,7 +72,7 @@ class Job {
    * 
    * @return void
    */
-  function execute(): void {
+  public function execute(): void {
     Environment::resetCounter();
     Environment::setShouldFail($this->shouldFail);
     if($this->skip) {
