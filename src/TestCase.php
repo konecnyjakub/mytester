@@ -174,13 +174,10 @@ abstract class TestCase {
     switch ($job->result) {
       case "passed":
         return ".";
-        break;
       case "skipped":
         return "s";
-        break;
       case "failed":
         return "F";
-        break;
     }
     return "";
   }
