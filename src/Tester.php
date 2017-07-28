@@ -26,7 +26,7 @@ class Tester {
   
   /**
    * Find test suits to run
-   * 
+   *
    * @return string[]
    */
   protected function findSuits(string $folder): array {
@@ -86,6 +86,7 @@ class Tester {
       Environment::printLine("Failed");
       Environment::printLine("");
       $files = Finder::findFiles("*.errors")->in(\getTestsDirectory());
+      /** @var \SplFileInfo $file */
       foreach($files as $name => $file) {
         Environment::printLine("--- " . substr($file->getBaseName(), 0, -7));
         echo file_get_contents($name);
