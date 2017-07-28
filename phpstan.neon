@@ -1,6 +1,3 @@
-includes:
-    - vendor/phpstan/phpstan-nette/extension.neon
-    - vendor/phpstan/phpstan-nette/rules.neon
 parameters:
     excludes_analyse:
         - %rootDir%/../../../tests/temp/*
