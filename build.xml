@@ -21,6 +21,15 @@
      <arg value="--standard=phpcs.xml"/>
      <arg value="--colors"/>
    </exec>
+   <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
+     <arg value="analyze"/>
+     <arg value="-l"/>
+     <arg value="7"/>
+     <arg value="-c"/>
+     <arg path="phpstan.neon"/>
+     <arg path="src"/>
+     <arg path="tests"/>
+   </exec>
    <exec executable="${binary}" logoutput="true" passthru="true" checkreturn="true">
      <arg path="src/mytester"/>
    </exec>

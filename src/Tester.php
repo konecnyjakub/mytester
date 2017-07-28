@@ -39,7 +39,7 @@ class Tester {
     FileSystem::createDir($tempDir);
     $robot->setTempDirectory($tempDir);
     $robot->addDirectory($folder);
-    $robot->acceptFiles = "*.phpt";
+    $robot->acceptFiles = ["*.phpt"];
     $robot->rebuild();
     $robot->register();
     $classes = $robot->getIndexedClasses();
