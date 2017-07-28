@@ -17,8 +17,7 @@ abstract class TestCase {
   
   /**
    * Check whether to skip a test method
-   * 
-   * @param \Nette\Reflection\Method $method
+   *
    * @return bool|string
    */
   protected function checkSkip(\Nette\Reflection\Method $method) {
@@ -95,8 +94,6 @@ abstract class TestCase {
   
   /**
    * Get name of current test suit
-   * 
-   * @return string
    */
   protected function getSuitName(): string {
     $suitName = get_class($this);
@@ -109,9 +106,6 @@ abstract class TestCase {
   
   /**
    * Get name for a job
-   * 
-   * @param \Nette\Reflection\Method $method
-   * @return string
    */
   protected function getJobName(\Nette\Reflection\Method $method): string {
     if($method->hasAnnotation("test")) {
@@ -156,10 +150,6 @@ abstract class TestCase {
     
   }
   
-  /**
-   * @param \MyTester\Job $job
-   * @return string
-   */
   protected function runJob(Job $job): string {
     $jobName = $this->getJobName(\Nette\Reflection\Method::from($job->callback[0], $job->callback[1]));
     Environment::$currentJob = $jobName;
@@ -184,8 +174,6 @@ abstract class TestCase {
   
   /**
    * Runs the test suit
-   * 
-   * @return bool
    */
   public function run(): bool {
     $this->startUp();

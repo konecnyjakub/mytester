@@ -15,8 +15,6 @@ class AssertTest extends TestCase {
   
   /**
    * Test assertion function
-   * 
-   * @return void
    */
   public function testAssertion() {
     Assert::same("abc", "abc");
@@ -42,8 +40,7 @@ class AssertTest extends TestCase {
   
   /**
    * Test assertion function, all should produce error
-   * 
-   * @return void
+   *
    * @fail
    */
   public function testAssertionFails() {
@@ -70,8 +67,6 @@ class AssertTest extends TestCase {
   
   /**
    * Test custom assertions and custom messages
-   *
-   * @return void      
    */
   public function testCustomAssertion() {
     Assert::tryAssertion("5 > 2", "5 is greater than 2.", "5 is not greater that 2.");

@@ -11,8 +11,6 @@ namespace MyTester;
 class TestJobs {
   /**
    * Test for Environment::testResult()
-   *
-   * @return void
    */
   public function test() {
     Environment::testResult("Test");
@@ -20,10 +18,6 @@ class TestJobs {
   
   /**
    * Test params for job
-   *
-   * @param array $params
-   * @param string $text
-   * @return void
    */
   public function testParams(array $params, string $text) {
     Assert::same("abc", $params[0]);

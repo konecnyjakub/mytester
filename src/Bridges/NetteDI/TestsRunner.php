@@ -27,19 +27,12 @@ class TestsRunner {
   /** @var array */
   public $onExecute = [];
   
-  /**
-   * @param TestCase $suit
-   * @return void
-   */
   public function addSuit(TestCase $suit): void {
     $this->suits[] = $suit;
   }
   
   /**
    * Autoloader for test suits
-   *
-   * @param string $class
-   * @return void
    */
   public static function autoload(string $class): void {
     foreach(static::$autoloader as $suit) {
@@ -50,9 +43,6 @@ class TestsRunner {
     }
   }
   
-  /**
-   * @return bool
-   */
   public function execute(): bool {
     $this->onExecute();
     $failed = false;

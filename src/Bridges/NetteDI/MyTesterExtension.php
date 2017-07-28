@@ -19,7 +19,6 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
   protected $defaults = ["folder" => "%appDir%/../tests", "onExecute" => []];
   
   /**
-   * @return void
    * @throws \Exception
    */
   public function loadConfiguration(): void {
@@ -39,10 +38,6 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     }
   }
   
-  /**
-   * @param \Nette\PhpGenerator\ClassType $class
-   * @return void
-   */
   public function afterCompile(\Nette\PhpGenerator\ClassType $class): void {
     $config = $this->getConfig($this->defaults);
     $container = $this->getContainerBuilder();

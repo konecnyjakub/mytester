@@ -30,9 +30,7 @@ class TestCaseTest extends TestCase {
   
   /**
    * Test parameters
-   * 
-   * @param string $text
-   * @return void
+   *
    * @data(abc, adef)   
    */
   public function testParams(string $text) {
@@ -44,7 +42,6 @@ class TestCaseTest extends TestCase {
    * Test custom test's name
    * 
    * @test Custom name
-   * @return void
    */
   public function testTestName() {
     Assert::same("Custom name", Environment::$currentJob);
@@ -56,7 +53,6 @@ class TestCaseTest extends TestCase {
    * 
    * @test Skip
    * @skip
-   * @return void
    */
   public function testSkip() {
     Assert::true(1);
@@ -67,7 +63,6 @@ class TestCaseTest extends TestCase {
    * 
    * @test Boolean
    * @skip(true)
-   * @return void
    */
   public function testSkipBoolean() {
     Assert::true(1);
@@ -78,7 +73,6 @@ class TestCaseTest extends TestCase {
    * 
    * @test Integer
    * @skip(1)
-   * @return void
    */
   public function testSkipInteger() {
     Assert::true(1);
@@ -89,7 +83,6 @@ class TestCaseTest extends TestCase {
    * 
    * @test Float
    * @skip(1.5)
-   * @return void
    */
   public function testSkipFloat() {
     Assert::true(1);
@@ -100,7 +93,6 @@ class TestCaseTest extends TestCase {
    * 
    * @test String
    * @skip(abc)
-   * @return void
    */
   public function testSkipString() {
     Assert::true(1);
@@ -111,7 +103,6 @@ class TestCaseTest extends TestCase {
    * 
    * @test PHP version
    * @skip(php=8)
-   * @return void
    */
   public function testSkipPhpVersion() {
     Assert::true(1);

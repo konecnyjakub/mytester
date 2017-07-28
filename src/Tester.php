@@ -20,9 +20,6 @@ class Tester {
   /** @var array */
   protected $suits;
   
-  /**
-   * @param string $folder
-   */
   public function __construct(string $folder) {
     $this->suits = $this->findSuits($folder);
   }
@@ -30,7 +27,6 @@ class Tester {
   /**
    * Find test suits to run
    * 
-   * @param string $folder Where to look
    * @return string[]
    */
   protected function findSuits(string $folder): array {
@@ -65,8 +61,6 @@ class Tester {
   
   /**
    * Execute all tests
-   * 
-   * @return void
    */
   public function execute(): void {
     Environment::setup();

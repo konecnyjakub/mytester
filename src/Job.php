@@ -46,9 +46,6 @@ class Job {
     $this->shouldFail = $shouldFail;
   }
   
-  /**
-   * @return callable
-   */
   public function getCallback(): callable {
     return $this->callback;
   }
@@ -60,17 +57,12 @@ class Job {
     return $this->skip;
   }
   
-  /**
-   * @return string
-   */
   public function getResult(): string {
     return $this->result;
   }
   
   /**
    * Executes the task
-   * 
-   * @return void
    */
   public function execute(): void {
     Environment::resetCounter();

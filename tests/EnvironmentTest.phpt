@@ -11,8 +11,7 @@ namespace MyTester;
 class EnvironmentTest extends TestCase {
   /**
    * Tests for Environment
-   * 
-   * @return void
+   *
    */
   public function testEnvironment() {
     Assert::type("string", Environment::getMode());
@@ -28,8 +27,7 @@ class EnvironmentTest extends TestCase {
   
   /**
    * Test skipping based on sapi
-   * 
-   * @return void
+   *
    * @test CGI sapi
    * @skip(sapi=cgi-fcgi)
    */
@@ -39,8 +37,7 @@ class EnvironmentTest extends TestCase {
   
   /**
    * Test skipping based on sapi
-   * 
-   * @return void
+   *
    * @test CLI sapi
    * @skip(sapi=cli)
    */
