@@ -31,10 +31,6 @@ abstract class Environment {
   
   /**
    * Prints result of a test
-   *
-   * @param string $text Details
-   * @param bool $success Whether the test was successful
-   * @return void
    */
   public static function testResult(string $text, bool $success = true): void {
     static::incCounter();
@@ -44,11 +40,7 @@ abstract class Environment {
     $output = "Test " . static::$taskCount . " failed";
     static::printLine($output . ". $text");
   }
-   
-   /**
-    * @param string $results
-    * @return bool
-    */
+  
   public static function checkFailed(string $results): bool {
     $testsFailed = substr_count($results, " failed. ");
     return (bool) $testsFailed;
@@ -56,8 +48,6 @@ abstract class Environment {
   
   /**
    * Checks if environment was set
-   * 
-   * @return bool
    */
   public static function isSetUp(): bool {
     return static::$set;
@@ -65,8 +55,6 @@ abstract class Environment {
   
   /**
    * Increases task counter
-   * 
-   * @return void
    */
   public static function incCounter(): void {
     static::$taskCount++;
@@ -74,32 +62,21 @@ abstract class Environment {
   
   /**
    * Resets task counter
-   * 
-   * @return void
    */
   public static function resetCounter(): void {
     static::$taskCount = 0;
   }
   
-  /**
-   * @return int
-   */
   public static function getCounter(): int {
     return static::$taskCount;
   }
   
-  /**
-   * @return string
-   */     
   public static function getMode(): string {
     return static::$mode;
   }
   
   /**
    * Prints entered text with correct line ending
-   * 
-   * @param string $text Text to print
-   * @return void
    */
   public static function printLine(string $text): void {
     if(static::$mode == "http") {
@@ -109,40 +86,26 @@ abstract class Environment {
   }
   
   /**
-   * @param string $jobName
    * @param string|bool $reason
-   * @return void
    */
   public static function addSkipped(string $jobName, $reason = ""): void {
     static::$skipped[] = ["name" => $jobName, "reason" => $reason];
   }
   
-  /**
-   * @return array
-   */
   public static function getSkipped(): array {
     return static::$skipped;
   }
   
-  /**
-   * @return bool
-   */
   public static function getShouldFail(): bool {
     return static::$shouldFail;
   }
   
-  /**
-   * @param bool $value
-   * @return void
-   */
   public static function setShouldFail(bool $value): void {
     static::$shouldFail = $value;
   }
   
   /**
    * Print version of My Tester and PHP
-   * 
-   * @return void
    */
   public static function printInfo(): void {
     static::printLine(static::NAME . " " . static::VERSION);
@@ -153,8 +116,6 @@ abstract class Environment {
   
   /**
    * Sets up the environment
-   *   
-   * @return void
    */
   public static function setup(): void {
     if(static::$set) {
