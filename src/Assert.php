@@ -21,7 +21,7 @@ abstract class Assert {
    * @param string $failureText Text to print on failure
    */
   public static function tryAssertion($code, string $successText = "", string $failureText = ""): void {
-    $success = assert($code);
+    $success = ($code == true);
     if(Environment::getShouldFail()) {
       $success = !$success;
     }
@@ -55,7 +55,14 @@ abstract class Assert {
    * @param mixed $actual
    */
   public static function notSame($expected, $actual): void {
-    static::tryAssertion("$expected !== $actual", "", "The value is $expected.");
+    $success = ($expected !== $actual);
+    if(Environment::getShouldFail()) {
+      $success = !$success;
+    }
+    if(!$success) {
+      $message = "The value is $expected.";
+    }
+    Environment::testResult($message ?? "", $success);
   }
   
   /**
@@ -64,7 +71,14 @@ abstract class Assert {
    * @param mixed $actual
    */
   public static function true($actual): void {
-    static::tryAssertion($actual, "", "The expression is not true.");
+    $success = ($actual == true);
+    if(Environment::getShouldFail()) {
+      $success = !$success;
+    }
+    if(!$success) {
+      $message = "The expression is not true.";
+    }
+    Environment::testResult($message ?? "", $success);
   }
   
   /**
@@ -73,7 +87,14 @@ abstract class Assert {
    * @param mixed $actual
    */
   public static function false($actual): void {
-    static::tryAssertion(!$actual, "", "The expression is not false.");
+    $success = ($actual == false);
+    if(Environment::getShouldFail()) {
+      $success = !$success;
+    }
+    if(!$success) {
+      $message = "The expression is not false.";
+    }
+    Environment::testResult($message ?? "", $success);
   }
   
   /**
@@ -82,7 +103,14 @@ abstract class Assert {
    * @param mixed $actual
    */
   public static function null($actual): void {
-    static::tryAssertion($actual == NULL, "", "The value is not null.");
+    $success = ($actual == NULL);
+    if(Environment::getShouldFail()) {
+      $success = !$success;
+    }
+    if(!$success) {
+      $message = "The value is not null.";
+    }
+    Environment::testResult($message ?? "", $success);
   }
   
   /**
@@ -91,7 +119,14 @@ abstract class Assert {
    * @param mixed $actual
    */
   public static function notNull($actual): void {
-    static::tryAssertion($actual !== NULL, "", "The value is null.");
+    $success = ($actual !== NULL);
+    if(Environment::getShouldFail()) {
+      $success = !$success;
+    }
+    if(!$success) {
+      $message = "The value is null.";
+    }
+    Environment::testResult($message ?? "", $success);
   }
   
   /**
