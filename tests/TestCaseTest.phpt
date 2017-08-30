@@ -57,7 +57,7 @@ class TestCaseTest extends TestCase {
    * @skip
    */
   public function testSkip() {
-    Assert::true(1);
+    Assert::true(0);
   }
   
   /**
@@ -67,7 +67,7 @@ class TestCaseTest extends TestCase {
    * @skip(true)
    */
   public function testSkipBoolean() {
-    Assert::true(1);
+    Assert::true(0);
   }
   
   /**
@@ -77,7 +77,7 @@ class TestCaseTest extends TestCase {
    * @skip(1)
    */
   public function testSkipInteger() {
-    Assert::true(1);
+    Assert::true(0);
   }
   
   /**
@@ -87,7 +87,7 @@ class TestCaseTest extends TestCase {
    * @skip(1.5)
    */
   public function testSkipFloat() {
-    Assert::true(1);
+    Assert::true(0);
   }
   
   /**
@@ -97,7 +97,7 @@ class TestCaseTest extends TestCase {
    * @skip(abc)
    */
   public function testSkipString() {
-    Assert::true(1);
+    Assert::true(0);
   }
   
   /**
@@ -107,7 +107,7 @@ class TestCaseTest extends TestCase {
    * @skip(php=8)
    */
   public function testSkipPhpVersion() {
-    Assert::true(1);
+    Assert::true(0);
   }
   
   /**
@@ -117,7 +117,7 @@ class TestCaseTest extends TestCase {
    * @skip(extension=abc)
    */
   public function testSkipExtension() {
-    Assert::true(1);
+    Assert::true(0);
   }
 }
 ?>
