@@ -156,6 +156,9 @@ build:
     environment:
         php:
             version: 7.1
+        postgresql: false
+        redis: false
+        rabbitmq: false
     tests:
         override:
             -
