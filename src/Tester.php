@@ -88,7 +88,7 @@ class Tester {
       $files = Finder::findFiles("*.errors")->in(\getTestsDirectory());
       /** @var \SplFileInfo $file */
       foreach($files as $name => $file) {
-        Environment::printLine("--- " . substr($file->getBaseName(), 0, -7));
+        Environment::printLine("--- " . substr($file->getBasename(), 0, -7));
         echo file_get_contents($name);
       }
     } else {
