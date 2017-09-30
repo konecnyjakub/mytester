@@ -90,7 +90,7 @@ abstract class Environment {
   }
   
   /**
-   * @return string
+   * @return int
    */
   public static function getCounter() {
     return static::$taskCount;

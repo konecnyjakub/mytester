@@ -146,8 +146,8 @@ abstract class TestCase {
   }
   
   /**
-   * @param \MyTester\Job $job
-   * @return array
+   * @param Job $job
+   * @return string
    */
   protected function runJob(Job $job) {
     if(!$job->skip) {

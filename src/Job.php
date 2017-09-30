@@ -46,7 +46,7 @@ class Job {
   /**
    * Executes the task
    * 
-   * @return array Results of the test
+   * @return string Results of the test
    */
   public function execute() {
     \Tracy\Debugger::timer($this->name);

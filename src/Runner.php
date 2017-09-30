@@ -32,7 +32,7 @@ class Runner {
    * Adds new job to the runner
    * 
    * @param Job|string $name Name of the job
-   * @param \callable $callback Task
+   * @param callable $callback Task
    * @param array $params Additional parameters for job
    * @param bool $skip
    * @return \MyTester\Job
@@ -54,7 +54,7 @@ class Runner {
   /**
    * Executes all jobs of the runner
    * 
-   * @return array Results of the test suit
+   * @return string Results of the test suit
    * @deprecated since version 1.0
    */
   public function run() {
