@@ -166,5 +166,5 @@ build:
                analysis:
                     file: codesniffer.cs
                     format: 'general-checkstyle'
-            - ./src/mytester
+            - ./mytester.php
             - ./tests/NetteDI.php
