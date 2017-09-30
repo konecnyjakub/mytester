@@ -45,14 +45,13 @@ class TestsRunner {
   }
   
   /**
-   * @return bool
+   * @return void
    */
   function execute() {
     $this->onExecute();
     foreach($this->suits as $suit) {
       $suit->run();
     }
-    return $failed;
   }
 }
 ?>
