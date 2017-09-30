@@ -114,7 +114,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function startUp() {
+  public function startUp() {
     
   }
   
@@ -123,7 +123,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function shutDown() {
+  public function shutDown() {
     
   }
   
@@ -132,7 +132,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function setUp() {
+  public function setUp() {
     
   }
   
@@ -141,7 +141,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function tearDown() {
+  public function tearDown() {
     
   }
   
@@ -165,7 +165,7 @@ abstract class TestCase {
    * 
    * @return void
    */
-  function run() {
+  public function run() {
     $suitName = $this->getSuitName();
     \Tracy\Debugger::timer($suitName);
     $this->startUp();

@@ -21,7 +21,7 @@ class Runner {
    * @param string $name Name of the runner
    * @deprecated since version 1.0
    */
-  function __construct($name) {
+  public function __construct($name) {
     if(is_string($name)) {
       $this->name = $name;
     }
@@ -38,7 +38,7 @@ class Runner {
    * @return \MyTester\Job
    * @deprecated since version 1.0
    */
-  function addJob($name, callable $callback = NULL, $params = NULL, $skip = false) {
+  public function addJob($name, callable $callback = NULL, $params = NULL, $skip = false) {
     trigger_error(get_class() . " is deprecated and will be removed in version 2.0.", E_USER_DEPRECATED);
     $count = count($this->jobs);
     if($name instanceof Job) {
@@ -57,7 +57,7 @@ class Runner {
    * @return array Results of the test suit
    * @deprecated since version 1.0
    */
-  function run() {
+  public function run() {
     trigger_error(get_class() . " is deprecated and will be removed in version 2.0.", E_USER_DEPRECATED);
     \Tracy\Debugger::timer($this->name);
     ob_start();

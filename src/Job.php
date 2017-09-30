@@ -27,7 +27,7 @@ class Job {
    * @param array $params Additional parameters for the job   
    * @param bool $skip
    */
-  function __construct($name, callable $callback, $params = "", $skip = false) {
+  public function __construct($name, callable $callback, $params = "", $skip = false) {
     $this->name = (string) $name;
     $this->callback = $callback;
     if(is_array($params)) {
@@ -39,7 +39,7 @@ class Job {
   /**
    * @return bool
    */
-  function getSkip() {
+  public function getSkip() {
     return $this->skip;
   }
   
@@ -48,7 +48,7 @@ class Job {
    * 
    * @return array Results of the test
    */
-  function execute() {
+  public function execute() {
     \Tracy\Debugger::timer($this->name);
     Environment::resetCounter();
     $output  = "";

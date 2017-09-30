@@ -12,7 +12,7 @@ class EnvironmentTest extends TestCase {
    * 
    * @return void
    */
-  function testEnvironment() {
+  public function testEnvironment() {
     Assert::type("string", Environment::getMode());
     Assert::true(Environment::isSetUp());
     Assert::same(2, Environment::getCounter());
@@ -29,7 +29,7 @@ class EnvironmentTest extends TestCase {
    * @test CGI sapi
    * @skip(sapi=cgi-fcgi)
    */
-  function testCgiSapi() {
+  public function testCgiSapi() {
     Assert::same("http", Environment::getMode());
   }
   
@@ -40,7 +40,7 @@ class EnvironmentTest extends TestCase {
    * @test CLI sapi
    * @skip(sapi=cli)
    */
-  function testCliSapi() {
+  public function testCliSapi() {
     Assert::same("cli", Environment::getMode());
   }
 }

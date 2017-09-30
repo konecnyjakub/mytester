@@ -30,7 +30,7 @@ abstract class Environment {
    * @param bool $success Whether the test was successful
    * @return void
    */
-  static function testResult($text, $success = true) {
+  public static function testResult($text, $success = true) {
     static::incCounter();
     $output = "Test " . static::$taskCount . " ";
     if($success) {
@@ -48,7 +48,7 @@ abstract class Environment {
    * @param string $timer
    * @return void
    */
-  static function testStats($results, $timer) {
+  public static function testStats($results, $timer) {
     $testsPassed = substr_count($results, " passed. ");
     $testsFailed = substr_count($results, " failed. ");
     $testsTotal = $testsPassed + $testsFailed;
@@ -67,7 +67,7 @@ abstract class Environment {
    * 
    * @return bool
    */
-  static function isSetUp() {
+  public static function isSetUp() {
     return static::$set;
   }
   
@@ -76,7 +76,7 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function incCounter() {
+  public static function incCounter() {
     static::$taskCount++;
   }
   
@@ -85,28 +85,28 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function resetCounter() {
+  public static function resetCounter() {
     static::$taskCount = 0;
   }
   
   /**
    * @return string
    */
-  static function getCounter() {
+  public static function getCounter() {
     return static::$taskCount;
   }
   
   /**
    * @return string
    */
-  static function getOutput() {
+  public static function getOutput() {
     return static::$output;
   }
   
   /**
    * @return string
    */     
-  static function getMode() {
+  public static function getMode() {
     return static::$mode;
   }
   
@@ -117,7 +117,7 @@ abstract class Environment {
    * @param bool $ignoreOutput Whetever to ignore output, useful only in http mode
    * @return void
    */
-  static function printLine($text, $ignoreOutput = false) {
+  public static function printLine($text, $ignoreOutput = false) {
     if(static::$mode == "http" AND $ignoreOutput) {
       echo "$text<br>\n";
     } elseif(static::$mode == "http" AND static::$output == "screen") {
@@ -132,7 +132,7 @@ abstract class Environment {
    * 
    * @return void
    */
-  static function printInfo() {
+  public static function printInfo() {
     static::printLine(static::NAME . " " . static::VERSION, true);
     static::printLine("", true);
     static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")", true);
@@ -145,7 +145,7 @@ abstract class Environment {
    * @param string $output Where print results   
    * @return void
    */
-  static function setup($output = "screen") {
+  public static function setup($output = "screen") {
     if(!static::$set) {
       assert_options(ASSERT_ACTIVE, 1);
       assert_options(ASSERT_QUIET_EVAL, 1);

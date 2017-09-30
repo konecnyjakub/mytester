@@ -14,7 +14,7 @@ class TestJobsRunner {
    * @return void
    * @deprecated since version 1.0
    */
-  function test() {
+  public function test() {
     Environment::testResult("Test", false);
   }
   
@@ -24,7 +24,7 @@ class TestJobsRunner {
    * @return void
    * @deprecated since version 1.0
    */
-  function testTwo() {
+  public function testTwo() {
     Environment::testResult("Test");
   }
 }

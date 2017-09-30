@@ -12,7 +12,7 @@ class TestJobs {
    *
    * @return void
    */
-  function test() {
+  public function test() {
     Environment::testResult("Test");
   }
   
@@ -23,7 +23,7 @@ class TestJobs {
    * @param string $text
    * @return void
    */
-  function testParams(array $params, $text) {
+  public function testParams(array $params, $text) {
     Assert::same("abc", $params[0]);
     Assert::same("def", $text);
   }

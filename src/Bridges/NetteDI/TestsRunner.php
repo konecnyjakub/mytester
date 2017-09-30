@@ -25,7 +25,7 @@ class TestsRunner {
    * @param TestCase $suit
    * @return void
    */
-  function addSuit(TestCase $suit) {
+  public function addSuit(TestCase $suit) {
     $this->suits[] = $suit;
   }
   
@@ -35,7 +35,7 @@ class TestsRunner {
    * @param string $class
    * @return void
    */
-  static function autoload($class) {
+  public static function autoload($class) {
     foreach(static::$autoloader as $suit) {
       if($suit[0] === $class) {
         require $suit[1];
@@ -47,7 +47,7 @@ class TestsRunner {
   /**
    * @return void
    */
-  function execute() {
+  public function execute() {
     $this->onExecute();
     foreach($this->suits as $suit) {
       $suit->run();

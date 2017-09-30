@@ -15,7 +15,7 @@ class RunnerTest extends \MyTester\TestCase {
    * @return void
    * @deprecated since version 1.0
    */
-  function run() {
+  public function run() {
     $suitName = $this->getSuitName();
     $test = new TestJobsRunner();
     $runner = new Runner($suitName);
