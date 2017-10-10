@@ -25,7 +25,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $config = $this->getConfig($this->defaults);
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("runner"))
-      ->setClass(TestsRunner::class);
+      ->setType(TestsRunner::class);
     if(!is_dir($config["folder"])) {
       throw new \Exception("Invalid folder {$config["folder"]} for $this->name.folder");
     }
@@ -33,7 +33,7 @@ class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $this->suits = $tester->getSuits();
     foreach($this->suits as $index => $suit) {
       $builder->addDefinition($this->prefix("test." . ($index + 1)))
-        ->setClass($suit[0])
+        ->setType($suit[0])
         ->addTag(self::TAG);
     }
   }
