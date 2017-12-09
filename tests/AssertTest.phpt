@@ -8,7 +8,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-class AssertTest extends TestCase {
+final class AssertTest extends TestCase {
   public function shutDown() {
     Assert::false(Environment::getShouldFail());
   }

@@ -9,7 +9,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @testSuit JobTest
  */
-class JobTest extends TestCase {
+final class JobTest extends TestCase {
   protected function getJobs(): array {
     $test = new TestJobs();
     $job = new Job("Test Job", [$test, "test"]);

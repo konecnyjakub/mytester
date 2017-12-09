@@ -10,7 +10,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @property-read bool|int $one
  */
-class TestCaseTest extends TestCase {
+final class TestCaseTest extends TestCase {
   private $one = false;
   
   public function getOne() {

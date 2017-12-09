@@ -8,7 +8,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-class EnvironmentTest extends TestCase {
+final class EnvironmentTest extends TestCase {
   /**
    * Tests for Environment
    *

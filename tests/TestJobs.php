@@ -8,7 +8,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-class TestJobs {
+final class TestJobs {
   /**
    * Test for Environment::testResult()
    */
