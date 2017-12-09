@@ -189,7 +189,7 @@ final class Assert {
   public static function count(int $count, $value): void {
     if(!is_array($value) AND !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
-    } elseif(count($value) == $count) {
+    } elseif(count($value) === $count) {
       Environment::testResult("");
     } else {
       $actual = count($value);
@@ -205,7 +205,7 @@ final class Assert {
   public static function notCount(int $count, $value): void {
     if(!is_array($value) AND !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
-    } elseif(count($value) == $count) {
+    } elseif(count($value) === $count) {
       $actual = count($value);
       Environment::testResult("Count of the variable is $actual.", false);
     } else {

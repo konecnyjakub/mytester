@@ -79,7 +79,7 @@ final class Environment {
    * Prints entered text with correct line ending
    */
   public static function printLine(string $text): void {
-    if(static::$mode == "http") {
+    if(static::$mode === "http") {
       $text .= "<br>";
     }
     echo "$text\n";
@@ -128,7 +128,7 @@ final class Environment {
       static::printLine("Total run time: $time second(s)");
     });
     \Tracy\Debugger::timer(static::NAME);
-    static::$mode = ((PHP_SAPI == "cli") ? "cli" : "http");
+    static::$mode = ((PHP_SAPI === "cli") ? "cli" : "http");
     static::$set = true;
   }
 }
