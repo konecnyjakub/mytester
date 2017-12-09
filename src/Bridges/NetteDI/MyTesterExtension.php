@@ -10,7 +10,7 @@ namespace MyTester\Bridges\NetteDI;
  * @copyright (c) 2016-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
-class MyTesterExtension extends \Nette\DI\CompilerExtension {
+final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   const TAG = "mytester.test";
   
   /** @var array */

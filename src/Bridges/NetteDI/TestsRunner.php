@@ -17,7 +17,7 @@ use MyTester\TestCase,
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @method void onExecute()
  */
-class TestsRunner {
+final class TestsRunner {
   use \Nette\SmartObject;
   
   /** @var TestCase[] */

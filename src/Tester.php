@@ -14,7 +14,7 @@ use Nette\Utils\Finder,
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read array $suits
  */
-class Tester {
+final class Tester {
   use \Nette\SmartObject;
   
   /** @var array */
