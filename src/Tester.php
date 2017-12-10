@@ -37,7 +37,7 @@ final class Tester {
    */
   protected function findSuits(string $folder): array {
     $suits = [];
-    $robot = new \Nette\Loaders\RobotLoader;
+    $robot = new \Nette\Loaders\RobotLoader();
     $tempDir = "$folder/temp/cache/Robot.Loader";
     if(is_dir("$folder/_temp")) {
       $tempDir = "$folder/_temp/cache/Robot.Loader";
