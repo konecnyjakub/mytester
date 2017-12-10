@@ -13,7 +13,7 @@ namespace MyTester;
 abstract class TestCase {
   use \Nette\SmartObject;
   
-  const METHOD_PATTERN = '#^test[A-Z0-9_]#';
+  public const METHOD_PATTERN = '#^test[A-Z0-9_]#';
   
   /**
    * Check whether to skip a test method

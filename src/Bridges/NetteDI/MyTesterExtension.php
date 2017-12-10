@@ -11,7 +11,7 @@ namespace MyTester\Bridges\NetteDI;
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension {
-  const TAG = "mytester.test";
+  public const TAG = "mytester.test";
   
   /** @var array */
   private $suits;

@@ -13,8 +13,8 @@ namespace MyTester;
 final class Environment {
   use \Nette\StaticClass;
   
-  const NAME = "My Tester";
-  const VERSION = "2.0-dev";
+  public const NAME = "My Tester";
+  public const VERSION = "2.0.0-dev";
   
   /** @var int */
   static protected $taskCount = 0;
