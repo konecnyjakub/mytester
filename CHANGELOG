@@ -1,4 +1,4 @@
-Version 2.0-dev
+Version 2.0.0-dev
 - BC break: removed Runner
 - simplified output, errors are now printed to tests_folder/job_name.errors
 - automated tests runner exits with 0/1 depending on whether all tests passed
@@ -11,13 +11,14 @@ Version 2.0-dev
 - BC break: parameter $params in Job::__construct() must always be an array
 - raised minimal version of PHP to 7.1
 - marked some classes as final
+- added event onExecute to Tester
 
 Version 1.1
 - the environment for nette di extension is now set up in TestsRunner::execute()
 - improved deprecation message for Runner
 - added option to skip a test if current sapi is different
 - added event onExecute to TestsRunner
-- TestsRunner::execute() now returns whatever the tests failed
+- TestsRunner::execute() now returns whether the tests failed
 
 Version 1.0
 - added dependency on tracy/tracy

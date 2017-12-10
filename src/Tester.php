@@ -13,12 +13,18 @@ use Nette\Utils\Finder,
  * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read array $suits
+ * @method void onExecute()
  */
 final class Tester {
   use \Nette\SmartObject;
   
   /** @var array */
   protected $suits;
+  /** @var callable[] */
+  public $onExecute = [
+    Environment::class . "::setup",
+    Environment::class . "::printInfo",
+  ];
   
   public function __construct(string $folder) {
     $this->suits = $this->findSuits($folder);
@@ -63,8 +69,7 @@ final class Tester {
    * Execute all tests
    */
   public function execute(): void {
-    Environment::setup();
-    Environment::printInfo();
+    $this->onExecute();
     $failed = false;
     foreach($this->suits as $suit) {
       /** @var TestCase $suit */
