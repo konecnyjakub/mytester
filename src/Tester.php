@@ -69,8 +69,7 @@ final class Tester {
     foreach($this->suits as $suit) {
       /** @var TestCase $suit */
       $suit = new $suit[0];
-      $result = $suit->run();
-      if(!$result) {
+      if(!$suit->run()) {
         $failed = true;
       }
     }
