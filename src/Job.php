@@ -12,7 +12,7 @@ require_once __DIR__ . "/functions.php";
  * @copyright (c) 2015-2017, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read callable $callback
- * @property-read bool $skip
+ * @property-read bool|string $skip
  * @property-read string $result
  */
 class Job {
