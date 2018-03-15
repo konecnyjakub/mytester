@@ -159,12 +159,18 @@ build:
         postgresql: false
         redis: false
         rabbitmq: false
-    tests:
-        override:
-            -
-               command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=phpcs.xml
-               analysis:
-                    file: codesniffer.cs
-                    format: 'general-checkstyle'
-            - ./src/mytester
-            - ./tests/NetteDI.php
+    nodes:
+        analyzes:
+            tests:
+                override:
+                    - php-scrutinizer-run
+        tests:
+            tests:
+                override:
+                    -
+                        command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=phpcs.xml
+                        analysis:
+                            file: codesniffer.cs
+                            format: 'general-checkstyle'
+                    - ./src/mytester
+                    - ./tests/NetteDI.php
