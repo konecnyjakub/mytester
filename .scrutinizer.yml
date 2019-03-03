@@ -160,10 +160,6 @@ build:
         redis: false
         rabbitmq: false
     nodes:
-        analyzes:
-            tests:
-                override:
-                    - php-scrutinizer-run
         tests:
             tests:
                 override:
@@ -174,3 +170,4 @@ build:
                             format: 'general-checkstyle'
                     - ./src/mytester
                     - ./tests/NetteDI.php
+                    - php-scrutinizer-run
