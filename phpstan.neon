@@ -9,7 +9,5 @@ parameters:
     autoload_files:
         - %rootDir%/../../../src/functions.php
     ignoreErrors:
-        - '#Call to function count\(\) with argument type array\|Countable\|string will always result in number 1#'
         - '#Parameter \#[1-9] \$[a-zA-Z]+ of class MyTester\\Job constructor expects [a-zA-Z\[\]\|]+, array\|bool\|string given#'
         - '#Variable \$argv in isset\(\) is never defined#'
-        - '#Undefined variable: \$argv#'
