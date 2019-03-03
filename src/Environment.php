@@ -17,13 +17,13 @@ final class Environment {
   public const VERSION = "2.0.0-dev";
   
   /** @var int */
-  static protected $taskCount = 0;
+  protected static $taskCount = 0;
   /** @var bool */
-  static protected $set = false;
+  protected static $set = false;
   /** @var string */
-  static protected $mode;
+  protected static $mode;
   /** @var array */
-  static protected $skipped = [];
+  protected static $skipped = [];
   /** @var string */
   public static $currentJob = "";
   /** @var bool */
