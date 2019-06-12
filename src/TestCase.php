@@ -7,7 +7,7 @@ namespace MyTester;
  * One test suit
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2017, Jakub Konečný
+ * @copyright (c) 2015-2019, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class TestCase {
@@ -72,14 +72,14 @@ abstract class TestCase {
     }, $r->getMethods())));
     foreach($methods as $method) {
       $rm = $r->getMethod($method);
-      $data = NULL;
+      $data = [];
       $job = [
         "name" => $this->getJobName($rm), "callback" => [$this, $method], "params" => [], "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
       ];
       if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
         $data = (array) $rm->getAnnotation("data");
       }
-      if(is_array($data)) {
+      if(count($data) > 0) {
         foreach($data as $value) {
           $job["params"][0] = $value;
           $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);

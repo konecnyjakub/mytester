@@ -9,5 +9,5 @@ parameters:
     autoload_files:
         - %rootDir%/../../../src/functions.php
     ignoreErrors:
-        - '#Parameter \#[1-9] \$[a-zA-Z]+ of class MyTester\\Job constructor expects [a-zA-Z\[\]\|]+, array\|bool\|string given#'
         - '#Variable \$argv in isset\(\) is never defined#'
+        - '#Parameter \#[1-9] \$[a-zA-Z]+ of class MyTester\\Job constructor expects (string|callable|array|bool|bool\|string), array\|bool\|string given#'

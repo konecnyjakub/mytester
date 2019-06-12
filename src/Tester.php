@@ -10,7 +10,7 @@ use Nette\Utils\Finder,
  * Automated tests runner
  * 
  * @author Jakub Konečný
- * @copyright (c) 2015-2017, Jakub Konečný
+ * @copyright (c) 2015-2019, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read array $suits
  * @method void onExecute()
@@ -32,8 +32,6 @@ final class Tester {
   
   /**
    * Find test suits to run
-   *
-   * @return string[]
    */
   protected function findSuits(string $folder): array {
     $suits = [];
