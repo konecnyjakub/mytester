@@ -1,7 +1,0 @@
-source: src
-destination: api
-title: My Tester
-todo: yes
-deprecated: yes
-charset:
-    - UTF-8
