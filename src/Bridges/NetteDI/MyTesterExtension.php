@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
+use Nette\DI\Helpers;
+use Nette\Schema\Expect;
+
 /**
  * MyTester Extension for Nette DIC
  *
  * @author Jakub Konečný
- * @copyright (c) 2016-2017, Jakub Konečný
+ * @copyright (c) 2016-2019, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension {
@@ -15,14 +18,20 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   
   /** @var array */
   private $suits;
-  /** @var array */
-  protected $defaults = ["folder" => "%appDir%/../tests", "onExecute" => []];
-  
+
+  public function getConfigSchema(): \Nette\Schema\Schema {
+    $params = $this->getContainerBuilder()->parameters;
+    return Expect::structure([
+      "folder" => Expect::string(Helpers::expand("%appDir%/../tests", $params)),
+      "onExecute" => Expect::array()->default([]),
+    ])->castTo("array");
+  }
+
   /**
    * @throws \Exception
    */
   public function loadConfiguration(): void {
-    $config = $this->getConfig($this->defaults);
+    $config = $this->getConfig();
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("runner"))
       ->setType(TestsRunner::class);
@@ -39,7 +48,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   }
   
   public function afterCompile(\Nette\PhpGenerator\ClassType $class): void {
-    $config = $this->getConfig($this->defaults);
+    $config = $this->getConfig();
     $container = $this->getContainerBuilder();
     $initialize = $class->methods["initialize"];
     $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
