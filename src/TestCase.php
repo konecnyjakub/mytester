@@ -73,8 +73,10 @@ abstract class TestCase {
     foreach($methods as $method) {
       $rm = $r->getMethod($method);
       $data = [];
+      /** @var callable $callback */
+      $callback = [$this, $method];
       $job = [
-        "name" => $this->getJobName($rm), "callback" => [$this, $method], "params" => [], "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
+        "name" => $this->getJobName($rm), "callback" => $callback, "params" => [], "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
       ];
       if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
         $data = (array) $rm->getAnnotation("data");
@@ -151,7 +153,9 @@ abstract class TestCase {
   }
   
   protected function runJob(Job $job): string {
-    $jobName = $this->getJobName(\Nette\Reflection\Method::from($job->callback[0], $job->callback[1]));
+    /** @var array $callback */
+    $callback = $job->callback;
+    $jobName = $this->getJobName(\Nette\Reflection\Method::from($callback[0], $callback[1]));
     Environment::$currentJob = $jobName;
     if(!$job->skip) {
       $this->setUp();

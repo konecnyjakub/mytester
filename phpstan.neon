@@ -10,4 +10,8 @@ parameters:
         - %rootDir%/../../../src/functions.php
     ignoreErrors:
         - '#Variable \$argv in isset\(\) is never defined#'
-        - '#Parameter \#[1-9] \$[a-zA-Z]+ of class MyTester\\Job constructor expects (string|callable|array|bool|bool\|string), array\|bool\|string given#'
+        - '#Parameter \#1 \$function of function call_user_func expects callable#'
+        - '#Call to function is_scalar\(\) with Nette\\Reflection\\IAnnotation will always evaluate to false#'
+        - '#Cannot cast Nette\\Reflection\\IAnnotation to string#'
+        - '#If condition is always false#'
+        - '#Empty array passed to foreach#'

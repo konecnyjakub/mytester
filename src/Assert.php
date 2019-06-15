@@ -7,11 +7,18 @@ namespace MyTester;
  * Assertions
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2017, Jakub Konečný
+ * @copyright (c) 2015-2019, Jakub Konečný
  * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 final class Assert {
   use \Nette\StaticClass;
+
+  /**
+   * @param string|array $variable
+   */
+  private static function showStringOrArray($variable): string {
+    return (is_string($variable) ? $variable : "(array)");
+  }
   
   /**
    * Tries an assertion
@@ -138,7 +145,7 @@ final class Assert {
   public static function contains($needle, $actual): void {
     if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
-    } elseif(is_string($actual)) {
+    } elseif(is_string($actual) AND is_string($needle)) {
       if($needle !== "" AND strpos($actual, $needle) !== FALSE) {
         Environment::testResult("");
       } else {
@@ -146,12 +153,12 @@ final class Assert {
       }
     } elseif(is_array($actual)) {
       if(in_array($needle, $actual)) {
-        Environment::testResult("$needle is in the variable.");
+        Environment::testResult(self::showStringOrArray($needle) . " is in the variable.");
       } else {
-        Environment::testResult("$needle is not in the variable.", false);
+        Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
       }
     } else {
-      Environment::testResult("$needle is not in the variable.", false);
+      Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
     }
   }
   
@@ -164,7 +171,7 @@ final class Assert {
   public static function notContains($needle, $actual): void {
     if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
-    } elseif(is_string($actual)) {
+    } elseif(is_string($actual) AND is_string($needle)) {
       if($needle === "" OR strpos($actual, $needle) === FALSE) {
         Environment::testResult("");
       } else {
@@ -174,10 +181,10 @@ final class Assert {
       if(!in_array($needle, $actual)) {
         Environment::testResult("");
       } else {
-        Environment::testResult("$needle is in the variable.", false);
+        Environment::testResult(self::showStringOrArray($needle) . " is in the variable.", false);
       }
     } else {
-      Environment::testResult("$needle is not in the variable.", false);
+      Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
     }
   }
   
