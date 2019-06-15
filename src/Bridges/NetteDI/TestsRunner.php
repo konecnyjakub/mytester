@@ -5,9 +5,9 @@ namespace MyTester\Bridges\NetteDI;
 
 require_once __DIR__ . "/../../functions.php";
 
-use MyTester\TestCase,
-    MyTester\Environment,
-    Nette\Utils\Finder;
+use MyTester\TestCase;
+use MyTester\Environment;
+use Nette\Utils\Finder;
 
 /**
  * Tests Runner

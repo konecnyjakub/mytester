@@ -122,7 +122,6 @@ abstract class TestCase {
    * @return void
    */
   public function startUp() {
-    
   }
   
   /**
@@ -131,7 +130,6 @@ abstract class TestCase {
    * @return void
    */
   public function shutDown() {
-    
   }
   
   /**
@@ -140,7 +138,6 @@ abstract class TestCase {
    * @return void
    */
   public function setUp() {
-    
   }
   
   /**
@@ -149,7 +146,6 @@ abstract class TestCase {
    * @return void
    */
   public function tearDown() {
-    
   }
   
   protected function runJob(Job $job): string {

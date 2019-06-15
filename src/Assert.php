@@ -110,7 +110,7 @@ final class Assert {
    * @param mixed $actual
    */
   public static function null($actual): void {
-    $success = ($actual == NULL);
+    $success = ($actual == null);
     if(Environment::getShouldFail()) {
       $success = !$success;
     }
@@ -126,7 +126,7 @@ final class Assert {
    * @param mixed $actual
    */
   public static function notNull($actual): void {
-    $success = ($actual !== NULL);
+    $success = ($actual !== null);
     if(Environment::getShouldFail()) {
       $success = !$success;
     }
@@ -146,7 +146,7 @@ final class Assert {
     if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) AND is_string($needle)) {
-      if($needle !== "" AND strpos($actual, $needle) !== FALSE) {
+      if($needle !== "" AND strpos($actual, $needle) !== false) {
         Environment::testResult("");
       } else {
         Environment::testResult("$needle is not in the variable.", false);
@@ -172,7 +172,7 @@ final class Assert {
     if(!is_string($needle) AND !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) AND is_string($needle)) {
-      if($needle === "" OR strpos($actual, $needle) === FALSE) {
+      if($needle === "" OR strpos($actual, $needle) === false) {
         Environment::testResult("");
       } else {
         Environment::testResult("$needle is in the variable.", false);

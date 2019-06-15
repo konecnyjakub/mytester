@@ -21,7 +21,7 @@ final class AssertTest extends TestCase {
     Assert::notSame("abc", "def");
     Assert::true(1);
     Assert::false(0);
-    Assert::null(NULL);
+    Assert::null(null);
     Assert::notNull("abc");
     $testArray = ["abc"];
     Assert::contains("abc", $testArray);
@@ -33,8 +33,8 @@ final class AssertTest extends TestCase {
     Assert::type("string", "abc");
     Assert::type("bool", true);
     Assert::type("int", 42);
-    Assert::type("null", NULL);
-    Assert::type("object", new \stdClass);
+    Assert::type("null", null);
+    Assert::type("object", new \stdClass());
     Assert::type("scalar", 42);
   }
   
@@ -62,7 +62,7 @@ final class AssertTest extends TestCase {
     Assert::type("int", "42");
     Assert::type("null", $actual);
     Assert::type("object", true);
-    Assert::type("scalar", new \stdClass);
+    Assert::type("scalar", new \stdClass());
   }
   
   /**

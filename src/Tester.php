@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Nette\Utils\Finder,
-    Nette\Utils\FileSystem;
+use Nette\Utils\Finder;
+use Nette\Utils\FileSystem;
 
 /**
  * Automated tests runner
@@ -71,7 +71,7 @@ final class Tester {
     $failed = false;
     foreach($this->suits as $suit) {
       /** @var TestCase $suit */
-      $suit = new $suit[0];
+      $suit = new $suit[0]();
       if(!$suit->run()) {
         $failed = true;
       }
