@@ -69,6 +69,7 @@
     <exclude-pattern>*/src/Job.php</exclude-pattern>
     <exclude-pattern>*/src/Bridges/NetteDI/TestsRunner.php</exclude-pattern>
   </rule>
+  <rule ref="PSR1.Classes.ClassDeclaration"/>
   <rule ref="PSR2.Classes.PropertyDeclaration"/>
   <rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
   <rule ref="PSR2.Methods.FunctionCallSignature"/>
