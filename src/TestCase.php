@@ -31,7 +31,7 @@ abstract class TestCase {
       $skip = false;
       $reason = "";
       foreach($value as $k => $v) {
-        switch ($k) {
+        switch($k) {
           case "php":
             $skip = version_compare(PHP_VERSION, (string) $v, "<");
             if($skip) {
@@ -161,7 +161,7 @@ abstract class TestCase {
       $this->tearDown();
     }
     Environment::$currentJob = "";
-    switch ($job->result) {
+    switch($job->result) {
       case "passed":
         return ".";
       case "skipped":
