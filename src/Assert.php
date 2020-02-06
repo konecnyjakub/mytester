@@ -143,10 +143,10 @@ final class Assert {
    * @param string|array $actual
    */
   public static function contains($needle, $actual): void {
-    if(!is_string($needle) AND !is_array($needle)) {
+    if(!is_string($needle) && !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
-    } elseif(is_string($actual) AND is_string($needle)) {
-      if($needle !== "" AND strpos($actual, $needle) !== false) {
+    } elseif(is_string($actual) && is_string($needle)) {
+      if($needle !== "" && strpos($actual, $needle) !== false) {
         Environment::testResult("");
       } else {
         Environment::testResult("$needle is not in the variable.", false);
@@ -169,10 +169,10 @@ final class Assert {
    * @param string|array $actual
    */
   public static function notContains($needle, $actual): void {
-    if(!is_string($needle) AND !is_array($needle)) {
+    if(!is_string($needle) && !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
-    } elseif(is_string($actual) AND is_string($needle)) {
-      if($needle === "" OR strpos($actual, $needle) === false) {
+    } elseif(is_string($actual) && is_string($needle)) {
+      if($needle === "" || strpos($actual, $needle) === false) {
         Environment::testResult("");
       } else {
         Environment::testResult("$needle is in the variable.", false);
@@ -194,7 +194,7 @@ final class Assert {
    * @param string|array|\Countable $value
    */
   public static function count(int $count, $value): void {
-    if(!is_array($value) AND !$value instanceof \Countable) {
+    if(!is_array($value) && !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) === $count) {
       Environment::testResult("");
@@ -210,7 +210,7 @@ final class Assert {
    * @param string|array|\Countable $value
    */
   public static function notCount(int $count, $value): void {
-    if(!is_array($value) AND !$value instanceof \Countable) {
+    if(!is_array($value) && !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) === $count) {
       $actual = count($value);
@@ -227,7 +227,7 @@ final class Assert {
    * @param mixed $value
    */
   public static function type($type, $value): void {
-    if(!is_object($type) AND !is_string($type)) {
+    if(!is_object($type) && !is_string($type)) {
       Environment::testResult("Type must be string or object.", false);
     } elseif(in_array($type, ["array", "bool", "callable", "float",
       "int", "integer", "null", "object", "resource", "scalar", "string"], true)) {

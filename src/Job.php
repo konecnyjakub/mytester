@@ -78,10 +78,10 @@ class Job {
       /** @var string $output */
       $output = ob_get_clean();
       $failed = Environment::checkFailed($output);
-      if($failed AND !$this->shouldFail) {
+      if($failed && !$this->shouldFail) {
         $this->result = "failed";
       }
-      if(strlen($output) AND $this->result === "failed") {
+      if(strlen($output) && $this->result === "failed") {
         file_put_contents(\getTestsDirectory() . "/$this->name.errors", $output);
       }
     }

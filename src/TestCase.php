@@ -78,7 +78,7 @@ abstract class TestCase {
       $job = [
         "name" => $this->getJobName($rm), "callback" => $callback, "params" => [], "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
       ];
-      if($rm->getNumberOfParameters() AND $rm->hasAnnotation("data")) {
+      if($rm->getNumberOfParameters() && $rm->hasAnnotation("data")) {
         $data = (array) $rm->getAnnotation("data");
       }
       if(count($data) > 0) {
