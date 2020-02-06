@@ -11,9 +11,13 @@ namespace MyTester;
  * @property-read bool|int $one
  */
 final class TestCaseTest extends TestCase {
+  /** @var bool|int */
   private $one = false;
-  
-  public function getOne(): bool {
+
+  /**
+   * @return bool|int
+   */
+  public function getOne() {
     return $this->one;
   }
   

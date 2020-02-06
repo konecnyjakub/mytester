@@ -122,7 +122,7 @@ final class Environment {
       static::printLine("Warning: Testing Environment was already set up.");
       return;
     }
-    register_shutdown_function(function() {
+    register_shutdown_function(function(): void {
       $time = \Tracy\Debugger::timer(static::NAME);
       static::printLine("");
       static::printLine("Total run time: $time second(s)");

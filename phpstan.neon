@@ -8,6 +8,7 @@ parameters:
         - %rootDir%/../../../tests
     autoload_files:
         - %rootDir%/../../../src/functions.php
+    checkMissingIterableValueType: false
     ignoreErrors:
         - '#Variable \$argv in isset\(\) is never defined#'
         - '#Parameter \#1 \$function of function call_user_func expects callable#'
@@ -15,3 +16,5 @@ parameters:
         - '#Cannot cast Nette\\Reflection\\IAnnotation to string#'
         - '#If condition is always false#'
         - '#Empty array passed to foreach#'
+        - '#Comparison operation ">" between 0 and 0 is always false#'
+        - '#Parameter \#1 \$argument of class Nette\\Reflection\\ClassType constructor expects class-string\<object\>\|object, \(int\|string\) given#'
