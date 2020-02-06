@@ -9,14 +9,14 @@ namespace MyTester;
  * @author Jakub Konečný
  */
 final class AssertTest extends TestCase {
-  public function shutDown() {
+  public function shutDown(): void {
     Assert::false(Environment::getShouldFail());
   }
   
   /**
    * Test assertion function
    */
-  public function testAssertion() {
+  public function testAssertion(): void {
     Assert::same("abc", "abc");
     Assert::notSame("abc", "def");
     Assert::true(1);
@@ -43,7 +43,7 @@ final class AssertTest extends TestCase {
    *
    * @fail
    */
-  public function testAssertionFails() {
+  public function testAssertionFails(): void {
     $actual = "abc";
     Assert::true(0);
     Assert::false(1);
@@ -68,7 +68,7 @@ final class AssertTest extends TestCase {
   /**
    * Test custom assertions and custom messages
    */
-  public function testCustomAssertion() {
+  public function testCustomAssertion(): void {
     Assert::tryAssertion("5 > 2", "5 is greater than 2.", "5 is not greater that 2.");
     Assert::tryAssertion("5 >= 2", "5 is greater or equal to 2.", "5 is not greater or equal to 2.");
     Assert::tryAssertion("2 < 5", "2 is lesser than 5.", "2 is not lesser than 5.");

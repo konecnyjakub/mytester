@@ -13,19 +13,19 @@ namespace MyTester;
 final class TestCaseTest extends TestCase {
   private $one = false;
   
-  public function getOne() {
+  public function getOne(): bool {
     return $this->one;
   }
   
-  public function setUp() {
+  public function setUp(): void {
     $this->one = 1;
   }
   
-  public function tearDown() {
+  public function tearDown(): void {
     $this->one = false;
   }
   
-  public function shutDown() {
+  public function shutDown(): void {
     Assert::false($this->one);
     Assert::same("", Environment::$currentJob);
   }
@@ -35,7 +35,7 @@ final class TestCaseTest extends TestCase {
    *
    * @data(abc, adef)   
    */
-  public function testParams(string $text) {
+  public function testParams(string $text): void {
     Assert::type("string", $text);
     Assert::contains("a", $text);
   }
@@ -45,7 +45,7 @@ final class TestCaseTest extends TestCase {
    * 
    * @test Custom name
    */
-  public function testTestName() {
+  public function testTestName(): void {
     Assert::same("Custom name", Environment::$currentJob);
     Assert::same(1, $this->one);
   }
@@ -56,7 +56,7 @@ final class TestCaseTest extends TestCase {
    * @test Skip
    * @skip
    */
-  public function testSkip() {
+  public function testSkip(): void {
     Assert::true(0);
   }
   
@@ -66,7 +66,7 @@ final class TestCaseTest extends TestCase {
    * @test Boolean
    * @skip(true)
    */
-  public function testSkipBoolean() {
+  public function testSkipBoolean(): void {
     Assert::true(0);
   }
   
@@ -76,7 +76,7 @@ final class TestCaseTest extends TestCase {
    * @test Integer
    * @skip(1)
    */
-  public function testSkipInteger() {
+  public function testSkipInteger(): void {
     Assert::true(0);
   }
   
@@ -86,7 +86,7 @@ final class TestCaseTest extends TestCase {
    * @test Float
    * @skip(1.5)
    */
-  public function testSkipFloat() {
+  public function testSkipFloat(): void {
     Assert::true(0);
   }
   
@@ -96,7 +96,7 @@ final class TestCaseTest extends TestCase {
    * @test String
    * @skip(abc)
    */
-  public function testSkipString() {
+  public function testSkipString(): void {
     Assert::true(0);
   }
   
@@ -106,7 +106,7 @@ final class TestCaseTest extends TestCase {
    * @test PHP version
    * @skip(php=8)
    */
-  public function testSkipPhpVersion() {
+  public function testSkipPhpVersion(): void {
     Assert::true(0);
   }
   
@@ -116,7 +116,7 @@ final class TestCaseTest extends TestCase {
    * @test Extension
    * @skip(extension=abc)
    */
-  public function testSkipExtension() {
+  public function testSkipExtension(): void {
     Assert::true(0);
   }
 }
