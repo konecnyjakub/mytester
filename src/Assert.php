@@ -7,8 +7,6 @@ namespace MyTester;
  * Assertions
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2019, Jakub Konečný
- * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 final class Assert {
   use \Nette\StaticClass;

@@ -7,8 +7,6 @@ namespace MyTester;
  * Testing Environment
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2017, Jakub Konečný
- * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 final class Environment {
   use \Nette\StaticClass;

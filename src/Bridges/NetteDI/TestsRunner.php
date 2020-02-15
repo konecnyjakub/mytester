@@ -13,8 +13,6 @@ use Nette\Utils\Finder;
  * Tests Runner
  *
  * @author Jakub Konečný
- * @copyright (c) 2016-2017, Jakub Konečný
- * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @method void onExecute()
  */
 final class TestsRunner {

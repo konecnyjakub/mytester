@@ -9,8 +9,6 @@ require_once __DIR__ . "/functions.php";
  * One job of the test suite
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2019, Jakub Konečný
- * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read callable $callback
  * @property-read bool|string $skip
  * @property-read string $result

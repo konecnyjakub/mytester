@@ -10,8 +10,6 @@ use Nette\Utils\FileSystem;
  * Automated tests runner
  * 
  * @author Jakub Konečný
- * @copyright (c) 2015-2019, Jakub Konečný
- * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  * @property-read array $suits
  * @method void onExecute()
  */

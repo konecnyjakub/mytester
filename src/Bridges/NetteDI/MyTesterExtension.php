@@ -10,8 +10,6 @@ use Nette\Schema\Expect;
  * MyTester Extension for Nette DIC
  *
  * @author Jakub Konečný
- * @copyright (c) 2016-2019, Jakub Konečný
- * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   public const TAG = "mytester.test";

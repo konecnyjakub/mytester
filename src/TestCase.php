@@ -7,8 +7,6 @@ namespace MyTester;
  * One test suit
  *
  * @author Jakub Konečný
- * @copyright (c) 2015-2019, Jakub Konečný
- * @license https://spdx.org/licenses/BSD-3-Clause.html BSD-3-Clause
  */
 abstract class TestCase {
   use \Nette\SmartObject;
