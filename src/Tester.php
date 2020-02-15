@@ -10,13 +10,13 @@ use Nette\Utils\FileSystem;
  * Automated tests runner
  * 
  * @author Jakub Konečný
- * @property-read array $suits
+ * @property-read string[] $suits
  * @method void onExecute()
  */
 final class Tester {
   use \Nette\SmartObject;
   
-  /** @var array */
+  /** @var string[] */
   protected $suits;
   /** @var callable[] */
   public $onExecute = [
@@ -57,7 +57,7 @@ final class Tester {
   /**
    * @return string[]
    */
-  public function getSuits(): array {
+  protected function getSuits(): array {
     return $this->suits;
   }
   

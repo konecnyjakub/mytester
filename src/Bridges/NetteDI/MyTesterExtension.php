@@ -38,7 +38,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
       throw new \Exception("Invalid folder {$config["folder"]} for $this->name.folder");
     }
     $tester = new \MyTester\Tester($config["folder"]);
-    $this->suits = $tester->getSuits();
+    $this->suits = $tester->suits;
     foreach($this->suits as $index => $suit) {
       $builder->addDefinition($this->prefix("test." . ($index + 1)))
         ->setType($suit[0])

@@ -44,18 +44,18 @@ class Job {
     $this->shouldFail = $shouldFail;
   }
   
-  public function getCallback(): callable {
+  protected function getCallback(): callable {
     return $this->callback;
   }
   
   /**
    * @return bool|string
    */
-  public function getSkip() {
+  protected function getSkip() {
     return $this->skip;
   }
   
-  public function getResult(): string {
+  protected function getResult(): string {
     return $this->result;
   }
   
