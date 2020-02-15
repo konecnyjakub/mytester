@@ -22,10 +22,9 @@ final class Assert {
    * Tries an assertion
    * 
    * @param mixed $code Assertion to try
-   * @param string $successText Text to print on success
    * @param string $failureText Text to print on failure
    */
-  public static function tryAssertion($code, string $successText = "", string $failureText = ""): void {
+  public static function tryAssertion($code, string $failureText = ""): void {
     $success = ($code == true);
     if(Environment::getShouldFail()) {
       $success = !$success;

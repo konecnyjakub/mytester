@@ -69,11 +69,11 @@ final class AssertTest extends TestCase {
    * Test custom assertions and custom messages
    */
   public function testCustomAssertion(): void {
-    Assert::tryAssertion("5 > 2", "5 is greater than 2.", "5 is not greater that 2.");
-    Assert::tryAssertion("5 >= 2", "5 is greater or equal to 2.", "5 is not greater or equal to 2.");
-    Assert::tryAssertion("2 < 5", "2 is lesser than 5.", "2 is not lesser than 5.");
-    Assert::tryAssertion("2 <= 5", "2 is lesser or equal to 5.", "2 is not lesser or equal to 5.");
-    Assert::tryAssertion("abc != def", "abc is not def.", "abc is def.");
+    Assert::tryAssertion("5 > 2", "5 is not greater that 2.");
+    Assert::tryAssertion("5 >= 2", "5 is not greater or equal to 2.");
+    Assert::tryAssertion("2 < 5", "2 is not lesser than 5.");
+    Assert::tryAssertion("2 <= 5", "2 is not lesser or equal to 5.");
+    Assert::tryAssertion("abc != def", "abc is def.");
   }
 }
 ?>
