@@ -3,7 +3,7 @@ My Tester
 
 [![Total Downloads](https://poser.pugx.org/konecnyjakub/mytester/downloads)](https://packagist.org/packages/konecnyjakub/mytester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mytester/v/stable)](https://github.com/konecnyjakub/mytester/releases) [![Latest Unstable Version](https://poser.pugx.org/konecnyjakub/mytester/v/unstable)](https://packagist.org/packages/konecnyjakub/mytester) [![Build Status](https://travis-ci.org/konecnyjakub/mytester.svg?branch=master)](https://travis-ci.org/konecnyjakub/mytester) [![License](https://poser.pugx.org/konecnyjakub/mytester/license)](https://github.com/konecnyjakub/mytester/blob/master/LICENSE)
 
-My Tester allows to run simple tests. Requires PHP 7.1 or later.
+My Tester allows to run simple tests. Requires PHP 7.3 or later.
 
 Installation
 ------------
