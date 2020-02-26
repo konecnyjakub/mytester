@@ -108,34 +108,26 @@ abstract class TestCase {
   
   /**
    * Called at start of the suit
-   * 
-   * @return void
    */
-  public function startUp() {
+  public function startUp(): void {
   }
   
   /**
    * Called at end of the suit
-   * 
-   * @return void
    */
-  public function shutDown() {
+  public function shutDown(): void {
   }
   
   /**
    * Called before each job
-   * 
-   * @return void
    */
-  public function setUp() {
+  public function setUp(): void {
   }
   
   /**
    * Called after each job
-   * 
-   * @return void
    */
-  public function tearDown() {
+  public function tearDown(): void {
   }
   
   protected function runJob(Job $job): string {
