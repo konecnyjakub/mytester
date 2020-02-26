@@ -26,31 +26,23 @@ abstract class TestCase {
     if(is_scalar($value)) {
       return (bool) $value;
     } elseif($value instanceof \Nette\Utils\ArrayHash) {
-      $skip = false;
-      $reason = "";
       foreach($value as $k => $v) {
         switch($k) {
           case "php":
-            $skip = version_compare(PHP_VERSION, (string) $v, "<");
-            if($skip) {
-              $reason = "PHP version is lesser than $v";
+            if(version_compare(PHP_VERSION, (string) $v, "<")) {
+              return "PHP version is lesser than $v";
             }
             break;
           case "extension":
-            $skip = !extension_loaded($v);
-            if($skip) {
-              $reason = "extension $v is not loaded";
+            if(!extension_loaded($v)) {
+              return "extension $v is not loaded";
             }
             break;
           case "sapi":
-            $skip = PHP_SAPI != $v;
-            if($skip) {
-              $reason = "the sapi is not $v";
+            if(PHP_SAPI != $v) {
+              return "the sapi is not $v";
             }
             break;
-        }
-        if($skip) {
-          return $reason;
         }
       }
     }
