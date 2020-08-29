@@ -108,7 +108,7 @@ final class TestCaseTest extends TestCase {
    * Test skipping based on PHP version
    * 
    * @test PHP version
-   * @skip(php=8)
+   * @skip(php=666)
    */
   public function testSkipPhpVersion(): void {
     Assert::true(0);
