@@ -161,6 +161,9 @@ build:
         rabbitmq: false
     nodes:
         tests:
+            cache:
+                directories:
+                    - vendor/
             tests:
                 override:
                     -
