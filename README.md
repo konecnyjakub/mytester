@@ -16,6 +16,8 @@ Firstly, you have to include My Tester's files and set up environment for testin
 
 ```php
 <?php
+declare(strict_types=1);
+
 require "path_to_your_project/vendor/autoload.php";
 
 MyTester\Environment::setup();
@@ -26,6 +28,8 @@ MyTester\Environment::setup();
 After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples (hopefully self explaining):
 ```php
 <?php
+declare(strict_types=1);
+
 use MyTester\Assert;
 
 Assert::same("abc", $result);
@@ -40,6 +44,7 @@ Assert::type("string", $string);
 It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automatically launched when you call method "run". An example:
 ```php
 <?php
+declare(strict_types=1);
 
 use MyTester\Assert;
 
@@ -61,6 +66,7 @@ $suit->run();
 Test methods of TestCase descendants can take one parameter. Its value is taken from annotation @data. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
 ```php
 <?php
+declare(strict_types=1);
 
 use MyTester\Assert;
 
@@ -80,6 +86,8 @@ class Tests extends MyTester\TestCase {
 You can give test methods and whole test suits custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
 ```php
 <?php
+declare(strict_types=1);
+
 use MyTester\Assert;
 
 /**
@@ -100,6 +108,8 @@ class Tests extends MyTester\TestCase {
 It is possible to unconditionally skip a test. Just add documentation comment @skip. Example:
 ```php
 <?php
+declare(strict_types=1);
+
 use MyTester\Assert;
 
 class Tests extends MyTester\TestCase {
@@ -114,6 +124,8 @@ class Tests extends MyTester\TestCase {
 . You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. Skipped tests are shown in output. Examples:
 ```php
 <?php
+declare(strict_types=1);
+
 use MyTester\Assert;
 
 class Tests extends MyTester\TestCase {
@@ -140,6 +152,8 @@ Automated tests runner
 It is possible to use automated tests runner that will scan specified folder for .phpt files and run their TestCases (described in section Test Case). An example of usage:
 ```php
 <?php
+declare(strict_types=1);
+
 require __DIR__ . "/vendor/autoload.php";
 $folder = __DIR__ . "/tests";
 
@@ -164,6 +178,8 @@ extensions:
 Then you get service named mytester.runner (of type MyTester\Bridges\NetteDI\TestsRunner) from the container and run its method execute. It returns FALSE if all tests passed else TRUE. You can use it (after turning to integer) as exit code of your script: 
 ```php
 <?php
+declare(strict_types=1);
+
 $result = $container->getService("mytester.runner")->execute(); //or
 $result = $container->getByType(MyTester\Bridges\NetteDI\TestsRunner::class)->execute();
 exit((int) $result);
