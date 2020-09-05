@@ -10,6 +10,7 @@ use Nette\Schema\Expect;
  * MyTester Extension for Nette DIC
  *
  * @author Jakub Konečný
+ * @method array getConfig()
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   public const TAG = "mytester.test";
@@ -28,7 +29,6 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
    * @throws \Exception
    */
   public function loadConfiguration(): void {
-    /** @var array $config */
     $config = $this->getConfig();
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("runner"))
@@ -46,7 +46,6 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   }
   
   public function afterCompile(\Nette\PhpGenerator\ClassType $class): void {
-    /** @var array $config */
     $config = $this->getConfig();
     $container = $this->getContainerBuilder();
     $initialize = $class->methods["initialize"];
