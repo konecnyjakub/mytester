@@ -13,9 +13,8 @@ use Nette\Schema\Expect;
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   public const TAG = "mytester.test";
-  
-  /** @var array */
-  private $suits;
+
+  private array $suits;
 
   public function getConfigSchema(): \Nette\Schema\Schema {
     $params = $this->getContainerBuilder()->parameters;

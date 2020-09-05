@@ -13,19 +13,13 @@ final class Environment {
   
   public const NAME = "My Tester";
   public const VERSION = "2.0.0-dev";
-  
-  /** @var int */
-  protected static $taskCount = 0;
-  /** @var bool */
-  protected static $set = false;
-  /** @var string */
-  protected static $mode;
-  /** @var array */
-  protected static $skipped = [];
-  /** @var string */
-  public static $currentJob = "";
-  /** @var bool */
-  public static $shouldFail = false;
+
+  protected static int $taskCount = 0;
+  protected static bool $set = false;
+  protected static string $mode;
+  protected static array $skipped = [];
+  public static string $currentJob = "";
+  public static bool $shouldFail = false;
   
   /**
    * Prints result of a test

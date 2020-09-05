@@ -17,9 +17,9 @@ final class Tester {
   use \Nette\SmartObject;
   
   /** @var string[] */
-  protected $suits;
+  protected array $suits;
   /** @var callable[] */
-  public $onExecute = [
+  public array $onExecute = [
     Environment::class . "::setup",
     Environment::class . "::printInfo",
   ];

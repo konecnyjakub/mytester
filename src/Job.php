@@ -15,19 +15,15 @@ require_once __DIR__ . "/functions.php";
  */
 class Job {
   use \Nette\SmartObject;
-  
-  /** @var string Name of the job */
-  protected $name;
+
+  protected string $name;
   /** @var callable Task */
   protected $callback;
-  /** @var array Additional parameters */
-  protected $params = [];
+  protected array $params = [];
   /** @var bool|string */
   protected $skip;
-  /** @var bool */
-  protected $shouldFail;
-  /** @var string */
-  protected $result = "passed";
+  protected bool $shouldFail;
+  protected string $result = "passed";
   
   /**
    * @param string $name Name of the job
