@@ -22,6 +22,7 @@ abstract class TestCase {
     if(!$method->hasAnnotation("skip")) {
       return false;
     }
+    /** @var mixed $value */
     $value = $method->getAnnotation("skip");
     if(is_scalar($value)) {
       return (bool) $value;
@@ -69,7 +70,9 @@ abstract class TestCase {
         "name" => $this->getJobName($rm), "callback" => $callback, "params" => [], "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
       ];
       if($rm->getNumberOfParameters() && $rm->hasAnnotation("data")) {
-        $data = (array) $rm->getAnnotation("data");
+        /** @var mixed $annotation */
+        $annotation = $rm->getAnnotation("data");
+        $data = (array) $annotation;
       }
       if(count($data) > 0) {
         foreach($data as $value) {
@@ -91,7 +94,9 @@ abstract class TestCase {
     $suitName = get_class($this);
     $r = new \Nette\Reflection\ClassType($suitName);
     if($r->hasAnnotation("testSuit")) {
-      $suitName = (string) $r->getAnnotation("testSuit");
+      /** @var mixed $annotation */
+      $annotation = $r->getAnnotation("testSuit");
+      $suitName = (string) $annotation;
     }
     return $suitName;
   }
@@ -101,7 +106,9 @@ abstract class TestCase {
    */
   protected function getJobName(\Nette\Reflection\Method $method): string {
     if($method->hasAnnotation("test")) {
-      return (string) $method->getAnnotation("test");
+      /** @var mixed $annotation */
+      $annotation = $method->getAnnotation("test");
+      return (string) $annotation;
     }
     return $this->getSuitName() . "::" . $method->getName();
   }

@@ -46,6 +46,9 @@ final class Tester {
     $robot->register();
     $classes = $robot->getIndexedClasses();
     foreach($classes as $class => $file) {
+      if(!class_exists($class)) {
+        continue;
+      }
       $rc = new \Nette\Reflection\ClassType($class);
       if(!$rc->isAbstract() && $rc->isSubclassOf(TestCase::class)) {
         $suits[] = [$rc->getName(), $file];

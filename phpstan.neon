@@ -8,7 +8,3 @@ parameters:
     treatPhpDocTypesAsCertain: false
     ignoreErrors:
         - '#Parameter \#1 \$function of function call_user_func expects callable#'
-        - '#Call to function is_scalar\(\) with Nette\\Reflection\\IAnnotation will always evaluate to false#'
-        - '#Cannot cast Nette\\Reflection\\IAnnotation to string#'
-        - '#Comparison operation ">" between 0 and 0 is always false#'
-        - '#Parameter \#1 \$argument of class Nette\\Reflection\\ClassType constructor expects class-string\<object\>\|object, \(int\|string\) given#'
