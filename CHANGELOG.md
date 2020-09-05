@@ -10,7 +10,7 @@ Version 2.0.0-dev
 - BC break: removed second parameter of Environment::printLine()
 - added script for automated tests runner, see README
 - BC break: parameter $params in Job::__construct() must always be an array
-- raised minimal version of PHP to 7.3
+- raised minimal version of PHP to 7.4
 - marked some classes as final
 - added event onExecute to Tester
 - dropped support for Nette 2.4
