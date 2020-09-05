@@ -17,7 +17,7 @@ final class Tester {
   use \Nette\SmartObject;
   
   /** @var string[] */
-  protected array $suits;
+  private array $suits;
   /** @var callable[] */
   public array $onExecute = [
     Environment::class . "::setup",
@@ -31,7 +31,7 @@ final class Tester {
   /**
    * Find test suits to run
    */
-  protected function findSuits(string $folder): array {
+  private function findSuits(string $folder): array {
     $suits = [];
     $robot = new \Nette\Loaders\RobotLoader();
     $tempDir = "$folder/temp/cache/Robot.Loader";

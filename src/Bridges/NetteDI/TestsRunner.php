@@ -19,7 +19,7 @@ final class TestsRunner {
   use \Nette\SmartObject;
   
   /** @var TestCase[] */
-  protected array $suits = [];
+  private array $suits = [];
   /** @var array */
   public static array $autoloader = [];
   /** @var callable[] */

@@ -14,10 +14,10 @@ final class Environment {
   public const NAME = "My Tester";
   public const VERSION = "2.0.0-dev";
 
-  protected static int $taskCount = 0;
-  protected static bool $set = false;
-  protected static string $mode;
-  protected static array $skipped = [];
+  private static int $taskCount = 0;
+  private static bool $set = false;
+  private static string $mode;
+  private static array $skipped = [];
   public static string $currentJob = "";
   public static bool $shouldFail = false;
   
