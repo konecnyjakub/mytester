@@ -67,7 +67,11 @@ abstract class TestCase {
       /** @var callable $callback */
       $callback = [$this, $method];
       $job = [
-        "name" => $this->getJobName($rm), "callback" => $callback, "params" => [], "skip" => $this->checkSkip($rm), "shouldFail" => $rm->hasAnnotation("fail")
+        "name" => $this->getJobName($rm),
+        "callback" => $callback,
+        "params" => [],
+        "skip" => $this->checkSkip($rm),
+        "shouldFail" => $rm->hasAnnotation("fail"),
       ];
       if($rm->getNumberOfParameters() && $rm->hasAnnotation("data")) {
         /** @var mixed $annotation */

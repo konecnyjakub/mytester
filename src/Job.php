@@ -32,7 +32,8 @@ class Job {
    * @param bool|string $skip
    * @param bool $shouldFail
    */
-  public function __construct(string $name, callable $callback, array $params = [], $skip = false, bool $shouldFail = false) {
+  public function __construct(string $name, callable $callback, array $params = [], $skip = false,
+                              bool $shouldFail = false) {
     $this->name = $name;
     $this->callback = $callback;
     $this->params = $params;
