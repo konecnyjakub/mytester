@@ -11,7 +11,9 @@ The best way to install My Tester is via Composer. Just add konecnyjakub/myteste
 
 Usage
 -----
+
 ### Setting up
+
 Firstly, you have to include My Tester's files and set up environment for testing.
 
 ```php
@@ -25,6 +27,7 @@ MyTester\Environment::setup();
 ```
 
 ### Tests
+
 After you've set the environment, you can do your tests. For various comparisons, there is prepared class Assert with static methods. They automatically print the results. Some examples (hopefully self explaining):
 ```php
 <?php
@@ -41,6 +44,7 @@ Assert::type("string", $string);
 . It is also possible to run custom assertions with Assert::tryAssertion().
 
 ### Test Case
+
 It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automatically launched when you call method "run". Call methods assert*Something* inside them. An example:
 ```php
 <?php
@@ -61,6 +65,7 @@ $suit->run();
 ```
 
 #### Parameters for test methods
+
 Test methods of TestCase descendants can take one parameter. Its value is taken from annotation @data. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
 ```php
 <?php
@@ -79,6 +84,7 @@ class Tests extends MyTester\TestCase {
 ```
 
 #### Custom names for tests
+
 You can give test methods and whole test suits custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
 ```php
 <?php
@@ -99,6 +105,7 @@ class Tests extends MyTester\TestCase {
 ```
 
 #### Skipping tests
+
 It is possible to unconditionally skip a test. Just add documentation comment @skip. Example:
 ```php
 <?php
@@ -135,10 +142,12 @@ class Tests extends MyTester\TestCase {
 ```
 
 #### Setup and clean up
+
 If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suit.
 
 Automated tests runner
 ----------------------
+
 It is possible to use automated tests runner that will scan specified folder for .phpt files and run their TestCases (described in section Test Case). An example of usage:
 ```php
 <?php
@@ -151,21 +160,26 @@ $tester = new MyTester\Tester($folder);
 $tester->execute();
 ?>
 ```
+
 The automated tests runner needs package nette/robot-loader.
 
-You may also use prepared script *./vendor/bin/mytester*. It will use folder your_project_root/tests but you can specify any folder as its first argument:
-```
+You may also use prepared script *./vendor/bin/mytester*. It will use folder your_project_root/tests, but you can specify any folder as its first argument:
+
+```bash
 ./vendor/bin/mytester tests/unit
 ```
 
 Nette applications
 ------------------
+
 If you are developing a Nette application, you may want to use our extension for Nette DI container. It combines automated tests runner with powers of dependency injection. In other words, it automatically runs your test cases and passed them their dependencies from DI container. Its usage is simple, just add these lines to your config file:
-```
+
+```neon
 extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 ```
 Then you get service named mytester.runner (of type MyTester\Bridges\NetteDI\TestsRunner) from the container and run its method execute. It returns FALSE if all tests passed else TRUE. You can use it (after turning to integer) as exit code of your script: 
+
 ```php
 <?php
 declare(strict_types=1);
@@ -177,12 +191,15 @@ exit((int) $result);
 ```
 
 The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder parameter to the extension:
-```
+
+```neon
 mytester:
     folder: %wwwDir%/tests
 ```
+
 . And if you need to do some tasks before your tests, you can use option onExecute. It is an array of callbacks. Examples:
-```
+
+```neon
 mytester:
     onExecute:
         - Class::staticMethod
@@ -192,4 +209,5 @@ mytester:
 
 More examples
 -------------
+
 For more examples of usage, see included tests of My Tester (in folder tests).
