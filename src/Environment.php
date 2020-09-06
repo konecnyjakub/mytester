@@ -14,6 +14,9 @@ final class Environment {
   public const NAME = "My Tester";
   public const VERSION = "2.0.0-dev";
 
+  public const MODE_CLI = "cli";
+  public const MODE_HTTP = "http";
+
   private static int $taskCount = 0;
   private static bool $set = false;
   private static string $mode;
@@ -71,7 +74,7 @@ final class Environment {
    * Prints entered text with correct line ending
    */
   public static function printLine(string $text): void {
-    if(static::$mode === "http") {
+    if(static::$mode === static::MODE_HTTP) {
       $text .= "<br>";
     }
     echo "$text\n";
@@ -133,7 +136,7 @@ final class Environment {
       static::printLine("Total run time: $time second(s)");
     });
     \Tracy\Debugger::timer(static::NAME);
-    static::$mode = ((PHP_SAPI === "cli") ? "cli" : "http");
+    static::$mode = ((PHP_SAPI === "cli") ? static::MODE_CLI : static::MODE_HTTP);
     static::$set = true;
   }
 }

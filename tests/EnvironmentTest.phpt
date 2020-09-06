@@ -32,7 +32,7 @@ final class EnvironmentTest extends TestCase {
    * @skip(sapi=cgi-fcgi)
    */
   public function testCgiSapi(): void {
-    Assert::same("http", Environment::getMode());
+    Assert::same(Environment::MODE_HTTP, Environment::getMode());
   }
   
   /**
@@ -42,7 +42,7 @@ final class EnvironmentTest extends TestCase {
    * @skip(sapi=cli)
    */
   public function testCliSapi(): void {
-    Assert::same("cli", Environment::getMode());
+    Assert::same(Environment::MODE_CLI, Environment::getMode());
   }
 }
 ?>
