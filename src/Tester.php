@@ -49,7 +49,7 @@ final class Tester {
       if(!class_exists($class)) {
         continue;
       }
-      $rc = new \Nette\Reflection\ClassType($class);
+      $rc = new \ReflectionClass($class);
       if(!$rc->isAbstract() && $rc->isSubclassOf(TestCase::class)) {
         $suits[] = [$rc->getName(), $file];
       }
