@@ -57,7 +57,7 @@ abstract class TestCase {
    */
   protected function getJobs(): array {
     $jobs = [];
-    $r = new \Nette\Reflection\ClassType(get_class($this));
+    $r = new \Nette\Reflection\ClassType(static::class);
     $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
       return $rm->getName();
     }, $r->getMethods())));
@@ -95,7 +95,7 @@ abstract class TestCase {
    * Get name of current test suit
    */
   protected function getSuitName(): string {
-    $suitName = get_class($this);
+    $suitName = static::class;
     $r = new \Nette\Reflection\ClassType($suitName);
     if($r->hasAnnotation("testSuit")) {
       /** @var mixed $annotation */
