@@ -14,6 +14,7 @@ Version 2.0.0-dev
 - marked some classes as final
 - added event onExecute to Tester
 - dropped support for Nette 2.4
+- deprecated Assert
 
 Version 1.1
 - the environment for nette di extension is now set up in TestsRunner::execute()

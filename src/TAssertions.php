@@ -3,31 +3,21 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-/**
- * Assertions
- *
- * @author Jakub Konečný
- * @deprecated Create test cases
- */
-final class Assert {
-  use \Nette\StaticClass;
-
+trait TAssertions {
   /**
    * @param string|array $variable
    */
-  private static function showStringOrArray($variable): string {
+  protected function showStringOrArray($variable): string {
     return (is_string($variable) ? $variable : "(array)");
   }
   
   /**
    * Tries an assertion
-   * 
+   *
    * @param mixed $code Assertion to try
    * @param string $failureText Text to print on failure
-   * @deprecated
-   * @see TAssertions::assert()
    */
-  public static function tryAssertion($code, string $failureText = ""): void {
+  protected function assert($code, string $failureText = ""): void {
     $success = ($code == true);
     if(Environment::getShouldFail()) {
       $success = !$success;
@@ -37,16 +27,14 @@ final class Assert {
     }
     Environment::testResult($message ?? "", $success);
   }
-  
+
   /**
    * Are both values same?
-   * 
+   *
    * @param mixed $expected
    * @param mixed $actual
-   * @deprecated
-   * @see TAssertions::assertSame()
    */
-  public static function same($expected, $actual): void {
+  protected function assertSame($expected, $actual): void {
     $success = ($expected == $actual);
     if(Environment::getShouldFail()) {
       $success = !$success;
@@ -56,16 +44,14 @@ final class Assert {
     }
     Environment::testResult($message ?? "", $success);
   }
-  
+
   /**
    * Are not both values same?
-   * 
+   *
    * @param mixed $expected
    * @param mixed $actual
-   * @deprecated
-   * @see TAssertions::assertNotSame()
    */
-  public static function notSame($expected, $actual): void {
+  protected function assertNotSame($expected, $actual): void {
     $success = ($expected !== $actual);
     if(Environment::getShouldFail()) {
       $success = !$success;
@@ -75,15 +61,13 @@ final class Assert {
     }
     Environment::testResult($message ?? "", $success);
   }
-  
+
   /**
    * Is the expression true?
-   * 
+   *
    * @param mixed $actual
-   * @deprecated
-   * @see TAssertions::assertTrue()
    */
-  public static function true($actual): void {
+  protected function assertTrue($actual): void {
     $success = ($actual == true);
     if(Environment::getShouldFail()) {
       $success = !$success;
@@ -93,15 +77,13 @@ final class Assert {
     }
     Environment::testResult($message ?? "", $success);
   }
-  
+
   /**
    * Is the expression false?
-   * 
+   *
    * @param mixed $actual
-   * @deprecated
-   * @see TAssertions::assertFalse()
    */
-  public static function false($actual): void {
+  protected function assertFalse($actual): void {
     $success = ($actual == false);
     if(Environment::getShouldFail()) {
       $success = !$success;
@@ -111,15 +93,13 @@ final class Assert {
     }
     Environment::testResult($message ?? "", $success);
   }
-  
+
   /**
    * Is the value null?
-   * 
+   *
    * @param mixed $actual
-   * @deprecated
-   * @see TAssertions::assertNull()
    */
-  public static function null($actual): void {
+  protected function assertNull($actual): void {
     $success = ($actual == null);
     if(Environment::getShouldFail()) {
       $success = !$success;
@@ -129,15 +109,13 @@ final class Assert {
     }
     Environment::testResult($message ?? "", $success);
   }
-  
+
   /**
    * Is not the value null?
-   * 
+   *
    * @param mixed $actual
-   * @deprecated
-   * @see TAssertions::assertNotNull()
    */
-  public static function notNull($actual): void {
+  protected function assertNotNull($actual): void {
     $success = ($actual !== null);
     if(Environment::getShouldFail()) {
       $success = !$success;
@@ -147,16 +125,14 @@ final class Assert {
     }
     Environment::testResult($message ?? "", $success);
   }
-  
+
   /**
    * Does $actual contain $needle?
-   * 
+   *
    * @param string|array $needle
    * @param string|array $actual
-   * @deprecated
-   * @see TAssertions::assertContains()
    */
-  public static function contains($needle, $actual): void {
+  protected function assertContains($needle, $actual): void {
     if(!is_string($needle) && !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
@@ -167,24 +143,22 @@ final class Assert {
       }
     } elseif(is_array($actual)) {
       if(in_array($needle, $actual)) {
-        Environment::testResult(self::showStringOrArray($needle) . " is in the variable.");
+        Environment::testResult($this->showStringOrArray($needle) . " is in the variable.");
       } else {
-        Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
+        Environment::testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
       }
     } else {
-      Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
+      Environment::testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
     }
   }
-  
+
   /**
    * Does $actual not contain $needle?
-   * 
+   *
    * @param string|array $needle
    * @param string|array $actual
-   * @deprecated
-   * @see TAssertions::assertNotContains()
    */
-  public static function notContains($needle, $actual): void {
+  protected function assertNotContains($needle, $actual): void {
     if(!is_string($needle) && !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
@@ -197,21 +171,19 @@ final class Assert {
       if(!in_array($needle, $actual)) {
         Environment::testResult("");
       } else {
-        Environment::testResult(self::showStringOrArray($needle) . " is in the variable.", false);
+        Environment::testResult($this->showStringOrArray($needle) . " is in the variable.", false);
       }
     } else {
-      Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
+      Environment::testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
     }
   }
-  
+
   /**
    * Does $value contain $count items?
    *
    * @param string|array|\Countable $value
-   * @deprecated
-   * @see TAssertions::assertCount()
    */
-  public static function count(int $count, $value): void {
+  protected function assertCount(int $count, $value): void {
     if(!is_array($value) && !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) === $count) {
@@ -221,15 +193,13 @@ final class Assert {
       Environment::testResult("Count of the variable is $actual.", false);
     }
   }
-  
+
   /**
    * Does $value not contain $count items?
    *
    * @param string|array|\Countable $value
-   * @deprecated
-   * @see TAssertions::assertNotCount()
    */
-  public static function notCount(int $count, $value): void {
+  protected function assertNotCount(int $count, $value): void {
     if(!is_array($value) && !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
     } elseif(count($value) === $count) {
@@ -239,16 +209,14 @@ final class Assert {
       Environment::testResult("");
     }
   }
-  
+
   /**
    * Is $value of type $type?
-   * 
+   *
    * @param string|object $type
    * @param mixed $value
-   * @deprecated
-   * @see TAssertions::assertType()
    */
-  public static function type($type, $value): void {
+  protected function assertType($type, $value): void {
     if(!is_object($type) && !is_string($type)) {
       Environment::testResult("Type must be string or object.", false);
     } elseif(in_array($type, ["array", "bool", "callable", "float",

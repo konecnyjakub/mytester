@@ -14,17 +14,17 @@ final class EnvironmentTest extends TestCase {
    *
    */
   public function testEnvironment(): void {
-    Assert::type("string", Environment::getMode());
-    Assert::true(Environment::isSetUp());
-    Assert::same(2, Environment::getCounter());
+    $this->assertType("string", Environment::getMode());
+    $this->assertTrue(Environment::isSetUp());
+    $this->assertSame(2, Environment::getCounter());
     Environment::incCounter();
-    Assert::same(4, Environment::getCounter());
+    $this->assertSame(4, Environment::getCounter());
     Environment::resetCounter();
-    Assert::same(0, Environment::getCounter());
-    Assert::type("bool", Environment::getShouldFail());
-    Assert::false(Environment::getShouldFail());
+    $this->assertSame(0, Environment::getCounter());
+    $this->assertType("bool", Environment::getShouldFail());
+    $this->assertFalse(Environment::getShouldFail());
   }
-  
+
   /**
    * Test skipping based on sapi
    *
@@ -32,9 +32,9 @@ final class EnvironmentTest extends TestCase {
    * @skip(sapi=cgi-fcgi)
    */
   public function testCgiSapi(): void {
-    Assert::same(Environment::MODE_HTTP, Environment::getMode());
+    $this->assertSame(Environment::MODE_HTTP, Environment::getMode());
   }
-  
+
   /**
    * Test skipping based on sapi
    *
@@ -42,7 +42,7 @@ final class EnvironmentTest extends TestCase {
    * @skip(sapi=cli)
    */
   public function testCliSapi(): void {
-    Assert::same(Environment::MODE_CLI, Environment::getMode());
+    $this->assertSame(Environment::MODE_CLI, Environment::getMode());
   }
 }
 ?>

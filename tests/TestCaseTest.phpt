@@ -30,8 +30,8 @@ final class TestCaseTest extends TestCase {
   }
   
   public function shutDown(): void {
-    Assert::false($this->one);
-    Assert::same("", Environment::$currentJob);
+    $this->assertFalse($this->one);
+    $this->assertSame("", Environment::$currentJob);
   }
   
   /**
@@ -40,8 +40,8 @@ final class TestCaseTest extends TestCase {
    * @data(abc, adef)   
    */
   public function testParams(string $text): void {
-    Assert::type("string", $text);
-    Assert::contains("a", $text);
+    $this->assertType("string", $text);
+    $this->assertContains("a", $text);
   }
   
   /**
@@ -50,8 +50,8 @@ final class TestCaseTest extends TestCase {
    * @test Custom name
    */
   public function testTestName(): void {
-    Assert::same("Custom name", Environment::$currentJob);
-    Assert::same(1, $this->one);
+    $this->assertSame("Custom name", Environment::$currentJob);
+    $this->assertSame(1, $this->one);
   }
   
   /**
@@ -61,7 +61,7 @@ final class TestCaseTest extends TestCase {
    * @skip
    */
   public function testSkip(): void {
-    Assert::true(0);
+    $this->assertTrue(0);
   }
   
   /**
@@ -71,7 +71,7 @@ final class TestCaseTest extends TestCase {
    * @skip(true)
    */
   public function testSkipBoolean(): void {
-    Assert::true(0);
+    $this->assertTrue(0);
   }
   
   /**
@@ -81,7 +81,7 @@ final class TestCaseTest extends TestCase {
    * @skip(1)
    */
   public function testSkipInteger(): void {
-    Assert::true(0);
+    $this->assertTrue(0);
   }
   
   /**
@@ -91,7 +91,7 @@ final class TestCaseTest extends TestCase {
    * @skip(1.5)
    */
   public function testSkipFloat(): void {
-    Assert::true(0);
+    $this->assertTrue(0);
   }
   
   /**
@@ -101,7 +101,7 @@ final class TestCaseTest extends TestCase {
    * @skip(abc)
    */
   public function testSkipString(): void {
-    Assert::true(0);
+    $this->assertTrue(0);
   }
   
   /**
@@ -111,7 +111,7 @@ final class TestCaseTest extends TestCase {
    * @skip(php=666)
    */
   public function testSkipPhpVersion(): void {
-    Assert::true(0);
+    $this->assertTrue(0);
   }
   
   /**
@@ -121,7 +121,7 @@ final class TestCaseTest extends TestCase {
    * @skip(extension=abc)
    */
   public function testSkipExtension(): void {
-    Assert::true(0);
+    $this->assertTrue(0);
   }
 }
 ?>

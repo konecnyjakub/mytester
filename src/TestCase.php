@@ -10,6 +10,7 @@ namespace MyTester;
  */
 abstract class TestCase {
   use \Nette\SmartObject;
+  use TAssertions;
   
   public const METHOD_PATTERN = '#^test[A-Z0-9_]#';
   

@@ -41,19 +41,17 @@ Assert::type("string", $string);
 . It is also possible to run custom assertions with Assert::tryAssertion().
 
 ### Test Case
-It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automatically launched when you call method "run". An example:
+It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automatically launched when you call method "run". Call methods assert*Something* inside them. An example:
 ```php
 <?php
 declare(strict_types=1);
-
-use MyTester\Assert;
 
 class Tests extends MyTester\TestCase {
   public function testA() {
     $actual = someCall();
     $text = anotherCall();
-    Assert::same("abc", $actual);
-    Assert::same("def", $text);
+    $this->assertSame("abc", $actual);
+    $this->assertSame("def", $text);
   }
 }
 
@@ -68,15 +66,13 @@ Test methods of TestCase descendants can take one parameter. Its value is taken 
 <?php
 declare(strict_types=1);
 
-use MyTester\Assert;
-
 class Tests extends MyTester\TestCase {
   /**
    * @param string $text
    * @data(abc, adef)
    */
   public function testParams($text) {
-    Assert::contains("a", $text);
+    $this->assertContains("a", $text);
   }
 }
 ?>
@@ -88,8 +84,6 @@ You can give test methods and whole test suits custom names that will be display
 <?php
 declare(strict_types=1);
 
-use MyTester\Assert;
-
 /**
  * @testSuit MyTests
 */
@@ -98,7 +92,7 @@ class Tests extends MyTester\TestCase {
    * @test Custom name
    */
   public function testTestName() {
-    Assert::true(1);
+    $this->assertTrue(1);
   }
 }
 ?>
@@ -110,14 +104,12 @@ It is possible to unconditionally skip a test. Just add documentation comment @s
 <?php
 declare(strict_types=1);
 
-use MyTester\Assert;
-
 class Tests extends MyTester\TestCase {
   /**
    * @skip
    */
   public function testTestName() {
-    Assert::true(1);
+    $this->assertTrue(0);
   }
 }?>
 ```
@@ -125,8 +117,6 @@ class Tests extends MyTester\TestCase {
 ```php
 <?php
 declare(strict_types=1);
-
-use MyTester\Assert;
 
 class Tests extends MyTester\TestCase {
   /**
@@ -138,7 +128,7 @@ class Tests extends MyTester\TestCase {
    * @skip(sapi=cgi)
    */
   public function testTestName() {
-    Assert::true(1);
+    $this->assertTrue(0);
   }
 }
 ?>
