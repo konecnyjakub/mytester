@@ -105,6 +105,19 @@ final class Environment {
     static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")");
     static::printLine("");
   }
+
+  /**
+   * Print info about skipped tests
+   */
+  public static function printSkipped(): void {
+    foreach(static::getSkipped() as $skipped) {
+      $reason = "";
+      if($skipped["reason"]) {
+        $reason = ": {$skipped["reason"]}";
+      }
+      static::printLine("Skipped {$skipped["name"]}$reason");
+    }
+  }
   
   /**
    * Sets up the environment

@@ -17,7 +17,7 @@ use Nette\Utils\Finder;
  */
 final class TestsRunner {
   use \Nette\SmartObject;
-  
+
   /** @var TestCase[] */
   private array $suits = [];
   /** @var array */
@@ -50,13 +50,7 @@ final class TestsRunner {
       }
     }
     Environment::printLine("");
-    foreach(Environment::getSkipped() as $skipped) {
-      $reason = "";
-      if($skipped["reason"]) {
-        $reason = ": {$skipped["reason"]}";
-      }
-      Environment::printLine("Skipped {$skipped["name"]}$reason");
-    }
+    Environment::printSkipped();
     if($failed) {
       Environment::printLine("Failed");
       Environment::printLine("");
@@ -67,7 +61,7 @@ final class TestsRunner {
         echo file_get_contents($name);
       }
     } else {
-      echo "OK";
+      Environment::printLine("OK");
     }
     return $failed;
   }

@@ -78,13 +78,7 @@ final class Tester {
       }
     }
     Environment::printLine("");
-    foreach(Environment::getSkipped() as $skipped) {
-      $reason = "";
-      if($skipped["reason"]) {
-        $reason = ": {$skipped["reason"]}";
-      }
-      Environment::printLine("Skipped {$skipped["name"]}$reason");
-    }
+    Environment::printSkipped();
     if($failed) {
       Environment::printLine("Failed");
       Environment::printLine("");
