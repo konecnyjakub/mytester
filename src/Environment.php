@@ -32,8 +32,7 @@ final class Environment {
     if($success) {
       return;
     }
-    $output = "Test " . static::$taskCount . " failed";
-    static::printLine($output . ". $text");
+    static::printLine("Test " . static::$taskCount . " failed. $text");
   }
   
   public static function checkFailed(string $results): bool {
