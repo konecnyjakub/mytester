@@ -37,8 +37,7 @@ final class Environment {
   }
   
   public static function checkFailed(string $results): bool {
-    $testsFailed = substr_count($results, " failed. ");
-    return (bool) $testsFailed;
+    return str_contains($results, " failed. ");
   }
   
   /**
