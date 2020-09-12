@@ -14,7 +14,7 @@ final class AssertTest extends TestCase {
   }
   
   /**
-   * Test assertion function
+   * Test assertion functions
    */
   public function testAssertion(): void {
     $this->assertSame("abc", "abc");

@@ -20,7 +20,6 @@ final class TestsRunner {
 
   /** @var TestCase[] */
   private array $suits = [];
-  /** @var array */
   public static array $autoloader = [];
   /** @var callable[] */
   public array $onExecute = [];

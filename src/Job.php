@@ -26,11 +26,7 @@ class Job {
   protected string $result = "passed";
   
   /**
-   * @param string $name Name of the job
-   * @param callable $callback The task
-   * @param array $params Additional parameters for the job
    * @param bool|string $skip
-   * @param bool $shouldFail
    */
   public function __construct(string $name, callable $callback, array $params = [], $skip = false,
                               bool $shouldFail = false) {

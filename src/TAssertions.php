@@ -15,7 +15,6 @@ trait TAssertions {
    * Tries an assertion
    *
    * @param mixed $code Assertion to try
-   * @param string $failureText Text to print on failure
    */
   protected function assert($code, string $failureText = ""): void {
     $success = ($code == true);
