@@ -20,6 +20,7 @@ final class Environment {
   private static int $taskCount = 0;
   private static bool $set = false;
   private static string $mode;
+  /** @var SkippedTest[] */
   private static array $skipped = [];
   public static string $currentJob = "";
   public static bool $shouldFail = false;
@@ -82,9 +83,12 @@ final class Environment {
    * @param string|bool $reason
    */
   public static function addSkipped(string $jobName, $reason = ""): void {
-    static::$skipped[] = ["name" => $jobName, "reason" => $reason];
+    static::$skipped[] = new SkippedTest($jobName, $reason);
   }
-  
+
+  /**
+   * @return SkippedTest[]
+   */
   public static function getSkipped(): array {
     return static::$skipped;
   }
@@ -113,10 +117,10 @@ final class Environment {
   public static function printSkipped(): void {
     foreach(static::getSkipped() as $skipped) {
       $reason = "";
-      if($skipped["reason"]) {
-        $reason = ": {$skipped["reason"]}";
+      if($skipped->reason) {
+        $reason = ": {$skipped->reason}";
       }
-      static::printLine("Skipped {$skipped["name"]}$reason");
+      static::printLine("Skipped $skipped->name$reason");
     }
   }
   
