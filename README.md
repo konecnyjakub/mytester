@@ -51,7 +51,7 @@ It is also possible to use object-oriented style to make tests. Create a class e
 declare(strict_types=1);
 
 class Tests extends MyTester\TestCase {
-  public function testA() {
+  public function testA(): void {
     $actual = someCall();
     $text = anotherCall();
     $this->assertSame("abc", $actual);
@@ -73,10 +73,9 @@ declare(strict_types=1);
 
 class Tests extends MyTester\TestCase {
   /**
-   * @param string $text
    * @data(abc, adef)
    */
-  public function testParams($text) {
+  public function testParams(string $text): void {
     $this->assertContains("a", $text);
   }
 }
@@ -97,7 +96,7 @@ class Tests extends MyTester\TestCase {
   /**
    * @test Custom name
    */
-  public function testTestName() {
+  public function testTestName(): void {
     $this->assertTrue(1);
   }
 }
@@ -115,11 +114,12 @@ class Tests extends MyTester\TestCase {
   /**
    * @skip
    */
-  public function testTestName() {
+  public function testTestName(): void {
     $this->assertTrue(0);
   }
 }?>
 ```
+
 . You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. Skipped tests are shown in output. Examples:
 ```php
 <?php
@@ -134,7 +134,7 @@ class Tests extends MyTester\TestCase {
    * @skip(extension=abc)
    * @skip(sapi=cgi)
    */
-  public function testTestName() {
+  public function testTestName(): void {
     $this->assertTrue(0);
   }
 }
