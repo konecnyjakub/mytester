@@ -140,7 +140,8 @@ final class Environment {
     if(str_contains($results, TestCase::RESULT_SKIPPED)) {
       $resultsLine .= ", " . substr_count($results, TestCase::RESULT_SKIPPED) . " skipped";
     }
-    $resultsLine .= ")";
+    $time = \Tracy\Debugger::timer(static::NAME);
+    $resultsLine .= ", $time second(s))";
     static::printLine($resultsLine);
   }
 
@@ -178,11 +179,6 @@ final class Environment {
       static::printLine("Warning: Testing Environment was already set up.");
       return;
     }
-    register_shutdown_function(function(): void {
-      $time = \Tracy\Debugger::timer(static::NAME);
-      static::printLine("");
-      static::printLine("Total run time: $time second(s)");
-    });
     \Tracy\Debugger::timer(static::NAME);
     static::$mode = ((PHP_SAPI === "cli") ? static::MODE_CLI : static::MODE_HTTP);
     static::$set = true;
