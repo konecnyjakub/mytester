@@ -78,11 +78,8 @@ final class Environment {
     }
     echo "$text\n";
   }
-  
-  /**
-   * @param string|bool $reason
-   */
-  public static function addSkipped(string $jobName, $reason = ""): void {
+
+  public static function addSkipped(string $jobName, string $reason = ""): void {
     static::$skipped[] = new SkippedTest($jobName, $reason);
   }
 
