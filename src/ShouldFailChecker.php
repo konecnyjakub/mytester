@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Nette\Reflection\Method;
+use MyTester\Annotations\Reader;
 
 /**
  * ShouldFailChecker
@@ -16,9 +16,14 @@ final class ShouldFailChecker {
 
   public const ANNOTATION_NAME = "fail";
 
+  private Reader $annotationsReader;
+
+  public function __construct(Reader $annotationsReader) {
+    $this->annotationsReader = $annotationsReader;
+  }
+
   public function shouldFail(string $class, string $method): bool {
-    $reflection = new Method($class, $method);
-    return $reflection->hasAnnotation(static::ANNOTATION_NAME);
+    return $this->annotationsReader->hasAnnotation(static::ANNOTATION_NAME, $class, $method);
   }
 }
 ?>

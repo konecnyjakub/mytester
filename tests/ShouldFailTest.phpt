@@ -11,11 +11,7 @@ namespace MyTester;
  */
 final class ShouldFailTest extends TestCase {
   private function getShouldFailChecker(): ShouldFailChecker {
-    static $checker = null;
-    if($checker === null) {
-      $checker = new ShouldFailChecker();
-    }
-    return $checker;
+    return $this->shouldFailChecker;
   }
 
   public function testShouldFail(): void {

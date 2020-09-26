@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Nette\Reflection\Method;
+use MyTester\Annotations\Reader;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Arrays;
 
@@ -18,10 +18,12 @@ final class SkipChecker {
 
   public const ANNOTATION_NAME = "skip";
 
+  private Reader $annotationsReader;
   /** @var callable[] */
   private array $checkers = [];
 
-  public function __construct() {
+  public function __construct(Reader $annotationsReader) {
+    $this->annotationsReader = $annotationsReader;
     $this->addDefaultCheckers();
   }
 
@@ -39,10 +41,7 @@ final class SkipChecker {
    * @return mixed
    */
   public function getSkipValue(string $class, string $method) {
-    $reflection = new Method($class, $method);
-    /** @var mixed $value */
-    $value = $reflection->getAnnotation(static::ANNOTATION_NAME);
-    return $value;
+    return $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
   }
 
   /**

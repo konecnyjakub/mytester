@@ -13,11 +13,7 @@ use Nette\Utils\ArrayHash;
  */
 final class SkipCheckerTest extends TestCase {
   private function getSkipChecker(): SkipChecker {
-    static $checker = null;
-    if($checker === null) {
-      $checker = new SkipChecker();
-    }
-    return $checker;
+    return $this->skipChecker;
   }
 
   public function testCheckPhpVersion(): void {

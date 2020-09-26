@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\NetteReflectionEngine;
+use MyTester\Annotations\Reader;
+
 /**
  * One test suit
  *
@@ -21,11 +24,14 @@ abstract class TestCase {
   protected SkipChecker $skipChecker;
   protected ShouldFailChecker $shouldFailChecker;
   protected DataProvider $dataProvider;
+  protected Reader $annotationsReader;
 
   public function __construct() {
-    $this->skipChecker = new SkipChecker();
-    $this->shouldFailChecker = new ShouldFailChecker();
-    $this->dataProvider = new DataProvider();
+    $this->annotationsReader = new Reader();
+    $this->annotationsReader->registerEngine(new NetteReflectionEngine());
+    $this->skipChecker = new SkipChecker($this->annotationsReader);
+    $this->shouldFailChecker = new ShouldFailChecker($this->annotationsReader);
+    $this->dataProvider = new DataProvider($this->annotationsReader);
   }
   
   /**
@@ -35,16 +41,15 @@ abstract class TestCase {
    */
   protected function getJobs(): array {
     $jobs = [];
-    $r = new \Nette\Reflection\ClassType(static::class);
+    $r = new \ReflectionClass(static::class);
     $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
       return $rm->getName();
     }, $r->getMethods())));
     foreach($methods as $method) {
-      $rm = $r->getMethod($method);
       /** @var callable $callback */
       $callback = [$this, $method];
       $job = [
-        "name" => $this->getJobName($rm),
+        "name" => $this->getJobName(static::class, $method),
         "callback" => $callback,
         "params" => [],
         "skip" => $this->skipChecker->shouldSkip(static::class, $method),
@@ -68,26 +73,23 @@ abstract class TestCase {
    * Get name of current test suit
    */
   protected function getSuitName(): string {
-    $suitName = static::class;
-    $r = new \Nette\Reflection\ClassType($suitName);
-    if($r->hasAnnotation("testSuit")) {
-      /** @var mixed $annotation */
-      $annotation = $r->getAnnotation("testSuit");
-      $suitName = (string) $annotation;
+    $annotation = $this->annotationsReader->getAnnotation("testSuit", static::class);
+    if($annotation !== null) {
+      return $annotation;
     }
-    return $suitName;
+    return static::class;
   }
   
   /**
    * Get name for a job
+   * @param string|object $class
    */
-  protected function getJobName(\Nette\Reflection\Method $method): string {
-    if($method->hasAnnotation("test")) {
-      /** @var mixed $annotation */
-      $annotation = $method->getAnnotation("test");
-      return (string) $annotation;
+  protected function getJobName($class, string $method): string {
+    $annotation = $this->annotationsReader->getAnnotation("test", $class, $method);
+    if($annotation !== null) {
+      return $annotation;
     }
-    return $this->getSuitName() . "::" . $method->getName();
+    return $this->getSuitName() . "::" . $method;
   }
   
   /**
@@ -117,7 +119,7 @@ abstract class TestCase {
   protected function runJob(Job $job): string {
     /** @var array $callback */
     $callback = $job->callback;
-    $jobName = $this->getJobName(\Nette\Reflection\Method::from($callback[0], $callback[1]));
+    $jobName = $this->getJobName($callback[0], $callback[1]);
     Environment::$currentJob = $jobName;
     if(!$job->skip) {
       $this->setUp();

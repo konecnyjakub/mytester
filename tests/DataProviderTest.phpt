@@ -11,11 +11,7 @@ namespace MyTester;
  */
 final class DataProviderTest extends TestCase {
   private function getDataProvider(): DataProvider {
-    static $dataProvider = null;
-    if($dataProvider === null) {
-      $dataProvider = new DataProvider();
-    }
-    return $dataProvider;
+    return $this->dataProvider;
   }
 
   public function testGetData(): void {
