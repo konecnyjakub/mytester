@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+/**
+ * @author Jakub Konečný
+ * @internal
+ */
 interface IAnnotationsReaderEngine {
   /**
    * @param string|object $class
