@@ -7,7 +7,6 @@ namespace MyTester;
  * Skipped test info
  *
  * @author Jakub Konečný
- * @internal
  */
 final class SkippedTest {
   use \Nette\SmartObject;
