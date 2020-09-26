@@ -27,7 +27,7 @@ final class SkipCheckerTest extends TestCase {
   }
 
   public function testCheckPhpSapi(): void {
-    $this->assertType("string", $this->getSkipChecker()->checkPhpSapi("cgi-fcgi"));
+    $this->assertType("string", $this->getSkipChecker()->checkPhpSapi("abc"));
   }
 
   public function testGetSkipValue(): void {
