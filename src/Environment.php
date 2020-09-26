@@ -75,7 +75,7 @@ final class Environment {
   /**
    * Prints entered text with correct line ending
    */
-  public static function printLine(string $text): void {
+  public static function printLine(string $text = ""): void {
     if(static::$mode === static::MODE_HTTP) {
       $text .= "<br>";
     }
@@ -116,9 +116,9 @@ final class Environment {
    */
   public static function printInfo(): void {
     static::printLine(static::NAME . " " . static::VERSION);
-    static::printLine("");
+    static::printLine();
     static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")");
-    static::printLine("");
+    static::printLine();
   }
 
   public static function printResults(): void {
@@ -127,11 +127,11 @@ final class Environment {
     static::printSkipped();
     $failed = str_contains($results, TestCase::RESULT_FAILED);
     if(!$failed) {
-      static::printLine("");
+      static::printLine();
       echo "OK";
     } else {
       static::printFailed();
-      static::printLine("");
+      static::printLine();
       echo "Failed";
     }
     $resultsLine = " (" . strlen($results) . " tests";
