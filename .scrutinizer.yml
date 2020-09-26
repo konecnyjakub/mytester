@@ -154,7 +154,7 @@ coding_style:
 build:
     environment:
         php:
-            version: 7.4
+            version: 8.0
         postgresql: false
         redis: false
         rabbitmq: false
@@ -163,6 +163,9 @@ build:
             cache:
                 directories:
                     - vendor/
+            environment:
+                variables:
+                    XDEBUG_MODE: 'coverage'
             tests:
                 override:
                     -

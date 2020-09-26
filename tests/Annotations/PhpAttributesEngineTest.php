@@ -27,10 +27,6 @@ final class PhpAttributesEngineTest extends TestCase
         return $annotationsReader;
     }
 
-    /**
-     * @skip(php=7.5)
-     */
-    #[Skip(["php" => "7.5"])]
     public function testHasAnnotation(): void
     {
         $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
@@ -39,10 +35,6 @@ final class PhpAttributesEngineTest extends TestCase
         $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
     }
 
-    /**
-     * @skip(php=7.5)
-     */
-    #[Skip(["php" => "7.5"])]
     public function testGetAnnotation(): void
     {
         $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));

@@ -21,17 +21,11 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
 {
     public function hasAnnotation(string $name, $class, string $method = null): bool
     {
-        if (!$this->isAvailable()) {
-            return false;
-        }
         return count($this->getReflection($class, $method)->getAttributes($this->getClassName($name))) > 0;
     }
 
     public function getAnnotation(string $name, $class, string $method = null)
     {
-        if (!$this->isAvailable()) {
-            return null;
-        }
         $attributes = $this->getReflection($class, $method)->getAttributes($this->getClassName($name));
         if (count($attributes) === 0) {
             return null;
@@ -39,11 +33,6 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
         /** @var BaseAttribute $attribute */
         $attribute = $attributes[0]->newInstance();
         return $attribute->value;
-    }
-
-    private function isAvailable(): bool
-    {
-        return version_compare(PHP_VERSION, "7.5.0", ">");
     }
 
     private function getClassName(string $baseName): string

@@ -8,8 +8,6 @@ parameters:
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     treatPhpDocTypesAsCertain: false
-    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
-        - '#Parameter \#1 (\$function|\$callback) of function call_user_func expects callable#'
-        - '#Parameter \#1 (\$argument|\$objectOrClass) of class ReflectionClass constructor expects class-string\<T of object\>\|T of object, string given#'
-        - '#Call to an undefined method ReflectionClass\|ReflectionMethod::getAttributes\(\)#'
+        - '#Parameter \#1 \$callback of function call_user_func expects callable#'
+        - '#Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class-string\<T of object\>\|T of object, string given#'

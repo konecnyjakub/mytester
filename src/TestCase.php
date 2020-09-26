@@ -78,7 +78,7 @@ abstract class TestCase
                 if (count($data) > 0) {
                     foreach ($data as $value) {
                         $job["params"][0] = $value;
-                        $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);
+                        $jobs[] = new Job(... $job);
                         $job["params"] = [];
                     }
                 } else {
