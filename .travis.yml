@@ -7,10 +7,6 @@ php:
 notifications:
     email: false
 
-env:
-    - PHP_BIN=php
-    - PHP_BIN=php-cgi
-
 matrix:
     fast_finish: true
     allow_failures:
@@ -23,7 +19,7 @@ install:
     - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
   
 script:
-    - ./phing -Dbinary=$PHP_BIN
+    - ./phing
 
 cache:
     directories:

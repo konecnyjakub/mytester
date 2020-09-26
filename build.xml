@@ -31,11 +31,9 @@
      <arg path="src"/>
      <arg path="tests"/>
    </exec>
-   <exec executable="${binary}" logoutput="true" passthru="true" checkreturn="true">
-     <arg path="src/mytester"/>
+   <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
    </exec>
-   <exec executable="${binary}" logoutput="true" passthru="true" checkreturn="true">
-     <arg path="tests/NetteDI.php"/>
+   <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true">
    </exec>
  </target>
 </project>

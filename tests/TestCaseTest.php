@@ -113,6 +113,16 @@ final class TestCaseTest extends TestCase {
   public function testSkipPhpVersion(): void {
     $this->assertTrue(0);
   }
+
+  /**
+   * Test skipping based on sapi
+   *
+   * @test CGI sapi
+   * @skip(sapi=abc)
+   */
+  public function testCgiSapi(): void {
+    $this->assertNotSame(PHP_SAPI, "abc");
+  }
   
   /**
    * Test skipping based on loaded extension
