@@ -20,10 +20,12 @@ abstract class TestCase {
 
   protected SkipChecker $skipChecker;
   protected ShouldFailChecker $shouldFailChecker;
+  protected DataProvider $dataProvider;
 
   public function __construct() {
     $this->skipChecker = new SkipChecker();
     $this->shouldFailChecker = new ShouldFailChecker();
+    $this->dataProvider = new DataProvider();
   }
   
   /**
@@ -39,7 +41,6 @@ abstract class TestCase {
     }, $r->getMethods())));
     foreach($methods as $method) {
       $rm = $r->getMethod($method);
-      $data = [];
       /** @var callable $callback */
       $callback = [$this, $method];
       $job = [
@@ -49,11 +50,7 @@ abstract class TestCase {
         "skip" => $this->skipChecker->shouldSkip(static::class, $method),
         "shouldFail" => $this->shouldFailChecker->shouldFail(static::class, $method),
       ];
-      if($rm->getNumberOfParameters() && $rm->hasAnnotation("data")) {
-        /** @var mixed $annotation */
-        $annotation = $rm->getAnnotation("data");
-        $data = (array) $annotation;
-      }
+      $data = $this->dataProvider->getData(static::class, $method);
       if(count($data) > 0) {
         foreach($data as $value) {
           $job["params"][0] = $value;
