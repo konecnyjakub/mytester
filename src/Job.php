@@ -72,7 +72,7 @@ class Job {
       }
       /** @var string $output */
       $output = ob_get_clean();
-      $failed = Environment::checkFailed($output);
+      $failed = str_contains($output, " failed. ");
       if($failed && !$this->shouldFail) {
         $this->result = static::RESULT_FAILED;
       }

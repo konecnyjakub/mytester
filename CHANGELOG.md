@@ -3,10 +3,9 @@ Version 2.0.0-dev
 - simplified output, errors are now printed to tests_folder/job_name.errors
 - BC break: removed parameter $successText of method Assert::tryAssertion()
 - automated tests runner exits with 0/1 depending on whether all tests passed
-- BC break: removed method Environment::testStats()
+- BC break: removed methods Environment::testStats(), Environment::getOutput(), Environment::checkFailed()
 - added option to mark test method as supposed to fail
 - removed option to save the output to file(s)
-- BC break: removed method Environment::getOutput()
 - BC break: removed second parameter of Environment::printLine()
 - added script for automated tests runner, see README
 - BC break: parameter $params in Job::__construct() must always be an array
