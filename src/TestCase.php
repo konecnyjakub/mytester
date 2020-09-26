@@ -11,6 +11,10 @@ namespace MyTester;
 abstract class TestCase {
   use \Nette\SmartObject;
   use TAssertions;
+
+  public const RESULT_PASSED = ".";
+  public const RESULT_SKIPPED = "s";
+  public const RESULT_FAILED = "F";
   
   public const METHOD_PATTERN = '#^test[A-Z0-9_]#';
   
@@ -156,12 +160,12 @@ abstract class TestCase {
     }
     Environment::$currentJob = "";
     switch($job->result) {
-      case "passed":
-        return ".";
-      case "skipped":
-        return "s";
-      case "failed":
-        return "F";
+      case Job::RESULT_PASSED:
+        return static::RESULT_PASSED;
+      case Job::RESULT_SKIPPED:
+        return static::RESULT_SKIPPED;
+      case Job::RESULT_FAILED:
+        return static::RESULT_FAILED;
     }
     return "";
   }
@@ -176,7 +180,7 @@ abstract class TestCase {
     $passed = true;
     foreach($jobs as $job) {
       $output .= $this->runJob($job);
-      if($job->result === "failed") {
+      if($job->result === Job::RESULT_FAILED) {
         $passed = false;
       }
     }

@@ -16,6 +16,10 @@ require_once __DIR__ . "/functions.php";
 class Job {
   use \Nette\SmartObject;
 
+  public const RESULT_PASSED = "passed";
+  public const RESULT_SKIPPED = "skipped";
+  public const RESULT_FAILED = "failed";
+
   protected string $name;
   /** @var callable Task */
   protected $callback;
@@ -23,7 +27,7 @@ class Job {
   /** @var bool|string */
   protected $skip;
   protected bool $shouldFail;
-  protected string $result = "passed";
+  protected string $result = self::RESULT_PASSED;
   
   /**
    * @param bool|string $skip
@@ -59,7 +63,7 @@ class Job {
     Environment::resetCounter();
     Environment::setShouldFail($this->shouldFail);
     if($this->skip) {
-      $this->result = "skipped";
+      $this->result = static::RESULT_SKIPPED;
       Environment::addSkipped($this->name, (is_string($this->skip) ? $this->skip : ""));
     } else {
       ob_start();
@@ -70,9 +74,9 @@ class Job {
       $output = ob_get_clean();
       $failed = Environment::checkFailed($output);
       if($failed && !$this->shouldFail) {
-        $this->result = "failed";
+        $this->result = static::RESULT_FAILED;
       }
-      if(strlen($output) && $this->result === "failed") {
+      if(strlen($output) && $this->result === static::RESULT_FAILED) {
         file_put_contents(\getTestsDirectory() . "/$this->name.errors", $output);
       }
     }
