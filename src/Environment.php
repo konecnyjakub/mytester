@@ -161,10 +161,11 @@ final class Environment {
    * Print info about failed tests
    */
   private static function printFailed(): void {
-    $files = Finder::findFiles("*.errors")->in(\getTestsDirectory());
+    $filenameSuffix = ".errors";
+    $files = Finder::findFiles("*$filenameSuffix")->in(\getTestsDirectory());
     /** @var \SplFileInfo $file */
     foreach($files as $name => $file) {
-      static::printLine("--- " . substr($file->getBasename(), 0, -7));
+      static::printLine("--- " . $file->getBasename($filenameSuffix));
       echo file_get_contents($name);
     }
   }
