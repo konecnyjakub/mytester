@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use Nette\Utils\Finder;
+
 /**
  * Testing Environment
  *
@@ -24,6 +26,7 @@ final class Environment {
   private static array $skipped = [];
   public static string $currentJob = "";
   public static bool $shouldFail = false;
+  private static string $results = "";
   
   /**
    * Prints result of a test
@@ -79,6 +82,10 @@ final class Environment {
     echo "$text\n";
   }
 
+  public static function addResult(string $result): void {
+    static::$results .= $result;
+  }
+
   public static function addSkipped(string $jobName, string $reason = ""): void {
     static::$skipped[] = new SkippedTest($jobName, $reason);
   }
@@ -108,8 +115,32 @@ final class Environment {
     static::printLine("");
   }
 
+  public static function printResults(): void {
+    $results = static::$results;
+    static::printLine($results);
+    static::printSkipped();
+    static::printFailed();
+    static::printLine("");
+    $failed = str_contains($results, TestCase::RESULT_FAILED);
+    if(!$failed) {
+      echo "OK";
+    } else {
+      echo "Failed";
+    }
+    $resultsLine = " (" . strlen($results) . " tests";
+    if($failed) {
+      $resultsLine .= ", " . substr_count($results, TestCase::RESULT_FAILED) . " failed";
+    }
+    if(str_contains($results, TestCase::RESULT_SKIPPED)) {
+      $resultsLine .= ", " . substr_count($results, TestCase::RESULT_SKIPPED) . " skipped";
+    }
+    $resultsLine .= ")";
+    static::printLine($resultsLine);
+  }
+
   /**
    * Print info about skipped tests
+   * @internal
    */
   public static function printSkipped(): void {
     foreach(static::getSkipped() as $skipped) {
@@ -118,6 +149,19 @@ final class Environment {
         $reason = ": {$skipped->reason}";
       }
       static::printLine("Skipped $skipped->name$reason");
+    }
+  }
+
+  /**
+   * Print info about failed tests
+   * @internal
+   */
+  public static function printFailed(): void {
+    $files = Finder::findFiles("*.errors")->in(\getTestsDirectory());
+    /** @var \SplFileInfo $file */
+    foreach($files as $name => $file) {
+      static::printLine("--- " . substr($file->getBasename(), 0, -7));
+      echo file_get_contents($name);
     }
   }
   

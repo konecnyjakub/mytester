@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Nette\Utils\Finder;
 use Nette\Utils\FileSystem;
 
 /**
@@ -77,20 +76,7 @@ final class Tester {
         $failed = true;
       }
     }
-    Environment::printLine("");
-    Environment::printSkipped();
-    if($failed) {
-      Environment::printLine("Failed");
-      Environment::printLine("");
-      $files = Finder::findFiles("*.errors")->in(\getTestsDirectory());
-      /** @var \SplFileInfo $file */
-      foreach($files as $name => $file) {
-        Environment::printLine("--- " . substr($file->getBasename(), 0, -7));
-        echo file_get_contents($name);
-      }
-    } else {
-      Environment::printLine("OK");
-    }
+    Environment::printResults();
     exit((int) $failed);
   }
 }

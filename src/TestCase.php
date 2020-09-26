@@ -176,16 +176,15 @@ abstract class TestCase {
   public function run(): bool {
     $this->startUp();
     $jobs = $this->getJobs();
-    $output = "";
     $passed = true;
     foreach($jobs as $job) {
-      $output .= $this->runJob($job);
+      $result = $this->runJob($job);
+      Environment::addResult($result);
       if($job->result === Job::RESULT_FAILED) {
         $passed = false;
       }
     }
     $this->shutDown();
-    echo $output;
     return $passed;
   }
 }
