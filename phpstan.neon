@@ -1,9 +1,6 @@
 parameters:
     excludes_analyse:
         - %rootDir%/../../../tests/temp/*
-    fileExtensions:
-        - php
-        - phpt
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     treatPhpDocTypesAsCertain: false

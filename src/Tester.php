@@ -20,7 +20,7 @@ final class Tester {
 
   private const PACKAGE_NAME = "konecnyjakub/mytester";
   private const TIMER_NAME = "My Tester";
-  
+
   /** @var string[] */
   private array $suites;
   /** @var callable[] */
@@ -32,7 +32,7 @@ final class Tester {
   /** @var SkippedTest[] */
   private array $skipped = [];
   private string $results = "";
-  
+
   public function __construct(string $folder) {
     $this->onExecute[] = [$this, "printInfo"];
     $this->suites = (new TestSuitesFinder())->getSuites($folder);

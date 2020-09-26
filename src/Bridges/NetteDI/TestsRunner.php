@@ -20,24 +20,11 @@ final class TestsRunner {
 
   /** @var TestCase[] */
   private array $suits = [];
-  public static array $autoloader = [];
   /** @var callable[] */
   public array $onExecute = [];
   
   public function addSuit(TestCase $suit): void {
     $this->suits[] = $suit;
-  }
-  
-  /**
-   * Autoloader for test suits
-   */
-  public static function autoload(string $class): void {
-    foreach(static::$autoloader as $suit) {
-      if($suit[0] === $class) {
-        require $suit[1];
-        return;
-      }
-    }
   }
   
   public function execute(): bool {

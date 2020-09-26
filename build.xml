@@ -12,7 +12,7 @@
      <arg path="src"/>
      <arg path="tests"/>
      <arg value="-e"/>
-     <arg value="php,phpt"/>
+     <arg value="php"/>
      <arg value="--colors"/>
    </exec>
    <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">

@@ -1,3 +1,6 @@
+Version 3.0.0-dev
+- BC break: removed support for *.phpt files
+
 Version 2.1.0
 - allowed customization of test suite creation in automated tests runner
 - made Job::$name, Job::$params and Job::$shouldFail readable
