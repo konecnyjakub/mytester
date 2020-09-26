@@ -15,6 +15,7 @@ Version 2.0.0-dev
 - added event onExecute to Tester
 - dropped support for Nette 2.4
 - deprecated Assert
+- BC break: added constructor for TestCase
 
 Version 1.1
 - the environment for nette di extension is now set up in TestsRunner::execute()

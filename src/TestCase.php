@@ -17,42 +17,13 @@ abstract class TestCase {
   public const RESULT_FAILED = "F";
   
   public const METHOD_PATTERN = '#^test[A-Z0-9_]#';
-  
-  /**
-   * Check whether to skip a test method
-   *
-   * @return bool|string
-   */
-  protected function checkSkip(\Nette\Reflection\Method $method) {
-    if(!$method->hasAnnotation("skip")) {
-      return false;
-    }
-    /** @var mixed $value */
-    $value = $method->getAnnotation("skip");
-    if(is_scalar($value)) {
-      return (bool) $value;
-    } elseif($value instanceof \Nette\Utils\ArrayHash) {
-      foreach($value as $k => $v) {
-        switch($k) {
-          case "php":
-            if(version_compare(PHP_VERSION, (string) $v, "<")) {
-              return "PHP version is lesser than $v";
-            }
-            break;
-          case "extension":
-            if(!extension_loaded($v)) {
-              return "extension $v is not loaded";
-            }
-            break;
-          case "sapi":
-            if(PHP_SAPI != $v) {
-              return "the sapi is not $v";
-            }
-            break;
-        }
-      }
-    }
-    return false;
+
+  protected SkipChecker $skipChecker;
+  protected ShouldFailChecker $shouldFailChecker;
+
+  public function __construct() {
+    $this->skipChecker = new SkipChecker();
+    $this->shouldFailChecker = new ShouldFailChecker();
   }
   
   /**
@@ -75,8 +46,8 @@ abstract class TestCase {
         "name" => $this->getJobName($rm),
         "callback" => $callback,
         "params" => [],
-        "skip" => $this->checkSkip($rm),
-        "shouldFail" => $rm->hasAnnotation("fail"),
+        "skip" => $this->skipChecker->shouldSkip(static::class, $method),
+        "shouldFail" => $this->shouldFailChecker->shouldFail(static::class, $method),
       ];
       if($rm->getNumberOfParameters() && $rm->hasAnnotation("data")) {
         /** @var mixed $annotation */
