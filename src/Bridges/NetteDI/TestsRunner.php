@@ -13,6 +13,7 @@ use MyTester\Environment;
  *
  * @author Jakub Konečný
  * @method void onExecute()
+ * @internal
  */
 final class TestsRunner {
   use \Nette\SmartObject;
@@ -29,8 +30,6 @@ final class TestsRunner {
   
   /**
    * Autoloader for test suits
-   *
-   * @internal
    */
   public static function autoload(string $class): void {
     foreach(static::$autoloader as $suit) {
