@@ -226,7 +226,7 @@ trait TAssertions {
         Environment::testResult("");
       }
     } elseif(!$value instanceof $type) {
-      $actual = is_object($value) ? get_class($value) : gettype($value);
+      $actual = get_debug_type($value);
       Environment::testResult("The variable is instance of $actual.", false);
     } else {
       Environment::testResult("");
