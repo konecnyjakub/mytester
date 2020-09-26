@@ -125,12 +125,13 @@ final class Environment {
     $results = static::$results;
     static::printLine($results);
     static::printSkipped();
-    static::printFailed();
-    static::printLine("");
     $failed = str_contains($results, TestCase::RESULT_FAILED);
     if(!$failed) {
+      static::printLine("");
       echo "OK";
     } else {
+      static::printFailed();
+      static::printLine("");
       echo "Failed";
     }
     $resultsLine = " (" . strlen($results) . " tests";
