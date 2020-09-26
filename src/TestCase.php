@@ -5,6 +5,7 @@ namespace MyTester;
 
 use MyTester\Annotations\NetteReflectionEngine;
 use MyTester\Annotations\Reader;
+use ReflectionClass;
 
 /**
  * One test suit
@@ -41,7 +42,7 @@ abstract class TestCase {
    */
   protected function getJobs(): array {
     $jobs = [];
-    $r = new \ReflectionClass(static::class);
+    $r = new ReflectionClass(static::class);
     $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
       return $rm->getName();
     }, $r->getMethods())));

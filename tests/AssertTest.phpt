@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use stdClass as stdClass;
+
 /**
  * Test suite for class Assert
  *
@@ -34,7 +36,7 @@ final class AssertTest extends TestCase {
     $this->assertType("bool", true);
     $this->assertType("int", 42);
     $this->assertType("null", null);
-    $this->assertType("object", new \stdClass());
+    $this->assertType("object", new stdClass());
     $this->assertType("scalar", 42);
   }
   
@@ -62,7 +64,7 @@ final class AssertTest extends TestCase {
     $this->assertType("int", "42");
     $this->assertType("null", $actual);
     $this->assertType("object", true);
-    $this->assertType("scalar", new \stdClass());
+    $this->assertType("scalar", new stdClass());
   }
   
   /**

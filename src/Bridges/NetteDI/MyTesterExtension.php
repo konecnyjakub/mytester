@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
+use Exception as Exception;
+use MyTester\Tester as Tester;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
 
@@ -34,9 +36,9 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $builder->addDefinition($this->prefix("runner"))
       ->setType(TestsRunner::class);
     if(!is_dir($config["folder"])) {
-      throw new \Exception("Invalid folder {$config["folder"]} for $this->name.folder");
+      throw new Exception("Invalid folder {$config["folder"]} for $this->name.folder");
     }
-    $tester = new \MyTester\Tester($config["folder"]);
+    $tester = new Tester($config["folder"]);
     $this->suits = $tester->suits;
     foreach($this->suits as $index => $suit) {
       $builder->addDefinition($this->prefix("test." . ($index + 1)))
