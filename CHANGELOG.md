@@ -15,7 +15,7 @@ Version 2.0.0-dev
 - dropped support for Nette 2.4
 - deprecated Assert
 - BC break: added constructor for TestCase
-- marked methods Environment::incCounter(), Environment::resetCounter(), Environment::addSkipped(), TestsRunner::autoload() as internal/private
+- BC break: marked methods Environment::incCounter(), Environment::resetCounter(), Environment::addSkipped(), TestsRunner::autoload() as internal/private
 - automated tests runner now supports *Test.php files, they should be used instead of *.phpt files
 
 Version 1.1
@@ -38,7 +38,7 @@ Version 1.0
 - deprecated Runner
 - added methods setUp and tearDown to TestCase which are called before/after each test method
 - version of My Tester and PHP is shown at start now
-- BC break: TestCase::getJobs() now return array of Job
+- BC break: TestCase::getJobs() now returns array of Job
 - first parameter of Runner::addJob() can be instance of Job now
 - added methods startUp and shutDown to TestCase which are called at start/end of the suit
 - automated tests runner now sets up the environment himself
