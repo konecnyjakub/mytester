@@ -16,6 +16,7 @@ Version 2.0.0-dev
 - deprecated Assert
 - BC break: added constructor for TestCase
 - marked methods Environment::incCounter(), Environment::resetCounter(), Environment::addSkipped(), TestsRunner::autoload() as internal/private
+- automated tests runner now supports *Test.php files, they should be used instead of *.phpt files
 
 Version 1.1
 - the environment for nette di extension is now set up in TestsRunner::execute()
