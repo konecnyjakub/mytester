@@ -29,6 +29,8 @@ final class TestsRunner {
   
   /**
    * Autoloader for test suits
+   *
+   * @internal
    */
   public static function autoload(string $class): void {
     foreach(static::$autoloader as $suit) {

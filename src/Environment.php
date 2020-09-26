@@ -48,6 +48,8 @@ final class Environment {
   
   /**
    * Increases task counter
+   *
+   * @internal
    */
   public static function incCounter(): void {
     static::$taskCount++;
@@ -55,6 +57,8 @@ final class Environment {
   
   /**
    * Resets task counter
+   *
+   * @internal
    */
   public static function resetCounter(): void {
     static::$taskCount = 0;
@@ -78,10 +82,16 @@ final class Environment {
     echo "$text\n";
   }
 
+  /**
+   * @internal
+   */
   public static function addResult(string $result): void {
     static::$results .= $result;
   }
 
+  /**
+   * @internal
+   */
   public static function addSkipped(string $jobName, string $reason = ""): void {
     static::$skipped[] = new SkippedTest($jobName, $reason);
   }
@@ -136,9 +146,8 @@ final class Environment {
 
   /**
    * Print info about skipped tests
-   * @internal
    */
-  public static function printSkipped(): void {
+  private static function printSkipped(): void {
     foreach(static::getSkipped() as $skipped) {
       $reason = "";
       if($skipped->reason) {
@@ -150,9 +159,8 @@ final class Environment {
 
   /**
    * Print info about failed tests
-   * @internal
    */
-  public static function printFailed(): void {
+  private static function printFailed(): void {
     $files = Finder::findFiles("*.errors")->in(\getTestsDirectory());
     /** @var \SplFileInfo $file */
     foreach($files as $name => $file) {
