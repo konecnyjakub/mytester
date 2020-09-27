@@ -39,7 +39,7 @@ final class XDebugEngine implements \MyTester\ICodeCoverageEngine {
       }
     }
 
-    return [$positive, $negative,];
+    return [$positive, $negative, ];
   }
 }
 ?>

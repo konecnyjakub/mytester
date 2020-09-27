@@ -41,7 +41,7 @@ final class PcovEngine implements \MyTester\ICodeCoverageEngine {
       }
     }
 
-    return [$positive, $negative,];
+    return [$positive, $negative, ];
   }
 }
 ?>

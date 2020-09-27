@@ -34,7 +34,7 @@ final class PhpdbgEngine implements \MyTester\ICodeCoverageEngine {
       $lines = array_fill_keys(array_keys($lines), -1);
     }
 
-    return [$positive, $negative];
+    return [$positive, $negative ];
   }
 }
 ?>
