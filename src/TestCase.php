@@ -22,6 +22,11 @@ abstract class TestCase {
   
   public const METHOD_PATTERN = '#^test[A-Z0-9_]#';
 
+  /** @internal */
+  public const ANNOTATION_TEST = "test";
+  /** @internal */
+  public const ANNOTATION_TEST_SUIT = "testSuit";
+
   protected SkipChecker $skipChecker;
   protected ShouldFailChecker $shouldFailChecker;
   protected DataProvider $dataProvider;
@@ -74,7 +79,7 @@ abstract class TestCase {
    * Get name of current test suit
    */
   protected function getSuitName(): string {
-    $annotation = $this->annotationsReader->getAnnotation("testSuit", static::class);
+    $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST_SUIT, static::class);
     if($annotation !== null) {
       return $annotation;
     }
@@ -86,7 +91,7 @@ abstract class TestCase {
    * @param string|object $class
    */
   protected function getJobName($class, string $method): string {
-    $annotation = $this->annotationsReader->getAnnotation("test", $class, $method);
+    $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST, $class, $method);
     if($annotation !== null) {
       return $annotation;
     }
