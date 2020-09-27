@@ -10,7 +10,6 @@ use MyTester\Attributes\TestSuite;
 /**
  * Test suite for class DataProvider
  *
- * @testSuite DataProvider
  * @author Jakub Konečný
  */
 #[TestSuite("DataProvider")]
@@ -40,17 +39,11 @@ final class DataProviderTest extends TestCase
     {
     }
 
-    /**
-     * @dataProvider(dataSource)
-     */
     #[DataProviderAttribute("dataSource")]
     private function noParameters(): void
     {
     }
 
-    /**
-     * @dataProvider(dataSource)
-     */
     #[DataProviderAttribute("dataSource")]
     private function dataProvider(string $input): void
     {

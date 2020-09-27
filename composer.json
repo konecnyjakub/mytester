@@ -20,7 +20,6 @@
         "php": ">=8.0.0",
         "composer-runtime-api": "^2.0",
         "ayesh/php-timer": "^2.1.2",
-        "nette/reflection": "^2.4",
         "nette/utils": "^3.2.1",
         "nette/finder": "^2.5.2",
         "nette/command-line": "^1.5"

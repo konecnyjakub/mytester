@@ -10,7 +10,6 @@ use MyTester\Attributes\TestSuite;
  * Test suite for class Job
  *
  * @author Jakub Konečný
- * @testSuit JobTest
  */
 #[TestSuite("JobTest")]
 final class JobTest extends TestCase

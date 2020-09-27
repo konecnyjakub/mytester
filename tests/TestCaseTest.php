@@ -12,7 +12,6 @@ use MyTester\Attributes\TestSuite;
 /**
  * Test suite for class TestCase
  *
- * @testSuite TestCase
  * @author Jakub Konečný
  */
 #[TestSuite("TestCase")]
@@ -48,8 +47,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test parameters
-     *
-     * @dataProvider(dataProvider)
      */
     #[DataProviderAttribute("dataProvider")]
     public function testParams(string $text): void
@@ -65,8 +62,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test custom test's name
-     *
-     * @test Custom name
      */
     #[Test("Custom name")]
     public function testTestName(): void
@@ -76,9 +71,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test unconditional skipping
-     *
-     * @test Skip
-     * @skip
      */
     #[Test("Skip")]
     #[Skip()]
@@ -89,9 +81,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test skipping based on boolean
-     *
-     * @test Boolean
-     * @skip(true)
      */
     #[Test("Boolean")]
     #[Skip(true)]
@@ -102,9 +91,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test skipping based on integer
-     *
-     * @test Integer
-     * @skip(1)
      */
     #[Test("Integer")]
     #[Skip(1)]
@@ -115,9 +101,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test skipping based on float
-     *
-     * @test Float
-     * @skip(1.5)
      */
     #[Test("Integer")]
     #[Skip(1.5)]
@@ -128,9 +111,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test skipping based on string
-     *
-     * @test String
-     * @skip(abc)
      */
     #[Test("String")]
     #[Skip("abc")]
@@ -141,9 +121,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test skipping based on PHP version
-     *
-     * @test PHP version
-     * @skip(php=666)
      */
     #[Test("PHP version")]
     #[Skip(["php" => 666])]
@@ -154,9 +131,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test skipping based on sapi
-     *
-     * @test CGI sapi
-     * @skip(sapi=abc)
      */
     #[Test("CGI sapi")]
     #[Skip(["sapi" => "abc"])]
@@ -167,9 +141,6 @@ final class TestCaseTest extends TestCase
 
     /**
      * Test skipping based on loaded extension
-     *
-     * @test Extension
-     * @skip(extension=abc)
      */
     #[Test("Extension")]
     #[Skip(["extension" => "abc"])]

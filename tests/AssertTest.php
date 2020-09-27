@@ -50,8 +50,6 @@ final class AssertTest extends TestCase
 
     /**
      * Test assertion function, all should produce error
-     *
-     * @fail
      */
     #[Fail()]
     public function testAssertionFails(): void

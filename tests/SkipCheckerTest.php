@@ -10,7 +10,6 @@ use MyTester\Attributes\TestSuite;
 /**
  * Test suite for class SkipChecker
  *
- * @testSuite SkipChecker
  * @author Jakub Konečný
  */
 #[TestSuite("SkipChecker")]
@@ -65,49 +64,31 @@ final class SkipCheckerTest extends TestCase
     {
     }
 
-    /**
-     * @skip
-     */
     #[Skip()]
     private function skip(): void
     {
     }
 
-    /**
-     * @skip(false)
-     */
     #[Skip(false)]
     private function skipFalse(): void
     {
     }
 
-    /**
-     * @skip(1)
-     */
     #[Skip(1)]
     private function skipInteger(): void
     {
     }
 
-    /**
-     * @skip(1.5)
-     */
     #[Skip(1.5)]
     private function skipFloat(): void
     {
     }
 
-    /**
-     * @skip(abc)
-     */
     #[Skip("abc")]
     private function skipString(): void
     {
     }
 
-    /**
-     * @skip(php=666)
-     */
     #[Skip(["php" => 666])]
     private function skipArray(): void
     {

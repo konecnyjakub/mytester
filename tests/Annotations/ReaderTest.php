@@ -12,7 +12,6 @@ use MyTester\TestCase;
 /**
  * Test suite for class Reader
  *
- * @testSuit Reader
  * @author Jakub Konečný
  */
 #[TestSuite("Reader")]
@@ -44,9 +43,6 @@ final class ReaderTest extends TestCase
         $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
     }
 
-    /**
-     * @fail(1)
-     */
     #[Fail(1)]
     private function method(): void
     {

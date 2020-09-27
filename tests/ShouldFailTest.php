@@ -10,7 +10,6 @@ use MyTester\Attributes\TestSuite;
 /**
  * Test suite for class ShouldFail
  *
- * @testSuite ShouldFail
  * @author Jakub Konečný
  */
 #[TestSuite("ShouldFail")]
@@ -31,9 +30,6 @@ final class ShouldFailTest extends TestCase
     {
     }
 
-    /**
-     * @fail
-     */
     #[Fail()]
     private function shouldFail(): void
     {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\NetteReflectionEngine;
 use MyTester\Annotations\PhpAttributesEngine;
 use MyTester\Annotations\Reader;
 use ReflectionClass;
@@ -41,7 +40,6 @@ abstract class TestCase
     {
         $this->annotationsReader = new Reader();
         $this->annotationsReader->registerEngine(new PhpAttributesEngine());
-        $this->annotationsReader->registerEngine(new NetteReflectionEngine());
         $this->skipChecker = new SkipChecker($this->annotationsReader);
         $this->shouldFailChecker = new ShouldFailChecker($this->annotationsReader);
         $this->dataProvider = new DataProvider($this->annotationsReader);

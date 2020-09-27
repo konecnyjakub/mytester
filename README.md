@@ -38,17 +38,17 @@ $suite->run();
 
 #### Parameters for test methods
 
-Test methods of TestCase descendants can take one parameter. You can provide a name of a public method from the class which returns an array with @dataProvider annotation. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
+Test methods of TestCase descendants can take one parameter. You can provide a name of a public method from the class which returns an array with DataProvider attribute. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
 ```php
 <?php
 
 declare(strict_types=1);
 
+use MyTester\Attributes\DataProvider;
+
 class Tests extends MyTester\TestCase
 {
-    /**
-     * @dataProvider(dataProvider)
-     */
+    #[DataProvider("dataProvider")]
     public function testParams(string $text): void
     {
         $this->assertContains("a", $text);
@@ -66,20 +66,19 @@ class Tests extends MyTester\TestCase
 
 #### Custom names for tests
 
-You can give test methods and whole test suites custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuite. Example:
+You can give test methods and whole test suites custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via attribute Test/TestSuite. Example:
 ```php
 <?php
 
 declare(strict_types=1);
 
-/**
- * @testSuite MyTests
-*/
+use MyTester\Attributes\Test;
+use MyTester\Attributes\TestSuite;
+
+#[TestSuite("MyTests")]
 class Tests extends MyTester\TestCase
 {
-    /**
-     * @test Custom name
-     */
+    #[Test("Custom name")]
     public function testTestName(): void
     {
         $this->assertTrue(true);
@@ -90,17 +89,17 @@ class Tests extends MyTester\TestCase
 
 #### Skipping tests
 
-It is possible to unconditionally skip a test. Just add documentation comment @skip. Example:
+It is possible to unconditionally skip a test. Just use attribute Skip. Example:
 ```php
 <?php
 
 declare(strict_types=1);
 
+use MyTester\Attributes\Skip;
+
 class Tests extends MyTester\TestCase
 {
-    /**
-     * @skip
-     */
+    #[Skip()]
     public function testTestName(): void
     {
         $this->assertTrue(false);
@@ -115,83 +114,22 @@ class Tests extends MyTester\TestCase
 
 declare(strict_types=1);
 
+use MyTester\Attributes\Skip;
+
 class Tests extends MyTester\TestCase
 {
-    /**
-     * @skip(1)
-     * @skip(true)
-     * @skip(abc)
-     * @skip(php=5.4.1)
-     * @skip(extension=abc)
-     * @skip(sapi=cgi)
-     */
+    #[Skip(1)]
+    #[Skip(true)]
+    #[Skip("abc")]
+    #[Skip(["php" => "5.4.1"])]
+    #[Skip(["extension" => "abc"])]
+    #[Skip(["sapi" => "cgi"])]
     public function testTestName(): void
     {
         $this->assertTrue(false);
     }
 }
 
-```
-
-#### Annotations style
-
-In all previous examples you have seen annotations in style:
-
-```php
-/**
-* @testSuite Abc
-* @skip(abc)
-*/
-```
-
-but that is not the only way. If you use PHP 8, you can also make use of attributes. All used attributes are in namespace MyTester\Annotations\Attributes. Examples:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use MyTester\Attributes\DataProvider;
-use MyTester\Attributes\Skip;
-use MyTester\Attributes\Fail;
-use MyTester\Attributes\Test;
-use MyTester\Attributes\TestSuite;
-
-#[TestSuite("Abc")]
-class AbcTest extends MyTester\TestCase
-{
-    #[Test("Abc")]
-    public function testOne(): void
-    {
-        $this->assertTrue(true);
-    }
-
-    #[Skip()]
-    public function testSkip(): void
-    {
-        $this->assertTrue(false);
-    }
-
-    #[Fail()]
-    public function testFail(): void
-    {
-        $this->assertTrue(false);
-    }
-
-    #[DataProvider("dataProvider")]
-    public function testParams(string $text): void
-    {
-        $this->assertContains("a", $text);
-    }
-
-    public function dataProvider(): array
-    {
-        return [
-            ["abc", "def"],
-        ];
-    }
-}
-?>
 ```
 
 #### Setup and clean up
