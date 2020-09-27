@@ -15,13 +15,28 @@ final class TestJobs {
   public function test(): void {
     Environment::testResult("Test");
   }
-  
+
   /**
    * Test params for job
    */
   public function testParams(array $params, string $text): void {
-    Assert::same("abc", $params[0]);
-    Assert::same("def", $text);
+    $this->assertSame("abc", $params[0]);
+    $this->assertSame("def", $text);
+  }
+
+  /**
+   * @param mixed $expected
+   * @param mixed $actual
+   */
+  private function assertSame($expected, $actual): void {
+    $success = ($expected == $actual);
+    if(Environment::getShouldFail()) {
+      $success = !$success;
+    }
+    if(!$success) {
+      $message = "The value is not $expected but $actual.";
+    }
+    Environment::testResult($message ?? "", $success);
   }
 }
 ?>
