@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="MyTester" basedir="." default="test">
  <target name="test">
-   <property name="binary" value="php"/>
    <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
      <arg value="install"/>
      <arg value="--prefer-dist"/>
