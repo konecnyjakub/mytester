@@ -18,6 +18,13 @@ final class Assert {
   private static function showStringOrArray($variable): string {
     return (is_string($variable) ? $variable : "(array)");
   }
+
+  private static function isSuccess(bool $success): bool {
+    if(Environment::getShouldFail()) {
+      $success = !$success;
+    }
+    return $success;
+  }
   
   /**
    * Tries an assertion
@@ -28,10 +35,7 @@ final class Assert {
    * @see TAssertions::assert()
    */
   public static function tryAssertion($code, string $failureText = ""): void {
-    $success = ($code == true);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = static::isSuccess($code == true);
     if(!$success) {
       $message = ($failureText === "") ? "Assertion \"$code\" is not true." : $failureText;
     }
@@ -47,10 +51,7 @@ final class Assert {
    * @see TAssertions::assertSame()
    */
   public static function same($expected, $actual): void {
-    $success = ($expected == $actual);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = static::isSuccess($expected == $actual);
     if(!$success) {
       $message = "The value is not $expected but $actual.";
     }
@@ -66,10 +67,7 @@ final class Assert {
    * @see TAssertions::assertNotSame()
    */
   public static function notSame($expected, $actual): void {
-    $success = ($expected !== $actual);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = static::isSuccess($expected !== $actual);
     if(!$success) {
       $message = "The value is $expected.";
     }
@@ -84,10 +82,7 @@ final class Assert {
    * @see TAssertions::assertTrue()
    */
   public static function true($actual): void {
-    $success = ($actual == true);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = static::isSuccess($actual == true);
     if(!$success) {
       $message = "The expression is not true.";
     }
@@ -102,10 +97,7 @@ final class Assert {
    * @see TAssertions::assertFalse()
    */
   public static function false($actual): void {
-    $success = ($actual == false);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = static::isSuccess($actual == false);
     if(!$success) {
       $message = "The expression is not false.";
     }
@@ -120,10 +112,7 @@ final class Assert {
    * @see TAssertions::assertNull()
    */
   public static function null($actual): void {
-    $success = ($actual == null);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = static::isSuccess($actual == null);
     if(!$success) {
       $message = "The value is not null.";
     }
@@ -138,10 +127,7 @@ final class Assert {
    * @see TAssertions::assertNotNull()
    */
   public static function notNull($actual): void {
-    $success = ($actual !== null);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = static::isSuccess($actual !== null);
     if(!$success) {
       $message = "The value is null.";
     }
@@ -160,19 +146,21 @@ final class Assert {
     if(!is_string($needle) && !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
-      if($needle !== "" && strpos($actual, $needle) !== false) {
+      $success = static::isSuccess($needle !== "" && strpos($actual, $needle) !== false);
+      if($success) {
         Environment::testResult("");
       } else {
         Environment::testResult("$needle is not in the variable.", false);
       }
     } elseif(is_array($actual)) {
-      if(in_array($needle, $actual)) {
-        Environment::testResult(self::showStringOrArray($needle) . " is in the variable.");
+      $success = static::isSuccess(in_array($needle, $actual));
+      if($success) {
+        Environment::testResult("");
       } else {
-        Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
+        Environment::testResult(static::showStringOrArray($needle) . " is not in the variable.", false);
       }
     } else {
-      Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
+      Environment::testResult(static::showStringOrArray($needle) . " is not in the variable.", false);
     }
   }
   
@@ -188,19 +176,21 @@ final class Assert {
     if(!is_string($needle) && !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
-      if($needle === "" || strpos($actual, $needle) === false) {
+      $success = static::isSuccess($needle === "" || strpos($actual, $needle) === false);
+      if($success) {
         Environment::testResult("");
       } else {
         Environment::testResult("$needle is in the variable.", false);
       }
     } elseif(is_array($actual)) {
-      if(!in_array($needle, $actual)) {
+      $success = static::isSuccess(!in_array($needle, $actual));
+      if($success) {
         Environment::testResult("");
       } else {
-        Environment::testResult(self::showStringOrArray($needle) . " is in the variable.", false);
+        Environment::testResult(static::showStringOrArray($needle) . " is in the variable.", false);
       }
     } else {
-      Environment::testResult(self::showStringOrArray($needle) . " is not in the variable.", false);
+      Environment::testResult(static::showStringOrArray($needle) . " is not in the variable.", false);
     }
   }
   
@@ -214,7 +204,10 @@ final class Assert {
   public static function count(int $count, $value): void {
     if(!is_array($value) && !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
-    } elseif(count($value) === $count) {
+      return;
+    }
+    $success = static::isSuccess(count($value) === $count);
+    if($success) {
       Environment::testResult("");
     } else {
       $actual = count($value);
@@ -232,11 +225,14 @@ final class Assert {
   public static function notCount(int $count, $value): void {
     if(!is_array($value) && !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
-    } elseif(count($value) === $count) {
+      return;
+    }
+    $success = static::isSuccess(count($value) !== $count);
+    if($success) {
+      Environment::testResult("");
+    } else {
       $actual = count($value);
       Environment::testResult("Count of the variable is $actual.", false);
-    } else {
-      Environment::testResult("");
     }
   }
   
@@ -251,14 +247,20 @@ final class Assert {
   public static function type($type, $value): void {
     if(!is_object($type) && !is_string($type)) {
       Environment::testResult("Type must be string or object.", false);
-    } elseif(in_array($type, ["array", "bool", "callable", "float",
+      return;
+    }
+    if(in_array($type, ["array", "bool", "callable", "float",
       "int", "integer", "null", "object", "resource", "scalar", "string"], true)) {
-      if(!call_user_func("is_$type", $value)) {
+      $success = static::isSuccess(call_user_func("is_$type", $value));
+      if(!$success) {
         Environment::testResult("The variable is " . gettype($value) . ".", false);
       } else {
         Environment::testResult("");
       }
-    } elseif(!$value instanceof $type) {
+      return;
+    }
+    $success = static::isSuccess($value instanceof $type);
+    if(!$success) {
       $actual = get_debug_type($value);
       Environment::testResult("The variable is instance of $actual.", false);
     } else {

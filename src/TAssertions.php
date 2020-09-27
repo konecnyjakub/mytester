@@ -10,6 +10,13 @@ trait TAssertions {
   protected function showStringOrArray($variable): string {
     return (is_string($variable) ? $variable : "(array)");
   }
+
+  protected function isSuccess(bool $success): bool {
+    if(Environment::getShouldFail()) {
+      $success = !$success;
+    }
+    return $success;
+  }
   
   /**
    * Tries an assertion
@@ -17,10 +24,7 @@ trait TAssertions {
    * @param mixed $code Assertion to try
    */
   protected function assert($code, string $failureText = ""): void {
-    $success = ($code == true);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = $this->isSuccess($code == true);
     if(!$success) {
       $message = ($failureText === "") ? "Assertion \"$code\" is not true." : $failureText;
     }
@@ -34,10 +38,7 @@ trait TAssertions {
    * @param mixed $actual
    */
   protected function assertSame($expected, $actual): void {
-    $success = ($expected == $actual);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = $this->isSuccess($expected == $actual);
     if(!$success) {
       $message = "The value is not $expected but $actual.";
     }
@@ -51,10 +52,7 @@ trait TAssertions {
    * @param mixed $actual
    */
   protected function assertNotSame($expected, $actual): void {
-    $success = ($expected !== $actual);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = $this->isSuccess($expected !== $actual);
     if(!$success) {
       $message = "The value is $expected.";
     }
@@ -67,10 +65,7 @@ trait TAssertions {
    * @param mixed $actual
    */
   protected function assertTrue($actual): void {
-    $success = ($actual == true);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = $this->isSuccess($actual == true);
     if(!$success) {
       $message = "The expression is not true.";
     }
@@ -83,10 +78,7 @@ trait TAssertions {
    * @param mixed $actual
    */
   protected function assertFalse($actual): void {
-    $success = ($actual == false);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = $this->isSuccess($actual == false);
     if(!$success) {
       $message = "The expression is not false.";
     }
@@ -99,10 +91,7 @@ trait TAssertions {
    * @param mixed $actual
    */
   protected function assertNull($actual): void {
-    $success = ($actual == null);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = $this->isSuccess($actual == null);
     if(!$success) {
       $message = "The value is not null.";
     }
@@ -115,10 +104,7 @@ trait TAssertions {
    * @param mixed $actual
    */
   protected function assertNotNull($actual): void {
-    $success = ($actual !== null);
-    if(Environment::getShouldFail()) {
-      $success = !$success;
-    }
+    $success = $this->isSuccess($actual !== null);
     if(!$success) {
       $message = "The value is null.";
     }
@@ -135,14 +121,16 @@ trait TAssertions {
     if(!is_string($needle) && !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
-      if($needle !== "" && strpos($actual, $needle) !== false) {
+      $success = $this->isSuccess($needle !== "" && strpos($actual, $needle) !== false);
+      if($success) {
         Environment::testResult("");
       } else {
         Environment::testResult("$needle is not in the variable.", false);
       }
     } elseif(is_array($actual)) {
-      if(in_array($needle, $actual)) {
-        Environment::testResult($this->showStringOrArray($needle) . " is in the variable.");
+      $success = $this->isSuccess(in_array($needle, $actual));
+      if($success) {
+        Environment::testResult("");
       } else {
         Environment::testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
       }
@@ -161,13 +149,15 @@ trait TAssertions {
     if(!is_string($needle) && !is_array($needle)) {
       Environment::testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
-      if($needle === "" || strpos($actual, $needle) === false) {
+      $success = $this->isSuccess($needle === "" || strpos($actual, $needle) === false);
+      if($success) {
         Environment::testResult("");
       } else {
         Environment::testResult("$needle is in the variable.", false);
       }
     } elseif(is_array($actual)) {
-      if(!in_array($needle, $actual)) {
+      $success = $this->isSuccess(!in_array($needle, $actual));
+      if($success) {
         Environment::testResult("");
       } else {
         Environment::testResult($this->showStringOrArray($needle) . " is in the variable.", false);
@@ -185,7 +175,10 @@ trait TAssertions {
   protected function assertCount(int $count, $value): void {
     if(!is_array($value) && !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
-    } elseif(count($value) === $count) {
+      return;
+    }
+    $success = $this->isSuccess(count($value) === $count);
+    if($success) {
       Environment::testResult("");
     } else {
       $actual = count($value);
@@ -201,11 +194,14 @@ trait TAssertions {
   protected function assertNotCount(int $count, $value): void {
     if(!is_array($value) && !$value instanceof \Countable) {
       Environment::testResult("The variable is not array or countable object.", false);
-    } elseif(count($value) === $count) {
+      return;
+    }
+    $success = $this->isSuccess(count($value) !== $count);
+    if($success) {
+      Environment::testResult("");
+    } else {
       $actual = count($value);
       Environment::testResult("Count of the variable is $actual.", false);
-    } else {
-      Environment::testResult("");
     }
   }
 
@@ -218,14 +214,20 @@ trait TAssertions {
   protected function assertType($type, $value): void {
     if(!is_object($type) && !is_string($type)) {
       Environment::testResult("Type must be string or object.", false);
-    } elseif(in_array($type, ["array", "bool", "float", "int", "string", "null", "object", "resource",
+      return;
+    }
+    if(in_array($type, ["array", "bool", "float", "int", "string", "null", "object", "resource",
       "scalar", "iterable", "callable", ], true)) {
-      if(!call_user_func("is_$type", $value)) {
+      $success = $this->isSuccess(call_user_func("is_$type", $value));
+      if(!$success) {
         Environment::testResult("The variable is " . gettype($value) . ".", false);
       } else {
         Environment::testResult("");
       }
-    } elseif(!$value instanceof $type) {
+      return;
+    }
+    $success = $this->isSuccess($value instanceof $type);
+    if(!$success) {
       $actual = get_debug_type($value);
       Environment::testResult("The variable is instance of $actual.", false);
     } else {
