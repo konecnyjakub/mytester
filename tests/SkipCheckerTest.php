@@ -3,14 +3,17 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\Attributes\Skip;
+use MyTester\Annotations\Attributes\TestSuit;
 use Nette\Utils\ArrayHash;
 
 /**
  * Test suite for class SkipChecker
  *
- * @testSuit SkipCheckerTest
+ * @testSuit SkipChecker
  * @author Jakub Konečný
  */
+#[TestSuit("SkipChecker")]
 final class SkipCheckerTest extends TestCase {
   private function getSkipChecker(): SkipChecker {
     return $this->skipChecker;
@@ -37,7 +40,7 @@ final class SkipCheckerTest extends TestCase {
     $this->assertSame(1.5, $this->getSkipChecker()->getSkipValue(static::class, "skipFloat"));
     $this->assertSame("abc", $this->getSkipChecker()->getSkipValue(static::class, "skipString"));
     $array = $this->getSkipChecker()->getSkipValue(static::class, "skipArray");
-    $this->assertType(ArrayHash::class, $array);
+    $this->assertType("iterable", $array);
     $this->assertCount(1, $array);
   }
 
@@ -57,36 +60,42 @@ final class SkipCheckerTest extends TestCase {
   /**
    * @skip
    */
+  #[Skip()]
   private function skip(): void {
   }
 
   /**
    * @skip(false)
    */
+  #[Skip(false)]
   private function skipFalse(): void {
   }
 
   /**
    * @skip(1)
    */
+  #[Skip(1)]
   private function skipInteger(): void {
   }
 
   /**
    * @skip(1.5)
    */
+  #[Skip(1.5)]
   private function skipFloat(): void {
   }
 
   /**
    * @skip(abc)
    */
+  #[Skip("abc")]
   private function skipString(): void {
   }
 
   /**
    * @skip(php=666)
    */
+  #[Skip(["php" => 666])]
   private function skipArray(): void {
   }
 }

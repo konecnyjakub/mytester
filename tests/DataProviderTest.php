@@ -3,12 +3,16 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\Attributes\Data;
+use MyTester\Annotations\Attributes\TestSuit;
+
 /**
  * Test suite for class DataProvider
  *
  * @testSuit DataProvider
  * @author Jakub Konečný
  */
+#[TestSuit("DataProvider")]
 final class DataProviderTest extends TestCase {
   private function getDataProvider(): DataProvider {
     return $this->dataProvider;
@@ -34,12 +38,14 @@ final class DataProviderTest extends TestCase {
   /**
    * @data(abc, def)
    */
+  #[Data(["abc", "def"])]
   private function noParameters(): void {
   }
 
   /**
    * @data(abc, def)
    */
+  #[Data(["abc", "def"])]
   private function data(string $input): void {
   }
 }

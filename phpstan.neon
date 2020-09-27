@@ -5,6 +5,10 @@ parameters:
         - php
         - phpt
     checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
     treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#Parameter \#1 \$function of function call_user_func expects callable#'
+        - '#Parameter \#1 \$argument of class ReflectionClass constructor expects class-string\<T of object\>\|T of object, string given#'
+        - '#Call to an undefined method ReflectionClass\|ReflectionMethod::getAttributes\(\)#'

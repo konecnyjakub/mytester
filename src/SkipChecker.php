@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace MyTester;
 
 use MyTester\Annotations\Reader;
-use Nette\Utils\ArrayHash;
 use Nette\Utils\Arrays;
 
 /**
@@ -55,7 +54,7 @@ final class SkipChecker {
       return false;
     } elseif(is_scalar($value)) {
       return (bool) $value;
-    } elseif($value instanceof ArrayHash) {
+    } elseif(is_iterable($value)) {
       foreach($value as $k => $v) {
         $checker = Arrays::get($this->checkers, $k, null);
         if($checker === null) {

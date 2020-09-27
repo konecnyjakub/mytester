@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\Attributes\TestSuit;
+
 /**
  * Test suite for class Job
  *
  * @author Jakub Konečný
  * @testSuit JobTest
  */
+#[TestSuit("JobTest")]
 final class JobTest extends TestCase {
   protected function getJobs(): array {
     $test = new TestJobs();

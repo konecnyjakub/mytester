@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\Attributes\Data;
+use MyTester\Annotations\Attributes\Skip;
+use MyTester\Annotations\Attributes\Test;
+use MyTester\Annotations\Attributes\TestSuit;
+
 /**
  * Test suite for class TestCase
  * 
@@ -10,6 +15,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @property-read bool|int $one
  */
+#[TestSuit("TestCase")]
 final class TestCaseTest extends TestCase {
   /** @var bool|int */
   private $one = false;
@@ -39,6 +45,7 @@ final class TestCaseTest extends TestCase {
    *
    * @data(abc, adef)   
    */
+  #[Data(["abc", "adef"])]
   public function testParams(string $text): void {
     $this->assertType("string", $text);
     $this->assertContains("a", $text);
@@ -49,6 +56,7 @@ final class TestCaseTest extends TestCase {
    * 
    * @test Custom name
    */
+  #[Test("Custom name")]
   public function testTestName(): void {
     $this->assertSame("Custom name", Environment::$currentJob);
     $this->assertSame(1, $this->one);
@@ -60,6 +68,8 @@ final class TestCaseTest extends TestCase {
    * @test Skip
    * @skip
    */
+  #[Test("Skip")]
+  #[Skip()]
   public function testSkip(): void {
     $this->assertTrue(0);
   }
@@ -70,6 +80,8 @@ final class TestCaseTest extends TestCase {
    * @test Boolean
    * @skip(true)
    */
+  #[Test("Boolean")]
+  #[Skip(true)]
   public function testSkipBoolean(): void {
     $this->assertTrue(0);
   }
@@ -80,6 +92,8 @@ final class TestCaseTest extends TestCase {
    * @test Integer
    * @skip(1)
    */
+  #[Test("Integer")]
+  #[Skip(1)]
   public function testSkipInteger(): void {
     $this->assertTrue(0);
   }
@@ -90,6 +104,8 @@ final class TestCaseTest extends TestCase {
    * @test Float
    * @skip(1.5)
    */
+  #[Test("Integer")]
+  #[Skip(1.5)]
   public function testSkipFloat(): void {
     $this->assertTrue(0);
   }
@@ -100,6 +116,8 @@ final class TestCaseTest extends TestCase {
    * @test String
    * @skip(abc)
    */
+  #[Test("String")]
+  #[Skip("abc")]
   public function testSkipString(): void {
     $this->assertTrue(0);
   }
@@ -110,6 +128,8 @@ final class TestCaseTest extends TestCase {
    * @test PHP version
    * @skip(php=666)
    */
+  #[Test("PHP version")]
+  #[Skip(["php" => 666])]
   public function testSkipPhpVersion(): void {
     $this->assertTrue(0);
   }
@@ -120,6 +140,8 @@ final class TestCaseTest extends TestCase {
    * @test CGI sapi
    * @skip(sapi=abc)
    */
+  #[Test("CGI sapi")]
+  #[Skip(["sapi" => "abc"])]
   public function testCgiSapi(): void {
     $this->assertNotSame(PHP_SAPI, "abc");
   }
@@ -130,6 +152,8 @@ final class TestCaseTest extends TestCase {
    * @test Extension
    * @skip(extension=abc)
    */
+  #[Test("Extension")]
+  #[Skip(["extension" => "abc"])]
   public function testSkipExtension(): void {
     $this->assertTrue(0);
   }

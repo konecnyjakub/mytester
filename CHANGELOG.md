@@ -19,6 +19,7 @@ Version 2.0.0-dev
 - automated tests runner now supports *Test.php files, they should be used instead of *.phpt files
 - BC break: marked TestsRunner as internal
 - removed support for running from browser
+- PHP 8 attributes can be used instead of phpDoc annotations
 
 Version 1.1
 - the environment for nette di extension is now set up in TestsRunner::execute()

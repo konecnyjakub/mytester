@@ -7,7 +7,7 @@ use Nette\Reflection\ClassType;
 use Nette\Reflection\Method;
 
 /**
- * NetteReflectionEngine
+ * Nette Reflection engine for annotations reader
  *
  * @author Jakub Konečný
  * @internal
