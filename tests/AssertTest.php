@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use stdClass as stdClass;
+use stdClass;
 
 /**
  * Test suite for class Assert

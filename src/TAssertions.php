@@ -218,8 +218,8 @@ trait TAssertions {
   protected function assertType($type, $value): void {
     if(!is_object($type) && !is_string($type)) {
       Environment::testResult("Type must be string or object.", false);
-    } elseif(in_array($type, ["array", "bool", "callable", "float", "int", "integer", "null", "object",
-      "resource", "scalar", "string", "iterable", ], true)) {
+    } elseif(in_array($type, ["array", "bool", "float", "int", "string", "null", "object", "resource",
+      "scalar", "iterable", "callable", ], true)) {
       if(!call_user_func("is_$type", $value)) {
         Environment::testResult("The variable is " . gettype($value) . ".", false);
       } else {
