@@ -16,9 +16,7 @@
      <arg value="--colors"/>
    </exec>
    <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
-     <arg value="--extensions=php,phpt"/>
      <arg value="."/>
-     <arg value="--standard=phpcs.xml"/>
      <arg value="--colors"/>
    </exec>
    <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
