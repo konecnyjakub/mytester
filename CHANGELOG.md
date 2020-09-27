@@ -1,4 +1,4 @@
-Version 2.0.0-dev
+Version 2.0.0
 - BC break: removed Runner
 - simplified output, errors are now printed to tests_folder/job_name.errors
 - BC break: removed parameter $successText of method Assert::tryAssertion()
