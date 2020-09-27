@@ -21,8 +21,10 @@ final class AssertTest extends TestCase {
   public function testAssertion(): void {
     $this->assertSame("abc", "abc");
     $this->assertNotSame("abc", "def");
-    $this->assertTrue(1);
-    $this->assertFalse(0);
+    $this->assertTrue(true);
+    $this->assertTruthy(1);
+    $this->assertFalse(false);
+    $this->assertFalsey(0);
     $this->assertNull(null);
     $this->assertNotNull("abc");
     $testArray = ["abc"];
@@ -47,8 +49,10 @@ final class AssertTest extends TestCase {
    */
   public function testAssertionFails(): void {
     $actual = "abc";
-    $this->assertTrue(0);
-    $this->assertFalse(1);
+    $this->assertTrue(false);
+    $this->assertTruthy(0);
+    $this->assertFalse(true);
+    $this->assertFalsey(0);
     $this->assertSame("def", $actual);
     $this->assertContains("def", $actual);
     $this->assertNotContains("abc", $actual);

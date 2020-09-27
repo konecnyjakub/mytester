@@ -79,7 +79,7 @@ final class Assert {
    * 
    * @param mixed $actual
    * @deprecated
-   * @see TAssertions::assertTrue()
+   * @see TAssertions::assertTruthy()
    */
   public static function true($actual): void {
     $success = static::isSuccess($actual == true);
@@ -94,7 +94,7 @@ final class Assert {
    * 
    * @param mixed $actual
    * @deprecated
-   * @see TAssertions::assertFalse()
+   * @see TAssertions::assertFalsey()
    */
   public static function false($actual): void {
     $success = static::isSuccess($actual == false);

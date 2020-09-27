@@ -5,7 +5,6 @@ namespace MyTester;
 
 use MyTester\Annotations\Attributes\Skip;
 use MyTester\Annotations\Attributes\TestSuit;
-use Nette\Utils\ArrayHash;
 
 /**
  * Test suite for class SkipChecker
@@ -45,13 +44,13 @@ final class SkipCheckerTest extends TestCase {
   }
 
   public function testShouldSkip(): void {
-    $this->assertFalse($this->getSkipChecker()->shouldSkip(static::class, "skipNull"));
-    $this->assertTrue($this->getSkipChecker()->shouldSkip(static::class, "skip"));
-    $this->assertFalse($this->getSkipChecker()->shouldSkip(static::class, "skipFalse"));
-    $this->assertTrue($this->getSkipChecker()->shouldSkip(static::class, "skipInteger"));
-    $this->assertTrue($this->getSkipChecker()->shouldSkip(static::class, "skipFloat"));
-    $this->assertTrue($this->getSkipChecker()->shouldSkip(static::class, "skipString"));
-    $this->assertTrue($this->getSkipChecker()->shouldSkip(static::class, "skipArray"));
+    $this->assertFalsey($this->getSkipChecker()->shouldSkip(static::class, "skipNull"));
+    $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skip"));
+    $this->assertFalsey($this->getSkipChecker()->shouldSkip(static::class, "skipFalse"));
+    $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipInteger"));
+    $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipFloat"));
+    $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipString"));
+    $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipArray"));
   }
 
   private function skipNull(): void {

@@ -97,7 +97,7 @@ class Tests extends MyTester\TestCase {
    * @test Custom name
    */
   public function testTestName(): void {
-    $this->assertTrue(1);
+    $this->assertTrue(true);
   }
 }
 ?>
@@ -115,7 +115,7 @@ class Tests extends MyTester\TestCase {
    * @skip
    */
   public function testTestName(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
 }?>
 ```
@@ -135,7 +135,7 @@ class Tests extends MyTester\TestCase {
    * @skip(sapi=cgi)
    */
   public function testTestName(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
 }
 ?>

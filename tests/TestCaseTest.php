@@ -36,7 +36,7 @@ final class TestCaseTest extends TestCase {
   }
   
   public function shutDown(): void {
-    $this->assertFalse($this->one);
+    $this->assertFalsey($this->one);
     $this->assertSame("", Environment::$currentJob);
   }
   
@@ -71,7 +71,7 @@ final class TestCaseTest extends TestCase {
   #[Test("Skip")]
   #[Skip()]
   public function testSkip(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
   
   /**
@@ -83,7 +83,7 @@ final class TestCaseTest extends TestCase {
   #[Test("Boolean")]
   #[Skip(true)]
   public function testSkipBoolean(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
   
   /**
@@ -95,7 +95,7 @@ final class TestCaseTest extends TestCase {
   #[Test("Integer")]
   #[Skip(1)]
   public function testSkipInteger(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
   
   /**
@@ -107,7 +107,7 @@ final class TestCaseTest extends TestCase {
   #[Test("Integer")]
   #[Skip(1.5)]
   public function testSkipFloat(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
   
   /**
@@ -119,7 +119,7 @@ final class TestCaseTest extends TestCase {
   #[Test("String")]
   #[Skip("abc")]
   public function testSkipString(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
   
   /**
@@ -131,7 +131,7 @@ final class TestCaseTest extends TestCase {
   #[Test("PHP version")]
   #[Skip(["php" => 666])]
   public function testSkipPhpVersion(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
 
   /**
@@ -155,7 +155,7 @@ final class TestCaseTest extends TestCase {
   #[Test("Extension")]
   #[Skip(["extension" => "abc"])]
   public function testSkipExtension(): void {
-    $this->assertTrue(0);
+    $this->assertTrue(false);
   }
 }
 ?>

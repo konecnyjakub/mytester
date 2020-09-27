@@ -60,14 +60,36 @@ trait TAssertions {
   }
 
   /**
+   * Is $actual equal to true?
+   */
+  protected function assertTrue(bool $actual): void {
+    $success = $this->isSuccess($actual);
+    if(!$success) {
+      $message = "The value is not true.";
+    }
+    Environment::testResult($message ?? "", $success);
+  }
+
+  /**
    * Is the expression true?
    *
    * @param mixed $actual
    */
-  protected function assertTrue($actual): void {
+  protected function assertTruthy($actual): void {
     $success = $this->isSuccess($actual == true);
     if(!$success) {
       $message = "The expression is not true.";
+    }
+    Environment::testResult($message ?? "", $success);
+  }
+
+  /**
+   * Is $actual equal to false?
+   */
+  protected function assertFalse(bool $actual): void {
+    $success = $this->isSuccess(!$actual);
+    if(!$success) {
+      $message = "The value is not false.";
     }
     Environment::testResult($message ?? "", $success);
   }
@@ -77,7 +99,7 @@ trait TAssertions {
    *
    * @param mixed $actual
    */
-  protected function assertFalse($actual): void {
+  protected function assertFalsey($actual): void {
     $success = $this->isSuccess($actual == false);
     if(!$success) {
       $message = "The expression is not false.";
