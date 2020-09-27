@@ -23,7 +23,7 @@ final class Environment {
   /** @deprecated */
   private const TIMER_NAME = self::NAME;
   /** @deprecated Use {@see PrettyVersions::getVersion()} */
-  public const VERSION = "2.1.0";
+  public const VERSION = "3.0.0-dev";
 
   /** @deprecated */
   private static int $taskCount = 0;
