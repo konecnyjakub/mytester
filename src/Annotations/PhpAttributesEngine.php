@@ -31,7 +31,7 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine {
     if(count($attributes) === 0) {
       return null;
     }
-    return $attributes[0]->getArguments()[0] ?? null;
+    return $attributes[0]->getArguments()[0] ?? true;
   }
 
   private function isAvailable(): bool {

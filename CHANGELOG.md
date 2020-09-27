@@ -1,3 +1,6 @@
+Version 2.0.0+dev
+- changed default value for attributes to true
+
 Version 2.0.0
 - BC break: removed Runner
 - simplified output, errors are now printed to tests_folder/job_name.errors

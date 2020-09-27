@@ -17,7 +17,7 @@ final class Skip {
   /**
    * @param mixed $value
    */
-  public function __construct($value = null) {
+  public function __construct($value = true) {
     $this->value = $value;
   }
 }
