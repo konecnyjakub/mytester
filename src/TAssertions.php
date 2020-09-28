@@ -12,7 +12,7 @@ trait TAssertions {
   }
 
   protected function isSuccess(bool $success): bool {
-    if(Environment::getShouldFail()) {
+    if(Environment::$shouldFail) {
       $success = !$success;
     }
     return $success;
