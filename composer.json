@@ -35,6 +35,10 @@
     "suggest": {
         "nette/robot-loader": "Needed for automated tests runner."
     },
+    "conflict": {
+        "nette/robot-loader": "<3.1.1",
+        "nette/di": "<3.0.5"
+    },
     "autoload": {
         "psr-4": {
             "MyTester\\": "src/"
