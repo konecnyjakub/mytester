@@ -141,6 +141,55 @@ class Tests extends MyTester\TestCase {
 ?>
 ```
 
+#### Annotations style
+
+In all previous examples you have seen annotations in style:
+
+```php
+/**
+* @testSuit Abc
+* @skip(abc)
+*/
+```
+
+but that is not the only way. If you use PHP 8, you can also make use of attributes. All used attributes are in namespace MyTester\Annotations\Attributes. Examples:
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Annotations\Attributes\Data;
+use MyTester\Annotations\Attributes\Skip;
+use MyTester\Annotations\Attributes\Fail;
+use MyTester\Annotations\Attributes\Test;
+use MyTester\Annotations\Attributes\TestSuit;
+
+#[TestSuit("Abc")]
+class AbcTest extends MyTester\TestCase {
+  
+  #[Test("Abc")]
+  public function testOne(): void {
+    $this->assertTrue(true);
+  }
+
+  #[Skip()]
+  public function testSkip(): void {
+    $this->assertTrue(false);
+  }
+
+  #[Fail()]
+  public function testFail(): void {
+    $this->assertTrue(false);
+  }
+
+  #[Data(["abc", "adef"])]
+  public function testParams(string $text): void {
+    $this->assertContains("a", $text);
+  }
+}
+?>
+```
+
 #### Setup and clean up
 
 If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suit.
