@@ -30,7 +30,7 @@ final class TestJobs {
    */
   private function assertSame($expected, $actual): void {
     $success = ($expected == $actual);
-    if(Environment::getShouldFail()) {
+    if(Environment::$shouldFail) {
       $success = !$success;
     }
     if(!$success) {

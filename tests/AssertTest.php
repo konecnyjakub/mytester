@@ -13,7 +13,7 @@ use stdClass;
  */
 final class AssertTest extends TestCase {
   public function shutDown(): void {
-    $this->assertFalse(Environment::getShouldFail());
+    $this->assertFalse(Environment::$shouldFail);
   }
   
   /**

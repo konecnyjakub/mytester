@@ -76,7 +76,7 @@ class Job {
    */
   public function execute(): void {
     Environment::resetCounter();
-    Environment::setShouldFail($this->shouldFail);
+    Environment::$shouldFail = $this->shouldFail;
     if($this->skip) {
       $this->result = static::RESULT_SKIPPED;
       Environment::addSkipped($this->name, (is_string($this->skip) ? $this->skip : ""));
@@ -95,7 +95,7 @@ class Job {
         file_put_contents(\getTestsDirectory() . "/$this->name.errors", $output);
       }
     }
-    Environment::setShouldFail(false);
+    Environment::$shouldFail = false;
   }
 }
 ?>

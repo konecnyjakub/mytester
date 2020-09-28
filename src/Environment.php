@@ -95,11 +95,17 @@ final class Environment {
   public static function getSkipped(): array {
     return static::$skipped;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public static function getShouldFail(): bool {
     return static::$shouldFail;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public static function setShouldFail(bool $value): void {
     static::$shouldFail = $value;
   }
