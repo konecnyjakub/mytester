@@ -24,13 +24,13 @@ final class Collector {
   public function start(): void {
     $engine = $this->selectEngine();
     $engine->start();
-    register_shutdown_function([$this, "save"]);
   }
 
-  public function save(): void {
-    if($this->currentEngine !== null) {
-      $this->currentEngine->collect();
+  public function finish(): array {
+    if($this->currentEngine === null) {
+      return [];
     }
+    return $this->currentEngine->collect();
   }
 
   private function selectEngine(): ICodeCoverageEngine {
