@@ -10,6 +10,8 @@ namespace MyTester\Annotations\Attributes;
  */
 #[Attribute(Attribute::TARGET_METHOD)]
 final class Skip {
+  use \Nette\SmartObject;
+
   /** @var mixed */
   public $value;
 

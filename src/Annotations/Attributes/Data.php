@@ -10,6 +10,8 @@ namespace MyTester\Annotations\Attributes;
  */
 #[Attribute(Attribute::TARGET_METHOD)]
 final class Data {
+  use \Nette\SmartObject;
+
   public array $value;
 
   public function __construct(array $value) {

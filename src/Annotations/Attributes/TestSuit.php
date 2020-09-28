@@ -10,6 +10,8 @@ namespace MyTester\Annotations\Attributes;
  */
 #[Attribute(Attribute::TARGET_CLASS)]
 final class TestSuit {
+  use \Nette\SmartObject;
+
   public string $value;
 
   public function __construct(string $value) {
