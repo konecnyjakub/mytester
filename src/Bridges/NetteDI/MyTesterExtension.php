@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
-use Exception as Exception;
-use MyTester\Tester as Tester;
+use Exception;
+use MyTester\Tester;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
 

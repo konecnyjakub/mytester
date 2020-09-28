@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Nette\Loaders\RobotLoader as RobotLoader;
+use Nette\Loaders\RobotLoader;
 use Nette\Utils\FileSystem;
-use ReflectionClass as ReflectionClass;
+use ReflectionClass;
 
 /**
  * Automated tests runner
