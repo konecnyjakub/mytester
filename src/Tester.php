@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Nette\Loaders\RobotLoader;
-use Nette\Utils\FileSystem;
-use ReflectionClass;
+use MyTester\Bridges\NetteRobotLoader\TestSuitsFinder;
 
 /**
  * Automated tests runner
@@ -27,41 +25,12 @@ final class Tester {
   public ITestSuitFactory $testSuitFactory;
   
   public function __construct(string $folder) {
-    $this->suits = $this->findSuits($folder);
+    $this->suits = (new TestSuitsFinder())->getSuits($folder);
     $this->testSuitFactory = new class implements ITestSuitFactory {
       public function create(string $className): TestCase {
         return new $className();
       }
     };
-  }
-  
-  /**
-   * Find test suits to run
-   */
-  private function findSuits(string $folder): array {
-    $suits = [];
-    $robot = new RobotLoader();
-    $tempDir = "$folder/temp/cache/Robot.Loader";
-    if(is_dir("$folder/_temp")) {
-      $tempDir = "$folder/_temp/cache/Robot.Loader";
-    }
-    FileSystem::createDir($tempDir);
-    $robot->setTempDirectory($tempDir);
-    $robot->addDirectory($folder);
-    $robot->acceptFiles = ["*Test.php", "*.phpt", ];
-    $robot->rebuild();
-    $robot->register();
-    $classes = $robot->getIndexedClasses();
-    foreach($classes as $class => $file) {
-      if(!class_exists($class)) {
-        continue;
-      }
-      $rc = new ReflectionClass($class);
-      if(!$rc->isAbstract() && $rc->isSubclassOf(TestCase::class)) {
-        $suits[] = [$rc->getName(), $file];
-      }
-    }
-    return $suits;
   }
   
   /**

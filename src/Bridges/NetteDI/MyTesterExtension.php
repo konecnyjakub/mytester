@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Bridges\NetteDI;
 
 use Exception;
-use MyTester\Tester;
+use MyTester\Bridges\NetteRobotLoader\TestSuitsFinder;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
 
@@ -38,8 +38,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
     if(!is_dir($config["folder"])) {
       throw new Exception("Invalid folder {$config["folder"]} for $this->name.folder");
     }
-    $tester = new Tester($config["folder"]);
-    $this->suits = $tester->suits;
+    $this->suits = (new TestSuitsFinder())->getSuits($config["folder"]);
     foreach($this->suits as $index => $suit) {
       $builder->addDefinition($this->prefix("test." . ($index + 1)))
         ->setType($suit[0])
