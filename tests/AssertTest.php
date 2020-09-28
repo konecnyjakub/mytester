@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\Attributes\Fail;
 use stdClass;
 
 /**
@@ -47,6 +48,7 @@ final class AssertTest extends TestCase {
    *
    * @fail
    */
+  #[Fail()]
   public function testAssertionFails(): void {
     $actual = "abc";
     $this->assertTrue(false);
