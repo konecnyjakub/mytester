@@ -137,7 +137,6 @@ abstract class TestCase {
   }
   
   protected function runJob(Job $job): string {
-    Environment::$currentJob = $job->name;
     $this->resetCounter();
     if(!$job->skip) {
       $this->setUp();
@@ -148,7 +147,6 @@ abstract class TestCase {
       $this->tearDown();
     }
     $this->shouldFail = false;
-    Environment::$currentJob = "";
     $this->resetCounter();
     switch($job->result) {
       case Job::RESULT_PASSED:

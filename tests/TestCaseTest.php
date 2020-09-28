@@ -37,7 +37,6 @@ final class TestCaseTest extends TestCase {
   
   public function shutDown(): void {
     $this->assertFalsey($this->one);
-    $this->assertSame("", Environment::$currentJob);
   }
 
   public function testState(): void {
@@ -71,7 +70,6 @@ final class TestCaseTest extends TestCase {
    */
   #[Test("Custom name")]
   public function testTestName(): void {
-    $this->assertSame("Custom name", Environment::$currentJob);
     $this->assertSame(1, $this->one);
   }
   

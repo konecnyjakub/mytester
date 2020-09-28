@@ -17,13 +17,9 @@ final class Environment {
   use \Nette\StaticClass;
 
   /** @deprecated */
-  public const NAME = "My Tester";
-  /** @deprecated */
   private const PACKAGE_NAME = "konecnyjakub/mytester";
   /** @deprecated */
-  private const TIMER_NAME = self::NAME;
-  /** @deprecated Use {@see PrettyVersions::getVersion()} */
-  public const VERSION = "3.0.0-dev";
+  private const TIMER_NAME = "My Tester";
 
   /** @deprecated */
   private static int $taskCount = 0;
@@ -34,10 +30,6 @@ final class Environment {
    * @deprecated
    */
   private static array $skipped = [];
-  /** @deprecated */
-  public static string $currentJob = "";
-  /** @deprecated */
-  public static bool $shouldFail = false;
   /** @deprecated */
   private static string $results = "";
   
@@ -77,7 +69,6 @@ final class Environment {
    * Resets task counter
    *
    * @internal
-   * @deprecated
    */
   public static function resetCounter(): void {
     static::$taskCount = 0;
@@ -88,15 +79,6 @@ final class Environment {
    */
   public static function getCounter(): int {
     return static::$taskCount;
-  }
-  
-  /**
-   * Prints entered text with correct line ending
-   *
-   * @deprecated Just use echo
-   */
-  public static function printLine(string $text = ""): void {
-    echo "$text\n";
   }
 
   /**
@@ -123,20 +105,6 @@ final class Environment {
     return static::$skipped;
   }
 
-  /**
-   * @deprecated Access the property directly
-   */
-  public static function getShouldFail(): bool {
-    return static::$shouldFail;
-  }
-
-  /**
-   * @deprecated Access the property directly
-   */
-  public static function setShouldFail(bool $value): void {
-    static::$shouldFail = $value;
-  }
-  
   /**
    * Print version of My Tester and PHP
    *
