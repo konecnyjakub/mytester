@@ -13,7 +13,7 @@ $configurator->setTempDirectory(__DIR__ . "/temp");
 $configurator->addConfig(__DIR__ . "/config.neon");
 $container = $configurator->createContainer();
 /** @var TestsRunner $runner */
-$runner = $container->getService("mytester.runner");
+$runner = $container->getByType(TestsRunner::class);
 $result = $runner->execute();
 exit((int) $result);
 ?>
