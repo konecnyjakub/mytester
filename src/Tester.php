@@ -24,9 +24,15 @@ final class Tester {
     Environment::class . "::setup",
     Environment::class . "::printInfo",
   ];
+  public ITestSuitFactory $testSuitFactory;
   
   public function __construct(string $folder) {
     $this->suits = $this->findSuits($folder);
+    $this->testSuitFactory = new class implements ITestSuitFactory {
+      public function create(string $className): TestCase {
+        return new $className();
+      }
+    };
   }
   
   /**
@@ -72,8 +78,7 @@ final class Tester {
     $this->onExecute();
     $failed = false;
     foreach($this->suits as $suit) {
-      /** @var TestCase $suit */
-      $suit = new $suit[0]();
+      $suit = $this->testSuitFactory->create($suit[0]);
       if(!$suit->run()) {
         $failed = true;
       }
