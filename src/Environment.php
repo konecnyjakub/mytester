@@ -15,6 +15,7 @@ final class Environment {
 
   /** @deprecated */
   public const NAME = "My Tester";
+  private const TIMER_NAME = self::NAME;
   public const VERSION = "2.1.0-dev";
 
   private static int $taskCount = 0;
@@ -107,7 +108,7 @@ final class Environment {
    * Print version of My Tester and PHP
    */
   public static function printInfo(): void {
-    echo static::NAME . " " . static::VERSION . "\n";
+    echo "My Tester " . static::VERSION . "\n";
     echo "\n";
     echo "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n";
     echo "\n";
@@ -133,7 +134,7 @@ final class Environment {
     if(str_contains($results, TestCase::RESULT_SKIPPED)) {
       $resultsLine .= ", " . substr_count($results, TestCase::RESULT_SKIPPED) . " skipped";
     }
-    $time = \Tracy\Debugger::timer(static::NAME);
+    $time = \Tracy\Debugger::timer(static::TIMER_NAME);
     $resultsLine .= ", $time second(s))";
     echo $resultsLine . "\n";
   }
@@ -172,7 +173,7 @@ final class Environment {
       echo "Warning: Testing Environment was already set up.\n";
       return;
     }
-    \Tracy\Debugger::timer(static::NAME);
+    \Tracy\Debugger::timer(static::TIMER_NAME);
     static::$set = true;
   }
 }
