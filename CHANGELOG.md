@@ -1,6 +1,7 @@
 Version 2.1.0-dev
 - allowed customization of test suit creation in automated tests runner
 - made Job::$name, Job::$params and Job::$shouldFail readable
+- deprecated Environment::NAME, Environment::printLine()
 
 Version 2.0.1
 - changed default value for attributes to true

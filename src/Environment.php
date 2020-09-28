@@ -12,7 +12,8 @@ use Nette\Utils\Finder;
  */
 final class Environment {
   use \Nette\StaticClass;
-  
+
+  /** @deprecated */
   public const NAME = "My Tester";
   public const VERSION = "2.1.0-dev";
 
@@ -32,7 +33,7 @@ final class Environment {
     if($success) {
       return;
     }
-    static::printLine("Test " . static::$taskCount . " failed. $text");
+    echo "Test " . static::$taskCount . " failed. $text\n";
   }
   
   /**
@@ -66,6 +67,8 @@ final class Environment {
   
   /**
    * Prints entered text with correct line ending
+   *
+   * @deprecated Just use echo
    */
   public static function printLine(string $text = ""): void {
     echo "$text\n";
@@ -104,23 +107,23 @@ final class Environment {
    * Print version of My Tester and PHP
    */
   public static function printInfo(): void {
-    static::printLine(static::NAME . " " . static::VERSION);
-    static::printLine();
-    static::printLine("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")");
-    static::printLine();
+    echo static::NAME . " " . static::VERSION . "\n";
+    echo "\n";
+    echo "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n";
+    echo "\n";
   }
 
   public static function printResults(): void {
     $results = static::$results;
-    static::printLine($results);
+    echo $results . "\n";
     static::printSkipped();
     $failed = str_contains($results, TestCase::RESULT_FAILED);
     if(!$failed) {
-      static::printLine();
+      echo "\n";
       echo "OK";
     } else {
       static::printFailed();
-      static::printLine();
+      echo "\n";
       echo "Failed";
     }
     $resultsLine = " (" . strlen($results) . " tests";
@@ -132,7 +135,7 @@ final class Environment {
     }
     $time = \Tracy\Debugger::timer(static::NAME);
     $resultsLine .= ", $time second(s))";
-    static::printLine($resultsLine);
+    echo $resultsLine . "\n";
   }
 
   /**
@@ -144,7 +147,7 @@ final class Environment {
       if($skipped->reason) {
         $reason = ": {$skipped->reason}";
       }
-      static::printLine("Skipped $skipped->name$reason");
+      echo "Skipped $skipped->name$reason\n";
     }
   }
 
@@ -156,7 +159,7 @@ final class Environment {
     $files = Finder::findFiles("*$filenameSuffix")->in(\getTestsDirectory());
     /** @var \SplFileInfo $file */
     foreach($files as $name => $file) {
-      static::printLine("--- " . $file->getBasename($filenameSuffix));
+      echo "--- " . $file->getBasename($filenameSuffix) . "\n";
       echo file_get_contents($name);
     }
   }
@@ -166,7 +169,7 @@ final class Environment {
    */
   public static function setup(): void {
     if(static::$set) {
-      static::printLine("Warning: Testing Environment was already set up.");
+      echo "Warning: Testing Environment was already set up.\n";
       return;
     }
     \Tracy\Debugger::timer(static::NAME);
