@@ -9,8 +9,11 @@ require_once __DIR__ . "/functions.php";
  * One job of the test suite
  *
  * @author Jakub Konečný
+ * @property-read string $name
  * @property-read callable $callback
+ * @property-read array $params
  * @property-read bool|string $skip
+ * @property-read bool $shouldFail
  * @property-read string $result
  */
 class Job {
@@ -40,9 +43,17 @@ class Job {
     $this->skip = $skip;
     $this->shouldFail = $shouldFail;
   }
+
+  protected function getName(): string {
+    return $this->name;
+  }
   
   protected function getCallback(): callable {
     return $this->callback;
+  }
+
+  protected function getParams(): array {
+    return $this->params;
   }
   
   /**
@@ -50,6 +61,10 @@ class Job {
    */
   protected function getSkip() {
     return $this->skip;
+  }
+
+  protected function isShouldFail(): bool {
+    return $this->shouldFail;
   }
   
   protected function getResult(): string {

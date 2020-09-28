@@ -125,10 +125,7 @@ abstract class TestCase {
   }
   
   protected function runJob(Job $job): string {
-    /** @var array $callback */
-    $callback = $job->callback;
-    $jobName = $this->getJobName($callback[0], $callback[1]);
-    Environment::$currentJob = $jobName;
+    Environment::$currentJob = $job->name;
     if(!$job->skip) {
       $this->setUp();
     }
