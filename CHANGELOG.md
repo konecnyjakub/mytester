@@ -1,5 +1,6 @@
-Version 2.0.0+dev
+Version 2.0.1
 - changed default value for attributes to true
+- added attributes to public api
 
 Version 2.0.0
 - BC break: removed Runner
