@@ -7,7 +7,6 @@ namespace MyTester\Annotations\Attributes;
  * Test attribute
  *
  * @author Jakub Konečný
- * @internal
  */
 #[Attribute(Attribute::TARGET_METHOD)]
 final class Test {

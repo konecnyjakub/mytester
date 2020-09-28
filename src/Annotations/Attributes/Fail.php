@@ -7,7 +7,6 @@ namespace MyTester\Annotations\Attributes;
  * Fail attribute
  *
  * @author Jakub Konečný
- * @internal
  */
 #[Attribute(Attribute::TARGET_METHOD)]
 final class Fail {
