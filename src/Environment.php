@@ -14,7 +14,7 @@ final class Environment {
   use \Nette\StaticClass;
   
   public const NAME = "My Tester";
-  public const VERSION = "2.0.0";
+  public const VERSION = "2.1.0-dev";
 
   private static int $taskCount = 0;
   private static bool $set = false;
