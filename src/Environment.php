@@ -26,6 +26,7 @@ final class Environment {
   private static bool $set = false;
   /** @var SkippedTest[] */
   private static array $skipped = [];
+  /** @deprecated */
   public static string $currentJob = "";
   /** @deprecated */
   public static bool $shouldFail = false;
