@@ -15,7 +15,7 @@ use MyTester\Bridges\NetteRobotLoader\TestSuitsFinder;
  */
 final class Tester {
   use \Nette\SmartObject;
-  
+
   private const PACKAGE_NAME = "konecnyjakub/mytester";
   
   /** @var string[] */
@@ -25,6 +25,7 @@ final class Tester {
     Environment::class . "::setup",
   ];
   public ITestSuitFactory $testSuitFactory;
+  private string $folder;
   
   public function __construct(string $folder) {
     $this->onExecute[] = [$this, "printInfo"];
@@ -34,6 +35,7 @@ final class Tester {
         return new $className();
       }
     };
+    $this->folder = $folder;
   }
   
   /**
