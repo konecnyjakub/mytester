@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use Jean85\PrettyVersions;
 use Nette\Utils\Finder;
 
 /**
@@ -15,7 +16,9 @@ final class Environment {
 
   /** @deprecated */
   public const NAME = "My Tester";
+  private const PACKAGE_NAME = "konecnyjakub/mytester";
   private const TIMER_NAME = self::NAME;
+  /** @deprecated Use {@see PrettyVersions::getVersion()} */
   public const VERSION = "2.1.0-dev";
 
   private static int $taskCount = 0;
@@ -115,7 +118,7 @@ final class Environment {
    * Print version of My Tester and PHP
    */
   public static function printInfo(): void {
-    echo "My Tester " . static::VERSION . "\n";
+    echo "My Tester " . PrettyVersions::getVersion(static::PACKAGE_NAME) . "\n";
     echo "\n";
     echo "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n";
     echo "\n";
