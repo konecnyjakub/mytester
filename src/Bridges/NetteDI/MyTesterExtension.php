@@ -44,7 +44,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $this->suites = (new TestSuitesFinder())->getSuites($config["folder"]);
     foreach($this->suites as $index => $suite) {
       $builder->addDefinition($this->prefix("test." . ($index + 1)))
-        ->setType($suite[0])
+        ->setType($suite)
         ->addTag(self::TAG);
     }
   }

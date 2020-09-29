@@ -31,7 +31,7 @@ final class TestSuitesFinder implements ITestsSuitesFinder {
       }
       $rc = new ReflectionClass($class);
       if(!$rc->isAbstract() && $rc->isSubclassOf(TestCase::class)) {
-        $suites[] = [$rc->getName(), $file];
+        $suites[] = $rc->getName();
       }
     }
     return $suites;

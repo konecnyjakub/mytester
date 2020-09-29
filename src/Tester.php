@@ -57,7 +57,7 @@ final class Tester {
     $this->onExecute();
     $failed = false;
     foreach($this->suites as $suite) {
-      $suite = $this->testSuiteFactory->create($suite[0]);
+      $suite = $this->testSuiteFactory->create($suite);
       if(!$suite->run()) {
         $failed = true;
       }
