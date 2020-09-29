@@ -18,8 +18,6 @@ use Nette\Schema\Expect;
 final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   public const TAG = "mytester.test";
 
-  private array $suites;
-
   public function getConfigSchema(): \Nette\Schema\Schema {
     $params = $this->getContainerBuilder()->parameters;
     return Expect::structure([
@@ -41,8 +39,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
       ->setFactory(Tester::class, [$config["folder"]]);
     $builder->addDefinition($this->prefix("suiteFactory"))
       ->setType(ContainerSuiteFactory::class);
-    $this->suites = (new TestSuitesFinder())->getSuites($config["folder"]);
-    foreach($this->suites as $index => $suite) {
+    $suites = (new TestSuitesFinder())->getSuites($config["folder"]);
+    foreach($suites as $index => $suite) {
       $builder->addDefinition($this->prefix("test." . ($index + 1)))
         ->setType($suite)
         ->addTag(self::TAG);
