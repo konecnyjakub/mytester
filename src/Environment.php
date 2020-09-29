@@ -17,6 +17,7 @@ final class Environment {
 
   /** @deprecated */
   public const NAME = "My Tester";
+  /** @deprecated */
   private const PACKAGE_NAME = "konecnyjakub/mytester";
   private const TIMER_NAME = self::NAME;
   /** @deprecated Use {@see PrettyVersions::getVersion()} */
@@ -118,6 +119,8 @@ final class Environment {
   
   /**
    * Print version of My Tester and PHP
+   *
+   * @deprecated
    */
   public static function printInfo(): void {
     echo "My Tester " . PrettyVersions::getVersion(static::PACKAGE_NAME) . "\n";
