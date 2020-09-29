@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use Ayesh\PHP_Timer\Timer;
 use Jean85\PrettyVersions;
 use Nette\Utils\Finder;
 
@@ -144,7 +145,8 @@ final class Environment {
     if(str_contains($results, TestCase::RESULT_SKIPPED)) {
       $resultsLine .= ", " . substr_count($results, TestCase::RESULT_SKIPPED) . " skipped";
     }
-    $time = \Tracy\Debugger::timer(static::TIMER_NAME);
+    Timer::stop(static::TIMER_NAME);
+    $time = Timer::read(static::TIMER_NAME, Timer::FORMAT_HUMAN);
     $resultsLine .= ", $time second(s))";
     echo $resultsLine . "\n";
   }
@@ -183,7 +185,7 @@ final class Environment {
       echo "Warning: Testing Environment was already set up.\n";
       return;
     }
-    \Tracy\Debugger::timer(static::TIMER_NAME);
+    Timer::start(static::TIMER_NAME);
     static::$set = true;
   }
 }
