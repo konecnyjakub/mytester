@@ -147,7 +147,7 @@ final class Environment {
     }
     Timer::stop(static::TIMER_NAME);
     $time = Timer::read(static::TIMER_NAME, Timer::FORMAT_HUMAN);
-    $resultsLine .= ", $time second(s))";
+    $resultsLine .= ", $time)";
     echo $resultsLine . "\n";
   }
 
