@@ -29,7 +29,6 @@ trait TAssertions {
    */
   protected function incCounter(): void {
     $this->taskCount++;
-    Environment::incCounter();
   }
 
   /**
@@ -39,7 +38,6 @@ trait TAssertions {
    */
   protected function resetCounter(): void {
     $this->taskCount = 0;
-    Environment::resetCounter();
   }
 
   /**

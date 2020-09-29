@@ -5,6 +5,7 @@ namespace MyTester\Bridges\NetteDI;
 
 use Exception;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\Tester;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
 
@@ -33,11 +34,13 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   public function loadConfiguration(): void {
     $config = $this->getConfig();
     $builder = $this->getContainerBuilder();
-    $builder->addDefinition($this->prefix("runner"))
-      ->setType(TestsRunner::class);
     if(!is_dir($config["folder"])) {
       throw new Exception("Invalid folder {$config["folder"]} for $this->name.folder");
     }
+    $builder->addDefinition($this->prefix("runner"))
+      ->setFactory(Tester::class, [$config["folder"]]);
+    $builder->addDefinition($this->prefix("suiteFactory"))
+      ->setType(ContainerSuiteFactory::class);
     $this->suites = (new TestSuitesFinder())->getSuites($config["folder"]);
     foreach($this->suites as $index => $suite) {
       $builder->addDefinition($this->prefix("test." . ($index + 1)))
@@ -48,17 +51,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   
   public function afterCompile(\Nette\PhpGenerator\ClassType $class): void {
     $config = $this->getConfig();
-    $container = $this->getContainerBuilder();
     $initialize = $class->methods["initialize"];
     $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
-    foreach($container->findByTag(self::TAG) as $suite => $foo) {
-      $initialize->addBody('$runner->addSuit($this->getService(?));', [$suite]);
-    }
-    foreach($container->findByTag(self::TAG) as $suite => $foo) {
-      $initialize->addBody('$runner->addSuit($this->getService(?));', [$suite]);
-    }
-    $onExecute = array_merge(['MyTester\Environment::setup', 'MyTester\Environment::printInfo'], $config["onExecute"]);
-    foreach($onExecute as &$task) {
+    $initialize->addBody('$runner->testSuiteFactory = $this->getService(?);', [$this->prefix("suiteFactory")]);
+    foreach($config["onExecute"] as &$task) {
       if(!is_array($task)) {
         $task = explode("::", $task);
       } elseif(substr($task[0], 0, 1) === "@") {

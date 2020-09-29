@@ -24,9 +24,7 @@ final class Tester {
   /** @var string[] */
   private array $suites;
   /** @var callable[] */
-  public array $onExecute = [
-    Environment::class . "::setup",
-  ];
+  public array $onExecute = [];
   public ITestSuiteFactory $testSuiteFactory;
   private string $folder;
   /** @var SkippedTest[] */
@@ -34,6 +32,7 @@ final class Tester {
   private string $results = "";
 
   public function __construct(string $folder) {
+    $this->onExecute[] = [$this, "setup"];
     $this->onExecute[] = [$this, "printInfo"];
     $this->suites = (new TestSuitesFinder())->getSuites($folder);
     $this->testSuiteFactory = new class implements ITestSuiteFactory {
@@ -66,6 +65,10 @@ final class Tester {
     }
     $this->printResults();
     exit((int) $failed);
+  }
+
+  private function setup(): void {
+    Timer::start(static::TIMER_NAME);
   }
 
   /**

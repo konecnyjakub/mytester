@@ -167,8 +167,7 @@ abstract class TestCase {
     $jobs = $this->getJobs();
     $passed = true;
     foreach($jobs as $job) {
-      $result = $this->runJob($job);
-      Environment::addResult($result);
+      $this->runJob($job);
       if($job->result === Job::RESULT_FAILED) {
         $passed = false;
       }

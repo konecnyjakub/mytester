@@ -208,15 +208,14 @@ If you are developing a Nette application, you may want to use our extension for
 extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 ```
-Then you get service named mytester.runner (of type MyTester\Bridges\NetteDI\TestsRunner) from the container and run its method execute. It returns FALSE if all tests passed else TRUE. You can use it (after turning to integer) as exit code of your script: 
+Then you get service named mytester.runner (of type MyTester\Tester) from the container and run its method execute. It automatically ends the script with 0/1 depending on whether all tests passed.
 
 ```php
 <?php
 declare(strict_types=1);
 
 $result = $container->getService("mytester.runner")->execute(); //or
-$result = $container->getByType(MyTester\Bridges\NetteDI\TestsRunner::class)->execute();
-exit((int) $result);
+$container->getByType(MyTester\Tester::class)->execute();
 ?>
 ```
 

@@ -1,7 +1,7 @@
 Version 3.0.0-dev
 - BC break: removed support for *.phpt files
 - BC break: removed Assert
-- BC break: removed Environment::NAME, Environment::printLine(), Environment::getShouldFail(), Environment::setShouldFail(), Environment::$shouldFail, Environment::VERSION, Environment::$currentJob
+- BC break: removed Environment
 
 Version 2.1.0
 - allowed customization of test suite creation in automated tests runner

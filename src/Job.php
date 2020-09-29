@@ -75,10 +75,8 @@ class Job {
    * Executes the task
    */
   public function execute(): void {
-    Environment::resetCounter();
     if($this->skip) {
       $this->result = static::RESULT_SKIPPED;
-      Environment::addSkipped($this->name, (is_string($this->skip) ? $this->skip : ""));
     } else {
       ob_start();
       if(isset($this->callback)) {
