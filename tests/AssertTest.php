@@ -13,13 +13,14 @@ use stdClass;
  */
 final class AssertTest extends TestCase {
   public function shutDown(): void {
-    $this->assertFalse(Environment::$shouldFail);
+    $this->assertFalse($this->shouldFail);
   }
   
   /**
    * Test assertion functions
    */
   public function testAssertion(): void {
+    $this->assertFalse($this->shouldFail);
     $this->assertSame("abc", "abc");
     $this->assertNotSame("abc", "def");
     $this->assertTrue(true);
@@ -50,6 +51,7 @@ final class AssertTest extends TestCase {
    */
   #[Fail()]
   public function testAssertionFails(): void {
+    $this->assertFalse($this->shouldFail);
     $actual = "abc";
     $this->assertTrue(false);
     $this->assertTruthy(0);

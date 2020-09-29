@@ -129,10 +129,12 @@ abstract class TestCase {
     if(!$job->skip) {
       $this->setUp();
     }
+    $this->shouldFail = $job->shouldFail;
     $job->execute();
     if(!$job->skip) {
       $this->tearDown();
     }
+    $this->shouldFail = false;
     Environment::$currentJob = "";
     switch($job->result) {
       case Job::RESULT_PASSED:

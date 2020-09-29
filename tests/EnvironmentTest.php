@@ -20,7 +20,7 @@ final class EnvironmentTest extends TestCase {
     $this->assertSame(3, Environment::getCounter());
     Environment::resetCounter();
     $this->assertSame(0, Environment::getCounter());
-    $this->assertFalse(Environment::$shouldFail);
+    $this->assertFalse($this->shouldFail);
   }
 }
 ?>

@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace MyTester;
 
 trait TAssertions {
+  /** @internal */
+  protected bool $shouldFail = false;
+
   /**
    * @param string|array $variable
    */
@@ -12,7 +15,7 @@ trait TAssertions {
   }
 
   protected function isSuccess(bool $success): bool {
-    if(Environment::$shouldFail) {
+    if($this->shouldFail) {
       $success = !$success;
     }
     return $success;
