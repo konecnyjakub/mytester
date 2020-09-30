@@ -25,12 +25,16 @@ final class Environment {
 
   private static int $taskCount = 0;
   private static bool $set = false;
-  /** @var SkippedTest[] */
+  /**
+   * @var SkippedTest[]
+   * @deprecated
+   */
   private static array $skipped = [];
   /** @deprecated */
   public static string $currentJob = "";
   /** @deprecated */
   public static bool $shouldFail = false;
+  /** @deprecated */
   private static string $results = "";
   
   /**
@@ -98,6 +102,7 @@ final class Environment {
 
   /**
    * @return SkippedTest[]
+   * @deprecated
    */
   public static function getSkipped(): array {
     return static::$skipped;
@@ -129,6 +134,9 @@ final class Environment {
     echo "\n";
   }
 
+  /**
+   * @deprecated
+   */
   public static function printResults(): void {
     $results = static::$results;
     echo $results . "\n";
@@ -157,6 +165,8 @@ final class Environment {
 
   /**
    * Print info about skipped tests
+   *
+   * @deprecated
    */
   private static function printSkipped(): void {
     foreach(static::getSkipped() as $skipped) {
@@ -170,6 +180,8 @@ final class Environment {
 
   /**
    * Print info about failed tests
+   *
+   * @deprecated
    */
   private static function printFailed(): void {
     $filenameSuffix = ".errors";
