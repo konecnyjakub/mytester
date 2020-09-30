@@ -87,7 +87,7 @@ final class Tester {
       echo "\n";
       echo "OK";
     } else {
-      static::printFailed();
+      $this->printFailed();
       echo "\n";
       echo "Failed";
     }
