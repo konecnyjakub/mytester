@@ -39,6 +39,15 @@ final class TestCaseTest extends TestCase {
     $this->assertFalsey($this->one);
     $this->assertSame("", Environment::$currentJob);
   }
+
+  public function testState(): void {
+    $this->assertFalse($this->shouldFail);
+    $this->assertSame(1, $this->getCounter());
+    $this->incCounter();
+    $this->assertSame(3, $this->getCounter());
+    $this->resetCounter();
+    $this->assertSame(0, $this->getCounter());
+  }
   
   /**
    * Test parameters

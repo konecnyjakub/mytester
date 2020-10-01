@@ -7,6 +7,7 @@ use MyTester\Annotations\NetteReflectionEngine;
 use MyTester\Annotations\PhpAttributesEngine;
 use MyTester\Annotations\Reader;
 use ReflectionClass;
+use ReflectionMethod;
 
 /**
  * One test suit
@@ -52,10 +53,14 @@ abstract class TestCase {
     static $jobs = [];
     if(count($jobs) === 0) {
       $r = new ReflectionClass(static::class);
-      $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function(\ReflectionMethod $rm) {
+      $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function(ReflectionMethod $rm) {
         return $rm->getName();
       }, $r->getMethods())));
       foreach($methods as $method) {
+        $reflection = new ReflectionMethod(static::class, $method);
+        if(!$reflection->isPublic()) {
+          continue;
+        }
         /** @var callable $callback */
         $callback = [$this, $method];
         $job = [
@@ -129,6 +134,7 @@ abstract class TestCase {
   
   protected function runJob(Job $job): string {
     Environment::$currentJob = $job->name;
+    $this->resetCounter();
     if(!$job->skip) {
       $this->setUp();
     }
@@ -139,6 +145,7 @@ abstract class TestCase {
     }
     $this->shouldFail = false;
     Environment::$currentJob = "";
+    $this->resetCounter();
     switch($job->result) {
       case Job::RESULT_PASSED:
         return static::RESULT_PASSED;

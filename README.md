@@ -45,7 +45,7 @@ Assert::type("string", $string);
 
 ### Test Case
 
-It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its methods which name starts with "test" will be automatically launched when you call method "run". Call methods assert*Something* inside them. An example:
+It is also possible to use object-oriented style to make tests. Create a class extending MyTester\TestCase. All its public methods which name starts with "test" will be automatically launched when you call method "run". Call methods assert*Something* inside them. An example:
 ```php
 <?php
 declare(strict_types=1);

@@ -11,6 +11,7 @@ use Nette\Utils\Finder;
  * Testing Environment
  *
  * @author Jakub Konečný
+ * @deprecated
  */
 final class Environment {
   use \Nette\StaticClass;
@@ -19,11 +20,14 @@ final class Environment {
   public const NAME = "My Tester";
   /** @deprecated */
   private const PACKAGE_NAME = "konecnyjakub/mytester";
+  /** @deprecated */
   private const TIMER_NAME = self::NAME;
   /** @deprecated Use {@see PrettyVersions::getVersion()} */
   public const VERSION = "2.1.0-dev";
 
+  /** @deprecated */
   private static int $taskCount = 0;
+  /** @deprecated */
   private static bool $set = false;
   /**
    * @var SkippedTest[]
@@ -39,6 +43,8 @@ final class Environment {
   
   /**
    * Prints result of a test
+   *
+   * @deprecated
    */
   public static function testResult(string $text, bool $success = true): void {
     static::incCounter();
@@ -50,6 +56,8 @@ final class Environment {
   
   /**
    * Checks if environment was set
+   *
+   * @deprecated
    */
   public static function isSetUp(): bool {
     return static::$set;
@@ -59,6 +67,7 @@ final class Environment {
    * Increases task counter
    *
    * @internal
+   * @deprecated
    */
   public static function incCounter(): void {
     static::$taskCount++;
@@ -68,11 +77,15 @@ final class Environment {
    * Resets task counter
    *
    * @internal
+   * @deprecated
    */
   public static function resetCounter(): void {
     static::$taskCount = 0;
   }
-  
+
+  /**
+   * @deprecated
+   */
   public static function getCounter(): int {
     return static::$taskCount;
   }
@@ -88,6 +101,7 @@ final class Environment {
 
   /**
    * @internal
+   * @deprecated
    */
   public static function addResult(string $result): void {
     static::$results .= $result;
@@ -95,6 +109,7 @@ final class Environment {
 
   /**
    * @internal
+   * @deprecated
    */
   public static function addSkipped(string $jobName, string $reason = ""): void {
     static::$skipped[] = new SkippedTest($jobName, $reason);
@@ -195,6 +210,8 @@ final class Environment {
   
   /**
    * Sets up the environment
+   *
+   * @deprecated
    */
   public static function setup(): void {
     if(static::$set) {

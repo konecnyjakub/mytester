@@ -5,7 +5,49 @@ namespace MyTester;
 
 trait TAssertions {
   /** @internal */
+  protected int $taskCount = 0;
+  /** @internal */
   protected bool $shouldFail = false;
+
+  /**
+   * Prints result of a test
+   *
+   * @internal
+   */
+  protected function testResult(string $text, bool $success = true): void {
+    $this->incCounter();
+    if($success) {
+      return;
+    }
+    echo "Test $this->taskCount failed. $text\n";
+  }
+
+  /**
+   * Increases task counter
+   *
+   * @internal
+   */
+  protected function incCounter(): void {
+    $this->taskCount++;
+    Environment::incCounter();
+  }
+
+  /**
+   * Resets task counter
+   *
+   * @internal
+   */
+  protected function resetCounter(): void {
+    $this->taskCount = 0;
+    Environment::resetCounter();
+  }
+
+  /**
+   * @internal
+   */
+  public function getCounter(): int {
+    return $this->taskCount;
+  }
 
   /**
    * @param string|array $variable
@@ -31,7 +73,7 @@ trait TAssertions {
     if(!$success) {
       $message = ($failureText === "") ? "Assertion \"$code\" is not true." : $failureText;
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -45,7 +87,7 @@ trait TAssertions {
     if(!$success) {
       $message = "The value is not $expected but $actual.";
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -59,7 +101,7 @@ trait TAssertions {
     if(!$success) {
       $message = "The value is $expected.";
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -70,7 +112,7 @@ trait TAssertions {
     if(!$success) {
       $message = "The value is not true.";
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -83,7 +125,7 @@ trait TAssertions {
     if(!$success) {
       $message = "The expression is not true.";
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -94,7 +136,7 @@ trait TAssertions {
     if(!$success) {
       $message = "The value is not false.";
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -107,7 +149,7 @@ trait TAssertions {
     if(!$success) {
       $message = "The expression is not false.";
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -120,7 +162,7 @@ trait TAssertions {
     if(!$success) {
       $message = "The value is not null.";
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -133,7 +175,7 @@ trait TAssertions {
     if(!$success) {
       $message = "The value is null.";
     }
-    Environment::testResult($message ?? "", $success);
+    $this->testResult($message ?? "", $success);
   }
 
   /**
@@ -144,23 +186,23 @@ trait TAssertions {
    */
   protected function assertContains($needle, $actual): void {
     if(!is_string($needle) && !is_array($needle)) {
-      Environment::testResult("The variable is not string or array.", false);
+      $this->testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
       $success = $this->isSuccess($needle !== "" && strpos($actual, $needle) !== false);
       if($success) {
-        Environment::testResult("");
+        $this->testResult("");
       } else {
-        Environment::testResult("$needle is not in the variable.", false);
+        $this->testResult("$needle is not in the variable.", false);
       }
     } elseif(is_array($actual)) {
       $success = $this->isSuccess(in_array($needle, $actual));
       if($success) {
-        Environment::testResult("");
+        $this->testResult("");
       } else {
-        Environment::testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
+        $this->testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
       }
     } else {
-      Environment::testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
+      $this->testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
     }
   }
 
@@ -172,23 +214,23 @@ trait TAssertions {
    */
   protected function assertNotContains($needle, $actual): void {
     if(!is_string($needle) && !is_array($needle)) {
-      Environment::testResult("The variable is not string or array.", false);
+      $this->testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
       $success = $this->isSuccess($needle === "" || strpos($actual, $needle) === false);
       if($success) {
-        Environment::testResult("");
+        $this->testResult("");
       } else {
-        Environment::testResult("$needle is in the variable.", false);
+        $this->testResult("$needle is in the variable.", false);
       }
     } elseif(is_array($actual)) {
       $success = $this->isSuccess(!in_array($needle, $actual));
       if($success) {
-        Environment::testResult("");
+        $this->testResult("");
       } else {
-        Environment::testResult($this->showStringOrArray($needle) . " is in the variable.", false);
+        $this->testResult($this->showStringOrArray($needle) . " is in the variable.", false);
       }
     } else {
-      Environment::testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
+      $this->testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
     }
   }
 
@@ -199,15 +241,15 @@ trait TAssertions {
    */
   protected function assertCount(int $count, $value): void {
     if(!is_array($value) && !$value instanceof \Countable) {
-      Environment::testResult("The variable is not array or countable object.", false);
+      $this->testResult("The variable is not array or countable object.", false);
       return;
     }
     $success = $this->isSuccess(count($value) === $count);
     if($success) {
-      Environment::testResult("");
+      $this->testResult("");
     } else {
       $actual = count($value);
-      Environment::testResult("Count of the variable is $actual.", false);
+      $this->testResult("Count of the variable is $actual.", false);
     }
   }
 
@@ -218,15 +260,15 @@ trait TAssertions {
    */
   protected function assertNotCount(int $count, $value): void {
     if(!is_array($value) && !$value instanceof \Countable) {
-      Environment::testResult("The variable is not array or countable object.", false);
+      $this->testResult("The variable is not array or countable object.", false);
       return;
     }
     $success = $this->isSuccess(count($value) !== $count);
     if($success) {
-      Environment::testResult("");
+      $this->testResult("");
     } else {
       $actual = count($value);
-      Environment::testResult("Count of the variable is $actual.", false);
+      $this->testResult("Count of the variable is $actual.", false);
     }
   }
 
@@ -238,25 +280,25 @@ trait TAssertions {
    */
   protected function assertType($type, $value): void {
     if(!is_object($type) && !is_string($type)) {
-      Environment::testResult("Type must be string or object.", false);
+      $this->testResult("Type must be string or object.", false);
       return;
     }
     if(in_array($type, ["array", "bool", "float", "int", "string", "null", "object", "resource",
       "scalar", "iterable", "callable", ], true)) {
       $success = $this->isSuccess(call_user_func("is_$type", $value));
       if(!$success) {
-        Environment::testResult("The variable is " . gettype($value) . ".", false);
+        $this->testResult("The variable is " . gettype($value) . ".", false);
       } else {
-        Environment::testResult("");
+        $this->testResult("");
       }
       return;
     }
     $success = $this->isSuccess($value instanceof $type);
     if(!$success) {
       $actual = get_debug_type($value);
-      Environment::testResult("The variable is instance of $actual.", false);
+      $this->testResult("The variable is instance of $actual.", false);
     } else {
-      Environment::testResult("");
+      $this->testResult("");
     }
   }
 }
