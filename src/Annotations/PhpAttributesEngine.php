@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations;
 
+use MyTester\Annotations\Attributes\BaseAttribute;
 use Nette\Utils\Strings;
 use ReflectionClass;
 use ReflectionException;
@@ -31,7 +32,9 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine {
     if(count($attributes) === 0) {
       return null;
     }
-    return $attributes[0]->getArguments()[0] ?? true;
+    /** @var BaseAttribute $attribute */
+    $attribute = $attributes[0]->newInstance();
+    return $attribute->value;
   }
 
   private function isAvailable(): bool {

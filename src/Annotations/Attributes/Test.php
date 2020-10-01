@@ -3,15 +3,15 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations\Attributes;
 
+use Attribute;
+
 /**
  * Test attribute
  *
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-final class Test {
-  use \Nette\SmartObject;
-
+final class Test  extends BaseAttribute {
   public string $value;
 
   public function __construct(string $value) {

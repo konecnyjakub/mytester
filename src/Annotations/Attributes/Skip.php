@@ -3,15 +3,15 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations\Attributes;
 
+use Attribute;
+
 /**
  * Skip attribute
  *
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-final class Skip {
-  use \Nette\SmartObject;
-
+final class Skip extends BaseAttribute {
   /** @var mixed */
   public $value;
 
