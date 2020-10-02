@@ -9,6 +9,7 @@ use Attribute;
  * Data attribute
  *
  * @author Jakub Konečný
+ * @deprecated
  */
 #[Attribute(Attribute::TARGET_METHOD)]
 final class Data extends BaseAttribute {
