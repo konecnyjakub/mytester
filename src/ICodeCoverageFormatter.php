@@ -7,7 +7,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @internal
  */
-interface ICodeCoverageReporter {
+interface ICodeCoverageFormatter {
   public function render(array $data): string;
 }
 ?>
