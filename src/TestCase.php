@@ -70,7 +70,7 @@ abstract class TestCase {
           "skip" => $this->skipChecker->shouldSkip(static::class, $method),
           "shouldFail" => $this->shouldFailChecker->shouldFail(static::class, $method),
         ];
-        $data = $this->dataProvider->getData(static::class, $method);
+        $data = $this->dataProvider->getData($this, $method);
         if(count($data) > 0) {
           foreach($data as $value) {
             $job["params"][0] = $value;

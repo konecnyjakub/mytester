@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\Attributes\Data;
+use MyTester\Annotations\Attributes\DataProvider;
 use MyTester\Annotations\Attributes\Skip;
 use MyTester\Annotations\Attributes\Test;
 use MyTester\Annotations\Attributes\TestSuit;
@@ -52,12 +52,16 @@ final class TestCaseTest extends TestCase {
   /**
    * Test parameters
    *
-   * @data(abc, adef)   
+   * @dataProvider(dataProvider)
    */
-  #[Data(["abc", "adef"])]
+  #[DataProvider("dataProvider")]
   public function testParams(string $text): void {
     $this->assertType("string", $text);
     $this->assertContains("a", $text);
+  }
+
+  public function dataProvider(): array {
+    return ["abc", "adef", ];
   }
   
   /**

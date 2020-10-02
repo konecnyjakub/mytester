@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use MyTester\Annotations\Attributes\Data;
+use MyTester\Annotations\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Annotations\Attributes\TestSuit;
 
 /**
@@ -19,15 +20,19 @@ final class DataProviderTest extends TestCase {
   }
 
   public function testGetData(): void {
-    $data = $this->getDataProvider()->getData(static::class, "noData");
+    $data = $this->getDataProvider()->getData($this, "noData");
     $this->assertType("array", $data);
     $this->assertCount(0, $data);
 
-    $data = $this->getDataProvider()->getData(static::class, "noParameters");
+    $data = $this->getDataProvider()->getData($this, "noParameters");
     $this->assertType("array", $data);
     $this->assertCount(0, $data);
 
-    $data = $this->getDataProvider()->getData(static::class, "data");
+    $data = $this->getDataProvider()->getData($this, "data");
+    $this->assertType("array", $data);
+    $this->assertCount(2, $data);
+
+    $data = $this->getDataProvider()->getData($this, "dataProvider");
     $this->assertType("array", $data);
     $this->assertCount(2, $data);
   }
@@ -47,6 +52,20 @@ final class DataProviderTest extends TestCase {
    */
   #[Data(["abc", "def"])]
   private function data(string $input): void {
+  }
+
+  /**
+   * @dataProvider(dataSource)
+   */
+  #[DataProviderAttribute("dataSource")]
+  private function dataProvider(string $input): void {
+  }
+
+  public function dataSource(): array {
+    return [
+      ["abc", ],
+      ["def", ],
+    ];
   }
 }
 ?>

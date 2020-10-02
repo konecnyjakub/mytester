@@ -66,17 +66,23 @@ $suit->run();
 
 #### Parameters for test methods
 
-Test methods of TestCase descendants can take one parameter. Its value is taken from annotation @data. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
+Test methods of TestCase descendants can take one parameter. You can provide a name of a public method from the class which returns an array with @dataProvider annotation. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
 ```php
 <?php
 declare(strict_types=1);
 
 class Tests extends MyTester\TestCase {
   /**
-   * @data(abc, adef)
+   * @dataProvider(abc, adef)
    */
   public function testParams(string $text): void {
     $this->assertContains("a", $text);
+  }
+
+  public function dataProvider(): array {
+    return [
+      ["abc", "def"],
+    ];
   }
 }
 ?>
@@ -158,7 +164,7 @@ but that is not the only way. If you use PHP 8, you can also make use of attribu
 <?php
 declare(strict_types=1);
 
-use MyTester\Annotations\Attributes\Data;
+use MyTester\Annotations\Attributes\DataProvider;
 use MyTester\Annotations\Attributes\Skip;
 use MyTester\Annotations\Attributes\Fail;
 use MyTester\Annotations\Attributes\Test;
@@ -182,9 +188,15 @@ class AbcTest extends MyTester\TestCase {
     $this->assertTrue(false);
   }
 
-  #[Data(["abc", "adef"])]
+  #[DataProvider("dataProvider")]
   public function testParams(string $text): void {
     $this->assertContains("a", $text);
+  }
+
+  public function dataProvider(): array {
+    return [
+      ["abc", "def"],
+    ];
   }
 }
 ?>

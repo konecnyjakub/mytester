@@ -3,6 +3,7 @@ Version 2.1.0-dev
 - made Job::$name, Job::$params and Job::$shouldFail readable
 - deprecated Environment
 - possible BC break: only public methods in TestCase whose name starts with *test* are now considered tests
+- added @dataProvider annotation, it should be used instead of data
 
 Version 2.0.1
 - changed default value for attributes to true
