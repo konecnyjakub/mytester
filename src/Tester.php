@@ -5,14 +5,14 @@ namespace MyTester;
 
 use Ayesh\PHP_Timer\Timer;
 use Jean85\PrettyVersions;
-use MyTester\Bridges\NetteRobotLoader\TestSuitsFinder;
+use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use Nette\Utils\Finder;
 
 /**
  * Automated tests runner
  * 
  * @author Jakub Konečný
- * @property-read string[] $suits
+ * @property-read string[] $suites
  * @method void onExecute()
  */
 final class Tester {
@@ -22,12 +22,12 @@ final class Tester {
   private const TIMER_NAME = "My Tester";
   
   /** @var string[] */
-  private array $suits;
+  private array $suites;
   /** @var callable[] */
   public array $onExecute = [
     Environment::class . "::setup",
   ];
-  public ITestSuitFactory $testSuitFactory;
+  public ITestSuiteFactory $testSuiteFactory;
   private string $folder;
   /** @var SkippedTest[] */
   private array $skipped = [];
@@ -35,8 +35,8 @@ final class Tester {
   
   public function __construct(string $folder) {
     $this->onExecute[] = [$this, "printInfo"];
-    $this->suits = (new TestSuitsFinder())->getSuits($folder);
-    $this->testSuitFactory = new class implements ITestSuitFactory {
+    $this->suites = (new TestSuitesFinder())->getSuites($folder);
+    $this->testSuiteFactory = new class implements ITestSuiteFactory {
       public function create(string $className): TestCase {
         return new $className();
       }
@@ -47,8 +47,8 @@ final class Tester {
   /**
    * @return string[]
    */
-  protected function getSuits(): array {
-    return $this->suits;
+  protected function getSuites(): array {
+    return $this->suites;
   }
   
   /**
@@ -57,12 +57,12 @@ final class Tester {
   public function execute(): void {
     $this->onExecute();
     $failed = false;
-    foreach($this->suits as $suit) {
-      $suit = $this->testSuitFactory->create($suit[0]);
-      if(!$suit->run()) {
+    foreach($this->suites as $suite) {
+      $suite = $this->testSuiteFactory->create($suite[0]);
+      if(!$suite->run()) {
         $failed = true;
       }
-      $this->saveResults($suit);
+      $this->saveResults($suite);
     }
     $this->printResults();
     exit((int) $failed);

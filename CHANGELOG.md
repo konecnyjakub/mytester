@@ -1,9 +1,11 @@
 Version 2.1.0-dev
-- allowed customization of test suit creation in automated tests runner
+- allowed customization of test suite creation in automated tests runner
 - made Job::$name, Job::$params and Job::$shouldFail readable
 - deprecated Environment
 - possible BC break: only public methods in TestCase whose name starts with *test* are now considered tests
 - added @dataProvider annotation, it should be used instead of data
+- possible BC break: renamed method TestCase::getSuitName() to getSuiteName() and Tester::$suits to $suites
+- deprecated annotation @testSuit in favor of new @testSuite
 
 Version 2.0.1
 - changed default value for attributes to true
@@ -54,7 +56,7 @@ Version 1.0
 - version of My Tester and PHP is shown at start now
 - BC break: TestCase::getJobs() now returns array of Job
 - first parameter of Runner::addJob() can be instance of Job now
-- added methods startUp and shutDown to TestCase which are called at start/end of the suit
+- added methods startUp and shutDown to TestCase which are called at start/end of the suite
 - automated tests runner now sets up the environment himself
 - showed total run time at the end of script
 
@@ -75,7 +77,7 @@ Version 0.9.4
 - print number of finished and skipped jobs for TestCase
 
 Version 0.9.3
-- test suits can have custom names
+- test suites can have custom names
 - possible BC break: made Environment::$taskCount protected (use Environment::getCounter() to get its value)
 - possible BC break: made Environment::$output protected (use Environment::getOutput() to get its value)
 - clarified error message when trying to set invalid output mode

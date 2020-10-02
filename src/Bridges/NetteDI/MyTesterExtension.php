@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Bridges\NetteDI;
 
 use Exception;
-use MyTester\Bridges\NetteRobotLoader\TestSuitsFinder;
+use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
 
@@ -17,7 +17,7 @@ use Nette\Schema\Expect;
 final class MyTesterExtension extends \Nette\DI\CompilerExtension {
   public const TAG = "mytester.test";
 
-  private array $suits;
+  private array $suites;
 
   public function getConfigSchema(): \Nette\Schema\Schema {
     $params = $this->getContainerBuilder()->parameters;
@@ -38,10 +38,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
     if(!is_dir($config["folder"])) {
       throw new Exception("Invalid folder {$config["folder"]} for $this->name.folder");
     }
-    $this->suits = (new TestSuitsFinder())->getSuits($config["folder"]);
-    foreach($this->suits as $index => $suit) {
+    $this->suites = (new TestSuitesFinder())->getSuites($config["folder"]);
+    foreach($this->suites as $index => $suite) {
       $builder->addDefinition($this->prefix("test." . ($index + 1)))
-        ->setType($suit[0])
+        ->setType($suite[0])
         ->addTag(self::TAG);
     }
   }
@@ -53,9 +53,9 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
     $initialize->addBody('spl_autoload_extensions(spl_autoload_extensions() . ",.phpt");
 MyTester\Bridges\NetteDI\TestsRunner::$autoloader = ?;
-spl_autoload_register(?);', [$this->suits, TestsRunner::class . "::autoload"]);
-    foreach($container->findByTag(self::TAG) as $suit => $foo) {
-      $initialize->addBody('$runner->addSuit($this->getService(?));', [$suit]);
+spl_autoload_register(?);', [$this->suites, TestsRunner::class . "::autoload"]);
+    foreach($container->findByTag(self::TAG) as $suite => $foo) {
+      $initialize->addBody('$runner->addSuit($this->getService(?));', [$suite]);
     }
     $onExecute = array_merge(['MyTester\Environment::setup', 'MyTester\Environment::printInfo'], $config["onExecute"]);
     foreach($onExecute as &$task) {

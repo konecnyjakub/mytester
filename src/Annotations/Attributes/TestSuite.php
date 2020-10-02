@@ -6,13 +6,12 @@ namespace MyTester\Annotations\Attributes;
 use Attribute;
 
 /**
- * TestSuit attribute
+ * TestSuite attribute
  *
  * @author Jakub Konečný
- * @deprecated
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-final class TestSuit extends BaseAttribute {
+final class TestSuite extends BaseAttribute {
   public string $value;
 
   public function __construct(string $value) {

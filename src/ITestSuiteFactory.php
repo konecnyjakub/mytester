@@ -6,7 +6,7 @@ namespace MyTester;
 /**
  * @author Jakub Konečný
  */
-interface ITestSuitFactory {
+interface ITestSuiteFactory {
   public function create(string $className): TestCase;
 }
 ?>

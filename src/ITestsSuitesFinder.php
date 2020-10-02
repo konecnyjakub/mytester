@@ -7,7 +7,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @internal
  */
-interface ITestsSuitsFinder {
-  public function getSuits(string $folder): array;
+interface ITestsSuitesFinder {
+  public function getSuites(string $folder): array;
 }
 ?>

@@ -6,16 +6,16 @@ namespace MyTester;
 use MyTester\Annotations\Attributes\DataProvider;
 use MyTester\Annotations\Attributes\Skip;
 use MyTester\Annotations\Attributes\Test;
-use MyTester\Annotations\Attributes\TestSuit;
+use MyTester\Annotations\Attributes\TestSuite;
 
 /**
  * Test suite for class TestCase
  * 
- * @testSuit TestCase
+ * @testSuite TestCase
  * @author Jakub Konečný
  * @property-read bool|int $one
  */
-#[TestSuit("TestCase")]
+#[TestSuite("TestCase")]
 final class TestCaseTest extends TestCase {
   /** @var bool|int */
   private $one = false;

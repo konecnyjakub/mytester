@@ -10,7 +10,7 @@ use ReflectionClass;
 use ReflectionMethod;
 
 /**
- * One test suit
+ * One test suite
  *
  * @author Jakub Konečný
  * @property-read Job[] $jobs @internal
@@ -28,7 +28,7 @@ abstract class TestCase {
   /** @internal */
   public const ANNOTATION_TEST = "test";
   /** @internal */
-  public const ANNOTATION_TEST_SUIT = "testSuit";
+  public const ANNOTATION_TEST_SUITE = "testSuite";
 
   protected SkipChecker $skipChecker;
   protected ShouldFailChecker $shouldFailChecker;
@@ -45,7 +45,7 @@ abstract class TestCase {
   }
   
   /**
-   * Get list of jobs with parameters for current test suit
+   * Get list of jobs with parameters for current test suite
    * 
    * @return Job[]
    */
@@ -86,10 +86,14 @@ abstract class TestCase {
   }
   
   /**
-   * Get name of current test suit
+   * Get name of current test suite
    */
-  protected function getSuitName(): string {
-    $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST_SUIT, static::class);
+  protected function getSuiteName(): string {
+    $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST_SUITE, static::class);
+    if($annotation !== null) {
+      return $annotation;
+    }
+    $annotation = $this->annotationsReader->getAnnotation("testSuit", static::class);
     if($annotation !== null) {
       return $annotation;
     }
@@ -105,17 +109,17 @@ abstract class TestCase {
     if($annotation !== null) {
       return $annotation;
     }
-    return $this->getSuitName() . "::" . $method;
+    return $this->getSuiteName() . "::" . $method;
   }
   
   /**
-   * Called at start of the suit
+   * Called at start of the suite
    */
   public function startUp(): void {
   }
   
   /**
-   * Called at end of the suit
+   * Called at end of the suite
    */
   public function shutDown(): void {
   }
@@ -158,7 +162,7 @@ abstract class TestCase {
   }
   
   /**
-   * Runs the test suit
+   * Runs the test suite
    */
   public function run(): bool {
     $this->startUp();

@@ -4,15 +4,15 @@ declare(strict_types=1);
 namespace MyTester;
 
 use MyTester\Annotations\Attributes\Fail;
-use MyTester\Annotations\Attributes\TestSuit;
+use MyTester\Annotations\Attributes\TestSuite;
 
 /**
  * Test suite for class ShouldFail
  *
- * @testSuit ShouldFail
+ * @testSuite ShouldFail
  * @author Jakub Konečný
  */
-#[TestSuit("ShouldFail")]
+#[TestSuite("ShouldFail")]
 final class ShouldFailTest extends TestCase {
   private function getShouldFailChecker(): ShouldFailChecker {
     return $this->shouldFailChecker;

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteRobotLoader;
 
-use MyTester\ITestsSuitsFinder;
+use MyTester\ITestsSuitesFinder;
 use MyTester\TestCase;
 use Nette\Loaders\RobotLoader;
 use Nette\Utils\FileSystem;
@@ -13,9 +13,9 @@ use ReflectionClass;
  * @author Jakub Konečný
  * @internal
  */
-final class TestSuitsFinder implements ITestsSuitsFinder {
-  public function getSuits(string $folder): array {
-    $suits = [];
+final class TestSuitesFinder implements ITestsSuitesFinder {
+  public function getSuites(string $folder): array {
+    $suites = [];
     $robot = new RobotLoader();
     $tempDir = "$folder/temp/cache/Robot.Loader";
     if(is_dir("$folder/_temp")) {
@@ -34,10 +34,10 @@ final class TestSuitsFinder implements ITestsSuitsFinder {
       }
       $rc = new ReflectionClass($class);
       if(!$rc->isAbstract() && $rc->isSubclassOf(TestCase::class)) {
-        $suits[] = [$rc->getName(), $file];
+        $suites[] = [$rc->getName(), $file];
       }
     }
-    return $suits;
+    return $suites;
   }
 }
 ?>

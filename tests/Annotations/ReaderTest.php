@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Annotations;
 
 use MyTester\Annotations\Attributes\Fail;
-use MyTester\Annotations\Attributes\TestSuit;
+use MyTester\Annotations\Attributes\TestSuite;
 use MyTester\ShouldFailChecker;
 use MyTester\TestCase;
 
@@ -14,7 +14,7 @@ use MyTester\TestCase;
  * @testSuit Reader
  * @author Jakub Konečný
  */
-#[TestSuit("Reader")]
+#[TestSuite("Reader")]
 final class ReaderTest extends TestCase {
   private function getAnnotationsReader(): Reader {
     static $annotationsReader = null;
@@ -26,15 +26,15 @@ final class ReaderTest extends TestCase {
   }
 
   public function testHasAnnotation(): void {
-    $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
-    $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
+    $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
+    $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
     $this->assertFalse((new Reader())->hasAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
     $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
   }
 
   public function testGetAnnotation(): void {
-    $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
-    $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
+    $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
+    $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
     $this->assertNull((new Reader())->getAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
     $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
   }

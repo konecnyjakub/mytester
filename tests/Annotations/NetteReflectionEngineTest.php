@@ -9,7 +9,7 @@ use MyTester\TestCase;
 /**
  * Test suite for class NetteReflectionEngine
  *
- * @testSuit NetteReflectionEngine
+ * @testSuite NetteReflectionEngine
  * @author Jakub Konečný
  */
 final class NetteReflectionEngineTest extends TestCase {
@@ -23,15 +23,15 @@ final class NetteReflectionEngineTest extends TestCase {
   }
 
   public function testHasAnnotation(): void {
-    $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
-    $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
+    $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
+    $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
     $this->assertFalse((new Reader())->hasAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
     $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
   }
 
   public function testGetAnnotation(): void {
-    $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
-    $this->assertSame("NetteReflectionEngine", $this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
+    $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
+    $this->assertSame("NetteReflectionEngine", $this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
     $this->assertNull((new Reader())->getAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
     $this->assertSame(1, $this->getAnnotationsReader()->getAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
   }

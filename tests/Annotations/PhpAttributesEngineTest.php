@@ -5,7 +5,7 @@ namespace MyTester\Annotations;
 
 use MyTester\Annotations\Attributes\Fail;
 use MyTester\Annotations\Attributes\Skip;
-use MyTester\Annotations\Attributes\TestSuit;
+use MyTester\Annotations\Attributes\TestSuite;
 use MyTester\ShouldFailChecker;
 use MyTester\TestCase;
 
@@ -14,7 +14,7 @@ use MyTester\TestCase;
  *
  * @author Jakub Konečný
  */
-#[TestSuit("PhpAttributesEngine")]
+#[TestSuite("PhpAttributesEngine")]
 final class PhpAttributesEngineTest extends TestCase {
   private function getAnnotationsReader(): Reader {
     static $annotationsReader = null;
@@ -30,8 +30,8 @@ final class PhpAttributesEngineTest extends TestCase {
    */
   #[Skip(["php" => "7.5"])]
   public function testHasAnnotation(): void {
-    $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
-    $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
+    $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
+    $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
     $this->assertFalse((new Reader())->hasAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
     $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
   }
@@ -41,8 +41,8 @@ final class PhpAttributesEngineTest extends TestCase {
    */
   #[Skip(["php" => "7.5"])]
   public function testGetAnnotation(): void {
-    $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
-    $this->assertSame("NetteReflectionEngine", $this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUIT, static::class));
+    $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
+    $this->assertSame("NetteReflectionEngine", $this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
     $this->assertNull((new Reader())->getAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
     $this->assertSame(1, $this->getAnnotationsReader()->getAnnotation(ShouldFailChecker::ANNOTATION_NAME, static::class, "method"));
   }

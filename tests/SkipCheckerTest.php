@@ -4,15 +4,15 @@ declare(strict_types=1);
 namespace MyTester;
 
 use MyTester\Annotations\Attributes\Skip;
-use MyTester\Annotations\Attributes\TestSuit;
+use MyTester\Annotations\Attributes\TestSuite;
 
 /**
  * Test suite for class SkipChecker
  *
- * @testSuit SkipChecker
+ * @testSuite SkipChecker
  * @author Jakub Konečný
  */
-#[TestSuit("SkipChecker")]
+#[TestSuite("SkipChecker")]
 final class SkipCheckerTest extends TestCase {
   private function getSkipChecker(): SkipChecker {
     return $this->skipChecker;

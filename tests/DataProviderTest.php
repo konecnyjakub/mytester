@@ -5,15 +5,15 @@ namespace MyTester;
 
 use MyTester\Annotations\Attributes\Data;
 use MyTester\Annotations\Attributes\DataProvider as DataProviderAttribute;
-use MyTester\Annotations\Attributes\TestSuit;
+use MyTester\Annotations\Attributes\TestSuite;
 
 /**
  * Test suite for class DataProvider
  *
- * @testSuit DataProvider
+ * @testSuite DataProvider
  * @author Jakub Konečný
  */
-#[TestSuit("DataProvider")]
+#[TestSuite("DataProvider")]
 final class DataProviderTest extends TestCase {
   private function getDataProvider(): DataProvider {
     return $this->dataProvider;

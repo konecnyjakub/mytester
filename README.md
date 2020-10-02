@@ -59,8 +59,8 @@ class Tests extends MyTester\TestCase {
   }
 }
 
-$suit = new Tests();
-$suit->run();
+$suite = new Tests();
+$suite->run();
 ?>
 ```
 
@@ -90,13 +90,13 @@ class Tests extends MyTester\TestCase {
 
 #### Custom names for tests
 
-You can give test methods and whole test suits custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuit. Example:
+You can give test methods and whole test suites custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuite. Example:
 ```php
 <?php
 declare(strict_types=1);
 
 /**
- * @testSuit MyTests
+ * @testSuite MyTests
 */
 class Tests extends MyTester\TestCase {
   /**
@@ -153,7 +153,7 @@ In all previous examples you have seen annotations in style:
 
 ```php
 /**
-* @testSuit Abc
+* @testSuite Abc
 * @skip(abc)
 */
 ```
@@ -168,9 +168,9 @@ use MyTester\Annotations\Attributes\DataProvider;
 use MyTester\Annotations\Attributes\Skip;
 use MyTester\Annotations\Attributes\Fail;
 use MyTester\Annotations\Attributes\Test;
-use MyTester\Annotations\Attributes\TestSuit;
+use MyTester\Annotations\Attributes\TestSuite;
 
-#[TestSuit("Abc")]
+#[TestSuite("Abc")]
 class AbcTest extends MyTester\TestCase {
   
   #[Test("Abc")]
@@ -204,7 +204,7 @@ class AbcTest extends MyTester\TestCase {
 
 #### Setup and clean up
 
-If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suit.
+If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suite.
 
 Automated tests runner
 ----------------------
