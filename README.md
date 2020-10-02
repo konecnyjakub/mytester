@@ -73,7 +73,7 @@ declare(strict_types=1);
 
 class Tests extends MyTester\TestCase {
   /**
-   * @dataProvider(abc, adef)
+   * @dataProvider(dataProvider)
    */
   public function testParams(string $text): void {
     $this->assertContains("a", $text);
