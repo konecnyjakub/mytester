@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\Attributes\Data;
 use MyTester\Annotations\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Annotations\Attributes\TestSuite;
 
@@ -28,10 +27,6 @@ final class DataProviderTest extends TestCase {
     $this->assertType("array", $data);
     $this->assertCount(0, $data);
 
-    $data = $this->getDataProvider()->getData($this, "data");
-    $this->assertType("array", $data);
-    $this->assertCount(2, $data);
-
     $data = $this->getDataProvider()->getData($this, "dataProvider");
     $this->assertType("array", $data);
     $this->assertCount(2, $data);
@@ -41,9 +36,9 @@ final class DataProviderTest extends TestCase {
   }
 
   /**
-   * @data(abc, def)
+   * @dataProvider(dataSource)
    */
-  #[Data(["abc", "def"])]
+  #[DataProviderAttribute("dataSource")]
   private function noParameters(): void {
   }
 

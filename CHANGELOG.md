@@ -2,6 +2,7 @@ Version 3.0.0-dev
 - BC break: removed support for *.phpt files
 - BC break: removed Assert
 - BC break: removed Environment
+- BC break: removed data and testSuit annotations
 
 Version 2.1.0
 - allowed customization of test suite creation in automated tests runner

@@ -93,10 +93,6 @@ abstract class TestCase {
     if($annotation !== null) {
       return $annotation;
     }
-    $annotation = $this->annotationsReader->getAnnotation("testSuit", static::class);
-    if($annotation !== null) {
-      return $annotation;
-    }
     return static::class;
   }
   

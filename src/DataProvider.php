@@ -49,9 +49,7 @@ final class DataProvider {
         throw new InvalidDataProviderException("Method $className::$dataProvider does not exist.", 0, $e);
       }
     }
-    /** @var mixed $value */
-    $value = $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
-    return (array) $value;
+    return [];
   }
 }
 ?>
