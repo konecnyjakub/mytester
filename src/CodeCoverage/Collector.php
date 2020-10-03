@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage;
 
+use MyTester\CodeCoverageException as Exception;
 use MyTester\ICodeCoverageEngine;
-use RuntimeException;
 
 /**
  * Code coverage collector
@@ -28,7 +28,7 @@ final class Collector {
 
   public function finish(): array {
     if($this->currentEngine === null) {
-      return [];
+      throw new Exception("Code coverage collector has not been started.", Exception::COLLECTOR_NOT_STARTED);
     }
     return $this->currentEngine->collect();
   }
@@ -43,7 +43,7 @@ final class Collector {
         return $engine;
       }
     }
-    throw new RuntimeException("No code coverage engine is available.");
+    throw new Exception("No code coverage engine is available.", Exception::NO_ENGINE_AVAILABLE);
   }
 }
 ?>
