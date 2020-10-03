@@ -171,6 +171,10 @@ build:
                         analysis:
                             file: codesniffer.cs
                             format: 'general-checkstyle'
-                    - ./src/mytester
                     - ./tests/NetteDI.php
+                    -
+                        command: php ./code-coverage.php
+                        coverage:
+                            file: coverage.xml
+                            format: 'clover'
                     - php-scrutinizer-run
