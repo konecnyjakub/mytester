@@ -9,31 +9,22 @@ namespace MyTester;
  * @author Jakub Konečný
  */
 final class TestJobs {
-  /**
-   * Test for Environment::testResult()
-   */
+  private JobTest $testCase;
+
+  public function __construct(JobTest $testCase) {
+    $this->testCase = $testCase;
+  }
+
   public function test(): void {
-    Environment::testResult("Test");
+    $this->testCase->assertSame(1, 1);
   }
 
   /**
    * Test params for job
    */
   public function testParams(array $params, string $text): void {
-    $this->assertSame("abc", $params[0]);
-    $this->assertSame("def", $text);
-  }
-
-  /**
-   * @param mixed $expected
-   * @param mixed $actual
-   */
-  private function assertSame($expected, $actual): void {
-    $success = ($expected == $actual);
-    if(!$success) {
-      $message = "The value is not $expected but $actual.";
-    }
-    Environment::testResult($message ?? "", $success);
+    $this->testCase->assertSame("abc", $params[0]);
+    $this->testCase->assertSame("def", $text);
   }
 }
 ?>

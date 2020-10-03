@@ -13,8 +13,16 @@ use MyTester\Annotations\Attributes\TestSuite;
  */
 #[TestSuite("JobTest")]
 final class JobTest extends TestCase {
+  public function assertSame($expected, $actual): void {
+    parent::assertSame($expected, $actual);
+  }
+
+  public function testResult(string $text, bool $success = true): void {
+    parent::testResult($text, $success);
+  }
+
   protected function getJobs(): array {
-    $test = new TestJobs();
+    $test = new TestJobs($this);
     $job = new Job("Test Job", [$test, "test"]);
     $params = [
       ["abc"], "def"
