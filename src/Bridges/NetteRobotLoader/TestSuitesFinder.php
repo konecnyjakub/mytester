@@ -18,9 +18,6 @@ final class TestSuitesFinder implements ITestsSuitesFinder {
     $suites = [];
     $robot = new RobotLoader();
     $tempDir = "$folder/temp/cache/Robot.Loader";
-    if(is_dir("$folder/_temp")) {
-      $tempDir = "$folder/_temp/cache/Robot.Loader";
-    }
     FileSystem::createDir($tempDir);
     $robot->setTempDirectory($tempDir);
     $robot->addDirectory($folder);
