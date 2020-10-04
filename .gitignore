@@ -1,5 +1,7 @@
-nbproject/
-vendor/
-composer.lock
+/nbproject/
+/.idea/
+/vendor/
+/composer.lock
 temp/
 *.errors
+/coverage.*
