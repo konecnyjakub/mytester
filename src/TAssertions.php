@@ -84,10 +84,8 @@ trait TAssertions {
    */
   protected function assertSame($expected, $actual): void {
     $success = $this->isSuccess($expected == $actual);
-    if(!$success) {
-      $message = "The value is not $expected but $actual.";
-    }
-    $this->testResult($message ?? "", $success);
+    $message = ($success) ? "" : "The value is not $expected but $actual.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -98,10 +96,8 @@ trait TAssertions {
    */
   protected function assertNotSame($expected, $actual): void {
     $success = $this->isSuccess($expected !== $actual);
-    if(!$success) {
-      $message = "The value is $expected.";
-    }
-    $this->testResult($message ?? "", $success);
+    $message = ($success) ? "" : "The value is $expected.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -109,10 +105,8 @@ trait TAssertions {
    */
   protected function assertTrue(bool $actual): void {
     $success = $this->isSuccess($actual);
-    if(!$success) {
-      $message = "The value is not true.";
-    }
-    $this->testResult($message ?? "", $success);
+    $message = ($success) ? "" : "The value is not true.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -122,10 +116,8 @@ trait TAssertions {
    */
   protected function assertTruthy($actual): void {
     $success = $this->isSuccess($actual == true);
-    if(!$success) {
-      $message = "The expression is not true.";
-    }
-    $this->testResult($message ?? "", $success);
+    $message = ($success) ? "" : "The expression is not true.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -133,10 +125,8 @@ trait TAssertions {
    */
   protected function assertFalse(bool $actual): void {
     $success = $this->isSuccess(!$actual);
-    if(!$success) {
-      $message = "The value is not false.";
-    }
-    $this->testResult($message ?? "", $success);
+    $message = ($success) ? "" : "The value is not false.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -146,10 +136,8 @@ trait TAssertions {
    */
   protected function assertFalsey($actual): void {
     $success = $this->isSuccess($actual == false);
-    if(!$success) {
-      $message = "The expression is not false.";
-    }
-    $this->testResult($message ?? "", $success);
+    $message = ($success) ? "" : "The expression is not false.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -159,9 +147,7 @@ trait TAssertions {
    */
   protected function assertNull($actual): void {
     $success = $this->isSuccess($actual == null);
-    if(!$success) {
-      $message = "The value is not null.";
-    }
+    $message = ($success) ? "" : "The value is not null.";
     $this->testResult($message ?? "", $success);
   }
 
@@ -172,10 +158,8 @@ trait TAssertions {
    */
   protected function assertNotNull($actual): void {
     $success = $this->isSuccess($actual !== null);
-    if(!$success) {
-      $message = "The value is null.";
-    }
-    $this->testResult($message ?? "", $success);
+    $message = ($success) ? "" : "The value is null.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -196,11 +180,8 @@ trait TAssertions {
       }
     } elseif(is_array($actual)) {
       $success = $this->isSuccess(in_array($needle, $actual));
-      if($success) {
-        $this->testResult("");
-      } else {
-        $this->testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
-      }
+      $message = ($success) ? "" : $this->showStringOrArray($needle) . " is not in the variable.";
+      $this->testResult($message, $success);
     } else {
       $this->testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
     }
@@ -217,11 +198,8 @@ trait TAssertions {
       $this->testResult("The variable is not string or array.", false);
     } elseif(is_string($actual) && is_string($needle)) {
       $success = $this->isSuccess($needle === "" || strpos($actual, $needle) === false);
-      if($success) {
-        $this->testResult("");
-      } else {
-        $this->testResult("$needle is in the variable.", false);
-      }
+      $message = ($success) ? "" : "$needle is in the variable.";
+      $this->testResult($message, $success);
     } elseif(is_array($actual)) {
       $success = $this->isSuccess(!in_array($needle, $actual));
       if($success) {
@@ -244,13 +222,10 @@ trait TAssertions {
       $this->testResult("The variable is not array or countable object.", false);
       return;
     }
-    $success = $this->isSuccess(count($value) === $count);
-    if($success) {
-      $this->testResult("");
-    } else {
-      $actual = count($value);
-      $this->testResult("Count of the variable is $actual.", false);
-    }
+    $actual = count($value);
+    $success = $this->isSuccess($actual === $count);
+    $message = ($success) ? "" : "Count of the variable is $actual.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -263,13 +238,10 @@ trait TAssertions {
       $this->testResult("The variable is not array or countable object.", false);
       return;
     }
-    $success = $this->isSuccess(count($value) !== $count);
-    if($success) {
-      $this->testResult("");
-    } else {
-      $actual = count($value);
-      $this->testResult("Count of the variable is $actual.", false);
-    }
+    $actual = count($value);
+    $success = $this->isSuccess($actual !== $count);
+    $message = ($success) ? "" : "Count of the variable is $actual.";
+    $this->testResult($message, $success);
   }
 
   /**
@@ -286,20 +258,15 @@ trait TAssertions {
     if(in_array($type, ["array", "bool", "float", "int", "string", "null", "object", "resource",
       "scalar", "iterable", "callable", ], true)) {
       $success = $this->isSuccess(call_user_func("is_$type", $value));
-      if(!$success) {
-        $this->testResult("The variable is " . gettype($value) . ".", false);
-      } else {
-        $this->testResult("");
-      }
+      $actual = gettype($value);
+      $message = ($success) ? "" : "The variable is $actual.";
+      $this->testResult($message, $success);
       return;
     }
     $success = $this->isSuccess($value instanceof $type);
-    if(!$success) {
-      $actual = get_debug_type($value);
-      $this->testResult("The variable is instance of $actual.", false);
-    } else {
-      $this->testResult("");
-    }
+    $actual = get_debug_type($value);
+    $message = ($success) ? "" : "The variable is instance of $actual.";
+    $this->testResult($message, $success);
   }
 }
 ?>
