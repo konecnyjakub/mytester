@@ -184,6 +184,35 @@ The easiest way to run your test cases is to use the provided script *vendor/bin
 ./vendor/bin/mytester tests/unit
 ```
 
+### Code coverage
+
+My Tester is not able to generate code coverage reports yet. Before it is supported natively, we recommend using package phpunit/php-code-coverage and a custom script for running tests. Example:
+
+```php
+<?php
+declare(strict_types=1);
+
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Driver\Selector;
+use SebastianBergmann\CodeCoverage\Filter;
+use SebastianBergmann\CodeCoverage\Report\Clover;
+
+require __DIR__ . "/vendor/autoload.php";
+
+$filter = new Filter();
+$filter->includeDirectory(__DIR__ . "/src");
+
+$coverage = new CodeCoverage((new Selector())->forLineCoverage($filter), $filter);
+$coverage->start("My Tester");
+register_shutdown_function(function() use ($coverage) {
+  $coverage->stop();
+  (new Clover())->process($coverage, __DIR__ . "/coverage.xml");
+});
+
+require __DIR__ . "/vendor/bin/mytester.php";
+?>
+```
+
 Nette applications
 ------------------
 
