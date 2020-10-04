@@ -3,7 +3,7 @@
     "description": "Simple tester for PHP",
     "license": "BSD-3-Clause",
     "keywords": [
-      "php", "testing", "tester", "test", "simple", "command  line", "browser"
+      "php", "testing", "tester", "test", "simple", "command  line"
     ],
     "authors": [
         {
