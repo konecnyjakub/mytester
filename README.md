@@ -175,25 +175,10 @@ class AbcTest extends MyTester\TestCase {
 
 If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suite.
 
-Automated tests runner
-----------------------
+Running tests
+-------------
 
-It is possible to use automated tests runner that will scan specified folder for *Test.php files and run their TestCases (described in section Test Case). An example of usage:
-```php
-<?php
-declare(strict_types=1);
-
-require __DIR__ . "/vendor/autoload.php";
-$folder = __DIR__ . "/tests";
-
-$tester = new MyTester\Tester($folder);
-$tester->execute();
-?>
-```
-
-The automated tests runner needs package nette/robot-loader.
-
-You may also use prepared script *./vendor/bin/mytester*. It will use folder your_project_root/tests, but you can specify any folder as its first argument:
+The easiest way to run your test cases is to use the provided script *vendor/bin/mytester*. It scans folder your_project_root/tests (by default) for *Test.php files and runs TestCases in them. The script requires package nette/robot-loader. You can tell it to use a different folder by specifying it as the script's first argument:
 
 ```bash
 ./vendor/bin/mytester tests/unit
