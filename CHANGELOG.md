@@ -1,4 +1,4 @@
-Version 2.1.0-dev
+Version 2.1.0
 - allowed customization of test suite creation in automated tests runner
 - made Job::$name, Job::$params and Job::$shouldFail readable
 - deprecated Environment
