@@ -31,7 +31,10 @@ final class Tester {
   private array $skipped = [];
   private string $results = "";
 
-  public function __construct(string $folder) {
+  public function __construct(string $folder = null) {
+    if($folder === null) {
+      $folder = \getTestsDirectory();
+    }
     $this->onExecute[] = [$this, "setup"];
     $this->onExecute[] = [$this, "printInfo"];
     $this->suites = (new TestSuitesFinder())->getSuites($folder);

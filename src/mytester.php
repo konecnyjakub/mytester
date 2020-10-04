@@ -7,6 +7,6 @@ require findVendorDirectory() . "/autoload.php";
 
 use MyTester\Tester;
 
-$tester = new Tester(getTestsDirectory());
+$tester = new Tester();
 $tester->execute();
 ?>
