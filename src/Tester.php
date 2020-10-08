@@ -22,37 +22,35 @@ final class Tester {
   private const TIMER_NAME = "My Tester";
 
   /** @var string[] */
-  private array $suites;
+  private array $suites = [];
   /** @var callable[] */
   public array $onExecute = [];
   public ITestSuiteFactory $testSuiteFactory;
+  private ITestsSuitesFinder $testsSuitesFinder;
   private string $folder;
   /** @var SkippedTest[] */
   private array $skipped = [];
   private string $results = "";
 
   public function __construct(string $folder = null, ITestsSuitesFinder $testsSuitesFinder = null) {
-    if($folder === null) {
-      $folder = \getTestsDirectory();
-    }
-    if($testsSuitesFinder === null) {
-      $testsSuitesFinder = new TestSuitesFinder();
-    }
     $this->onExecute[] = [$this, "setup"];
     $this->onExecute[] = [$this, "printInfo"];
-    $this->suites = $testsSuitesFinder->getSuites($folder);
+    $this->testsSuitesFinder = $testsSuitesFinder ?? new TestSuitesFinder();
     $this->testSuiteFactory = new class implements ITestSuiteFactory {
       public function create(string $className): TestCase {
         return new $className();
       }
     };
-    $this->folder = $folder;
+    $this->folder = $folder ?? \getTestsDirectory();
   }
   
   /**
    * @return string[]
    */
   protected function getSuites(): array {
+    if(count($this->suites) === 0) {
+      $this->suites = $this->testsSuitesFinder->getSuites($this->folder);
+    }
     return $this->suites;
   }
   
@@ -62,7 +60,7 @@ final class Tester {
   public function execute(): void {
     $this->onExecute();
     $failed = false;
-    foreach($this->suites as $suite) {
+    foreach($this->getSuites() as $suite) {
       $suite = $this->testSuiteFactory->create($suite);
       if(!$suite->run()) {
         $failed = true;
