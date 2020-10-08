@@ -31,13 +31,16 @@ final class Tester {
   private array $skipped = [];
   private string $results = "";
 
-  public function __construct(string $folder = null) {
+  public function __construct(string $folder = null, ITestsSuitesFinder $testsSuitesFinder = null) {
     if($folder === null) {
       $folder = \getTestsDirectory();
     }
+    if($testsSuitesFinder === null) {
+      $testsSuitesFinder = new TestSuitesFinder();
+    }
     $this->onExecute[] = [$this, "setup"];
     $this->onExecute[] = [$this, "printInfo"];
-    $this->suites = (new TestSuitesFinder())->getSuites($folder);
+    $this->suites = $testsSuitesFinder->getSuites($folder);
     $this->testSuiteFactory = new class implements ITestSuiteFactory {
       public function create(string $className): TestCase {
         return new $className();

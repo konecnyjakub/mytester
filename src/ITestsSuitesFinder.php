@@ -5,9 +5,11 @@ namespace MyTester;
 
 /**
  * @author Jakub Konečný
- * @internal
  */
 interface ITestsSuitesFinder {
+  /**
+   * @return string[]
+   */
   public function getSuites(string $folder): array;
 }
 ?>
