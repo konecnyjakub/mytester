@@ -51,7 +51,6 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension {
     $config = $this->getConfig();
     $initialize = $class->methods["initialize"];
     $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
-    $initialize->addBody('$runner->testSuiteFactory = $this->getService(?);', [$this->prefix("suiteFactory")]);
     foreach($config["onExecute"] as &$task) {
       if(!is_array($task)) {
         $task = explode("::", $task);

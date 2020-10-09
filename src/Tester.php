@@ -32,11 +32,11 @@ final class Tester {
   private array $skipped = [];
   private string $results = "";
 
-  public function __construct(string $folder = null, ITestsSuitesFinder $testsSuitesFinder = null) {
+  public function __construct(string $folder = null, ITestsSuitesFinder $testsSuitesFinder = null, ITestSuiteFactory $testSuiteFactory = null) {
     $this->onExecute[] = [$this, "setup"];
     $this->onExecute[] = [$this, "printInfo"];
     $this->testsSuitesFinder = $testsSuitesFinder ?? new TestSuitesFinder();
-    $this->testSuiteFactory = new class implements ITestSuiteFactory {
+    $this->testSuiteFactory = $testSuiteFactory ?? new class implements ITestSuiteFactory {
       public function create(string $className): TestCase {
         return new $className();
       }
