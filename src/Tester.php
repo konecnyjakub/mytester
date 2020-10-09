@@ -26,7 +26,7 @@ final class Tester {
   /** @var callable[] */
   public array $onExecute = [];
   public ITestSuiteFactory $testSuiteFactory;
-  private ITestsSuitesFinder $testsSuitesFinder;
+  public ITestsSuitesFinder $testsSuitesFinder;
   private string $folder;
   /** @var SkippedTest[] */
   private array $skipped = [];
