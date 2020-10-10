@@ -13,6 +13,12 @@
   <rule ref="Generic.CodeAnalysis.EmptyStatement">
     <type>warning</type>
   </rule>
+  <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter">
+    <exclude-pattern>*/tests/Annotations/DummyEngine.php</exclude-pattern>
+  </rule>
+  <rule ref="Generic.CodeAnalysis.UselessOverridingMethod">
+    <exclude-pattern>*/tests/JobTest.php</exclude-pattern>
+  </rule>
   <rule ref="Generic.Files.InlineHTML"/>
   <rule ref="Generic.Formatting.SpaceAfterCast"/>
   <rule ref="Generic.Functions.CallTimePassByReference"/>

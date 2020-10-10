@@ -60,7 +60,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             if (!is_array($task)) {
                 $task = explode("::", $task);
             } elseif (substr($task[0], 0, 1) === "@") {
-                $initialize->addBody('$runner->onExecute[] = [$this->getService(?), ?];', [substr($task[0], 1), $task[1]]);
+                $className = substr($task[0], 1);
+                $initialize->addBody('$runner->onExecute[] = [$this->getService(?), ?];', [$className, $task[1]]);
                 continue;
             }
             $initialize->addBody('$runner->onExecute[] = [?, ?];', [$task[0], $task[1]]);
