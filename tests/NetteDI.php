@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+
 declare(strict_types=1);
 
 require __DIR__ . "/../vendor/autoload.php";
@@ -17,4 +18,3 @@ $container = $configurator->createContainer();
 $runner = $container->getByType(Tester::class);
 assert($runner->testSuiteFactory instanceof ContainerSuiteFactory, "Test suite factory is not a " . ContainerSuiteFactory::class . " instance.");
 $runner->execute();
-?>

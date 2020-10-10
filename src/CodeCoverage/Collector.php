@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MyTester\CodeCoverage;
@@ -12,38 +13,42 @@ use MyTester\ICodeCoverageEngine;
  * @author Jakub Konečný
  * @internal
  */
-final class Collector {
-  /** @var ICodeCoverageEngine[] */
-  private array $engines;
-  private ?ICodeCoverageEngine $currentEngine = null;
+final class Collector
+{
+    /** @var ICodeCoverageEngine[] */
+    private array $engines;
+    private ?ICodeCoverageEngine $currentEngine = null;
 
-  public function registerEngine(ICodeCoverageEngine $engine): void {
-    $this->engines[] = $engine;
-  }
-
-  public function start(): void {
-    $engine = $this->selectEngine();
-    $engine->start();
-  }
-
-  public function finish(): array {
-    if($this->currentEngine === null) {
-      throw new Exception("Code coverage collector has not been started.", Exception::COLLECTOR_NOT_STARTED);
+    public function registerEngine(ICodeCoverageEngine $engine): void
+    {
+        $this->engines[] = $engine;
     }
-    return $this->currentEngine->collect();
-  }
 
-  private function selectEngine(): ICodeCoverageEngine {
-    if($this->currentEngine !== null) {
-      return $this->currentEngine;
+    public function start(): void
+    {
+        $engine = $this->selectEngine();
+        $engine->start();
     }
-    foreach($this->engines as $engine) {
-      if($engine->isAvailable()) {
-        $this->currentEngine = $engine;
-        return $engine;
-      }
+
+    public function finish(): array
+    {
+        if ($this->currentEngine === null) {
+            throw new Exception("Code coverage collector has not been started.", Exception::COLLECTOR_NOT_STARTED);
+        }
+        return $this->currentEngine->collect();
     }
-    throw new Exception("No code coverage engine is available.", Exception::NO_ENGINE_AVAILABLE);
-  }
+
+    private function selectEngine(): ICodeCoverageEngine
+    {
+        if ($this->currentEngine !== null) {
+            return $this->currentEngine;
+        }
+        foreach ($this->engines as $engine) {
+            if ($engine->isAvailable()) {
+                $this->currentEngine = $engine;
+                return $engine;
+            }
+        }
+        throw new Exception("No code coverage engine is available.", Exception::NO_ENGINE_AVAILABLE);
+    }
 }
-?>

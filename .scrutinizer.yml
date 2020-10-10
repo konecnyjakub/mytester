@@ -52,7 +52,7 @@ coding_style:
         indentation:
             general:
                 use_tabs: false
-                size: 2
+                size: 4
             switch:
                 indent_case: true
         spaces:
@@ -60,13 +60,13 @@ coding_style:
                 linefeed_character: newline
             before_parentheses:
                 function_declaration: false
-                closure_definition: false
+                closure_definition: true
                 function_call: false
-                if: false
-                for: false
-                while: false
-                switch: false
-                catch: false
+                if: true
+                for: true
+                while: true
+                switch: true
+                catch: true
                 array_initializer: false
             around_operators:
                 assignment: true
@@ -123,8 +123,8 @@ coding_style:
                 after_type_cast: true
         braces:
             classes_functions:
-                class: end-of-line
-                function: end-of-line
+                class: new-line
+                function: new-line
                 closure: end-of-line
             if:
                 opening: end-of-line
@@ -150,7 +150,7 @@ coding_style:
             keywords:
                 general: lower
             constants:
-                true_false_null: undefined
+                true_false_null: lower
 
 build:
     environment:

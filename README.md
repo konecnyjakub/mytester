@@ -17,20 +17,23 @@ Usage
 My Tester uses object-oriented style to define tests. Your classes with tests have to extend MyTester\TestCase. All its public methods which name starts with "test" will be automatically launched when you call method "run". Call methods assert*Something* inside them. An example:
 ```php
 <?php
+
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase {
-  public function testA(): void {
-    $actual = someCall();
-    $text = anotherCall();
-    $this->assertSame("abc", $actual);
-    $this->assertSame("def", $text);
-  }
+class Tests extends MyTester\TestCase
+{
+    public function testA(): void
+    {
+        $actual = someCall();
+        $text = anotherCall();
+        $this->assertSame("abc", $actual);
+        $this->assertSame("def", $text);
+    }
 }
 
 $suite = new Tests();
 $suite->run();
-?>
+
 ```
 
 #### Parameters for test methods
@@ -38,23 +41,27 @@ $suite->run();
 Test methods of TestCase descendants can take one parameter. You can provide a name of a public method from the class which returns an array with @dataProvider annotation. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
 ```php
 <?php
+
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase {
-  /**
-   * @dataProvider(dataProvider)
-   */
-  public function testParams(string $text): void {
-    $this->assertContains("a", $text);
-  }
+class Tests extends MyTester\TestCase
+{
+    /**
+     * @dataProvider(dataProvider)
+     */
+    public function testParams(string $text): void
+    {
+        $this->assertContains("a", $text);
+    }
 
-  public function dataProvider(): array {
-    return [
-      ["abc", "def"],
-    ];
-  }
+    public function dataProvider(): array
+    {
+        return [
+            ["abc", "def"],
+        ];
+    }
 }
-?>
+
 ```
 
 #### Custom names for tests
@@ -62,20 +69,23 @@ class Tests extends MyTester\TestCase {
 You can give test methods and whole test suites custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via documentation comment @test/@testSuite. Example:
 ```php
 <?php
+
 declare(strict_types=1);
 
 /**
  * @testSuite MyTests
 */
-class Tests extends MyTester\TestCase {
-  /**
-   * @test Custom name
-   */
-  public function testTestName(): void {
-    $this->assertTrue(true);
-  }
+class Tests extends MyTester\TestCase
+{
+    /**
+     * @test Custom name
+     */
+    public function testTestName(): void
+    {
+        $this->assertTrue(true);
+    }
 }
-?>
+
 ```
 
 #### Skipping tests
@@ -83,37 +93,44 @@ class Tests extends MyTester\TestCase {
 It is possible to unconditionally skip a test. Just add documentation comment @skip. Example:
 ```php
 <?php
+
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase {
-  /**
-   * @skip
-   */
-  public function testTestName(): void {
-    $this->assertTrue(false);
-  }
-}?>
+class Tests extends MyTester\TestCase
+{
+    /**
+     * @skip
+     */
+    public function testTestName(): void
+    {
+        $this->assertTrue(false);
+    }
+}
+
 ```
 
 . You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. Skipped tests are shown in output. Examples:
 ```php
 <?php
+
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase {
-  /**
-   * @skip(1)
-   * @skip(true)
-   * @skip(abc)
-   * @skip(php=5.4.1)
-   * @skip(extension=abc)
-   * @skip(sapi=cgi)
-   */
-  public function testTestName(): void {
-    $this->assertTrue(false);
-  }
+class Tests extends MyTester\TestCase
+{
+    /**
+     * @skip(1)
+     * @skip(true)
+     * @skip(abc)
+     * @skip(php=5.4.1)
+     * @skip(extension=abc)
+     * @skip(sapi=cgi)
+     */
+    public function testTestName(): void
+    {
+        $this->assertTrue(false);
+    }
 }
-?>
+
 ```
 
 #### Annotations style
@@ -131,6 +148,7 @@ but that is not the only way. If you use PHP 8, you can also make use of attribu
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 use MyTester\Annotations\Attributes\DataProvider;
@@ -140,33 +158,38 @@ use MyTester\Annotations\Attributes\Test;
 use MyTester\Annotations\Attributes\TestSuite;
 
 #[TestSuite("Abc")]
-class AbcTest extends MyTester\TestCase {
-  
-  #[Test("Abc")]
-  public function testOne(): void {
-    $this->assertTrue(true);
-  }
+class AbcTest extends MyTester\TestCase
+{
+    #[Test("Abc")]
+    public function testOne(): void
+    {
+        $this->assertTrue(true);
+    }
 
-  #[Skip()]
-  public function testSkip(): void {
-    $this->assertTrue(false);
-  }
+    #[Skip()]
+    public function testSkip(): void
+    {
+        $this->assertTrue(false);
+    }
 
-  #[Fail()]
-  public function testFail(): void {
-    $this->assertTrue(false);
-  }
+    #[Fail()]
+    public function testFail(): void
+    {
+        $this->assertTrue(false);
+    }
 
-  #[DataProvider("dataProvider")]
-  public function testParams(string $text): void {
-    $this->assertContains("a", $text);
-  }
+    #[DataProvider("dataProvider")]
+    public function testParams(string $text): void
+    {
+        $this->assertContains("a", $text);
+    }
 
-  public function dataProvider(): array {
-    return [
-      ["abc", "def"],
-    ];
-  }
+    public function dataProvider(): array
+    {
+        return [
+            ["abc", "def"],
+        ];
+    }
 }
 ?>
 ```
@@ -190,6 +213,7 @@ My Tester is not able to generate code coverage reports yet. Before it is suppor
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
@@ -210,7 +234,7 @@ register_shutdown_function(function() use ($coverage) {
 });
 
 require __DIR__ . "/vendor/bin/mytester.php";
-?>
+
 ```
 
 Nette applications
@@ -226,11 +250,12 @@ Then you get service named mytester.runner (of type MyTester\Tester) from the co
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 $result = $container->getService("mytester.runner")->execute(); //or
 $container->getByType(MyTester\Tester::class)->execute();
-?>
+
 ```
 
 The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder parameter to the extension:

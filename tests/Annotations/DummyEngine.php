@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MyTester\Annotations;
@@ -8,13 +9,15 @@ namespace MyTester\Annotations;
  *
  * @author Jakub Konečný
  */
-final class DummyEngine implements \MyTester\IAnnotationsReaderEngine {
-  public function hasAnnotation(string $name, $class, string $method = null): bool {
-    return true;
-  }
+final class DummyEngine implements \MyTester\IAnnotationsReaderEngine
+{
+    public function hasAnnotation(string $name, $class, string $method = null): bool
+    {
+        return true;
+    }
 
-  public function getAnnotation(string $name, $class, string $method = null) {
-    return "abc";
-  }
+    public function getAnnotation(string $name, $class, string $method = null)
+    {
+        return "abc";
+    }
 }
-?>

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MyTester\Annotations\Attributes;
@@ -11,15 +12,16 @@ use Attribute;
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-final class Skip extends BaseAttribute {
-  /** @var mixed */
-  public $value;
+final class Skip extends BaseAttribute
+{
+    /** @var mixed */
+    public $value;
 
-  /**
-   * @param mixed $value
-   */
-  public function __construct($value = true) {
-    $this->value = $value;
-  }
+    /**
+     * @param mixed $value
+     */
+    public function __construct($value = true)
+    {
+        $this->value = $value;
+    }
 }
-?>

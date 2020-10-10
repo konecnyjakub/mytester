@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
@@ -13,10 +14,9 @@ $filter->includeDirectory(__DIR__ . "/src");
 
 $coverage = new CodeCoverage((new Selector())->forLineCoverage($filter), $filter);
 $coverage->start("My Tester");
-register_shutdown_function(function() use ($coverage) {
-  $coverage->stop();
-  (new Clover())->process($coverage, __DIR__ . "/coverage.xml");
+register_shutdown_function(function () use ($coverage) {
+    $coverage->stop();
+    (new Clover())->process($coverage, __DIR__ . "/coverage.xml");
 });
 
 require __DIR__ . "/src/mytester.php";
-?>
