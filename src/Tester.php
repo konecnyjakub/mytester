@@ -150,6 +150,10 @@ final class Tester {
           break;
         case Job::RESULT_FAILED:
           $result = TestCase::RESULT_FAILED;
+          $output = $job->output;
+          if(strlen($output) > 0) {
+            file_put_contents("$this->folder/$job->name.errors", $output);
+          }
           break;
         default:
           $result = "";

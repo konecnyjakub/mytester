@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-require_once __DIR__ . "/functions.php";
-
 /**
  * One job of the test suite
  *
@@ -15,6 +13,7 @@ require_once __DIR__ . "/functions.php";
  * @property-read bool|string $skip
  * @property-read bool $shouldFail
  * @property-read string $result
+ * @property-read string $output @internal
  */
 class Job {
   use \Nette\SmartObject;
@@ -31,6 +30,7 @@ class Job {
   protected $skip;
   protected bool $shouldFail;
   protected string $result = self::RESULT_PASSED;
+  protected string $output = "";
   
   /**
    * @param bool|string $skip
@@ -70,6 +70,10 @@ class Job {
   protected function getResult(): string {
     return $this->result;
   }
+
+  protected function getOutput(): string {
+    return $this->output;
+  }
   
   /**
    * Executes the task
@@ -88,9 +92,7 @@ class Job {
       if($failed && !$this->shouldFail) {
         $this->result = static::RESULT_FAILED;
       }
-      if(strlen($output) && $this->result === static::RESULT_FAILED) {
-        file_put_contents(\getTestsDirectory() . "/$this->name.errors", $output);
-      }
+      $this->output = $output;
     }
   }
 }
