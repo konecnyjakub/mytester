@@ -53,6 +53,9 @@
             "MyTester\\": "tests/"
         }
     },
+    "config": {
+        "optimize-autoloader": true
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "3.0.x-dev"
