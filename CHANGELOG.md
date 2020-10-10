@@ -5,6 +5,7 @@ Version 3.0.0-dev
 - BC break: removed data and testSuit annotations
 - allowed customization of finding test suites in automated tests runner
 - BC break: moved PHP attributes to namespace MyTester\Attributes
+- automated tests runner now uses Composer's autoloader, package nette/robot-loader is optional
 
 Version 2.1.0
 - allowed customization of test suite creation in automated tests runner
