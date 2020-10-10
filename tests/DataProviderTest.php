@@ -49,14 +49,6 @@ final class DataProviderTest extends TestCase
     }
 
     /**
-     * @data(abc, def)
-     */
-    #[Data(["abc", "def"])]
-    private function data(string $input): void
-    {
-    }
-
-    /**
      * @dataProvider(dataSource)
      */
     #[DataProviderAttribute("dataSource")]

@@ -69,7 +69,7 @@ final class TestCaseTest extends TestCase
 
     public function dataProvider(): array
     {
-        return ["abc", "adef",];
+        return ["abc", "adef", ];
     }
 
     /**
