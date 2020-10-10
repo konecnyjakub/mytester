@@ -18,6 +18,9 @@ final class TestSuitesFinder implements ITestsSuitesFinder
 {
     public function getSuites(string $folder): array
     {
+        if (!$this->isAvailable()) {
+            return [];
+        }
         $suites = [];
         $robot = new RobotLoader();
         $tempDir = "$folder/temp/cache/Robot.Loader";
@@ -38,5 +41,10 @@ final class TestSuitesFinder implements ITestsSuitesFinder
             }
         }
         return $suites;
+    }
+
+    private function isAvailable(): bool
+    {
+        return class_exists(RobotLoader::class);
     }
 }

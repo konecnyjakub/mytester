@@ -201,11 +201,13 @@ If you need to do some things before/after each test in TestCase, you can define
 Running tests
 -------------
 
-The easiest way to run your test cases is to use the provided script *vendor/bin/mytester*. It scans folder your_project_root/tests (by default) for *Test.php files and runs TestCases in them. The script requires package nette/robot-loader. You can tell it to use a different folder by specifying it as the script's first argument:
+The easiest way to run your test cases is to use the provided script *vendor/bin/mytester*. It scans folder your_project_root/tests (by default) for *Test.php files and runs TestCases in them. You can tell it to use a different folder by specifying it as the script's first argument:
 
 ```bash
 ./vendor/bin/mytester tests/unit
 ```
+
+If you have correctly configured Composer to autoload your test suites and use optimized autoloader, you are all set. If Composer cannot find them, install package nette/robot-loader and it will be used to find and load them.
 
 ### Code coverage
 

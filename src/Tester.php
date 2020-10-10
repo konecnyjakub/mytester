@@ -41,7 +41,12 @@ final class Tester
     ) {
         $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "printInfo"];
-        $this->testsSuitesFinder = $testsSuitesFinder ?? new TestSuitesFinder();
+        if ($testsSuitesFinder === null) {
+            $testsSuitesFinder = new ChainTestsSuitesFinder();
+            $testsSuitesFinder->registerFinder(new ComposerTestsSuitesFinder());
+            $testsSuitesFinder->registerFinder(new TestSuitesFinder());
+        }
+        $this->testsSuitesFinder = $testsSuitesFinder;
         $this->testSuiteFactory = $testSuiteFactory ?? new TestSuiteFactory();
         $this->folder = $folder;
     }

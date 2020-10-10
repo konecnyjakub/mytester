@@ -37,7 +37,7 @@
         "symfony/polyfill-php80": "dev-master"
     },
     "suggest": {
-        "nette/robot-loader": "Needed for automated tests runner."
+        "nette/robot-loader": "Possible autoloader for automated tests runner."
     },
     "conflict": {
         "nette/robot-loader": "<3.3.1",
