@@ -42,13 +42,7 @@ final class Tester
         $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "printInfo"];
         $this->testsSuitesFinder = $testsSuitesFinder ?? new TestSuitesFinder();
-        $this->testSuiteFactory = $testSuiteFactory ?? new class implements ITestSuiteFactory
-        {
-            public function create(string $className): TestCase
-            {
-                return new $className();
-            }
-        };
+        $this->testSuiteFactory = $testSuiteFactory ?? new TestSuiteFactory();
         $this->folder = $folder;
     }
 
