@@ -8,5 +8,5 @@ require findVendorDirectory() . "/autoload.php";
 
 use MyTester\Tester;
 
-$tester = new Tester();
+$tester = new Tester(getTestsDirectory());
 $tester->execute();

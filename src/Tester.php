@@ -35,7 +35,7 @@ final class Tester
     private string $results = "";
 
     public function __construct(
-        string $folder = null,
+        string $folder,
         ITestsSuitesFinder $testsSuitesFinder = null,
         ITestSuiteFactory $testSuiteFactory = null
     ) {
@@ -49,7 +49,7 @@ final class Tester
                 return new $className();
             }
         };
-        $this->folder = $folder ?? \getTestsDirectory();
+        $this->folder = $folder;
     }
 
     /**
