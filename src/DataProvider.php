@@ -17,8 +17,7 @@ final class DataProvider
 {
     use \Nette\SmartObject;
 
-    public const ANNOTATION_NAME = "data";
-    public const PROVIDER_ANNOTATION_NAME = "dataProvider";
+    public const ANNOTATION_NAME = "dataProvider";
 
     private Reader $annotationsReader;
 
@@ -36,7 +35,7 @@ final class DataProvider
         if ($reflection->getNumberOfParameters() < 1) {
             return [];
         }
-        $dataProvider = $this->annotationsReader->getAnnotation(static::PROVIDER_ANNOTATION_NAME, $class, $method);
+        $dataProvider = $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
         if (is_string($dataProvider)) {
             $className = $reflection->getDeclaringClass()->getName();
             try {

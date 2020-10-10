@@ -14,21 +14,12 @@ use MyTester\Attributes\TestSuite;
  *
  * @testSuite TestCase
  * @author Jakub Konečný
- * @property-read bool|int $one
  */
 #[TestSuite("TestCase")]
 final class TestCaseTest extends TestCase
 {
     /** @var bool|int */
     private $one = false;
-
-    /**
-     * @return bool|int
-     */
-    public function getOne()
-    {
-        return $this->one;
-    }
 
     public function setUp(): void
     {
