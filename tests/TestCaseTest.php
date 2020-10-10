@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Attributes\DataProvider;
+use MyTester\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\Test;
 use MyTester\Attributes\TestSuite;
@@ -51,7 +51,7 @@ final class TestCaseTest extends TestCase
      *
      * @dataProvider(dataProvider)
      */
-    #[DataProvider("dataProvider")]
+    #[DataProviderAttribute("dataProvider")]
     public function testParams(string $text): void
     {
         $this->assertType("string", $text);
