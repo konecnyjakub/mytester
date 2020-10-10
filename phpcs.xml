@@ -34,7 +34,7 @@
     <exclude name="Squiz.Classes.ClassDeclaration"/>
   </rule>
   <rule ref="Squiz.PHP.CommentedOutCode">
-    <exclude-pattern>*/src/Annotations/Attributes/*</exclude-pattern>
+    <exclude-pattern>*/src/Attributes/*</exclude-pattern>
     <exclude-pattern>*/tests/*</exclude-pattern>
   </rule>
   <rule ref="Squiz.PHP.DiscouragedFunctions"/>
@@ -49,7 +49,7 @@
     <exclude name="PSR12.Files.FileHeader"/>
   </rule>
   <rule ref="PSR1.Files.SideEffects">
-    <exclude-pattern>*/src/Annotations/Attributes/*</exclude-pattern>
+    <exclude-pattern>*/src/Attributes/*</exclude-pattern>
     <exclude-pattern>*/tests/*</exclude-pattern>
   </rule>
 </ruleset>

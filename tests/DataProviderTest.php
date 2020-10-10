@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\Attributes\DataProvider as DataProviderAttribute;
-use MyTester\Annotations\Attributes\TestSuite;
+use MyTester\Attributes\DataProvider as DataProviderAttribute;
+use MyTester\Attributes\TestSuite;
 
 /**
  * Test suite for class DataProvider

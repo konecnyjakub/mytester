@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MyTester\Annotations\Attributes;
+namespace MyTester\Attributes;
 
 use Attribute;
 
 /**
- * Fail attribute
+ * Skip attribute
  *
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-final class Fail extends BaseAttribute
+final class Skip extends BaseAttribute
 {
     /** @var mixed */
     public $value;
@@ -20,7 +20,7 @@ final class Fail extends BaseAttribute
     /**
      * @param mixed $value
      */
-    public function __construct($value = null)
+    public function __construct($value = true)
     {
         $this->value = $value;
     }

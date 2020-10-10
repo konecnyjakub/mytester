@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations;
 
-use MyTester\Annotations\Attributes\BaseAttribute;
+use MyTester\Attributes\BaseAttribute;
 use Nette\Utils\Strings;
 use ReflectionClass;
 use ReflectionException;
@@ -48,7 +48,7 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
 
     private function getClassName(string $baseName): string
     {
-        return "MyTester\\Annotations\Attributes\\" . Strings::firstUpper($baseName);
+        return "MyTester\\Attributes\\" . Strings::firstUpper($baseName);
     }
 
     /**

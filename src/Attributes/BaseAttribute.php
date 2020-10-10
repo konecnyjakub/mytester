@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyTester\Annotations\Attributes;
+namespace MyTester\Attributes;
 
 /**
  * @author Jakub Konečný

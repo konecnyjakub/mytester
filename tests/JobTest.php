@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\Attributes\TestSuite;
+use MyTester\Attributes\TestSuite;
 
 /**
  * Test suite for class Job

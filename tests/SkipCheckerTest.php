@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\Attributes\Skip;
-use MyTester\Annotations\Attributes\TestSuite;
+use MyTester\Attributes\Skip;
+use MyTester\Attributes\TestSuite;
 
 /**
  * Test suite for class SkipChecker

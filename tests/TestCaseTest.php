@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\Attributes\DataProvider;
-use MyTester\Annotations\Attributes\Skip;
-use MyTester\Annotations\Attributes\Test;
-use MyTester\Annotations\Attributes\TestSuite;
+use MyTester\Attributes\DataProvider;
+use MyTester\Attributes\Skip;
+use MyTester\Attributes\Test;
+use MyTester\Attributes\TestSuite;
 
 /**
  * Test suite for class TestCase

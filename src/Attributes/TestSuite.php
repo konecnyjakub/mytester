@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MyTester\Annotations\Attributes;
+namespace MyTester\Attributes;
 
 use Attribute;
 
 /**
- * Data provider attribute
+ * TestSuite attribute
  *
  * @author Jakub Konečný
  */
-#[Attribute(Attribute::TARGET_METHOD)]
-final class DataProvider extends BaseAttribute
+#[Attribute(Attribute::TARGET_CLASS)]
+final class TestSuite extends BaseAttribute
 {
     public string $value;
 

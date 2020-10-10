@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\Attributes\Fail;
+use MyTester\Attributes\Fail;
 use stdClass;
 
 /**

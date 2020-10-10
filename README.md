@@ -151,11 +151,11 @@ but that is not the only way. If you use PHP 8, you can also make use of attribu
 
 declare(strict_types=1);
 
-use MyTester\Annotations\Attributes\DataProvider;
-use MyTester\Annotations\Attributes\Skip;
-use MyTester\Annotations\Attributes\Fail;
-use MyTester\Annotations\Attributes\Test;
-use MyTester\Annotations\Attributes\TestSuite;
+use MyTester\Attributes\DataProvider;
+use MyTester\Attributes\Skip;
+use MyTester\Attributes\Fail;
+use MyTester\Attributes\Test;
+use MyTester\Attributes\TestSuite;
 
 #[TestSuite("Abc")]
 class AbcTest extends MyTester\TestCase

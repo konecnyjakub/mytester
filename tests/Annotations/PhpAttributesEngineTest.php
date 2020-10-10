@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations;
 
-use MyTester\Annotations\Attributes\Fail;
-use MyTester\Annotations\Attributes\Skip;
-use MyTester\Annotations\Attributes\TestSuite;
+use MyTester\Attributes\Fail;
+use MyTester\Attributes\Skip;
+use MyTester\Attributes\TestSuite;
 use MyTester\ShouldFailChecker;
 use MyTester\TestCase;
 
