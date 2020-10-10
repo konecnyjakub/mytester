@@ -13,7 +13,6 @@ use ReflectionException;
  */
 final class ComposerTestsSuitesFinder implements ITestsSuitesFinder
 {
-
     public function getSuites(string $folder): array
     {
         $suites = [];

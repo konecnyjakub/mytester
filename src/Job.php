@@ -16,7 +16,7 @@ namespace MyTester;
  * @property-read string $result
  * @property-read string $output @internal
  */
-class Job
+final class Job
 {
     use \Nette\SmartObject;
 

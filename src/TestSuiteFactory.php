@@ -11,7 +11,6 @@ namespace MyTester;
  */
 final class TestSuiteFactory implements ITestSuiteFactory
 {
-
     public function create(string $className): TestCase
     {
         return new $className();
