@@ -67,7 +67,8 @@
   <rule ref="PSR1"/>
   <rule ref="PSR1.Files.SideEffects">
     <exclude-pattern>*/src/Job.php</exclude-pattern>
-    <exclude-pattern>*/src/Bridges/NetteDI/TestsRunner.php</exclude-pattern>
+    <exclude-pattern>*/src/Annotations/Attributes/*</exclude-pattern>
+    <exclude-pattern>*/tests/*</exclude-pattern>
   </rule>
   <rule ref="PSR1.Classes.ClassDeclaration"/>
   <rule ref="PSR2.Classes.PropertyDeclaration"/>
