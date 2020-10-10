@@ -27,7 +27,10 @@
   <rule ref="Squiz.Classes">
     <exclude name="Squiz.Classes.ClassDeclaration"/>
   </rule>
-  <rule ref="Squiz.PHP.CommentedOutCode"/>
+  <rule ref="Squiz.PHP.CommentedOutCode">
+    <exclude-pattern>*/src/Annotations/Attributes/*</exclude-pattern>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+  </rule>
   <rule ref="Squiz.PHP.DiscouragedFunctions"/>
   <rule ref="Squiz.PHP.Eval"/>
   <rule ref="Squiz.PHP.GlobalKeyword"/>
