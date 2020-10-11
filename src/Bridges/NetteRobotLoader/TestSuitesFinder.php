@@ -27,7 +27,7 @@ final class TestSuitesFinder implements ITestsSuitesFinder
         FileSystem::createDir($tempDir);
         $robot->setTempDirectory($tempDir);
         $robot->addDirectory($folder);
-        $robot->acceptFiles = ["*Test.php", ];
+        $robot->acceptFiles = ["*" . static::FILENAME_SUFFIX, ];
         $robot->rebuild();
         $robot->register();
         $classes = $robot->getIndexedClasses();

@@ -9,6 +9,8 @@ namespace MyTester;
  */
 interface ITestsSuitesFinder
 {
+    public const FILENAME_SUFFIX = "Test.php";
+
     /**
      * @return string[]
      */
