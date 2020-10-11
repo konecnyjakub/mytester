@@ -26,6 +26,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         return Expect::structure([
             "folder" => Expect::string(Helpers::expand("%appDir%/../tests", $params)),
             "onExecute" => Expect::array()->default([]),
+            "colors" => Expect::bool(false),
         ])->castTo("array");
     }
 
@@ -56,6 +57,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         $config = $this->getConfig();
         $initialize = $class->methods["initialize"];
         $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
+        $initialize->addBody('$runner->useColors = ?;', [$config["colors"]]);
         foreach ($config["onExecute"] as &$task) {
             if (!is_array($task)) {
                 $task = explode("::", $task);

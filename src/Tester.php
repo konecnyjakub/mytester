@@ -7,6 +7,7 @@ namespace MyTester;
 use Ayesh\PHP_Timer\Timer;
 use Jean85\PrettyVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use Nette\CommandLine\Console;
 use Nette\Utils\Finder;
 
 /**
@@ -14,6 +15,7 @@ use Nette\Utils\Finder;
  *
  * @author Jakub Konečný
  * @property-read string[] $suites
+ * @property bool $useColors
  * @method void onExecute()
  */
 final class Tester
@@ -29,7 +31,9 @@ final class Tester
     public array $onExecute = [];
     public ITestSuiteFactory $testSuiteFactory;
     public ITestSuitesFinder $testSuitesFinder;
+    private Console $console;
     private string $folder;
+    private bool $useColors = false;
     /** @var SkippedTest[] */
     private array $skipped = [];
     private string $results = "";
@@ -49,6 +53,7 @@ final class Tester
         $this->testSuitesFinder = $testSuitesFinder;
         $this->testSuiteFactory = $testSuiteFactory ?? new TestSuiteFactory();
         $this->folder = $folder;
+        $this->console = new Console();
     }
 
     /**
@@ -60,6 +65,17 @@ final class Tester
             $this->suites = $this->testSuitesFinder->getSuites($this->folder);
         }
         return $this->suites;
+    }
+
+    protected function isUseColors(): bool
+    {
+        return $this->useColors;
+    }
+
+    protected function setUseColors(bool $useColors): void
+    {
+        $this->useColors = $useColors;
+        $this->console->useColors($useColors);
     }
 
     /**
@@ -90,27 +106,33 @@ final class Tester
      */
     private function printInfo(): void
     {
-        echo "My Tester " . PrettyVersions::getVersion(static::PACKAGE_NAME) . "\n";
+        $version = PrettyVersions::getVersion(static::PACKAGE_NAME);
+        echo $this->console->color("silver", "My Tester $version\n");
         echo "\n";
-        echo "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n";
+        echo $this->console->color("silver", "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n");
         echo "\n";
     }
 
     private function printResults(): void
     {
         $results = $this->results;
+        $rf = TestCase::RESULT_FAILED;
+        $rs = TestCase::RESULT_SKIPPED;
+        $results = str_replace($rf, $this->console->color("red", $rf), $results);
+        $results = str_replace($rs, $this->console->color("yellow", $rs), $results);
         echo $results . "\n";
+        $results = $this->results;
         $this->printSkipped();
         $failed = str_contains($results, TestCase::RESULT_FAILED);
         if (!$failed) {
             echo "\n";
-            echo "OK";
+            $resultsLine = "OK";
         } else {
             $this->printFailed();
             echo "\n";
-            echo "Failed";
+            $resultsLine = "Failed";
         }
-        $resultsLine = " (" . strlen($results) . " tests";
+        $resultsLine .= " (" . strlen($results) . " tests";
         if ($failed) {
             $resultsLine .= ", " . substr_count($results, TestCase::RESULT_FAILED) . " failed";
         }
@@ -120,6 +142,7 @@ final class Tester
         Timer::stop(static::TIMER_NAME);
         $time = Timer::read(static::TIMER_NAME, Timer::FORMAT_HUMAN);
         $resultsLine .= ", $time)";
+        $resultsLine = $this->console->color((!$failed) ? "green" : "red", $resultsLine);
         echo $resultsLine . "\n";
     }
 

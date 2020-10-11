@@ -13,8 +13,12 @@ $cmd = new Parser("", [
     "path" => [
         Parser::VALUE => dirname(findVendorDirectory()) . "/tests",
     ],
+    "--colors" => [
+        Parser::OPTIONAL => true,
+    ],
 ]);
 $options = $cmd->parse();
 
 $tester = new Tester($options["path"]);
+$tester->useColors = isset($options["--colors"]);
 $tester->execute();

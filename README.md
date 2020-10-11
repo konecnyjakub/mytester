@@ -209,6 +209,14 @@ The easiest way to run your test cases is to use the provided script *vendor/bin
 
 If you have correctly configured Composer to autoload your test suites and use optimized autoloader, you are all set. If Composer cannot find them, install package nette/robot-loader and it will be used to find and load them.
 
+### Colorized output
+
+Automated tests runner can print results with colors, but it is not enabled but default. To use colors just pass argument *--colors* to the script.
+
+```bash
+./vendor/bin/mytester tests/unit --colors
+```
+
 ### Code coverage
 
 My Tester is not able to generate code coverage reports yet. Before it is supported natively, we recommend using package phpunit/php-code-coverage and a custom script for running tests. Example:
@@ -275,6 +283,13 @@ mytester:
         - Class::staticMethod
         - [@service, method]
         - [Class, staticMethod]
+```
+
+Colors in output can be enabled by setting option colors to true:
+
+```neon
+mytester:
+    colors: true
 ```
 
 More examples

@@ -19,4 +19,6 @@ register_shutdown_function(function () use ($coverage) {
     (new Clover())->process($coverage, __DIR__ . "/coverage.xml");
 });
 
+$_SERVER["argv"][] = "--colors";
+$_SERVER["argc"]++;
 require __DIR__ . "/src/mytester.php";

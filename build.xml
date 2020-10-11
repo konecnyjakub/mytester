@@ -29,6 +29,7 @@
      <arg path="tests"/>
    </exec>
    <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
+     <arg value="--colors"/>
    </exec>
    <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true">
    </exec>
