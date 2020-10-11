@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteRobotLoader;
 
-use MyTester\ITestsSuitesFinder;
-use MyTester\TestCase;
+use MyTester\BaseTestsSuitesFinder;
 use Nette\Loaders\RobotLoader;
 use Nette\Utils\FileSystem;
-use ReflectionClass;
 
 /**
  * @author Jakub Konečný
  * @internal
  */
-final class TestSuitesFinder implements ITestsSuitesFinder
+final class TestSuitesFinder extends BaseTestsSuitesFinder
 {
     public function getSuites(string $folder): array
     {
@@ -32,12 +30,8 @@ final class TestSuitesFinder implements ITestsSuitesFinder
         $robot->register();
         $classes = $robot->getIndexedClasses();
         foreach ($classes as $class => $file) {
-            if (!class_exists($class)) {
-                continue;
-            }
-            $rc = new ReflectionClass($class);
-            if (!$rc->isAbstract() && $rc->isSubclassOf(TestCase::class)) {
-                $suites[] = $rc->getName();
+            if ($this->isTestSuite($class)) {
+                $suites[] = $class;
             }
         }
         return $suites;
