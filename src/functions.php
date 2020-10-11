@@ -17,8 +17,3 @@ function findVendorDirectory(): string
     };
     return $findVendor();
 }
-
-function getTestsDirectory(): string
-{
-    return $argv[1] ?? dirname(findVendorDirectory()) . "/tests";
-}
