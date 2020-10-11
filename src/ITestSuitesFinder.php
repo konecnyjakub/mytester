@@ -7,7 +7,7 @@ namespace MyTester;
 /**
  * @author Jakub Konečný
  */
-interface ITestsSuitesFinder
+interface ITestSuitesFinder
 {
     public const FILENAME_SUFFIX = "Test.php";
 

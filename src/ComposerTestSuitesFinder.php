@@ -8,7 +8,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @internal
  */
-final class ComposerTestsSuitesFinder extends BaseTestsSuitesFinder
+final class ComposerTestSuitesFinder extends BaseTestSuitesFinder
 {
     public function getSuites(string $folder): array
     {

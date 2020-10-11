@@ -7,12 +7,12 @@ namespace MyTester;
  * @author Jakub Konečný
  * @internal
  */
-final class ChainTestsSuitesFinder implements ITestsSuitesFinder
+final class ChainTestSuitesFinder implements ITestSuitesFinder
 {
-    /** @var ITestsSuitesFinder[] */
+    /** @var ITestSuitesFinder[] */
     private array $finders;
 
-    public function registerFinder(ITestsSuitesFinder $finder): void
+    public function registerFinder(ITestSuitesFinder $finder): void
     {
         $this->finders[] = $finder;
     }

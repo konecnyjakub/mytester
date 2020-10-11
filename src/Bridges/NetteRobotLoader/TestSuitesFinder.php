@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteRobotLoader;
 
-use MyTester\BaseTestsSuitesFinder;
+use MyTester\BaseTestSuitesFinder;
 use Nette\Loaders\RobotLoader;
 use Nette\Utils\FileSystem;
 
@@ -12,7 +12,7 @@ use Nette\Utils\FileSystem;
  * @author Jakub Konečný
  * @internal
  */
-final class TestSuitesFinder extends BaseTestsSuitesFinder
+final class TestSuitesFinder extends BaseTestSuitesFinder
 {
     public function getSuites(string $folder): array
     {

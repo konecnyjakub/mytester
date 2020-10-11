@@ -10,7 +10,7 @@ use ReflectionException;
  * @author Jakub Konečný
  * @internal
  */
-abstract class BaseTestsSuitesFinder implements ITestsSuitesFinder
+abstract class BaseTestSuitesFinder implements ITestSuitesFinder
 {
     protected function isTestSuite(string $class): bool
     {

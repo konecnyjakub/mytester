@@ -28,7 +28,7 @@ final class Tester
     /** @var callable[] */
     public array $onExecute = [];
     public ITestSuiteFactory $testSuiteFactory;
-    public ITestsSuitesFinder $testsSuitesFinder;
+    public ITestSuitesFinder $testSuitesFinder;
     private string $folder;
     /** @var SkippedTest[] */
     private array $skipped = [];
@@ -36,17 +36,17 @@ final class Tester
 
     public function __construct(
         string $folder,
-        ITestsSuitesFinder $testsSuitesFinder = null,
+        ITestSuitesFinder $testSuitesFinder = null,
         ITestSuiteFactory $testSuiteFactory = null
     ) {
         $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "printInfo"];
-        if ($testsSuitesFinder === null) {
-            $testsSuitesFinder = new ChainTestsSuitesFinder();
-            $testsSuitesFinder->registerFinder(new ComposerTestsSuitesFinder());
-            $testsSuitesFinder->registerFinder(new TestSuitesFinder());
+        if ($testSuitesFinder === null) {
+            $testSuitesFinder = new ChainTestSuitesFinder();
+            $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder());
+            $testSuitesFinder->registerFinder(new TestSuitesFinder());
         }
-        $this->testsSuitesFinder = $testsSuitesFinder;
+        $this->testSuitesFinder = $testSuitesFinder;
         $this->testSuiteFactory = $testSuiteFactory ?? new TestSuiteFactory();
         $this->folder = $folder;
     }
@@ -57,7 +57,7 @@ final class Tester
     protected function getSuites(): array
     {
         if (count($this->suites) === 0) {
-            $this->suites = $this->testsSuitesFinder->getSuites($this->folder);
+            $this->suites = $this->testSuitesFinder->getSuites($this->folder);
         }
         return $this->suites;
     }
