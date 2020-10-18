@@ -77,10 +77,11 @@ trait TAssertions
     protected function assert($code, string $failureText = ""): void
     {
         $success = $this->isSuccess($code == true);
+        $message = "";
         if (!$success) {
             $message = ($failureText === "") ? "Assertion \"$code\" is not true." : $failureText;
         }
-        $this->testResult($message ?? "", $success);
+        $this->testResult($message, $success);
     }
 
     /**
