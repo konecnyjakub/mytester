@@ -57,7 +57,7 @@ abstract class TestCase
         static $jobs = [];
         if (count($jobs) === 0) {
             $r = new ReflectionClass(static::class);
-            $methods = array_values(preg_grep(static::METHOD_PATTERN, array_map(function (ReflectionMethod $rm) {
+            $methods = array_values((array) preg_grep(static::METHOD_PATTERN, array_map(function (ReflectionMethod $rm) {
                 return $rm->getName();
             }, $r->getMethods())));
             foreach ($methods as $method) {

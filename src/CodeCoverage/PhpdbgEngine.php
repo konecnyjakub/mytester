@@ -29,7 +29,9 @@ final class PhpdbgEngine implements \MyTester\ICodeCoverageEngine
 
     public function collect(): array
     {
+        /** @var array $positive */
         $positive = phpdbg_end_oplog();
+        /** @var array $negative */
         $negative = phpdbg_get_executable();
 
         foreach ($positive as $file => &$lines) {
