@@ -219,11 +219,8 @@ trait TAssertions
             $this->testResult($message, $success);
         } elseif (is_array($actual)) {
             $success = $this->isSuccess(!in_array($needle, $actual));
-            if ($success) {
-                $this->testResult("");
-            } else {
-                $this->testResult($this->showStringOrArray($needle) . " is in the variable.", false);
-            }
+            $message = ($success) ? "" : $this->showStringOrArray($needle) . " is in the variable.";
+            $this->testResult($message, $success);
         } else {
             $this->testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
         }
