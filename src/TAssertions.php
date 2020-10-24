@@ -189,7 +189,7 @@ trait TAssertions
         if (!is_string($needle) && !is_array($needle)) {
             $this->testResult("The variable is not string or array.", false);
         } elseif (is_string($actual) && is_string($needle)) {
-            $success = $this->isSuccess($needle !== "" && strpos($actual, $needle) !== false);
+            $success = $this->isSuccess($needle !== "" && str_contains($actual, $needle));
             if ($success) {
                 $this->testResult("");
             } else {
