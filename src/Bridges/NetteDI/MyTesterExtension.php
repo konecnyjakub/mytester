@@ -31,7 +31,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function loadConfiguration(): void
     {
