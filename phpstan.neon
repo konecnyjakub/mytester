@@ -1,4 +1,8 @@
 parameters:
+    level: 8
+    paths:
+        - src
+        - tests
     excludes_analyse:
         - %rootDir%/../../../tests/temp/*
     checkMissingIterableValueType: false

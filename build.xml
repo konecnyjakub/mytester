@@ -21,12 +21,6 @@
    </exec>
    <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
      <arg value="analyze"/>
-     <arg value="-l"/>
-     <arg value="8"/>
-     <arg value="-c"/>
-     <arg path="phpstan.neon"/>
-     <arg path="src"/>
-     <arg path="tests"/>
    </exec>
    <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
      <arg value="--colors"/>
