@@ -153,15 +153,13 @@ abstract class TestCase
         }
         $this->shouldFail = false;
         $this->resetCounter();
-        switch ($job->result) {
-            case Job::RESULT_PASSED:
-                return static::RESULT_PASSED;
-            case Job::RESULT_SKIPPED:
-                return static::RESULT_SKIPPED;
-            case Job::RESULT_FAILED:
-                return static::RESULT_FAILED;
-        }
-        return "";
+        return match ($job->result) {
+            Job::RESULT_PASSED => static::RESULT_PASSED,
+            Job::RESULT_SKIPPED => static::RESULT_SKIPPED,
+            Job::RESULT_FAILED => static::RESULT_FAILED,
+            // phpcs:ignore Generic.WhiteSpace.ScopeIndent
+            default => "",
+        };
     }
 
     /**
