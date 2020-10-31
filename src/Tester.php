@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Ayesh\PHP_Timer\Timer;
-use Jean85\PrettyVersions;
+use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use Nette\CommandLine\Console;
 use Nette\Utils\Finder;
@@ -106,7 +106,7 @@ final class Tester
      */
     private function printInfo(): void
     {
-        $version = PrettyVersions::getVersion(static::PACKAGE_NAME);
+        $version = InstalledVersions::getPrettyVersion(static::PACKAGE_NAME);
         echo $this->console->color("silver", "My Tester $version\n");
         echo "\n";
         echo $this->console->color("silver", "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n");

@@ -163,9 +163,6 @@ build:
             cache:
                 directories:
                     - vendor/
-            dependencies:
-                before:
-                    - composer self-update --2
             tests:
                 override:
                     -

@@ -18,7 +18,7 @@
    },
     "require": {
         "php": ">=7.4.0",
-        "jean85/pretty-package-versions": "^1.5.1",
+        "composer-runtime-api": "^2.0",
         "ayesh/php-timer": "^2.1.2",
         "nette/reflection": "^2.4",
         "nette/utils": "^3.1.3",

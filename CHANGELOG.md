@@ -1,13 +1,13 @@
 Version 3.0.0-dev
 - BC break: removed support for *.phpt files
-- BC break: removed Assert
-- BC break: removed Environment
+- BC break: removed Assert, Environment
 - BC break: removed data and testSuit annotations
 - allowed customization of finding test suites in automated tests runner
 - BC break: moved PHP attributes to namespace MyTester\Attributes
 - automated tests runner now uses Composer's autoloader, package nette/robot-loader is optional
 - BC break: marked Job as final
 - automated tests runner's output can be colorized
+- dropped support for Composer 1
 
 Version 2.1.0
 - allowed customization of test suite creation in automated tests runner

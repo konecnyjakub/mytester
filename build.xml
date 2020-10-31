@@ -5,7 +5,6 @@
      <arg value="install"/>
      <arg value="--prefer-dist"/>
      <arg value="--no-progress"/>
-     <arg value="--no-suggest"/>
      <arg value="--no-interaction"/>
    </exec>
    <exec executable="vendor/bin/parallel-lint" logoutput="true" passthru="true" checkreturn="true">
