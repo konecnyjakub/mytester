@@ -13,7 +13,7 @@ matrix:
         - php: nightly
 
 before_install:
-    - composer self-update
+    - composer self-update --2
 
 install:
     - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
