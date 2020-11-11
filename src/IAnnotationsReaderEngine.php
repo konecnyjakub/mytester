@@ -10,13 +10,7 @@ namespace MyTester;
  */
 interface IAnnotationsReaderEngine
 {
-    /**
-     * @param string|object $class
-     */
-    public function hasAnnotation(string $name, $class, string $method = null): bool;
+    public function hasAnnotation(string $name, string|object $class, string $method = null): bool;
 
-    /**
-     * @param string|object $class
-     */
-    public function getAnnotation(string $name, $class, string $method = null): mixed;
+    public function getAnnotation(string $name, string|object $class, string $method = null): mixed;
 }

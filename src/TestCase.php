@@ -101,9 +101,8 @@ abstract class TestCase
 
     /**
      * Get name for a job
-     * @param string|object $class
      */
-    protected function getJobName($class, string $method): string
+    protected function getJobName(string|object $class, string $method): string
     {
         $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST, $class, $method);
         if ($annotation !== null) {

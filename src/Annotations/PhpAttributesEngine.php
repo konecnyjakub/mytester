@@ -9,7 +9,6 @@ use Nette\Utils\Strings;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
-use Reflector;
 
 /**
  * Php attributes engine for annotations reader
@@ -19,12 +18,12 @@ use Reflector;
  */
 final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
 {
-    public function hasAnnotation(string $name, $class, string $method = null): bool
+    public function hasAnnotation(string $name, string|object $class, string $method = null): bool
     {
         return count($this->getReflection($class, $method)->getAttributes($this->getClassName($name))) > 0;
     }
 
-    public function getAnnotation(string $name, $class, string $method = null): mixed
+    public function getAnnotation(string $name, string|object $class, string $method = null): mixed
     {
         $attributes = $this->getReflection($class, $method)->getAttributes($this->getClassName($name));
         if (count($attributes) === 0) {
@@ -41,11 +40,9 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
     }
 
     /**
-     * @param string|object $class
-     * @return ReflectionClass|ReflectionMethod
      * @throws ReflectionException
      */
-    private function getReflection($class, string $method = null): Reflector
+    private function getReflection(string|object $class, string $method = null): ReflectionClass|ReflectionMethod
     {
         if ($method !== null) {
             $reflection = new ReflectionMethod(is_object($class) ? get_class($class) : $class, $method);

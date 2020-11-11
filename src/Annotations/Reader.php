@@ -22,10 +22,7 @@ final class Reader
         $this->engines[] = $engine;
     }
 
-    /**
-     * @param string|object $class
-     */
-    public function hasAnnotation(string $name, $class, string $method = null): bool
+    public function hasAnnotation(string $name, string|object $class, string $method = null): bool
     {
         foreach ($this->engines as $engine) {
             if ($engine->hasAnnotation($name, $class, $method)) {
@@ -35,10 +32,7 @@ final class Reader
         return false;
     }
 
-    /**
-     * @param string|object $class
-     */
-    public function getAnnotation(string $name, $class, string $method = null): mixed
+    public function getAnnotation(string $name, string|object $class, string $method = null): mixed
     {
         foreach ($this->engines as $engine) {
             $value = $engine->getAnnotation($name, $class, $method);

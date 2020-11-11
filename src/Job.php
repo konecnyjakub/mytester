@@ -28,20 +28,16 @@ final class Job
     /** @var callable Task */
     protected $callback;
     protected array $params = [];
-    /** @var bool|string */
-    protected $skip;
+    protected bool|string $skip;
     protected bool $shouldFail;
     protected string $result = self::RESULT_PASSED;
     protected string $output = "";
 
-    /**
-     * @param bool|string $skip
-     */
     public function __construct(
         string $name,
         callable $callback,
         array $params = [],
-        $skip = false,
+        bool|string $skip = false,
         bool $shouldFail = false
     ) {
         $this->name = $name;
@@ -66,10 +62,7 @@ final class Job
         return $this->params;
     }
 
-    /**
-     * @return bool|string
-     */
-    protected function getSkip()
+    protected function getSkip(): bool|string
     {
         return $this->skip;
     }

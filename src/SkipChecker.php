@@ -48,10 +48,8 @@ final class SkipChecker
 
     /**
      * Check whether to skip a test method
-     *
-     * @return bool|string
      */
-    public function shouldSkip(string $class, string $method)
+    public function shouldSkip(string $class, string $method): bool|string
     {
         $value = $this->getSkipValue($class, $method);
         if ($value === null) {

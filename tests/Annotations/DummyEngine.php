@@ -11,12 +11,12 @@ namespace MyTester\Annotations;
  */
 final class DummyEngine implements \MyTester\IAnnotationsReaderEngine
 {
-    public function hasAnnotation(string $name, $class, string $method = null): bool
+    public function hasAnnotation(string $name, string|object $class, string $method = null): bool
     {
         return true;
     }
 
-    public function getAnnotation(string $name, $class, string $method = null): mixed
+    public function getAnnotation(string $name, string|object $class, string $method = null): mixed
     {
         return "abc";
     }

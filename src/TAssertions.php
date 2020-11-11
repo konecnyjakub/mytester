@@ -53,10 +53,7 @@ trait TAssertions
         return $this->taskCount;
     }
 
-    /**
-     * @param string|array $variable
-     */
-    protected function showStringOrArray($variable): string
+    protected function showStringOrArray(string|array $variable): string
     {
         return (is_string($variable) ? $variable : "(array)");
     }
@@ -164,15 +161,10 @@ trait TAssertions
 
     /**
      * Does $actual contain $needle?
-     *
-     * @param string|array $needle
-     * @param string|array $actual
      */
-    protected function assertContains($needle, $actual): void
+    protected function assertContains(string|array $needle, string|array $actual): void
     {
-        if (!is_string($needle) && !is_array($needle)) {
-            $this->testResult("The variable is not string or array.", false);
-        } elseif (is_string($actual) && is_string($needle)) {
+        if (is_string($actual) && is_string($needle)) {
             $success = $this->isSuccess($needle !== "" && str_contains($actual, $needle));
             if ($success) {
                 $this->testResult("");
@@ -190,15 +182,10 @@ trait TAssertions
 
     /**
      * Does $actual not contain $needle?
-     *
-     * @param string|array $needle
-     * @param string|array $actual
      */
-    protected function assertNotContains($needle, $actual): void
+    protected function assertNotContains(string|array $needle, string|array $actual): void
     {
-        if (!is_string($needle) && !is_array($needle)) {
-            $this->testResult("The variable is not string or array.", false);
-        } elseif (is_string($actual) && is_string($needle)) {
+        if (is_string($actual) && is_string($needle)) {
             $success = $this->isSuccess($needle === "" || strpos($actual, $needle) === false);
             $message = ($success) ? "" : "$needle is in the variable.";
             $this->testResult($message, $success);
@@ -213,10 +200,8 @@ trait TAssertions
 
     /**
      * Does $value contain $count items?
-     *
-     * @param string|array|\Countable $value
      */
-    protected function assertCount(int $count, $value): void
+    protected function assertCount(int $count, string|array|\Countable $value): void
     {
         if (!is_array($value) && !$value instanceof \Countable) {
             $this->testResult("The variable is not array or countable object.", false);
@@ -230,10 +215,8 @@ trait TAssertions
 
     /**
      * Does $value not contain $count items?
-     *
-     * @param string|array|\Countable $value
      */
-    protected function assertNotCount(int $count, $value): void
+    protected function assertNotCount(int $count, string|array|\Countable $value): void
     {
         if (!is_array($value) && !$value instanceof \Countable) {
             $this->testResult("The variable is not array or countable object.", false);
@@ -247,15 +230,9 @@ trait TAssertions
 
     /**
      * Is $value of type $type?
-     *
-     * @param string|object $type
      */
-    protected function assertType($type, mixed $value): void
+    protected function assertType(string|object $type, mixed $value): void
     {
-        if (!is_object($type) && !is_string($type)) {
-            $this->testResult("Type must be string or object.", false);
-            return;
-        }
         if (
             in_array($type, [
             "array", "bool", "float", "int", "string", "null", "object", "resource",
