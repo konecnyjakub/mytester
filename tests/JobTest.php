@@ -14,7 +14,7 @@ use MyTester\Attributes\TestSuite;
 #[TestSuite("JobTest")]
 final class JobTest extends TestCase
 {
-    public function assertSame($expected, $actual): void
+    public function assertSame(mixed $expected, mixed $actual): void
     {
         parent::assertSame($expected, $actual);
     }

@@ -37,9 +37,8 @@ final class Reader
 
     /**
      * @param string|object $class
-     * @return mixed
      */
-    public function getAnnotation(string $name, $class, string $method = null)
+    public function getAnnotation(string $name, $class, string $method = null): mixed
     {
         foreach ($this->engines as $engine) {
             $value = $engine->getAnnotation($name, $class, $method);

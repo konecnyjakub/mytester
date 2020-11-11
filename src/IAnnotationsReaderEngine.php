@@ -17,7 +17,6 @@ interface IAnnotationsReaderEngine
 
     /**
      * @param string|object $class
-     * @return mixed
      */
-    public function getAnnotation(string $name, $class, string $method = null);
+    public function getAnnotation(string $name, $class, string $method = null): mixed;
 }

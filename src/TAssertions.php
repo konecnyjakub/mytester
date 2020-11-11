@@ -71,10 +71,8 @@ trait TAssertions
 
     /**
      * Tries an assertion
-     *
-     * @param mixed $code Assertion to try
      */
-    protected function assert($code, string $failureText = ""): void
+    protected function assert(mixed $code, string $failureText = ""): void
     {
         $success = $this->isSuccess($code == true);
         $message = "";
@@ -86,11 +84,8 @@ trait TAssertions
 
     /**
      * Are both values same?
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
-    protected function assertSame($expected, $actual): void
+    protected function assertSame(mixed $expected, mixed $actual): void
     {
         $success = $this->isSuccess($expected == $actual);
         $message = ($success) ? "" : "The value is not $expected but $actual.";
@@ -99,11 +94,8 @@ trait TAssertions
 
     /**
      * Are not both values same?
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
-    protected function assertNotSame($expected, $actual): void
+    protected function assertNotSame(mixed $expected, mixed $actual): void
     {
         $success = $this->isSuccess($expected !== $actual);
         $message = ($success) ? "" : "The value is $expected.";
@@ -122,10 +114,8 @@ trait TAssertions
 
     /**
      * Is the expression true?
-     *
-     * @param mixed $actual
      */
-    protected function assertTruthy($actual): void
+    protected function assertTruthy(mixed $actual): void
     {
         $success = $this->isSuccess($actual == true);
         $message = ($success) ? "" : "The expression is not true.";
@@ -144,10 +134,8 @@ trait TAssertions
 
     /**
      * Is the expression false?
-     *
-     * @param mixed $actual
      */
-    protected function assertFalsey($actual): void
+    protected function assertFalsey(mixed $actual): void
     {
         $success = $this->isSuccess($actual == false);
         $message = ($success) ? "" : "The expression is not false.";
@@ -156,10 +144,8 @@ trait TAssertions
 
     /**
      * Is the value null?
-     *
-     * @param mixed $actual
      */
-    protected function assertNull($actual): void
+    protected function assertNull(mixed $actual): void
     {
         $success = $this->isSuccess($actual == null);
         $message = ($success) ? "" : "The value is not null.";
@@ -168,10 +154,8 @@ trait TAssertions
 
     /**
      * Is not the value null?
-     *
-     * @param mixed $actual
      */
-    protected function assertNotNull($actual): void
+    protected function assertNotNull(mixed $actual): void
     {
         $success = $this->isSuccess($actual !== null);
         $message = ($success) ? "" : "The value is null.";
@@ -265,9 +249,8 @@ trait TAssertions
      * Is $value of type $type?
      *
      * @param string|object $type
-     * @param mixed $value
      */
-    protected function assertType($type, $value): void
+    protected function assertType($type, mixed $value): void
     {
         if (!is_object($type) && !is_string($type)) {
             $this->testResult("Type must be string or object.", false);

@@ -41,10 +41,7 @@ final class SkipChecker
         $this->checkers[$name] = $callback;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSkipValue(string $class, string $method)
+    public function getSkipValue(string $class, string $method): mixed
     {
         return $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
     }
@@ -73,10 +70,7 @@ final class SkipChecker
         return false;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function checkPhpVersion($value): ?string
+    public function checkPhpVersion(mixed $value): ?string
     {
         if (version_compare(PHP_VERSION, (string) $value, "<")) {
             return "PHP version is lesser than $value";
@@ -84,10 +78,7 @@ final class SkipChecker
         return null;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function checkLoadedExtension($value): ?string
+    public function checkLoadedExtension(mixed $value): ?string
     {
         if (!extension_loaded($value)) {
             return "extension $value is not loaded";
@@ -95,10 +86,7 @@ final class SkipChecker
         return null;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function checkPhpSapi($value): ?string
+    public function checkPhpSapi(mixed $value): ?string
     {
         if (PHP_SAPI != $value) {
             return "the sapi is not $value";

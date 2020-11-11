@@ -16,7 +16,7 @@ final class DummyEngine implements \MyTester\IAnnotationsReaderEngine
         return true;
     }
 
-    public function getAnnotation(string $name, $class, string $method = null)
+    public function getAnnotation(string $name, $class, string $method = null): mixed
     {
         return "abc";
     }

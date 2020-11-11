@@ -14,13 +14,9 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 final class Fail extends BaseAttribute
 {
-    /** @var mixed */
-    public $value;
+    public mixed $value;
 
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value = null)
+    public function __construct(mixed $value = null)
     {
         $this->value = $value;
     }

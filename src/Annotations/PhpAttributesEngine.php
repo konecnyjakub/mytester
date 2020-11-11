@@ -24,7 +24,7 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
         return count($this->getReflection($class, $method)->getAttributes($this->getClassName($name))) > 0;
     }
 
-    public function getAnnotation(string $name, $class, string $method = null)
+    public function getAnnotation(string $name, $class, string $method = null): mixed
     {
         $attributes = $this->getReflection($class, $method)->getAttributes($this->getClassName($name));
         if (count($attributes) === 0) {
