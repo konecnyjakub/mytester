@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
+use MyTester\InvalidTestCaseException;
 use MyTester\TestCase;
 use Nette\DI\Container;
-use RuntimeException;
 
 /**
  * @author Jakub Konečný
@@ -25,7 +25,7 @@ final class ContainerSuiteFactory implements \MyTester\ITestSuiteFactory
     {
         $suit = $this->container->getByType($className);
         if (!$suit instanceof TestCase) {
-            throw new RuntimeException("$className is not a descendant of " . TestCase::class . ".");
+            throw new InvalidTestCaseException("$className is not a descendant of " . TestCase::class . ".");
         }
         return $suit;
     }
