@@ -8,6 +8,8 @@ Version 3.0.0-dev
 - BC break: marked Job as final
 - automated tests runner's output can be colorized
 - dropped support for Composer 1
+- raised minimal version of PHP to 8.0
+- removed support for phpDoc annotations
 
 Version 2.1.0
 - allowed customization of test suite creation in automated tests runner
