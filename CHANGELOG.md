@@ -1,4 +1,4 @@
-Version 3.0.0-dev
+Version 3.0.0
 - BC break: removed support for *.phpt files
 - BC break: removed Assert, Environment
 - BC break: removed data and testSuit annotations
