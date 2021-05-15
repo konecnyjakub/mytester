@@ -156,7 +156,6 @@ abstract class TestCase
             Job::RESULT_PASSED => static::RESULT_PASSED,
             Job::RESULT_SKIPPED => static::RESULT_SKIPPED,
             Job::RESULT_FAILED => static::RESULT_FAILED,
-            // phpcs:ignore Generic.WhiteSpace.ScopeIndent
             default => "",
         };
     }
