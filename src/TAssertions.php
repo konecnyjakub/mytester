@@ -146,7 +146,7 @@ trait TAssertions
     {
         $success = $this->isSuccess($actual == null);
         $message = ($success) ? "" : "The value is not null.";
-        $this->testResult($message ?? "", $success);
+        $this->testResult($message, $success);
     }
 
     /**

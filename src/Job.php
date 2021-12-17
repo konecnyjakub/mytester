@@ -91,9 +91,7 @@ final class Job
             $this->result = static::RESULT_SKIPPED;
         } else {
             ob_start();
-            if (isset($this->callback)) {
-                call_user_func_array($this->callback, $this->params);
-            }
+            call_user_func_array($this->callback, $this->params);
             /** @var string $output */
             $output = ob_get_clean();
             $failed = str_contains($output, " failed. ");

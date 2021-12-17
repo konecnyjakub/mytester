@@ -21,6 +21,9 @@ final class ContainerSuiteFactory implements \MyTester\ITestSuiteFactory
         $this->container = $container;
     }
 
+  /**
+   * @param class-string $className
+   */
     public function create(string $className): TestCase
     {
         $suit = $this->container->getByType($className);

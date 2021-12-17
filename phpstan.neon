@@ -3,7 +3,7 @@ parameters:
     paths:
         - src
         - tests
-    excludes_analyse:
+    excludePaths:
         - %rootDir%/../../../tests/temp/*
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
@@ -11,3 +11,4 @@ parameters:
     ignoreErrors:
         - '#Parameter \#1 \$callback of function call_user_func expects callable#'
         - '#Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class-string\<T of object\>\|T of object, string given#'
+        - '#Method [A-Za-z\\]+\:\:[a-zA-Z]+\(\) is unused#'
