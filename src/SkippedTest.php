@@ -13,8 +13,8 @@ final class SkippedTest
 {
     use \Nette\SmartObject;
 
-    public string $name;
-    public string $reason;
+    public readonly string $name;
+    public readonly string $reason;
 
     public function __construct(string $name, string $reason)
     {

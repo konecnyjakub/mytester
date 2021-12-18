@@ -42,7 +42,7 @@ final class Tester
     public ITestSuiteFactory $testSuiteFactory;
     public ITestSuitesFinder $testSuitesFinder;
     private Console $console;
-    private string $folder;
+    private readonly string $folder;
     private bool $useColors = false;
     /** @var SkippedTest[] */
     private array $skipped = [];

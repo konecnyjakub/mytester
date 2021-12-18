@@ -8,10 +8,7 @@ namespace MyTester;
  * One job of the test suite
  *
  * @author Jakub Konečný
- * @property-read string $name
  * @property-read callable $callback
- * @property-read array $params
- * @property-read bool|string $skip
  * @property-read string $result
  * @property-read string $output @internal
  * @method void onAfterExecute()
@@ -25,11 +22,12 @@ final class Job
     public const RESULT_FAILED = "failed";
     public const RESULT_PASSED_WITH_WARNINGS = "warning";
 
-    protected string $name;
+    public readonly string $name;
     /** @var callable Task */
     protected $callback;
-    protected array $params = [];
-    protected bool|string $skip;
+    public readonly array $params;
+    // phpcs:ignore
+    public readonly bool|string $skip;
     protected string $result = self::RESULT_PASSED;
     protected string $output = "";
     /** @var callable[] */
@@ -49,24 +47,9 @@ final class Job
         $this->onAfterExecute = $onAfterExecute;
     }
 
-    protected function getName(): string
-    {
-        return $this->name;
-    }
-
     protected function getCallback(): callable
     {
         return $this->callback;
-    }
-
-    protected function getParams(): array
-    {
-        return $this->params;
-    }
-
-    protected function getSkip(): bool|string
-    {
-        return $this->skip;
     }
 
     protected function getResult(): string

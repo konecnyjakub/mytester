@@ -8,6 +8,7 @@ Version 4.0.0-dev
 - automated tests runner now reports number of passed tests
 - test methods that do not perform any assertion are now reported as passed with warnings
 - raised minimal version of PHP to 8.1
+- possible BC break: made some properties readonly
 
 Version 3.0.0
 - BC break: removed support for *.phpt files

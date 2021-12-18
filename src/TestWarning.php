@@ -12,8 +12,8 @@ class TestWarning
 {
     use \Nette\SmartObject;
 
-    private string $name;
-    private string $text;
+    public readonly string $name;
+    public readonly string $text;
 
     public function __construct(string $name, string $text)
     {
