@@ -17,18 +17,13 @@ final class Job
 {
     use \Nette\SmartObject;
 
-    public const RESULT_PASSED = "passed";
-    public const RESULT_SKIPPED = "skipped";
-    public const RESULT_FAILED = "failed";
-    public const RESULT_PASSED_WITH_WARNINGS = "warning";
-
     public readonly string $name;
     /** @var callable Task */
     protected $callback;
     public readonly array $params;
     // phpcs:ignore
     public readonly bool|string $skip;
-    protected string $result = self::RESULT_PASSED;
+    protected JobResult $result = JobResult::PASSED;
     protected string $output = "";
     /** @var callable[] */
     public array $onAfterExecute = [];
@@ -52,7 +47,7 @@ final class Job
         return $this->callback;
     }
 
-    protected function getResult(): string
+    protected function getResult(): JobResult
     {
         return $this->result;
     }
@@ -67,20 +62,14 @@ final class Job
      */
     public function execute(): void
     {
-        if ($this->skip) {
-            $this->result = static::RESULT_SKIPPED;
-        } else {
+        if (!$this->skip) {
             ob_start();
             call_user_func_array($this->callback, $this->params);
             $this->onAfterExecute();
             /** @var string $output */
             $output = ob_get_clean();
-            if (str_contains($output, " failed. ")) {
-                $this->result = static::RESULT_FAILED;
-            } elseif (str_starts_with($output, "Warning: ")) {
-                $this->result = static::RESULT_PASSED_WITH_WARNINGS;
-            }
             $this->output = $output;
         }
+        $this->result = JobResult::fromJob($this);
     }
 }

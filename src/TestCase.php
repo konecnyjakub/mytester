@@ -20,11 +20,6 @@ abstract class TestCase
     use \Nette\SmartObject;
     use TAssertions;
 
-    public const RESULT_PASSED = ".";
-    public const RESULT_SKIPPED = "s";
-    public const RESULT_FAILED = "F";
-    public const RESULT_PASSED_WITH_WARNINGS = "W";
-
     public const METHOD_PATTERN = '#^test[A-Z0-9_]#';
 
     /** @internal */
@@ -157,12 +152,7 @@ abstract class TestCase
             $this->tearDown();
         }
         $this->resetCounter();
-        return match ($job->result) {
-            Job::RESULT_PASSED => static::RESULT_PASSED,
-            Job::RESULT_SKIPPED => static::RESULT_SKIPPED,
-            Job::RESULT_FAILED => static::RESULT_FAILED,
-            default => "",
-        };
+        return $job->result->output();
     }
 
     /**
@@ -175,7 +165,7 @@ abstract class TestCase
         $passed = true;
         foreach ($jobs as $job) {
             $this->runJob($job);
-            if ($job->result === Job::RESULT_FAILED) {
+            if ($job->result === JobResult::FAILED) {
                 $passed = false;
             }
         }

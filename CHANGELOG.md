@@ -9,6 +9,7 @@ Version 4.0.0-dev
 - test methods that do not perform any assertion are now reported as passed with warnings
 - raised minimal version of PHP to 8.1
 - possible BC break: made some properties readonly
+- BC break: job/test results are now implemented via enum MyTester\JobResult
 
 Version 3.0.0
 - BC break: removed support for *.phpt files

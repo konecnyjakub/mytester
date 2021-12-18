@@ -154,10 +154,10 @@ final class Tester
     private function printResults(): void
     {
         $results = $this->results;
-        $rp = TestCase::RESULT_PASSED;
-        $rf = TestCase::RESULT_FAILED;
-        $rs = TestCase::RESULT_SKIPPED;
-        $rw = TestCase::RESULT_PASSED_WITH_WARNINGS;
+        $rp = JobResult::PASSED->output();
+        $rf = JobResult::FAILED->output();
+        $rs = JobResult::SKIPPED->output();
+        $rw = JobResult::WARNING->output();
         $results = str_replace($rf, $this->console->color("red", $rf), $results);
         $results = str_replace($rs, $this->console->color("yellow", $rs), $results);
         $results = str_replace($rw, $this->console->color("yellow", $rw), $results);
@@ -165,7 +165,7 @@ final class Tester
         $results = $this->results;
         $this->printWarnings();
         $this->printSkipped();
-        $failed = str_contains($results, TestCase::RESULT_FAILED);
+        $failed = str_contains($results, $rf);
         if (!$failed) {
             echo "\n";
             $resultsLine = "OK";
@@ -182,10 +182,10 @@ final class Tester
             $resultsLine .= ", " . substr_count($results, $rw) . " passed with warnings";
         }
         if ($failed) {
-            $resultsLine .= ", " . substr_count($results, TestCase::RESULT_FAILED) . " failed";
+            $resultsLine .= ", " . substr_count($results, $rf) . " failed";
         }
-        if (str_contains($results, TestCase::RESULT_SKIPPED)) {
-            $resultsLine .= ", " . substr_count($results, TestCase::RESULT_SKIPPED) . " skipped";
+        if (str_contains($results, $rs)) {
+            $resultsLine .= ", " . substr_count($results, $rs) . " skipped";
         }
         Timer::stop(static::TIMER_NAME);
         $time = Timer::read(static::TIMER_NAME, Timer::FORMAT_HUMAN);
@@ -233,31 +233,22 @@ final class Tester
         $jobs = $testCase->jobs;
         foreach ($jobs as $job) {
             switch ($job->result) {
-                case Job::RESULT_PASSED:
-                    $result = TestCase::RESULT_PASSED;
-                    break;
-                case Job::RESULT_SKIPPED:
-                    $result = TestCase::RESULT_SKIPPED;
+                case JobResult::SKIPPED:
                     $this->skipped[] = new SkippedTest($job->name, (is_string($job->skip) ? $job->skip : ""));
                     break;
-                case Job::RESULT_FAILED:
-                    $result = TestCase::RESULT_FAILED;
+                case JobResult::FAILED:
                     $output = $job->output;
                     if (strlen($output) > 0) {
                         file_put_contents("$this->folder/$job->name.errors", $output);
                     }
                     break;
-                case Job::RESULT_PASSED_WITH_WARNINGS:
-                    $result = TestCase::RESULT_PASSED_WITH_WARNINGS;
+                case JobResult::WARNING:
                     $output = $job->output;
                     $output = str_replace("Warning: ", "", $output);
                     $this->warnings[] = new TestWarning($job->name, $output);
                     break;
-                default:
-                    $result = "";
-                    break;
             }
-            $this->results .= $result;
+            $this->results .= $job->result->output();
         }
     }
 
