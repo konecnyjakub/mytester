@@ -13,8 +13,8 @@
         }
     ],
     "support": {
-        "sources": "https://github.com/konecnyjakub/mytester/",
-        "issues": "https://github.com/konecnyjakub/mytester/issues"
+        "sources": "https://gitlab.com/konecnyjakub/mytester",
+        "issues": "https://gitlab.com/konecnyjakub/mytester/-/issues"
    },
     "require": {
         "php": ">=8.0.0",
