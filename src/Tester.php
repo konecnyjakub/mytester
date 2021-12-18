@@ -54,7 +54,7 @@ final class Tester
     public function __construct(
         string $folder,
         ITestSuitesFinder $testSuitesFinder = null,
-        ITestSuiteFactory $testSuiteFactory = null
+        ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory()
     ) {
         $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "deleteOutputFiles"];
@@ -67,7 +67,7 @@ final class Tester
             $testSuitesFinder->registerFinder(new TestSuitesFinder());
         }
         $this->testSuitesFinder = $testSuitesFinder;
-        $this->testSuiteFactory = $testSuiteFactory ?? new TestSuiteFactory();
+        $this->testSuiteFactory = $testSuiteFactory;
         $this->folder = $folder;
         $this->console = new Console();
         $this->codeCoverageCollector = new Collector();
