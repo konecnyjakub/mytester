@@ -31,9 +31,6 @@ class Tests extends MyTester\TestCase
     }
 }
 
-$suite = new Tests();
-$suite->run();
-
 ```
 
 #### Parameters for test methods
@@ -157,7 +154,7 @@ Automated tests runner can print results with colors, but it is not enabled but 
 
 ### Code coverage
 
-My Tester is not able to generate code coverage reports yet. Before it is supported natively, we recommend using package phpunit/php-code-coverage and a custom script for running tests. Example:
+My Tester is not able to generate code coverage reports yet. Before it is supported natively, we recommend using package [phpunit/php-code-coverage](https://packagist.org/packages/phpunit/php-code-coverage) and a custom script for running tests. Example:
 
 ```php
 <?php
@@ -206,7 +203,7 @@ $container->getByType(MyTester\Tester::class)->execute();
 
 ```
 
-The extension expects your test cases to be place in your_project_root/tests. If there are in a different folder, you have to add folder parameter to the extension:
+The extension expects your test cases to be place in your_project_root/tests. If they are in a different folder, you have to add folder parameter to the extension:
 
 ```neon
 mytester:
