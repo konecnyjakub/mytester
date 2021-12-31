@@ -54,6 +54,7 @@ final class Tester
     ) {
         $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "printInfo"];
+        $this->onFinish[] = [$this, "printResults"];
         $this->onFinish[] = [$this, "reportCodeCoverage"];
         if ($testSuitesFinder === null) {
             $testSuitesFinder = new ChainTestSuitesFinder();
@@ -106,7 +107,6 @@ final class Tester
             }
             $this->saveResults($suite);
         }
-        $this->printResults();
         $this->onFinish();
         exit((int) $failed);
     }
