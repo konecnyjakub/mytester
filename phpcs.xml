@@ -45,8 +45,4 @@
   <rule ref="PSR12">
     <exclude name="PSR12.Files.FileHeader"/>
   </rule>
-  <rule ref="PSR1.Files.SideEffects">
-    <exclude-pattern>*/src/Attributes/*</exclude-pattern>
-    <exclude-pattern>*/tests/*</exclude-pattern>
-  </rule>
 </ruleset>
