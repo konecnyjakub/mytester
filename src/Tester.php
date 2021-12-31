@@ -9,6 +9,7 @@ use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\PcovEngine;
+use MyTester\CodeCoverage\PercentFormatter;
 use MyTester\CodeCoverage\PhpdbgEngine;
 use MyTester\CodeCoverage\XDebugEngine;
 use Nette\CommandLine\Console;
@@ -232,18 +233,8 @@ final class Tester
             }
             throw $e;
         }
-        echo "Calculating code coverage... ";
-        $totalLines = 0;
-        $coveredLines = 0;
-        foreach ($coverageData as $file) {
-            foreach ($file as $line) {
-                $totalLines++;
-                if ($line > 0) {
-                    $coveredLines++;
-                }
-            }
-        }
-        $coveragePercent = (int) (($coveredLines / $totalLines) * 100);
-        echo $coveragePercent . "% covered\n";
+
+        $percentFormatter = new PercentFormatter();
+        echo $percentFormatter->render($coverageData);
     }
 }
