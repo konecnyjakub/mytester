@@ -78,7 +78,7 @@ abstract class TestCase
                         $job["params"] = [];
                     }
                 } else {
-                    $this->jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);
+                    $this->jobs[] = new Job(... $job);
                 }
             }
         }
