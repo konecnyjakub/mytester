@@ -1,5 +1,7 @@
 Version 4.0.0-dev
 - test methods that have at least 1 parameter but their data provider provides none are now skipped
+- added event onFinish to Tester
+- automated tests runner and Nette DIC extension can now report % of code coverage
 
 Version 3.0.0
 - BC break: removed support for *.phpt files
@@ -51,7 +53,7 @@ Version 2.0.0
 - PHP 8 attributes can be used instead of phpDoc annotations
 
 Version 1.1
-- the environment for nette di extension is now set up in TestsRunner::execute()
+- the environment for Nette DIC extension is now set up in TestsRunner::execute()
 - improved deprecation message for Runner
 - added option to skip a test if current sapi is different
 - added event onExecute to TestsRunner

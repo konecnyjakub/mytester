@@ -7,6 +7,10 @@ namespace MyTester;
 use Ayesh\PHP_Timer\Timer;
 use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\CodeCoverage\Collector;
+use MyTester\CodeCoverage\PcovEngine;
+use MyTester\CodeCoverage\PhpdbgEngine;
+use MyTester\CodeCoverage\XDebugEngine;
 use Nette\CommandLine\Console;
 use Nette\Utils\Finder;
 
@@ -17,6 +21,7 @@ use Nette\Utils\Finder;
  * @property-read string[] $suites
  * @property bool $useColors
  * @method void onExecute()
+ * @method void onFinish()
  */
 final class Tester
 {
@@ -29,6 +34,8 @@ final class Tester
     private array $suites = [];
     /** @var callable[] */
     public array $onExecute = [];
+    /** @var callable[] */
+    public array $onFinish = [];
     public ITestSuiteFactory $testSuiteFactory;
     public ITestSuitesFinder $testSuitesFinder;
     private Console $console;
@@ -37,6 +44,7 @@ final class Tester
     /** @var SkippedTest[] */
     private array $skipped = [];
     private string $results = "";
+    private Collector $codeCoverageCollector;
 
     public function __construct(
         string $folder,
@@ -45,6 +53,7 @@ final class Tester
     ) {
         $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "printInfo"];
+        $this->onFinish[] = [$this, "reportCodeCoverage"];
         if ($testSuitesFinder === null) {
             $testSuitesFinder = new ChainTestSuitesFinder();
             $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder());
@@ -54,6 +63,10 @@ final class Tester
         $this->testSuiteFactory = $testSuiteFactory ?? new TestSuiteFactory();
         $this->folder = $folder;
         $this->console = new Console();
+        $this->codeCoverageCollector = new Collector();
+        $this->codeCoverageCollector->registerEngine(new PcovEngine());
+        $this->codeCoverageCollector->registerEngine(new PhpdbgEngine());
+        $this->codeCoverageCollector->registerEngine(new XDebugEngine());
     }
 
     /**
@@ -93,12 +106,20 @@ final class Tester
             $this->saveResults($suite);
         }
         $this->printResults();
+        $this->onFinish();
         exit((int) $failed);
     }
 
     private function setup(): void
     {
         Timer::start(static::TIMER_NAME);
+        try {
+            $this->codeCoverageCollector->start();
+        } catch (CodeCoverageException $e) {
+            if ($e->getCode() !== CodeCoverageException::NO_ENGINE_AVAILABLE) {
+                throw $e;
+            }
+        }
     }
 
     /**
@@ -199,5 +220,30 @@ final class Tester
             }
             $this->results .= $result;
         }
+    }
+
+    private function reportCodeCoverage(): void
+    {
+        try {
+            $coverageData = $this->codeCoverageCollector->finish();
+        } catch (CodeCoverageException $e) {
+            if ($e->getCode() === CodeCoverageException::COLLECTOR_NOT_STARTED) {
+                return;
+            }
+            throw $e;
+        }
+        echo "Calculating code coverage... ";
+        $totalLines = 0;
+        $coveredLines = 0;
+        foreach ($coverageData as $file) {
+            foreach ($file as $line) {
+                $totalLines++;
+                if ($line > 0) {
+                    $coveredLines++;
+                }
+            }
+        }
+        $coveragePercent = (int) (($coveredLines / $totalLines) * 100);
+        echo $coveragePercent . "% covered\n";
     }
 }

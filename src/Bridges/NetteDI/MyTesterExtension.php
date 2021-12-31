@@ -26,6 +26,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         return Expect::structure([
             "folder" => Expect::string(Helpers::expand("%appDir%/../tests", $params)),
             "onExecute" => Expect::array()->default([]),
+            "onFinish" => Expect::array()->default([]),
             "colors" => Expect::bool(false),
         ])->castTo("array");
     }
@@ -67,6 +68,16 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 continue;
             }
             $initialize->addBody('$runner->onExecute[] = [?, ?];', [$task[0], $task[1]]);
+        }
+        foreach ($config["onFinish"] as &$task) {
+            if (!is_array($task)) {
+                $task = explode("::", $task);
+            } elseif (str_starts_with($task[0], "@")) {
+                $className = substr($task[0], 1);
+                $initialize->addBody('$runner->onFinish[] = [$this->getService(?), ?];', [$className, $task[1]]);
+                continue;
+            }
+            $initialize->addBody('$runner->onFinish[] = [?, ?];', [$task[0], $task[1]]);
         }
     }
 }

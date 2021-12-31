@@ -154,7 +154,9 @@ Automated tests runner can print results with colors, but it is not enabled but 
 
 ### Code coverage
 
-My Tester is not able to generate code coverage reports yet. Before it is supported natively, we recommend using package [phpunit/php-code-coverage](https://packagist.org/packages/phpunit/php-code-coverage) and a custom script for running tests. Example:
+My Tester is able to report % of code coverage. It is done in class MyTester\Tester so it is available in provided script *vendor/bin/mytester* and our extension for Nette DI container (see below). You just need to run the script with pcov or xdebug extension or with phpdbg binary of php.
+
+But it is not able to generate full code coverage reports yet. Before it is supported natively, we recommend using package [phpunit/php-code-coverage](https://packagist.org/packages/phpunit/php-code-coverage) and a custom script for running tests. Example:
 
 ```php
 <?php

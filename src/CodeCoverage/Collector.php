@@ -24,6 +24,9 @@ final class Collector
         $this->engines[] = $engine;
     }
 
+    /**
+     * @throws Exception
+     */
     public function start(): void
     {
         $engine = $this->selectEngine();
