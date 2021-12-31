@@ -55,6 +55,11 @@ final class TestCaseTest extends TestCase
         $this->assertContains("a", $text);
     }
 
+    public function testParamsNoneProvided(string $text): void
+    {
+        $this->assertTrue(false);
+    }
+
     public function dataProvider(): array
     {
         return ["abc", "adef", ];
