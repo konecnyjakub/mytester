@@ -52,36 +52,34 @@ abstract class TestCase
      */
     protected function getJobs(): array
     {
-        static $jobs = [];
-        if (count($jobs) === 0) {
-            $r = new ReflectionClass(static::class);
-            $methods = array_values((array) preg_grep(static::METHOD_PATTERN, array_map(function (ReflectionMethod $rm) {
-                return $rm->getName();
-            }, $r->getMethods())));
-            foreach ($methods as $method) {
-                $reflection = new ReflectionMethod(static::class, $method);
-                if (!$reflection->isPublic()) {
-                    continue;
+        $jobs = [];
+        $r = new ReflectionClass(static::class);
+        $methods = array_values((array) preg_grep(static::METHOD_PATTERN, array_map(function (ReflectionMethod $rm) {
+            return $rm->getName();
+        }, $r->getMethods())));
+        foreach ($methods as $method) {
+            $reflection = new ReflectionMethod(static::class, $method);
+            if (!$reflection->isPublic()) {
+                continue;
+            }
+            /** @var callable $callback */
+            $callback = [$this, $method];
+            $job = [
+                "name" => $this->getJobName(static::class, $method),
+                "callback" => $callback,
+                "params" => [],
+                "skip" => $this->skipChecker->shouldSkip(static::class, $method),
+                "shouldFail" => $this->shouldFailChecker->shouldFail(static::class, $method),
+            ];
+            $data = $this->dataProvider->getData($this, $method);
+            if (count($data) > 0) {
+                foreach ($data as $value) {
+                    $job["params"][0] = $value;
+                    $jobs[] = new Job(... $job);
+                    $job["params"] = [];
                 }
-                /** @var callable $callback */
-                $callback = [$this, $method];
-                $job = [
-                    "name" => $this->getJobName(static::class, $method),
-                    "callback" => $callback,
-                    "params" => [],
-                    "skip" => $this->skipChecker->shouldSkip(static::class, $method),
-                    "shouldFail" => $this->shouldFailChecker->shouldFail(static::class, $method),
-                ];
-                $data = $this->dataProvider->getData($this, $method);
-                if (count($data) > 0) {
-                    foreach ($data as $value) {
-                        $job["params"][0] = $value;
-                        $jobs[] = new Job(... $job);
-                        $job["params"] = [];
-                    }
-                } else {
-                    $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);
-                }
+            } else {
+                $jobs[] = new Job($job["name"], $job["callback"], $job["params"], $job["skip"], $job["shouldFail"]);
             }
         }
         return $jobs;
