@@ -78,6 +78,10 @@ abstract class TestCase
                         $job["params"] = [];
                     }
                 } else {
+                    $rm = new ReflectionMethod($this, $method);
+                    if ($rm->getNumberOfParameters() > 0) {
+                        $job["skip"] = "Method requires at least 1 parameter but data provider does not provide any.";
+                    }
                     $this->jobs[] = new Job(... $job);
                 }
             }

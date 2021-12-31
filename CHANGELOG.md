@@ -1,3 +1,6 @@
+Version 4.0.0-dev
+- test methods that have at least 1 parameter but their data provider provides none are now skipped
+
 Version 3.0.0
 - BC break: removed support for *.phpt files
 - BC break: removed Assert, Environment
