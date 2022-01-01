@@ -19,6 +19,8 @@ use Nette\Schema\Expect;
 final class MyTesterExtension extends \Nette\DI\CompilerExtension
 {
     public const TAG = "mytester.test";
+    private const SERVICE_RUNNER = "runner";
+    private const SERVICE_SUITE_FACTORY = "suiteFactory";
 
     public function getConfigSchema(): \Nette\Schema\Schema
     {
@@ -41,9 +43,9 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         if (!is_dir($config["folder"])) {
             throw new Exception("Invalid folder {$config["folder"]} for $this->name.folder");
         }
-        $builder->addDefinition($this->prefix("runner"))
+        $builder->addDefinition($this->prefix(static::SERVICE_RUNNER))
             ->setFactory(Tester::class, [$config["folder"]]);
-        $builder->addDefinition($this->prefix("suiteFactory"))
+        $builder->addDefinition($this->prefix(static::SERVICE_SUITE_FACTORY))
             ->setType(ContainerSuiteFactory::class);
         $suites = (new TestSuitesFinder())->getSuites($config["folder"]);
         foreach ($suites as $index => $suite) {
@@ -57,7 +59,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     {
         $config = $this->getConfig();
         $initialize = $class->methods["initialize"];
-        $initialize->addBody('$runner = $this->getService(?);', [$this->prefix("runner")]);
+        $initialize->addBody('$runner = $this->getService(?);', [$this->prefix(static::SERVICE_RUNNER)]);
         $initialize->addBody('$runner->useColors = ?;', [$config["colors"]]);
         foreach ($config["onExecute"] as &$task) {
             if (!is_array($task)) {
