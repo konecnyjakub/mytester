@@ -33,6 +33,9 @@ final class Collector
         $engine->start();
     }
 
+    /**
+     * @throws Exception
+     */
     public function finish(): array
     {
         if ($this->currentEngine === null) {
@@ -41,6 +44,9 @@ final class Collector
         return $this->currentEngine->collect();
     }
 
+    /**
+     * @throws Exception
+     */
     private function selectEngine(): ICodeCoverageEngine
     {
         if ($this->currentEngine !== null) {

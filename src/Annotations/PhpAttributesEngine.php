@@ -18,11 +18,17 @@ use ReflectionMethod;
  */
 final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
 {
+    /**
+     * @throws ReflectionException
+     */
     public function hasAnnotation(string $name, string|object $class, string $method = null): bool
     {
         return count($this->getReflection($class, $method)->getAttributes($this->getClassName($name))) > 0;
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function getAnnotation(string $name, string|object $class, string $method = null): mixed
     {
         $attributes = $this->getReflection($class, $method)->getAttributes($this->getClassName($name));
