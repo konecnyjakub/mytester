@@ -186,7 +186,7 @@ trait TAssertions
     protected function assertNotContains(string|array $needle, string|array $actual): void
     {
         if (is_string($actual) && is_string($needle)) {
-            $success = $this->isSuccess($needle === "" || strpos($actual, $needle) === false);
+            $success = $this->isSuccess($needle === "" || !str_contains($actual, $needle));
             $message = ($success) ? "" : "$needle is in the variable.";
             $this->testResult($message, $success);
         } elseif (is_array($actual)) {
