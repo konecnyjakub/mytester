@@ -8,6 +8,7 @@ use Exception;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\Tester;
 use Nette\DI\Helpers;
+use Nette\PhpGenerator\Method;
 use Nette\Schema\Expect;
 
 /**
@@ -61,25 +62,21 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         $initialize = $class->methods["initialize"];
         $initialize->addBody('$runner = $this->getService(?);', [$this->prefix(static::SERVICE_RUNNER)]);
         $initialize->addBody('$runner->useColors = ?;', [$config["colors"]]);
-        foreach ($config["onExecute"] as &$task) {
+        $this->writeRunnerEventHandlers($initialize, "onExecute", $config["onExecute"]);
+        $this->writeRunnerEventHandlers($initialize, "onFinish", $config["onFinish"]);
+    }
+
+    private function writeRunnerEventHandlers(Method $initializeMethod, string $eventName, array $callbacks): void
+    {
+        foreach ($callbacks as &$task) {
             if (!is_array($task)) {
                 $task = explode("::", $task);
             } elseif (str_starts_with($task[0], "@")) {
                 $className = substr($task[0], 1);
-                $initialize->addBody('$runner->onExecute[] = [$this->getService(?), ?];', [$className, $task[1]]);
+                $initializeMethod->addBody('$runner->' . $eventName . '[] = [$this->getService(?), ?];', [$className, $task[1]]);
                 continue;
             }
-            $initialize->addBody('$runner->onExecute[] = [?, ?];', [$task[0], $task[1]]);
-        }
-        foreach ($config["onFinish"] as &$task) {
-            if (!is_array($task)) {
-                $task = explode("::", $task);
-            } elseif (str_starts_with($task[0], "@")) {
-                $className = substr($task[0], 1);
-                $initialize->addBody('$runner->onFinish[] = [$this->getService(?), ?];', [$className, $task[1]]);
-                continue;
-            }
-            $initialize->addBody('$runner->onFinish[] = [?, ?];', [$task[0], $task[1]]);
+            $initializeMethod->addBody('$runner->' . $eventName . '[] = [?, ?];', [$task[0], $task[1]]);
         }
     }
 }
