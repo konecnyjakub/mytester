@@ -10,6 +10,7 @@ use MyTester\Bridges\NetteDI\ContainerSuiteFactory;
 use Nette\Configurator;
 
 $configurator = new Configurator();
+$configurator->setDebugMode(true);
 Nette\Utils\FileSystem::createDir(__DIR__ . "/temp");
 $configurator->setTempDirectory(__DIR__ . "/temp");
 $configurator->addConfig(__DIR__ . "/config.neon");
