@@ -136,7 +136,7 @@ If you need to do some things before/after each test in TestCase, you can define
 Running tests
 -------------
 
-The easiest way to run your test cases is to use the provided script *vendor/bin/mytester*. It scans folder your_project_root/tests (by default) for *Test.php files and runs TestCases in them. You can tell it to use a different folder by specifying it as the script's first argument:
+The easiest way to run your test cases is to use the provided script *vendor/bin/mytester*. It scans folder *your_project_root/tests* (by default) for *Test.php files and runs TestCases in them. You can tell it to use a different folder by specifying it as the script's first argument:
 
 ```bash
 ./vendor/bin/mytester tests/unit
@@ -193,7 +193,7 @@ If you are developing a Nette application, you may want to use our extension for
 extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 ```
-Then you get service named mytester.runner (of type MyTester\Tester) from the container and run its method execute. It automatically ends the script with 0/1 depending on whether all tests passed.
+Then you get service named **mytester.runner** (of type MyTester\Tester) from the container and run its method execute. It automatically ends the script with 0/1 depending on whether all tests passed.
 
 ```php
 <?php
@@ -205,18 +205,22 @@ $container->getByType(MyTester\Tester::class)->execute();
 
 ```
 
-The extension expects your test cases to be place in your_project_root/tests. If they are in a different folder, you have to add folder parameter to the extension:
+The extension expects your test cases to be place in *your_project_root/tests*. If they are in a different folder, you have to add folder parameter to the extension:
 
 ```neon
 mytester:
     folder: %wwwDir%/tests
 ```
 
-. And if you need to do some tasks before your tests, you can use option onExecute. It is an array of callbacks. Examples:
+. And if you need to do some tasks before/after your tests, you can use option onExecute/onFinish. It is an array of callbacks. Examples:
 
 ```neon
 mytester:
     onExecute:
+        - Class::staticMethod
+        - [@service, method]
+        - [Class, staticMethod]
+    onFinish:
         - Class::staticMethod
         - [@service, method]
         - [Class, staticMethod]
