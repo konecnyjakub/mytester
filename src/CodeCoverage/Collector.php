@@ -16,7 +16,7 @@ use MyTester\ICodeCoverageEngine;
 final class Collector
 {
     /** @var ICodeCoverageEngine[] */
-    private array $engines;
+    private array $engines = [];
     private ?ICodeCoverageEngine $currentEngine = null;
 
     public function registerEngine(ICodeCoverageEngine $engine): void
