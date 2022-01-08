@@ -240,4 +240,37 @@ trait TAssertions
         $message = ($success) ? "" : "The variable is instance of $actual.";
         $this->testResult($message, $success);
     }
+
+    /**
+     * Does the code throw the expected exception?
+     *
+     * @param class-string $className
+     */
+    protected function assertThrowsException(callable $callback, string $className, string $message = null, int $code = null): void
+    {
+        $success = false;
+        $errorMessage = "";
+        $e = null;
+        try {
+            $callback();
+        } catch (\Throwable $e) {
+            if ($e instanceof $className) {
+                if (($message === null || $e->getMessage() === $message && ($code === null || $e->getCode() === $code))) {
+                    $success = true;
+                }
+            }
+        }
+        if (!$success) {
+            if ($e === null) {
+                $errorMessage = "The code does not throw any exception.";
+            } elseif (!$e instanceof $className) {
+                $errorMessage = "The code does not throw $className but " . get_class($e) . ".";
+            } elseif ($message !== null && $message !== $e->getMessage()) {
+                $errorMessage = "The code not throw an exception with message '$message' but '{$e->getMessage()}'.";
+            } elseif ($code !== null && $code !== $e->getCode()) {
+                $errorMessage = "The code not throw an exception with code $code but {$e->getCode()}.";
+            }
+        }
+        $this->testResult($errorMessage, $success);
+    }
 }

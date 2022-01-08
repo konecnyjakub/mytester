@@ -39,6 +39,24 @@ final class AssertTest extends TestCase
         $this->assertType("null", null);
         $this->assertType("object", new stdClass());
         $this->assertType("scalar", 42);
+        $this->assertThrowsException(function () {
+            throw new \RuntimeException("abc", 1);
+        }, \RuntimeException::class);
+        $this->assertThrowsException(function () {
+            throw new \RuntimeException("abc");
+        }, \RuntimeException::class);
+        $this->assertThrowsException(function () {
+            throw new \RuntimeException("abc", 1);
+        }, \RuntimeException::class);
+        $this->assertThrowsException(function () {
+            throw new \RuntimeException("abc");
+        }, \RuntimeException::class, "abc");
+        $this->assertThrowsException(function () {
+            throw new \RuntimeException("abc", 1);
+        }, \RuntimeException::class, "abc");
+        $this->assertThrowsException(function () {
+            throw new \RuntimeException("abc", 1);
+        }, \RuntimeException::class, "abc", 1);
     }
 
     /**
