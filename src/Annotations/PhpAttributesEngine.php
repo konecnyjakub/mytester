@@ -19,6 +19,7 @@ use ReflectionMethod;
 final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
 {
     /**
+     * @param class-string|object $class
      * @throws ReflectionException
      */
     public function hasAnnotation(string $name, string|object $class, string $method = null): bool
@@ -27,6 +28,7 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
     }
 
     /**
+     * @param class-string|object $class
      * @throws ReflectionException
      */
     public function getAnnotation(string $name, string|object $class, string $method = null): mixed
@@ -46,6 +48,7 @@ final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
     }
 
     /**
+     * @param class-string|object $class
      * @throws ReflectionException
      */
     private function getReflection(string|object $class, string $method = null): ReflectionClass|ReflectionMethod
