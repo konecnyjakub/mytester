@@ -12,3 +12,4 @@ parameters:
         - '#Parameter \#1 \$callback of function call_user_func expects callable#'
         - '#Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class-string\<T of object\>\|T of object, string given#'
         - '#Method [A-Za-z\\]+\:\:[a-zA-Z]+\(\) is unused#'
+        - '#Part .+ of encapsed string cannot be cast to string#'

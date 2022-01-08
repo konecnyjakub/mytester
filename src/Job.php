@@ -12,7 +12,6 @@ namespace MyTester;
  * @property-read callable $callback
  * @property-read array $params
  * @property-read bool|string $skip
- * @property-read bool $shouldFail
  * @property-read string $result
  * @property-read string $output @internal
  */
@@ -29,7 +28,6 @@ final class Job
     protected $callback;
     protected array $params = [];
     protected bool|string $skip;
-    protected bool $shouldFail;
     protected string $result = self::RESULT_PASSED;
     protected string $output = "";
 
@@ -37,14 +35,12 @@ final class Job
         string $name,
         callable $callback,
         array $params = [],
-        bool|string $skip = false,
-        bool $shouldFail = false
+        bool|string $skip = false
     ) {
         $this->name = $name;
         $this->callback = $callback;
         $this->params = $params;
         $this->skip = $skip;
-        $this->shouldFail = $shouldFail;
     }
 
     protected function getName(): string
@@ -65,11 +61,6 @@ final class Job
     protected function getSkip(): bool|string
     {
         return $this->skip;
-    }
-
-    protected function isShouldFail(): bool
-    {
-        return $this->shouldFail;
     }
 
     protected function getResult(): string
@@ -95,7 +86,7 @@ final class Job
             /** @var string $output */
             $output = ob_get_clean();
             $failed = str_contains($output, " failed. ");
-            if ($failed && !$this->shouldFail) {
+            if ($failed) {
                 $this->result = static::RESULT_FAILED;
             }
             $this->output = $output;

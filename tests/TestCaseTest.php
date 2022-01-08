@@ -37,7 +37,7 @@ final class TestCaseTest extends TestCase
 
     public function testState(): void
     {
-        $this->assertFalse($this->shouldFail);
+        $this->assertFalse(false);
         $this->assertSame(1, $this->getCounter());
         $this->incCounter();
         $this->assertSame(3, $this->getCounter());

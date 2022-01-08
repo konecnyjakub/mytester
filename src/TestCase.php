@@ -32,7 +32,6 @@ abstract class TestCase
     public const ANNOTATION_TEST_SUITE = "testSuite";
 
     protected SkipChecker $skipChecker;
-    protected ShouldFailChecker $shouldFailChecker;
     protected DataProvider $dataProvider;
     protected Reader $annotationsReader;
 
@@ -44,7 +43,6 @@ abstract class TestCase
         $this->annotationsReader = new Reader();
         $this->annotationsReader->registerEngine(new PhpAttributesEngine());
         $this->skipChecker = new SkipChecker($this->annotationsReader);
-        $this->shouldFailChecker = new ShouldFailChecker($this->annotationsReader);
         $this->dataProvider = new DataProvider($this->annotationsReader);
     }
 
@@ -68,7 +66,6 @@ abstract class TestCase
                     "callback" => $callback,
                     "params" => [],
                     "skip" => $this->skipChecker->shouldSkip(static::class, $method),
-                    "shouldFail" => $this->shouldFailChecker->shouldFail(static::class, $method),
                 ];
                 $data = $this->dataProvider->getData($this, $method);
                 if (count($data) > 0) {
@@ -147,12 +144,10 @@ abstract class TestCase
         if (!$job->skip) {
             $this->setUp();
         }
-        $this->shouldFail = $job->shouldFail;
         $job->execute();
         if (!$job->skip) {
             $this->tearDown();
         }
-        $this->shouldFail = false;
         $this->resetCounter();
         return match ($job->result) {
             Job::RESULT_PASSED => static::RESULT_PASSED,

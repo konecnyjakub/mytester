@@ -2,6 +2,7 @@ Version 4.0.0-dev
 - test methods that have at least 1 parameter but their data provider provides none are now skipped
 - added event onFinish to Tester
 - automated tests runner and Nette DIC extension can now report % of code coverage
+- BC break: removed option to mark test method as supposed to fail
 
 Version 3.0.0
 - BC break: removed support for *.phpt files
