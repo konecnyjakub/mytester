@@ -152,6 +152,7 @@ final class Tester
     private function printResults(): void
     {
         $results = $this->results;
+        $rp = TestCase::RESULT_PASSED;
         $rf = TestCase::RESULT_FAILED;
         $rs = TestCase::RESULT_SKIPPED;
         $results = str_replace($rf, $this->console->color("red", $rf), $results);
@@ -169,6 +170,9 @@ final class Tester
             $resultsLine = "Failed";
         }
         $resultsLine .= " (" . strlen($results) . " tests";
+        if (str_contains($results, $rp)) {
+            $resultsLine .= ", " . substr_count($results, $rp) . " passed";
+        }
         if ($failed) {
             $resultsLine .= ", " . substr_count($results, TestCase::RESULT_FAILED) . " failed";
         }

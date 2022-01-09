@@ -5,6 +5,7 @@ Version 4.0.0-dev
 - BC break: removed option to mark test method as supposed to fail
 - added new assertion throwsException
 - *.errors files from previous runs are now deleted in automated tests runner
+- automated tests runner now reports number of passed tests
 
 Version 3.0.0
 - BC break: removed support for *.phpt files
