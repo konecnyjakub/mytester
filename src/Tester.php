@@ -13,6 +13,8 @@ use MyTester\CodeCoverage\PercentFormatter;
 use MyTester\CodeCoverage\PhpdbgEngine;
 use MyTester\CodeCoverage\XDebugEngine;
 use Nette\CommandLine\Console;
+use Nette\IOException;
+use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
 
 /**
@@ -53,6 +55,7 @@ final class Tester
         ITestSuiteFactory $testSuiteFactory = null
     ) {
         $this->onExecute[] = [$this, "setup"];
+        $this->onExecute[] = [$this, "deleteOutputFiles"];
         $this->onExecute[] = [$this, "printInfo"];
         $this->onFinish[] = [$this, "printResults"];
         $this->onFinish[] = [$this, "reportCodeCoverage"];
@@ -119,6 +122,17 @@ final class Tester
         } catch (CodeCoverageException $e) {
             if ($e->getCode() !== CodeCoverageException::NO_ENGINE_AVAILABLE) {
                 throw $e;
+            }
+        }
+    }
+
+    private function deleteOutputFiles(): void
+    {
+        $files = Finder::findFiles("*.errors")->in($this->folder);
+        foreach ($files as $name => $file) {
+            try {
+                FileSystem::delete($name);
+            } catch (IOException $e) {
             }
         }
     }

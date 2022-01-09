@@ -4,6 +4,7 @@ Version 4.0.0-dev
 - automated tests runner and Nette DIC extension can now report % of code coverage
 - BC break: removed option to mark test method as supposed to fail
 - added new assertion throwsException
+- *.errors files from previous runs are now deleted in automated tests runner
 
 Version 3.0.0
 - BC break: removed support for *.phpt files
