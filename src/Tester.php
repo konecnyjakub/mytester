@@ -174,11 +174,7 @@ final class Tester
     private function printSkipped(): void
     {
         foreach ($this->skipped as $skipped) {
-            $reason = "";
-            if ($skipped->reason) {
-                $reason = ": {$skipped->reason}";
-            }
-            echo "Skipped $skipped->name$reason\n";
+            echo $skipped;
         }
     }
 

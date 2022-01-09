@@ -21,4 +21,13 @@ final class SkippedTest
         $this->name = $name;
         $this->reason = $reason;
     }
+
+    public function __toString(): string
+    {
+        $reason = "";
+        if ($this->reason) {
+            $reason = ": {$this->reason}";
+        }
+        return "Skipped $this->name$reason\n";
+    }
 }
