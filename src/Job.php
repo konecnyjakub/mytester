@@ -14,6 +14,7 @@ namespace MyTester;
  * @property-read bool|string $skip
  * @property-read string $result
  * @property-read string $output @internal
+ * @method void onAfterExecute()
  */
 final class Job
 {
@@ -22,6 +23,7 @@ final class Job
     public const RESULT_PASSED = "passed";
     public const RESULT_SKIPPED = "skipped";
     public const RESULT_FAILED = "failed";
+    public const RESULT_PASSED_WITH_WARNINGS = "warning";
 
     protected string $name;
     /** @var callable Task */
@@ -30,17 +32,21 @@ final class Job
     protected bool|string $skip;
     protected string $result = self::RESULT_PASSED;
     protected string $output = "";
+    /** @var callable[] */
+    public array $onAfterExecute = [];
 
     public function __construct(
         string $name,
         callable $callback,
         array $params = [],
-        bool|string $skip = false
+        bool|string $skip = false,
+        array $onAfterExecute = []
     ) {
         $this->name = $name;
         $this->callback = $callback;
         $this->params = $params;
         $this->skip = $skip;
+        $this->onAfterExecute = $onAfterExecute;
     }
 
     protected function getName(): string
@@ -83,11 +89,13 @@ final class Job
         } else {
             ob_start();
             call_user_func_array($this->callback, $this->params);
+            $this->onAfterExecute();
             /** @var string $output */
             $output = ob_get_clean();
-            $failed = str_contains($output, " failed. ");
-            if ($failed) {
+            if (str_contains($output, " failed. ")) {
                 $this->result = static::RESULT_FAILED;
+            } elseif (str_starts_with($output, "Warning: ")) {
+                $this->result = static::RESULT_PASSED_WITH_WARNINGS;
             }
             $this->output = $output;
         }

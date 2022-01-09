@@ -6,6 +6,7 @@ Version 4.0.0-dev
 - added new assertion throwsException
 - *.errors files from previous runs are now deleted in automated tests runner
 - automated tests runner now reports number of passed tests
+- test methods that do not perform any assertion are now reported as passed with warnings
 
 Version 3.0.0
 - BC break: removed support for *.phpt files

@@ -46,6 +46,8 @@ final class Tester
     private bool $useColors = false;
     /** @var SkippedTest[] */
     private array $skipped = [];
+    /** @var TestWarning[] */
+    private array $warnings = [];
     private string $results = "";
     private Collector $codeCoverageCollector;
 
@@ -155,10 +157,13 @@ final class Tester
         $rp = TestCase::RESULT_PASSED;
         $rf = TestCase::RESULT_FAILED;
         $rs = TestCase::RESULT_SKIPPED;
+        $rw = TestCase::RESULT_PASSED_WITH_WARNINGS;
         $results = str_replace($rf, $this->console->color("red", $rf), $results);
         $results = str_replace($rs, $this->console->color("yellow", $rs), $results);
+        $results = str_replace($rw, $this->console->color("yellow", $rw), $results);
         echo $results . "\n";
         $results = $this->results;
+        $this->printWarnings();
         $this->printSkipped();
         $failed = str_contains($results, TestCase::RESULT_FAILED);
         if (!$failed) {
@@ -173,6 +178,9 @@ final class Tester
         if (str_contains($results, $rp)) {
             $resultsLine .= ", " . substr_count($results, $rp) . " passed";
         }
+        if (str_contains($results, $rw)) {
+            $resultsLine .= ", " . substr_count($results, $rw) . " passed with warnings";
+        }
         if ($failed) {
             $resultsLine .= ", " . substr_count($results, TestCase::RESULT_FAILED) . " failed";
         }
@@ -184,6 +192,16 @@ final class Tester
         $resultsLine .= ", $time)";
         $resultsLine = $this->console->color((!$failed) ? "green" : "red", $resultsLine);
         echo $resultsLine . "\n";
+    }
+
+    /**
+     * Print info about tests with warnings
+     */
+    private function printWarnings(): void
+    {
+        foreach ($this->warnings as $testWarning) {
+            echo $testWarning;
+        }
     }
 
     /**
@@ -228,6 +246,12 @@ final class Tester
                     if (strlen($output) > 0) {
                         file_put_contents("$this->folder/$job->name.errors", $output);
                     }
+                    break;
+                case Job::RESULT_PASSED_WITH_WARNINGS:
+                    $result = TestCase::RESULT_PASSED_WITH_WARNINGS;
+                    $output = $job->output;
+                    $output = str_replace("Warning: ", "", $output);
+                    $this->warnings[] = new TestWarning($job->name, $output);
                     break;
                 default:
                     $result = "";

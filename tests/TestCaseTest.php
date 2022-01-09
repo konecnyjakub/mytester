@@ -153,4 +153,9 @@ final class TestCaseTest extends TestCase
     {
         $this->assertTrue(false);
     }
+
+    #[Test("No assertions")]
+    public function testNoAssertions(): void
+    {
+    }
 }

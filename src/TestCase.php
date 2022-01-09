@@ -23,6 +23,7 @@ abstract class TestCase
     public const RESULT_PASSED = ".";
     public const RESULT_SKIPPED = "s";
     public const RESULT_FAILED = "F";
+    public const RESULT_PASSED_WITH_WARNINGS = "W";
 
     public const METHOD_PATTERN = '#^test[A-Z0-9_]#';
 
@@ -66,6 +67,13 @@ abstract class TestCase
                     "callback" => $callback,
                     "params" => [],
                     "skip" => $this->skipChecker->shouldSkip(static::class, $method),
+                    "onAfterExecute" => [
+                        function (): void {
+                            if ($this->getCounter() === 0) {
+                                echo "Warning: No assertions were performed.\n";
+                            }
+                        },
+                    ],
                 ];
                 $data = $this->dataProvider->getData($this, $method);
                 if (count($data) > 0) {
