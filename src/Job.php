@@ -21,7 +21,6 @@ final class Job
     /** @var callable Task */
     protected $callback;
     public readonly array $params;
-    // phpcs:ignore
     public readonly bool|string $skip;
     protected JobResult $result = JobResult::PASSED;
     protected string $output = "";
