@@ -59,24 +59,23 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     public function afterCompile(\Nette\PhpGenerator\ClassType $class): void
     {
         $config = $this->getConfig();
-        $initialize = $class->methods["initialize"];
-        $initialize->addBody('$runner = $this->getService(?);', [$this->prefix(static::SERVICE_RUNNER)]);
-        $initialize->addBody('$runner->useColors = ?;', [$config["colors"]]);
-        $this->writeRunnerEventHandlers($initialize, "onExecute", $config["onExecute"]);
-        $this->writeRunnerEventHandlers($initialize, "onFinish", $config["onFinish"]);
+        $this->initialization->addBody('$runner = $this->getService(?);', [$this->prefix(static::SERVICE_RUNNER)]);
+        $this->initialization->addBody('$runner->useColors = ?;', [$config["colors"]]);
+        $this->writeRunnerEventHandlers("onExecute", $config["onExecute"]);
+        $this->writeRunnerEventHandlers("onFinish", $config["onFinish"]);
     }
 
-    private function writeRunnerEventHandlers(Method $initializeMethod, string $eventName, array $callbacks): void
+    private function writeRunnerEventHandlers(string $eventName, array $callbacks): void
     {
         foreach ($callbacks as &$task) {
             if (!is_array($task)) {
                 $task = explode("::", $task);
             } elseif (str_starts_with($task[0], "@")) {
                 $className = substr($task[0], 1);
-                $initializeMethod->addBody('$runner->' . $eventName . '[] = [$this->getService(?), ?];', [$className, $task[1]]);
+                $this->initialization->addBody('$runner->' . $eventName . '[] = [$this->getService(?), ?];', [$className, $task[1]]);
                 continue;
             }
-            $initializeMethod->addBody('$runner->' . $eventName . '[] = [?, ?];', [$task[0], $task[1]]);
+            $this->initialization->addBody('$runner->' . $eventName . '[] = [?, ?];', [$task[0], $task[1]]);
         }
     }
 }
