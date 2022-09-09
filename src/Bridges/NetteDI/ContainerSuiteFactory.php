@@ -14,11 +14,15 @@ use Nette\DI\Container;
  */
 final class ContainerSuiteFactory implements \MyTester\ITestSuiteFactory
 {
-    private Container $container;
+    /** @var TestCase[] */
+    private array $suites;
 
-    public function __construct(Container $container)
+    /**
+     * @param TestCase[] $suites
+     */
+    public function __construct(array $suites)
     {
-        $this->container = $container;
+        $this->suites = $suites;
     }
 
   /**
@@ -26,10 +30,11 @@ final class ContainerSuiteFactory implements \MyTester\ITestSuiteFactory
    */
     public function create(string $className): TestCase
     {
-        $suit = $this->container->getByType($className);
-        if (!$suit instanceof TestCase) {
-            throw new InvalidTestCaseException("$className is not a descendant of " . TestCase::class . ".");
+        foreach ($this->suites as $suite) {
+            if ($suite instanceof $className && $suite instanceof TestCase) {
+                return $suite;
+            }
         }
-        return $suit;
+        throw new InvalidTestCaseException("$className is not a descendant of " . TestCase::class . ".");
     }
 }
