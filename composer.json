@@ -34,9 +34,6 @@
         "phpstan/phpstan": "^1.8.5",
         "phpunit/php-code-coverage": "^9.2.17"
     },
-    "suggest": {
-        "nette/robot-loader": "Alternate autoloader for automated tests runner."
-    },
     "conflict": {
         "nette/robot-loader": "<3.4.1",
         "nette/di": "<3.0.13"
