@@ -20,23 +20,23 @@
         "php": ">=8.1.0",
         "composer-runtime-api": "^2.0",
         "ayesh/php-timer": "^2.2",
-        "nette/utils": "^3.2.6",
-        "nette/finder": "^2.5.2",
-        "nette/command-line": "^1.5"
+        "nette/utils": "^3.2.8",
+        "nette/finder": "^2.6",
+        "nette/command-line": "^1.6"
     },
     "require-dev": {
-        "nette/robot-loader": "^3.4.1",
-        "nette/di": "^3.0.13",
-        "nette/bootstrap": "^3.1.2",
+        "nette/robot-loader": "^3.4.2",
+        "nette/di": "^3.1",
+        "nette/bootstrap": "^3.1.4",
         "php-parallel-lint/php-parallel-lint": "^1.3.2",
         "php-parallel-lint/php-console-highlighter": "^0.5",
         "squizlabs/php_codesniffer": "^3.7.1",
-        "phpstan/phpstan": "^1.8.5",
-        "phpunit/php-code-coverage": "^9.2.17"
+        "phpstan/phpstan": "^1.9.3",
+        "phpunit/php-code-coverage": "^9.2.21"
     },
     "conflict": {
-        "nette/robot-loader": "<3.4.1",
-        "nette/di": "<3.0.13"
+        "nette/robot-loader": "<3.4.2",
+        "nette/di": "<3.1"
     },
     "autoload": {
         "psr-4": {
