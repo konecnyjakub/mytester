@@ -81,7 +81,7 @@ Version 1.0
 - added methods setUp and tearDown to TestCase which are called before/after each test method
 - version of My Tester and PHP is shown at start now
 - BC break: TestCase::getJobs() now returns array of Job
-- first parameter of Runner::addJob() can be instance of Job now
+- first parameter of Runner::addJob() can be an instance of Job now
 - added methods startUp and shutDown to TestCase which are called at start/end of the suite
 - automated tests runner now sets up the environment himself
 - showed total run time at the end of script
