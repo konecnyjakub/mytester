@@ -14,4 +14,3 @@ parameters:
         - '#Method [A-Za-z\\]+\:\:[a-zA-Z]+\(\) is unused#'
         # enums are not completely supported yet
         - '#Cannot call method output\(\) on string#'
-        - '#Strict comparison using === between string and MyTester\\JobResult\:\:[a-zA-Z]+ will always evaluate to false#'
