@@ -1,4 +1,4 @@
-Copyright (c) 2015-2022, Jakub Konečný
+Copyright (c) 2015-2023, Jakub Konečný
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

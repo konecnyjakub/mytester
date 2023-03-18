@@ -7,7 +7,7 @@ require __DIR__ . "/../vendor/autoload.php";
 require __DIR__ . "/../src/functions.php";
 
 use MyTester\Bridges\NetteDI\ContainerSuiteFactory;
-use Nette\Configurator;
+use Nette\Bootstrap\Configurator;
 
 $configurator = new Configurator();
 $configurator->setDebugMode(true);
