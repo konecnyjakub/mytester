@@ -9,7 +9,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  * @property-read callable $callback
- * @property-read string $result
+ * @property-read JobResult $result
  * @property-read string $output @internal
  * @method void onAfterExecute()
  */
