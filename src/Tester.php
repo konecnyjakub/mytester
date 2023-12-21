@@ -134,7 +134,7 @@ final class Tester
         foreach ($files as $name => $file) {
             try {
                 FileSystem::delete($name);
-            } catch (IOException $e) {
+            } catch (IOException) {
             }
         }
     }
@@ -252,6 +252,9 @@ final class Tester
         }
     }
 
+    /**
+     * @throws CodeCoverageException
+     */
     private function reportCodeCoverage(): void
     {
         try {

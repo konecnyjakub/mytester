@@ -63,7 +63,7 @@ trait TAssertions
     {
         $success = ($code == true);
         $message = "";
-        if ($code != true) {
+        if (!$code) {
             $message = ($failureText === "") ? "The assertion is not true." : $failureText;
         }
         $this->testResult($message, $success);

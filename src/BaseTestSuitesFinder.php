@@ -16,7 +16,7 @@ abstract class BaseTestSuitesFinder implements ITestSuitesFinder
     {
         try {
             $reflection = new ReflectionClass($class);
-        } catch (ReflectionException $e) {
+        } catch (ReflectionException) {
             return false;
         }
         return !$reflection->isAbstract() && $reflection->isSubclassOf(TestCase::class);

@@ -26,7 +26,7 @@ final class SkippedTest
     {
         $reason = "";
         if ($this->reason) {
-            $reason = ": {$this->reason}";
+            $reason = ": $this->reason";
         }
         return "Skipped $this->name$reason\n";
     }

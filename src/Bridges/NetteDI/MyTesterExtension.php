@@ -8,7 +8,6 @@ use Exception;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\Tester;
 use Nette\DI\Helpers;
-use Nette\PhpGenerator\Method;
 use Nette\Schema\Expect;
 
 /**

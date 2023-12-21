@@ -6,7 +6,6 @@ namespace MyTester\Bridges\NetteDI;
 
 use MyTester\InvalidTestCaseException;
 use MyTester\TestCase;
-use Nette\DI\Container;
 
 /**
  * @author Jakub Konečný
