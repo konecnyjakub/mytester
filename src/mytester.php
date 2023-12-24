@@ -13,10 +13,10 @@ use Nette\CommandLine\Parser;
 
 $cmd = new Parser("", [
     "path" => [
-        Parser::VALUE => $vendorDirectory . "/../tests",
+        Parser::Default => $vendorDirectory . "/../tests",
     ],
     "--colors" => [
-        Parser::OPTIONAL => true,
+        Parser::Optional => true,
     ],
 ]);
 $options = $cmd->parse();
