@@ -70,4 +70,11 @@ final class AssertTest extends TestCase
         $this->assert("2 <= 5", "2 is not lesser or equal to 5.");
         $this->assert("abc != def", "abc is def.");
     }
+
+    public function testShowStringOrArray(): void
+    {
+        $text = "abc";
+        $this->assertSame($text, $this->showStringOrArray($text));
+        $this->assertSame("(array)", $this->showStringOrArray([]));
+    }
 }

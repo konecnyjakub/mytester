@@ -34,6 +34,7 @@ final class SkipCheckerTest extends TestCase
 
     public function testCheckPhpSapi(): void
     {
+        $this->assertNull($this->getSkipChecker()->checkPhpSapi(PHP_SAPI));
         $this->assertType("string", $this->getSkipChecker()->checkPhpSapi("abc"));
     }
 
@@ -58,6 +59,7 @@ final class SkipCheckerTest extends TestCase
         $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipFloat"));
         $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipString"));
         $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipArray"));
+        $this->assertFalsey($this->getSkipChecker()->shouldSkip(static::class, "skipArrayUnknown"));
     }
 
     private function skipNull(): void
@@ -91,6 +93,11 @@ final class SkipCheckerTest extends TestCase
 
     #[Skip(["php" => 666])]
     private function skipArray(): void
+    {
+    }
+
+    #[Skip(["abc" => "def"])]
+    private function skipArrayUnknown(): void
     {
     }
 }

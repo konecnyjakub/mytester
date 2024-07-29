@@ -52,9 +52,7 @@ final class SkipChecker
     public function shouldSkip(string $class, string $method): bool|string
     {
         $value = $this->getSkipValue($class, $method);
-        if ($value === null) {
-            return false;
-        } elseif (is_scalar($value)) {
+        if (is_scalar($value)) {
             return (bool) $value;
         } elseif (is_iterable($value)) {
             foreach ($value as $k => $v) {
