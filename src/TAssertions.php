@@ -255,7 +255,7 @@ trait TAssertions
             $callback();
         } catch (\Throwable $e) {
             if ($e instanceof $className) {
-                if (($message === null || $e->getMessage() === $message && ($code === null || $e->getCode() === $code))) {
+                if (($message === null || $e->getMessage() === $message) && ($code === null || $e->getCode() === $code)) {
                     $success = true;
                 }
             }
