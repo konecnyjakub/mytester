@@ -23,6 +23,6 @@ final class ChainTestSuitesFinder implements ITestSuitesFinder
         foreach ($this->finders as $finder) {
             $suites = array_unique(array_merge($suites, $finder->getSuites($folder)));
         }
-        return $suites;
+        return array_values($suites);
     }
 }

@@ -158,4 +158,15 @@ final class TestCaseTest extends TestCase
     public function testNoAssertions(): void
     {
     }
+
+    public function testGetSuiteName(): void
+    {
+        $this->assertSame("TestCase", $this->getSuiteName());
+    }
+
+    public function testGetJobName(): void
+    {
+        $this->assertSame("TestCase::" . __FUNCTION__, $this->getJobName(self::class, __FUNCTION__));
+        $this->assertSame("Extension", $this->getJobName(self::class, "testSkipExtension"));
+    }
 }
