@@ -7,7 +7,7 @@ Version 4.0.0-dev
 - *.errors files from previous runs are now deleted in automated tests runner
 - automated tests runner now reports number of passed tests
 - test methods that do not perform any assertion are now reported as passed with warnings
-- raised minimal version of PHP to 8.1
+- raised minimal version of PHP to 8.2
 - possible BC break: made some properties readonly
 - BC break: job/test results are now implemented via enum MyTester\JobResult
 
