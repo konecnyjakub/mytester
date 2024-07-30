@@ -7,6 +7,7 @@ image: nexendrie/php:8.2
 
 stages:
   - test
+  - announce
 
 cache:
   paths:
@@ -29,3 +30,15 @@ test:php8.3:
 sast:
   variables:
     SAST_DEFAULT_ANALYZERS: "phpcs-security-audit"
+
+announce:gitlab:
+  stage: announce
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  only:
+    - tags@konecnyjakub/mytester
+  script:
+    - echo "Creating GitLab release"
+  release:
+    tag_name: $CI_COMMIT_TAG
+    name: "My Tester $CI_COMMIT_TAG"
+    description: "./RELEASE_NOTES"

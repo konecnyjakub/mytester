@@ -5,3 +5,4 @@
 /.scrutinizer.yml   export-ignore
 /code-coverage.php  export-ignore
 /build.xml          export-ignore
+/RELEASE_NOTES      export-ignore
