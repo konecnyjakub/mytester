@@ -31,5 +31,10 @@ final class JobResultTest extends TestCase
         });
         $job->execute();
         $this->assertSame(JobResult::WARNING, JobResult::fromJob($job));
+
+        $job = new Job("Test Job", function () {
+        }, [], true);
+        $job->execute();
+        $this->assertSame(JobResult::SKIPPED, JobResult::fromJob($job));
     }
 }
