@@ -1,0 +1,28 @@
+# Project Management
+/.github/           @konecnyjakub
+/README.md          @konecnyjakub
+/LICENSE.md         @konecnyjakub
+.gitignore          @konecnyjakub
+/composer.json      @konecnyjakub
+
+# Release Management
+/CHANGELOG.md       @konecnyjakub
+/RELEASE_NOTES      @konecnyjakub
+.gitattributes      @konecnyjakub
+
+# Continous integeration
+/.gitlab-ci.yml     @konecnyjakub
+/.github/workflows/ @konecnyjakub
+/.scrutinizer.yml   @konecnyjakub
+/build.xml          @konecnyjakub
+
+# Quality Assurance
+/phpstan.neon       @konecnyjakub
+/phpcs.xml          @konecnyjakub
+
+# PHP Code
+/src/               @konecnyjakub
+/code-coverage.php  @konecnyjakub
+
+# Tests
+/tests/             @konecnyjakub
