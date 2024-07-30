@@ -1,7 +1,7 @@
 My Tester
 =========
 
-[![Total Downloads](https://poser.pugx.org/konecnyjakub/mytester/downloads)](https://packagist.org/packages/konecnyjakub/mytester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mytester/v/stable)](https://gitlab.com/konecnyjakub/mytester/-/releases) [![build status](https://gitlab.com/konecnyjakub/mytester/badges/master/pipeline.svg)](https://gitlab.com/konecnyjakub/mytester/commits/master) [![License](https://poser.pugx.org/konecnyjakub/mytester/license)](https://gitlab.com/konecnyjakub/mytester/-/blob/master/LICENSE.md) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/konecnyjakub/mytester/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/konecnyjakub/mytester/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/konecnyjakub/mytester/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/konecnyjakub/mytester/?branch=master)
+[![Total Downloads](https://poser.pugx.org/konecnyjakub/mytester/downloads)](https://packagist.org/packages/konecnyjakub/mytester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mytester/v/stable)](https://gitlab.com/konecnyjakub/mytester/-/releases) [![build status](https://gitlab.com/konecnyjakub/mytester/badges/master/pipeline.svg?ignore_skipped=true)](https://gitlab.com/konecnyjakub/mytester/commits/master) [![coverage report](https://gitlab.com/konecnyjakub/mytester/badges/master/coverage.svg)](https://gitlab.com/konecnyjakub/mytester/-/commits/master) [![License](https://poser.pugx.org/konecnyjakub/mytester/license)](https://gitlab.com/konecnyjakub/mytester/-/blob/master/LICENSE.md)
 
 My Tester allows to run simple tests. Requires PHP 8.2 or later and Composer 2.
 
