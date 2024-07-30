@@ -47,6 +47,15 @@ final class Collector
     /**
      * @throws Exception
      */
+    public function getEngineName(): string
+    {
+        $engine = $this->selectEngine();
+        return $engine->getName();
+    }
+
+    /**
+     * @throws Exception
+     */
     private function selectEngine(): ICodeCoverageEngine
     {
         if ($this->currentEngine !== null) {

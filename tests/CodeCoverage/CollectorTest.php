@@ -40,4 +40,16 @@ class CollectorTest extends TestCase
         $result = $collector->finish();
         $this->assertType("array", $result);
     }
+
+    public function testGetEngineName(): void
+    {
+        $this->assertThrowsException(function () {
+            $collector = new Collector();
+            $collector->getEngineName();
+        }, Exception::class, "No code coverage engine is available.", Exception::NO_ENGINE_AVAILABLE);
+
+        $collector = new Collector();
+        $collector->registerEngine(new DummyEngine());
+        $this->assertSame("dummy", $collector->getEngineName());
+    }
 }

@@ -116,6 +116,9 @@ final class Tester
         exit((int) $failed);
     }
 
+    /**
+     * @throws CodeCoverageException
+     */
     private function setup(): void
     {
         Timer::start(static::TIMER_NAME);
@@ -258,9 +261,11 @@ final class Tester
     private function reportCodeCoverage(): void
     {
         try {
+            $engineName = $this->codeCoverageCollector->getEngineName();
+            echo "\nCollecting code coverage via $engineName\n";
             $coverageData = $this->codeCoverageCollector->finish();
         } catch (CodeCoverageException $e) {
-            if ($e->getCode() === CodeCoverageException::COLLECTOR_NOT_STARTED) {
+            if (in_array($e->getCode(), [CodeCoverageException::NO_ENGINE_AVAILABLE, CodeCoverageException::COLLECTOR_NOT_STARTED, ])) {
                 return;
             }
             throw $e;
