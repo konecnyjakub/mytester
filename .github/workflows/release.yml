@@ -1,18 +1,18 @@
 name: GitHub release
 
-on: 
-  push:
-    tags:
-    - '*'
+on:
+    push:
+        tags:
+            - '*'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-    - uses: actions/checkout@v4
-    - uses: ncipollo/release-action@v1
-      with:
-        name: "My Tester ${{github.ref_name}}"
-        bodyFile: "RELEASE_NOTES"
+    build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            -   uses: actions/checkout@v4
+            -   uses: ncipollo/release-action@v1
+                with:
+                    name: "My Tester ${{github.ref_name}}"
+                    bodyFile: "RELEASE_NOTES"
