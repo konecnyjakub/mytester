@@ -1,44 +1,44 @@
 include:
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
-  - template: SAST.gitlab-ci.yml
-  - template: Secret-Detection.gitlab-ci.yml
+    -   template: Security/Dependency-Scanning.gitlab-ci.yml
+    -   template: SAST.gitlab-ci.yml
+    -   template: Secret-Detection.gitlab-ci.yml
 
 image: nexendrie/php:8.2
 
 stages:
-  - test
-  - announce
+    - test
+    - announce
 
 cache:
-  paths:
-  - vendor/
+    paths:
+        - vendor/
 
 .job_template: &test_job
-  stage: test
-  script:
-  - phing test
+    stage: test
+    script:
+        - phing test
 
 test:php8.2:
-  <<: *test_job
-  image: nexendrie/php:8.2
+    <<: *test_job
+    image: nexendrie/php:8.2
 
 test:php8.3:
-  <<: *test_job
-  image: nexendrie/php:8.3
-  coverage: '/(\d+\%) covered/'
+    <<: *test_job
+    image: nexendrie/php:8.3
+    coverage: '/(\d+\%) covered/'
 
 sast:
-  variables:
-    SAST_DEFAULT_ANALYZERS: "phpcs-security-audit"
+    variables:
+        SAST_DEFAULT_ANALYZERS: "phpcs-security-audit"
 
 announce:gitlab:
-  stage: announce
-  image: registry.gitlab.com/gitlab-org/release-cli:latest
-  only:
-    - tags@konecnyjakub/mytester
-  script:
-    - echo "Creating GitLab release"
-  release:
-    tag_name: $CI_COMMIT_TAG
-    name: "My Tester $CI_COMMIT_TAG"
-    description: "./RELEASE_NOTES"
+    stage: announce
+    image: registry.gitlab.com/gitlab-org/release-cli:latest
+    only:
+        - tags@konecnyjakub/mytester
+    script:
+        - echo "Creating GitLab release"
+    release:
+        tag_name: $CI_COMMIT_TAG
+        name: "My Tester $CI_COMMIT_TAG"
+        description: "./RELEASE_NOTES"
