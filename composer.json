@@ -32,6 +32,9 @@
         "phpstan/phpstan": "^1.11",
         "phpunit/php-code-coverage": "^11.0"
     },
+    "suggest": {
+        "ext-pcov": "For generating code coverage reports"
+    },
     "conflict": {
         "nette/robot-loader": "<4.0.1",
         "nette/di": "<3.2"
