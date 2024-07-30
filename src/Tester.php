@@ -10,7 +10,6 @@ use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\PcovEngine;
 use MyTester\CodeCoverage\PercentFormatter;
-use MyTester\CodeCoverage\PhpdbgEngine;
 use MyTester\CodeCoverage\XDebugEngine;
 use Nette\CommandLine\Console;
 use Nette\IOException;
@@ -72,7 +71,6 @@ final class Tester
         $this->console = new Console();
         $this->codeCoverageCollector = new Collector();
         $this->codeCoverageCollector->registerEngine(new PcovEngine());
-        $this->codeCoverageCollector->registerEngine(new PhpdbgEngine());
         $this->codeCoverageCollector->registerEngine(new XDebugEngine());
     }
 
