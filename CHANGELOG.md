@@ -8,7 +8,7 @@ Version 4.0.0-dev
 - automated tests runner now reports number of passed tests
 - test methods that do not perform any assertion are now reported as passed with warnings
 - raised minimal version of PHP to 8.2
-- possible BC break: made some properties readonly
+- possible BC break: made some properties/classes readonly
 - BC break: job/test results are now implemented via enum MyTester\JobResult
 
 Version 3.0.0

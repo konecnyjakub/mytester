@@ -9,12 +9,12 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-final class SkippedTest
+final readonly class SkippedTest
 {
     use \Nette\SmartObject;
 
-    public readonly string $name;
-    public readonly string $reason;
+    public string $name;
+    public string $reason;
 
     public function __construct(string $name, string $reason)
     {
