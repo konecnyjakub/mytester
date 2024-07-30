@@ -3,8 +3,6 @@ include:
     -   template: SAST.gitlab-ci.yml
     -   template: Secret-Detection.gitlab-ci.yml
 
-image: nexendrie/php:8.2
-
 stages:
     - test
     - announce
