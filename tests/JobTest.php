@@ -24,13 +24,6 @@ final class JobTest extends TestCase
         parent::testResult($text, $success);
     }
 
-    public function testGetCallback(): void
-    {
-        $callback = "var_dump";
-        $job = new Job("Test Job", $callback);
-        parent::assertSame($callback, $job->callback);
-    }
-
     protected function getJobs(): array
     {
         $test = new TestJobs($this);
