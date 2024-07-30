@@ -1,7 +1,3 @@
-A new version of My Tester is out, it is only for PHP 8.2 and later. There are a lot of internal changes/improvements (using new PHP features, reorganization of code), some of them allowed implementation of new features.
-
-One of new features of the automated tests runner is the ability to report percentage of code coverage, future versions might expand code coverage functionality (e. g. generating a full report in Clover XML or HTML). The automated tests runner also now automatically removes .errors files previous runs and reports number of passed tests.
-
-The option to mark tests in TestCase as supposed to fail was removed, the code was too complex and hard to maintain. On the other hand, TestCase now has a new assertion throwsException. There are also changes to result of test methods in TestCase: if the method has at least 1 parameter but its data provider provides none, it is now skipped and if it does not perform any assertions, it is marked as passed with warnings.
+A new version of My Tester is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
