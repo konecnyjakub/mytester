@@ -22,7 +22,7 @@ final class BaseTestSuitesFinderTest extends TestCase
                 return [];
             }
 
-            public function isTestSuite(string $class): bool
+            public function isTestSuite(string $class): bool // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod
             {
                 return parent::isTestSuite($class);
             }

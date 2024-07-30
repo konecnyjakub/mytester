@@ -137,7 +137,7 @@ final class Tester
         foreach ($files as $name => $file) {
             try {
                 FileSystem::delete($name);
-            } catch (IOException) {
+            } catch (IOException) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
             }
         }
     }

@@ -9,12 +9,11 @@
   <exclude-pattern>*/temp/*</exclude-pattern>
   <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
   <rule ref="Generic.Classes.DuplicateClassName"/>
-  <rule ref="Generic.CodeAnalysis"/>
+  <rule ref="Generic.CodeAnalysis">
+    <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+  </rule>
   <rule ref="Generic.CodeAnalysis.EmptyStatement">
     <type>warning</type>
-  </rule>
-  <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter">
-    <exclude-pattern>*/tests/Annotations/DummyEngine.php</exclude-pattern>
   </rule>
   <rule ref="Generic.CodeAnalysis.UselessOverridingMethod">
     <exclude-pattern>*/tests/JobTest.php</exclude-pattern>
