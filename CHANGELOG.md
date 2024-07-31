@@ -1,4 +1,4 @@
-Version 4.1.0-dev
+Version 4.1.0
 - added assertions assertGreaterThan, assertLessThan and assertOutput
 - moved interfaces ICodeCoverageEngine and ICodeCoverageFormatter to namespace MyTester\CodeCoverage
 - moved interface IAnnotationsReaderEngine to namespace MyTester\Annotations
