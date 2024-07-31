@@ -176,11 +176,8 @@ trait TAssertions
     {
         if (is_string($actual) && is_string($needle)) {
             $success = ($needle !== "" && str_contains($actual, $needle));
-            if ($success) {
-                $this->testResult("");
-            } else {
-                $this->testResult("$needle is not in the variable.", false);
-            }
+            $message = ($success) ? "" : "$needle is not in the variable.";
+            $this->testResult($message, $success);
         } elseif (is_array($actual)) {
             $success = (in_array($needle, $actual));
             $message = ($success) ? "" : $this->showStringOrArray($needle) . " is not in the variable.";
