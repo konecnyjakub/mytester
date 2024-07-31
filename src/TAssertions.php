@@ -283,9 +283,9 @@ trait TAssertions
             } elseif (!$e instanceof $className) {
                 $errorMessage = "The code does not throw $className but " . get_class($e) . ".";
             } elseif ($message !== null && $message !== $e->getMessage()) {
-                $errorMessage = "The code not throw an exception with message '$message' but '{$e->getMessage()}'.";
+                $errorMessage = "The code does not throw an exception with message '$message' but '{$e->getMessage()}'.";
             } elseif ($code !== null && $code !== $e->getCode()) {
-                $errorMessage = "The code not throw an exception with code $code but {$e->getCode()}.";
+                $errorMessage = "The code does not throw an exception with code $code but {$e->getCode()}.";
             }
         }
         $this->testResult($errorMessage, $success);
