@@ -1,5 +1,5 @@
 Version 4.1.0-dev
-- added assertions assertGreaterThan and assertLessThan
+- added assertions assertGreaterThan, assertLessThan and assertOutput
 - moved interfaces ICodeCoverageEngine and ICodeCoverageFormatter to namespace MyTester\CodeCoverage
 - moved interface IAnnotationsReaderEngine to namespace MyTester\Annotations
 - added option to mark a test as incomplete

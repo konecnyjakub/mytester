@@ -290,4 +290,18 @@ trait TAssertions
         }
         $this->testResult($errorMessage, $success);
     }
+
+    /**
+     * Is output of code $expected?
+     */
+    protected function assertOutput(callable $callback, string $expected): void
+    {
+        ob_start();
+        $callback();
+        /** @var string $output */
+        $output = ob_get_clean();
+        $success = ($expected == $output);
+        $message = ($success) ? "" : "Output of code  is not '$expected' but '$output'.";
+        $this->testResult($message, $success);
+    }
 }
