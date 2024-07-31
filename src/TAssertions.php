@@ -90,6 +90,26 @@ trait TAssertions
     }
 
     /**
+     * Is $actual greater than $expected?
+     */
+    protected function assertGreaterThan(int|float $expected, int|float $actual): void
+    {
+        $success = ($actual > $expected);
+        $message = ($success) ? "" : "$actual is not greater than $expected.";
+        $this->testResult($message, $success);
+    }
+
+    /**
+     * Is $actual less than $expected?
+     */
+    protected function assertLessThan(int|float $expected, int|float $actual): void
+    {
+        $success = ($actual < $expected);
+        $message = ($success) ? "" : "$actual is not less than $expected.";
+        $this->testResult($message, $success);
+    }
+
+    /**
      * Is $actual equal to true?
      */
     protected function assertTrue(bool $actual): void

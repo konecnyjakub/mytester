@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Attributes\TestSuite;
 use stdClass;
 
 /**
@@ -11,6 +12,7 @@ use stdClass;
  *
  * @author Jakub Konečný
  */
+#[TestSuite("Assertions")]
 final class AssertTest extends TestCase
 {
     /**
@@ -20,6 +22,8 @@ final class AssertTest extends TestCase
     {
         $this->assertSame("abc", "abc");
         $this->assertNotSame("abc", "def");
+        $this->assertGreaterThan(1, 2);
+        $this->assertLessThan(2, 1);
         $this->assertTrue(true);
         $this->assertTruthy(1);
         $this->assertFalse(false);

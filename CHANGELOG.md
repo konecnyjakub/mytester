@@ -1,3 +1,6 @@
+Version 4.1.0-dev
+- added assertions assertGreaterThan and assertLessThan
+
 Version 4.0.0
 - test methods that have at least 1 parameter but their data provider provides none are now skipped
 - added event onFinish to Tester
