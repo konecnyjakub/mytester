@@ -10,7 +10,7 @@ namespace MyTester\CodeCoverage;
  * @author Jakub Konečný
  * @internal
  */
-final class PcovEngine implements \MyTester\ICodeCoverageEngine
+final class PcovEngine implements ICodeCoverageEngine
 {
     public function getName(): string
     {

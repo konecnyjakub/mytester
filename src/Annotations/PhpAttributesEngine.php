@@ -16,7 +16,7 @@ use ReflectionMethod;
  * @author Jakub Konečný
  * @internal
  */
-final class PhpAttributesEngine implements \MyTester\IAnnotationsReaderEngine
+final class PhpAttributesEngine implements IAnnotationsReaderEngine
 {
     /**
      * @param class-string|object $class

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MyTester\CodeCoverage;
 
 use MyTester\CodeCoverageException as Exception;
-use MyTester\ICodeCoverageEngine;
 
 /**
  * Code coverage collector

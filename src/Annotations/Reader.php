@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations;
 
-use MyTester\IAnnotationsReaderEngine;
-
 /**
  * Annotations reader
  *

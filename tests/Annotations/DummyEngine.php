@@ -9,7 +9,7 @@ namespace MyTester\Annotations;
  *
  * @author Jakub Konečný
  */
-final class DummyEngine implements \MyTester\IAnnotationsReaderEngine
+final class DummyEngine implements IAnnotationsReaderEngine
 {
     public function hasAnnotation(string $name, string|object $class, string $method = null): bool
     {

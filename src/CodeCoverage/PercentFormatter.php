@@ -10,7 +10,7 @@ namespace MyTester\CodeCoverage;
  * @author Jakub Konečný
  * @internal
  */
-final class PercentFormatter implements \MyTester\ICodeCoverageFormatter
+final class PercentFormatter implements ICodeCoverageFormatter
 {
     public function render(array $data): string
     {

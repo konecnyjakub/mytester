@@ -10,7 +10,7 @@ namespace MyTester\CodeCoverage;
  * @author Jakub Konečný
  * @internal
  */
-final class XDebugEngine implements \MyTester\ICodeCoverageEngine
+final class XDebugEngine implements ICodeCoverageEngine
 {
     public function getName(): string
     {
