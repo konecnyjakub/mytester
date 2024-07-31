@@ -173,7 +173,7 @@ final class TestCaseTest extends TestCase
     public function testGetJobs(): void
     {
         $jobs = $this->getJobs();
-        $this->assertCount(17, $jobs);
+        $this->assertCount(18, $jobs);
 
         $job = $jobs[0];
         $this->assertSame("TestCase::testState", $job->name);
@@ -293,5 +293,24 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+
+        $job = $jobs[17];
+        $this->assertSame("TestCase::testIncomplete", $job->name);
+        $this->assertSame([$this, "testIncomplete", ], $job->callback);
+        $this->assertSame([], $job->params);
+        $this->assertFalse((bool) $job->skip);
+        $this->assertCount(1, $job->onAfterExecute);
+    }
+
+    public function testIncomplete(): void
+    {
+        $this->assertThrowsException(function () {
+            $this->markTestIncomplete();
+        }, IncompleteTestException::class, "");
+        $this->assertThrowsException(function () {
+            $this->markTestIncomplete("abc");
+        }, IncompleteTestException::class, "abc");
+        $this->markTestIncomplete("test");
+        $this->assertTrue(false);
     }
 }

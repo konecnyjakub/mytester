@@ -129,6 +129,25 @@ class Tests extends MyTester\TestCase
 
 ```
 
+#### Incomplete tests
+
+If a test is not completely written yet, you can mark it as incomplete and it will be passed with warning. Just call method markTestIncomplete. You can optionally pass it a message explaining why it is incomplete. Once the method is called, no other assertions will be performed in the method where it is called.
+```php
+<?php
+
+declare(strict_types=1);
+
+class Tests extends MyTester\TestCase
+{
+    public function testIncomplete(): void
+    {
+        $this->assertTrue(true);
+        $this->markTestIncomplete("Optional message");
+    }
+}
+
+```
+
 #### Setup and clean up
 
 If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suite.

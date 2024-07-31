@@ -2,6 +2,7 @@ Version 4.1.0-dev
 - added assertions assertGreaterThan and assertLessThan
 - moved interfaces ICodeCoverageEngine and ICodeCoverageFormatter to namespace MyTester\CodeCoverage
 - moved interfaces IAnnotationsReaderEngine to namespace MyTester\Annotations
+- added option to mark a test as incomplete
 
 Version 4.0.0
 - test methods that have at least 1 parameter but their data provider provides none are now skipped

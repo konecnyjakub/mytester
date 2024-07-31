@@ -141,6 +141,14 @@ abstract class TestCase
     {
     }
 
+    /**
+     * Interrupts the job's run, it is reported as passed with warning
+     */
+    protected function markTestIncomplete(string $message = ""): void
+    {
+        throw new IncompleteTestException($message);
+    }
+
     protected function runJob(Job $job): string
     {
         $this->resetCounter();

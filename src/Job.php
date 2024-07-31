@@ -63,7 +63,12 @@ final class Job
     {
         if (!$this->skip) {
             ob_start();
-            call_user_func_array($this->callback, $this->params);
+            try {
+                call_user_func_array($this->callback, $this->params);
+            } catch (IncompleteTestException $e) {
+                $message = $e->getMessage() !== "" ? $e->getMessage() : "incomplete";
+                echo "Warning: $message\n";
+            }
             $this->onAfterExecute();
             /** @var string $output */
             $output = ob_get_clean();
