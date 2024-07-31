@@ -28,6 +28,7 @@ final class DataProvider
 
     /**
      * @throws InvalidDataProviderException
+     * @throws \ReflectionException
      */
     public function getData(object $class, string $method): array
     {

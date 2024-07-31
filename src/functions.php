@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+/**
+ * @throws Exception
+ */
 function findVendorDirectory(): string
 {
     $recursionLimit = 10;
