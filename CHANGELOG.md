@@ -3,6 +3,7 @@ Version 4.1.0-dev
 - moved interfaces ICodeCoverageEngine and ICodeCoverageFormatter to namespace MyTester\CodeCoverage
 - moved interface IAnnotationsReaderEngine to namespace MyTester\Annotations
 - added option to mark a test as incomplete
+- deprecated passing string to parameter $value of assertions assertCount and assertNotCount
 
 Version 4.0.0
 - test methods that have at least 1 parameter but their data provider provides none are now skipped

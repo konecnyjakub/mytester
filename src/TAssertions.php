@@ -211,6 +211,7 @@ trait TAssertions
     protected function assertCount(int $count, string|array|\Countable $value): void
     {
         if (!is_array($value) && !$value instanceof \Countable) {
+            trigger_error("Passing string as parameter \$value to " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
             $this->testResult("The variable is not array or countable object.", false);
             return;
         }
@@ -226,6 +227,7 @@ trait TAssertions
     protected function assertNotCount(int $count, string|array|\Countable $value): void
     {
         if (!is_array($value) && !$value instanceof \Countable) {
+            trigger_error("Passing string as parameter \$value to " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
             $this->testResult("The variable is not array or countable object.", false);
             return;
         }
