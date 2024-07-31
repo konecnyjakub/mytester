@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\CodeCoverage;
 
 use MyTester\Attributes\TestSuite;
-use MyTester\CodeCoverageException as Exception;
+use MyTester\CodeCoverage\CodeCoverageException as Exception;
 use MyTester\TestCase;
 
 /**

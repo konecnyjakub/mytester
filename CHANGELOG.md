@@ -1,3 +1,6 @@
+Version 4.1.0+dev
+- moved CodeCoverageException to namespace MyTester\CodeCoverage
+
 Version 4.1.0
 - added assertions assertGreaterThan, assertLessThan and assertOutput
 - moved interfaces ICodeCoverageEngine and ICodeCoverageFormatter to namespace MyTester\CodeCoverage

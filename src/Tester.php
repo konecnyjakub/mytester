@@ -7,6 +7,7 @@ namespace MyTester;
 use Ayesh\PHP_Timer\Timer;
 use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\CodeCoverage\CodeCoverageException;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\PcovEngine;
 use MyTester\CodeCoverage\PercentFormatter;
