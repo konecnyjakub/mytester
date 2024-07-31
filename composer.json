@@ -42,7 +42,8 @@
     "autoload": {
         "psr-4": {
             "MyTester\\": "src/"
-        }
+        },
+        "exclude-from-classmap": ["/tests/temp/"]
     },
     "autoload-dev": {
         "psr-4": {
