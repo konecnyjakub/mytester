@@ -34,12 +34,14 @@ final class Collector
     /**
      * @throws Exception
      */
-    public function finish(): array
+    public function finish(): Report
     {
         if ($this->currentEngine === null) {
             throw new Exception("Code coverage collector has not been started.", Exception::COLLECTOR_NOT_STARTED);
         }
-        return $this->currentEngine->collect();
+
+        $data = $this->currentEngine->collect();
+        return new Report($data);
     }
 
     /**

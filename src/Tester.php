@@ -261,7 +261,7 @@ final class Tester
         try {
             $engineName = $this->codeCoverageCollector->getEngineName();
             echo "\nCollecting code coverage via $engineName\n";
-            $coverageData = $this->codeCoverageCollector->finish();
+            $coverageReport = $this->codeCoverageCollector->finish();
         } catch (CodeCoverageException $e) {
             if (
                 in_array(
@@ -277,7 +277,7 @@ final class Tester
         $percentFormatter = new PercentFormatter();
         /** @var resource $outputFile */
         $outputFile = fopen($percentFormatter->getOutputFileName((string) getcwd()), "w");
-        fwrite($outputFile, $percentFormatter->render($coverageData));
+        fwrite($outputFile, $percentFormatter->render($coverageReport));
         fclose($outputFile);
     }
 }

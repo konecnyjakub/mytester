@@ -38,7 +38,7 @@ class CollectorTest extends TestCase
         $collector->registerEngine(new DummyEngine());
         $collector->start();
         $result = $collector->finish();
-        $this->assertType("array", $result);
+        $this->assertType(Report::class, $result);
     }
 
     public function testGetEngineName(): void

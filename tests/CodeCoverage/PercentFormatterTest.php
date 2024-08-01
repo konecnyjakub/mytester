@@ -16,8 +16,9 @@ class PercentFormatterTest extends TestCase
 {
     public function testRender(): void
     {
+        $report = new Report((new DummyEngine())->collect());
         $formatter = new PercentFormatter();
-        $result = $formatter->render((new DummyEngine())->collect());
+        $result = $formatter->render($report);
         $this->assertSame("Calculating code coverage... 62% covered\n", $result);
     }
 }

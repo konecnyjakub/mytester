@@ -9,6 +9,6 @@ namespace MyTester\CodeCoverage;
  */
 interface ICodeCoverageFormatter
 {
-    public function render(array $data): string;
+    public function render(Report $report): string;
     public function getOutputFileName(string $folder): string;
 }

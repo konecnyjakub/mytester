@@ -12,21 +12,10 @@ namespace MyTester\CodeCoverage;
  */
 final class PercentFormatter implements ICodeCoverageFormatter
 {
-    public function render(array $data): string
+    public function render(Report $report): string
     {
         $result = "Calculating code coverage... ";
-        $totalLines = 0;
-        $coveredLines = 0;
-        foreach ($data as $file) {
-            foreach ($file as $line) {
-                $totalLines++;
-                if ($line > 0) {
-                    $coveredLines++;
-                }
-            }
-        }
-        $coveragePercent = (int) (($coveredLines / $totalLines) * 100);
-        $result .= $coveragePercent . "% covered\n";
+        $result .= $report->coveragePercent . "% covered\n";
         return $result;
     }
 

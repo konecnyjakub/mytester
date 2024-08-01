@@ -22,17 +22,17 @@ class DummyEngine implements ICodeCoverageEngine
     public function collect(): array
     {
         return [
-            "file1.php" => [
+            "/var/project/src/file1.php" => [
                 1 => 1,
                 -1,
                 1,
             ],
-            "file2.php" => [
+            "/var/project/src/sub1/file2.php" => [
                 1 => -1,
                 1,
                 -1,
             ],
-            "file3.php" => [
+            "/var/project/src/sub2/file3.php" => [
                 1 => 1,
                 1,
             ],
