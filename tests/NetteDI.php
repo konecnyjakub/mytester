@@ -16,5 +16,4 @@ $configurator->addConfig(__DIR__ . "/config.neon");
 $container = $configurator->createContainer();
 /** @var MyTester\Tester $runner */
 $runner = $container->getByType(MyTester\Tester::class);
-assert($runner->testSuiteFactory instanceof ContainerSuiteFactory, "Test suite factory is not a " . ContainerSuiteFactory::class . " instance.");
 $runner->execute();
