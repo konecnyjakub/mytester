@@ -97,15 +97,16 @@ abstract class TestCase
     }
 
     /**
-     * Get name of current test suite
+     * Get name of a test suite
      */
-    protected function getSuiteName(): string
+    protected function getSuiteName(string|object|null $class = null): string
     {
-        $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST_SUITE, static::class);
+        $class = $class ?? static::class;
+        $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST_SUITE, $class);
         if ($annotation !== null) {
             return $annotation;
         }
-        return static::class;
+        return is_object($class) ? get_class($class) : $class;
     }
 
     /**
@@ -117,7 +118,7 @@ abstract class TestCase
         if ($annotation !== null) {
             return $annotation;
         }
-        return $this->getSuiteName() . "::" . $method;
+        return $this->getSuiteName($class) . "::" . $method;
     }
 
     /**

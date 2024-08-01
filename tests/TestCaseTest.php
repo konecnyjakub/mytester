@@ -161,6 +161,8 @@ final class TestCaseTest extends TestCase
     public function testGetSuiteName(): void
     {
         $this->assertSame("TestCase", $this->getSuiteName());
+        $this->assertSame("Assertions", $this->getSuiteName(AssertTest::class));
+        $this->assertSame(\stdClass::class, $this->getSuiteName(\stdClass::class));
     }
 
     public function testGetJobName(): void

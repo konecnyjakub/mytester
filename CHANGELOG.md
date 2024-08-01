@@ -1,5 +1,6 @@
 Version 4.1.0+dev
 - moved CodeCoverageException to namespace MyTester\CodeCoverage
+- allowed passing class name (as string) or object to TestCase::getSuiteName()
 
 Version 4.1.0
 - added assertions assertGreaterThan, assertLessThan and assertOutput
