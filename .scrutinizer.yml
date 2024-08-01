@@ -177,5 +177,5 @@ build:
                         command: php ./code-coverage.php
                         coverage:
                             file: coverage.xml
-                            format: 'clover'
+                            format: 'cobertura'
                     - php-scrutinizer-run
