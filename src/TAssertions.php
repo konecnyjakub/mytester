@@ -264,8 +264,12 @@ trait TAssertions
      *
      * @param class-string $className
      */
-    protected function assertThrowsException(callable $callback, string $className, string $message = null, int $code = null): void
-    {
+    protected function assertThrowsException(
+        callable $callback,
+        string $className,
+        string $message = null,
+        int $code = null
+    ): void {
         $success = false;
         $errorMessage = "";
         $e = null;
@@ -273,7 +277,9 @@ trait TAssertions
             $callback();
         } catch (\Throwable $e) {
             if ($e instanceof $className) {
-                if (($message === null || $e->getMessage() === $message) && ($code === null || $e->getCode() === $code)) {
+                if (
+                    ($message === null || $e->getMessage() === $message) && ($code === null || $e->getCode() === $code)
+                ) {
                     $success = true;
                 }
             }
@@ -284,7 +290,8 @@ trait TAssertions
             } elseif (!$e instanceof $className) {
                 $errorMessage = "The code does not throw $className but " . get_class($e) . ".";
             } elseif ($message !== null && $message !== $e->getMessage()) {
-                $errorMessage = "The code does not throw an exception with message '$message' but '{$e->getMessage()}'.";
+                $errorMessage =
+                    "The code does not throw an exception with message '$message' but '{$e->getMessage()}'.";
             } elseif ($code !== null && $code !== $e->getCode()) {
                 $errorMessage = "The code does not throw an exception with code $code but {$e->getCode()}.";
             }

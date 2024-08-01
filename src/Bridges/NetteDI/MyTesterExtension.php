@@ -70,7 +70,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 $task = explode("::", $task);
             } elseif (str_starts_with($task[0], "@")) {
                 $className = substr($task[0], 1);
-                $this->initialization->addBody('$runner->' . $eventName . '[] = [$this->getService(?), ?];', [$className, $task[1]]);
+                $this->initialization->addBody(
+                    '$runner->' . $eventName . '[] = [$this->getService(?), ?];',
+                    [$className, $task[1]]
+                );
                 continue;
             }
             $this->initialization->addBody('$runner->' . $eventName . '[] = [?, ?];', [$task[0], $task[1]]);

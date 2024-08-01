@@ -263,7 +263,12 @@ final class Tester
             echo "\nCollecting code coverage via $engineName\n";
             $coverageData = $this->codeCoverageCollector->finish();
         } catch (CodeCoverageException $e) {
-            if (in_array($e->getCode(), [CodeCoverageException::NO_ENGINE_AVAILABLE, CodeCoverageException::COLLECTOR_NOT_STARTED, ])) {
+            if (
+                in_array(
+                    $e->getCode(),
+                    [CodeCoverageException::NO_ENGINE_AVAILABLE, CodeCoverageException::COLLECTOR_NOT_STARTED, ]
+                )
+            ) {
                 return;
             }
             throw $e;

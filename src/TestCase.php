@@ -50,9 +50,17 @@ abstract class TestCase
     {
         if (count($this->jobs) === 0) {
             $r = new ReflectionClass(static::class);
-            $methods = array_values((array) preg_grep(static::METHOD_PATTERN, array_map(function (ReflectionMethod $rm) {
-                return $rm->getName();
-            }, $r->getMethods(ReflectionMethod::IS_PUBLIC))));
+            $methods = array_values(
+                (array) preg_grep(
+                    static::METHOD_PATTERN,
+                    array_map(
+                        function (ReflectionMethod $rm) {
+                            return $rm->getName();
+                        },
+                        $r->getMethods(ReflectionMethod::IS_PUBLIC)
+                    )
+                )
+            );
             foreach ($methods as $method) {
                 /** @var callable $callback */
                 $callback = [$this, $method];
