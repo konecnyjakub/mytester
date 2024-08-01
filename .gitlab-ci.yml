@@ -24,6 +24,11 @@ test:php8.3:
     <<: *test_job
     image: nexendrie/php:8.3
     coverage: '/(\d+\%) covered/'
+    artifacts:
+        reports:
+            coverage_report:
+                coverage_format: cobertura
+                path: coverage.xml
 
 sast:
     variables:
