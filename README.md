@@ -17,7 +17,6 @@ Usage
 My Tester uses object-oriented style to define tests. Your classes with tests have to extend MyTester\TestCase. All its public methods which name starts with "test" will be automatically launched when you call method "run". Call methods assert*Something* inside them. An example:
 ```php
 <?php
-
 declare(strict_types=1);
 
 class Tests extends MyTester\TestCase
@@ -38,7 +37,6 @@ class Tests extends MyTester\TestCase
 Test methods of TestCase descendants can take one parameter. You can provide a name of a public method from the class which returns an array with DataProvider attribute. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
 ```php
 <?php
-
 declare(strict_types=1);
 
 use MyTester\Attributes\DataProvider;
@@ -66,7 +64,6 @@ class Tests extends MyTester\TestCase
 You can give test methods and whole test suites custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via attribute Test/TestSuite. Example:
 ```php
 <?php
-
 declare(strict_types=1);
 
 use MyTester\Attributes\Test;
@@ -89,7 +86,6 @@ class Tests extends MyTester\TestCase
 It is possible to unconditionally skip a test. Just use attribute Skip. Example:
 ```php
 <?php
-
 declare(strict_types=1);
 
 use MyTester\Attributes\Skip;
@@ -108,7 +104,6 @@ class Tests extends MyTester\TestCase
 . You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. Skipped tests are shown in output. Examples:
 ```php
 <?php
-
 declare(strict_types=1);
 
 use MyTester\Attributes\Skip;
@@ -134,7 +129,6 @@ class Tests extends MyTester\TestCase
 If a test is not completely written yet, you can mark it as incomplete and it will be passed with warning. Just call method markTestIncomplete. You can optionally pass it a message explaining why it is incomplete. Once the method is called, no other assertions will be performed in the method where it is called.
 ```php
 <?php
-
 declare(strict_types=1);
 
 class Tests extends MyTester\TestCase
@@ -179,7 +173,6 @@ But it is not able to generate full code coverage reports yet. Before it is supp
 
 ```php
 <?php
-
 declare(strict_types=1);
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
