@@ -5,6 +5,7 @@ namespace MyTester\CodeCoverage;
 
 use Nette\Utils\Strings;
 use ReflectionClass;
+use ReflectionFunction;
 
 /**
  * Report for code coverage
@@ -44,6 +45,17 @@ final readonly class Report
             $allClasses[] = $rc;
         }
 
+        $allFunctionNames = get_defined_functions()["user"];
+        /** @var ReflectionFunction[] $allFunctions */
+        $allFunctions = [];
+        foreach ($allFunctionNames as $functionName) {
+            $rf = new ReflectionFunction($functionName);
+            if (!str_starts_with((string) $rf->getFileName(), $this->sourcePath)) {
+                continue;
+            }
+            $allFunctions[] = $rf;
+        }
+
         /** @var ReportFile[] $files */
         $files = [];
         $totalLines = 0;
@@ -52,7 +64,15 @@ final readonly class Report
             $classes = array_values(array_filter($allClasses, function (ReflectionClass $rc) use ($filename) {
                 return ((string) $rc->getFileName() === $filename);
             }));
-            $files[] = new ReportFile((string) Strings::after($filename, $this->sourcePath), $classes, $file);
+            $functions = array_values(array_filter($allFunctions, function (ReflectionFunction $rf) use ($filename) {
+                return ((string) $rf->getFileName() === $filename);
+            }));
+            $files[] = new ReportFile(
+                (string) Strings::after($filename, $this->sourcePath),
+                $classes,
+                $functions,
+                $file
+            );
             foreach ($file as $line) {
                 $totalLines++;
                 if ($line > 0) {

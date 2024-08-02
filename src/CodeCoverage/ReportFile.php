@@ -17,6 +17,8 @@ final readonly class ReportFile
     public string $name;
     /** @var \ReflectionClass[] */
     public array $classes;
+    /** @var \ReflectionFunction[] */
+    public array $functions;
     public array $data;
     public int $linesTotal;
     public int $linesCovered;
@@ -24,8 +26,9 @@ final readonly class ReportFile
 
     /**
      * @param \ReflectionClass[] $classes
+     * @param \ReflectionFunction[] $functions
      */
-    public function __construct(string $name, array $classes, array $data)
+    public function __construct(string $name, array $classes, array $functions, array $data)
     {
         $totalLines = 0;
         $coveredLines = 0;
@@ -39,6 +42,7 @@ final readonly class ReportFile
 
         $this->name = $name;
         $this->classes = $classes;
+        $this->functions = $functions;
         $this->data = $data;
         $this->coveragePercent = $coveragePercent;
         $this->linesTotal = $totalLines;
