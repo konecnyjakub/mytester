@@ -207,13 +207,8 @@ trait TAssertions
     /**
      * Does $value contain $count items?
      */
-    protected function assertCount(int $count, string|array|\Countable $value): void
+    protected function assertCount(int $count, array|\Countable $value): void
     {
-        if (!is_array($value) && !$value instanceof \Countable) {
-            trigger_error("Passing string as parameter \$value to " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-            $this->testResult("The variable is not array or countable object.", false);
-            return;
-        }
         $actual = count($value);
         $success = ($actual === $count);
         $message = ($success) ? "" : "Count of the variable is $actual.";
@@ -223,13 +218,8 @@ trait TAssertions
     /**
      * Does $value not contain $count items?
      */
-    protected function assertNotCount(int $count, string|array|\Countable $value): void
+    protected function assertNotCount(int $count, array|\Countable $value): void
     {
-        if (!is_array($value) && !$value instanceof \Countable) {
-            trigger_error("Passing string as parameter \$value to " . __METHOD__ . " is deprecated", E_USER_DEPRECATED);
-            $this->testResult("The variable is not array or countable object.", false);
-            return;
-        }
         $actual = count($value);
         $success = ($actual !== $count);
         $message = ($success) ? "" : "Count of the variable is $actual.";

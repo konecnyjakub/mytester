@@ -1,3 +1,6 @@
+Version 5.0.0-dev
+- BC break: forbidden passing string to parameter $value of assertions assertCount and assertNotCount
+
 Version 4.2.0
 - moved CodeCoverageException to namespace MyTester\CodeCoverage
 - allowed passing class name (as string) or object to TestCase::getSuiteName()
