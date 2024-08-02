@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\CodeCoverage;
 
 use Nette\Utils\Strings;
+use ReflectionClass;
 
 /**
  * Report for code coverage
@@ -29,14 +30,29 @@ final readonly class Report
      */
     public function __construct(array $data)
     {
-        $this->sourcePath = Strings::findPrefix(array_keys($data));
+        $filenames = array_keys($data);
+        $this->sourcePath = Strings::findPrefix($filenames);
+
+        $allClassNames = get_declared_classes();
+        /** @var ReflectionClass[] $allClasses */
+        $allClasses = [];
+        foreach ($allClassNames as $className) {
+            $rc = new ReflectionClass($className);
+            if (!str_starts_with((string) $rc->getFileName(), $this->sourcePath)) {
+                continue;
+            }
+            $allClasses[] = $rc;
+        }
 
         /** @var ReportFile[] $files */
         $files = [];
         $totalLines = 0;
         $coveredLines = 0;
         foreach ($data as $filename => $file) {
-            $files[] = new ReportFile((string) Strings::after($filename, $this->sourcePath), $file);
+            $classes = array_values(array_filter($allClasses, function (ReflectionClass $rc) use ($filename) {
+                return ((string) $rc->getFileName() === $filename);
+            }));
+            $files[] = new ReportFile((string) Strings::after($filename, $this->sourcePath), $classes, $file);
             foreach ($file as $line) {
                 $totalLines++;
                 if ($line > 0) {
@@ -44,7 +60,7 @@ final readonly class Report
                 }
             }
         }
-        $coveragePercent = (int) (($coveredLines / $totalLines) * 100);
+        $coveragePercent = ($totalLines === 0) ? 0 : (int) (($coveredLines / $totalLines) * 100);
 
         $this->coveragePercent = $coveragePercent;
         $this->linesTotal = $totalLines;

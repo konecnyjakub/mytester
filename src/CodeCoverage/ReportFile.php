@@ -15,12 +15,17 @@ final readonly class ReportFile
     use \Nette\SmartObject;
 
     public string $name;
+    /** @var \ReflectionClass[] */
+    public array $classes;
     public array $data;
     public int $linesTotal;
     public int $linesCovered;
     public int $coveragePercent;
 
-    public function __construct(string $name, array $data)
+    /**
+     * @param \ReflectionClass[] $classes
+     */
+    public function __construct(string $name, array $classes, array $data)
     {
         $totalLines = 0;
         $coveredLines = 0;
@@ -30,9 +35,10 @@ final readonly class ReportFile
                 $coveredLines++;
             }
         }
-        $coveragePercent = (int) (($coveredLines / $totalLines) * 100);
+        $coveragePercent = ($totalLines === 0) ? 0 : (int) (($coveredLines / $totalLines) * 100);
 
         $this->name = $name;
+        $this->classes = $classes;
         $this->data = $data;
         $this->coveragePercent = $coveragePercent;
         $this->linesTotal = $totalLines;

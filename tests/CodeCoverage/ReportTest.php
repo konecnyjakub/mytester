@@ -40,4 +40,29 @@ class ReportTest extends TestCase
         $this->assertSame(2, $file->linesCovered);
         $this->assertSame(100, $file->coveragePercent);
     }
+
+    public function testFileClasses(): void
+    {
+        $basePath = (string) realpath(__DIR__ . "/../../src");
+        $data = [
+            $basePath . "/TestCase.php" => [],
+            $basePath . "/Tester.php" => [],
+            $basePath . "/SkipChecker.php" => [],
+        ];
+        $report = new Report($data);
+
+        $this->assertCount(3, $report->files);
+        $file = $report->files[0];
+        $this->assertSame("TestCase.php", $file->name);
+        $this->assertCount(1, $file->classes);
+        $this->assertSame(\MyTester\TestCase::class, $file->classes[0]->getName());
+        $file = $report->files[1];
+        $this->assertSame("Tester.php", $file->name);
+        $this->assertCount(1, $file->classes);
+        $this->assertSame(\MyTester\Tester::class, $file->classes[0]->getName());
+        $file = $report->files[2];
+        $this->assertSame("SkipChecker.php", $file->name);
+        $this->assertCount(1, $file->classes);
+        $this->assertSame(\MyTester\SkipChecker::class, $file->classes[0]->getName());
+    }
 }
