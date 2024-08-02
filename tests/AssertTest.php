@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\DummyEngine;
 use MyTester\Attributes\TestSuite;
 use stdClass;
 
@@ -63,6 +64,11 @@ final class AssertTest extends TestCase
         $this->assertOutput(function () {
             echo "abc";
         }, "abc");
+        $this->assertMatchesRegExp('/abc/', "1abc2");
+        $this->assertArrayOfClass(
+            \stdClass::class,
+            [new stdClass(), new stdClass(),]
+        );
     }
 
     /**
@@ -158,6 +164,21 @@ final class AssertTest extends TestCase
                 throw new \RuntimeException("abc", 2);
             }, \RuntimeException::class, "abc", 1);
         }, "Test 53 failed. The code does not throw an exception with code 1 but 2.\n");
+        $this->assertOutput(function () {
+            $this->assertMatchesRegExp('/abc/', "def");
+        }, "Test 55 failed. The string does not match regular expression.\n");
+        $this->assertOutput(function () {
+            $this->assertArrayOfClass(
+                \stdClass::class,
+                [new stdClass(), new DummyEngine(), "abc",]
+            );
+        }, "Test 57 failed. The array does not contain only instances of stdClass.\n");
+        $this->assertOutput(function () {
+            $this->assertArrayOfClass(
+                \stdClass::class,
+                []
+            );
+        }, "Test 59 failed. The array is empty.\n");
     }
 
     /**

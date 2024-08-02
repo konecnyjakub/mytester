@@ -312,4 +312,32 @@ trait TAssertions
         $message = ($success) ? "" : "Output of code  is not '$expected' but '$output'.";
         $this->testResult($message, $success);
     }
+
+    /**
+     * Does $actual matches regular expression $expected?
+     */
+    protected function assertMatchesRegExp(string $expected, string $actual): void
+    {
+        $success = (preg_match($expected, $actual) === 1);
+        $message = ($success) ? "" : "The string does not match regular expression.";
+        $this->testResult($message, $success);
+    }
+
+    /**
+     * Is $actual an array consisting only of instances of $className
+     *
+     * @param class-string $className
+     */
+    protected function assertArrayOfClass(string $className, array $actual): void
+    {
+        if (count($actual) === 0) {
+            $this->testResult("The array is empty.", false);
+            return;
+        }
+        $success = array_all($actual, function (mixed $value) use ($className) {
+            return $value instanceof $className;
+        });
+        $message = ($success) ? "" : "The array does not contain only instances of $className.";
+        $this->testResult($message, $success);
+    }
 }
