@@ -8,6 +8,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  * @property-read callable $callback
+ * @property-read bool|string $skip
  * @property-read JobResult $result
  * @property-read string $output @internal
  * @method void onAfterExecute()
@@ -20,7 +21,7 @@ final class Job
     /** @var callable Task */
     protected $callback;
     public readonly array $params;
-    public readonly bool|string $skip;
+    protected bool|string $skip;
     protected JobResult $result = JobResult::PASSED;
     protected string $output = "";
     /** @var callable[] */
@@ -45,6 +46,11 @@ final class Job
         return $this->callback;
     }
 
+    public function getSkip(): bool|string
+    {
+        return $this->skip;
+    }
+
     protected function getResult(): JobResult
     {
         return $this->result;
@@ -64,6 +70,8 @@ final class Job
             ob_start();
             try {
                 call_user_func_array($this->callback, $this->params);
+            } catch (SkippedTestException $e) {
+                $this->skip = ($e->getMessage() !== "") ? $e->getMessage() : true;
             } catch (IncompleteTestException $e) {
                 $message = $e->getMessage() !== "" ? $e->getMessage() : "incomplete";
                 echo "Warning: $message\n";

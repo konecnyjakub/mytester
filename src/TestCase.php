@@ -157,6 +157,14 @@ abstract class TestCase
         throw new IncompleteTestException($message);
     }
 
+    /**
+     * Interrupts the job's run, it is reported as skipped
+     */
+    protected function markTestSkipped(string $message = ""): void
+    {
+        throw new SkippedTestException($message);
+    }
+
     protected function runJob(Job $job): string
     {
         $this->resetCounter();

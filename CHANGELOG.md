@@ -1,5 +1,6 @@
 Version 5.0.0-dev
 - BC break: forbidden passing string to parameter $value of assertions assertCount and assertNotCount
+- added option to skip test after it was started
 
 Version 4.2.0
 - moved CodeCoverageException to namespace MyTester\CodeCoverage

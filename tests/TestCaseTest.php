@@ -174,7 +174,7 @@ final class TestCaseTest extends TestCase
     public function testGetJobs(): void
     {
         $jobs = $this->getJobs();
-        $this->assertCount(18, $jobs);
+        $this->assertCount(19, $jobs);
 
         $job = $jobs[0];
         $this->assertSame("TestCase::testState", $job->name);
@@ -301,6 +301,13 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+
+        $job = $jobs[18];
+        $this->assertSame("TestCase::testSkipInside", $job->name);
+        $this->assertSame([$this, "testSkipInside", ], $job->callback);
+        $this->assertSame([], $job->params);
+        $this->assertFalse((bool) $job->skip);
+        $this->assertCount(1, $job->onAfterExecute);
     }
 
     public function testIncomplete(): void
@@ -312,6 +319,18 @@ final class TestCaseTest extends TestCase
             $this->markTestIncomplete("abc");
         }, IncompleteTestException::class, "abc");
         $this->markTestIncomplete("test");
+        $this->assertTrue(false);
+    }
+
+    public function testSkipInside(): void
+    {
+        $this->assertThrowsException(function () {
+            $this->markTestSkipped();
+        }, SkippedTestException::class, "");
+        $this->assertThrowsException(function () {
+            $this->markTestSkipped("abc");
+        }, SkippedTestException::class, "abc");
+        $this->markTestSkipped("test");
         $this->assertTrue(false);
     }
 }

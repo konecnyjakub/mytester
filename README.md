@@ -124,6 +124,24 @@ class Tests extends MyTester\TestCase
 
 ```
 
+If the condition is too complicated (or you don't want to use an attribute for any reason), use can call method markTestSkipped from the test method. It optionally accepts a message explaining why it is skipped.
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\Skip;
+
+class Tests extends MyTester\TestCase
+{
+    public function testTestName(): void
+    {
+        $this->markTestSkipped("Optional message");
+        $this->assertTrue(false);
+    }
+}
+
+```
+
 #### Incomplete tests
 
 If a test is not completely written yet, you can mark it as incomplete and it will be passed with warning. Just call method markTestIncomplete. You can optionally pass it a message explaining why it is incomplete. Once the method is called, no other assertions will be performed in the method where it is called.
