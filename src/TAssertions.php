@@ -52,7 +52,7 @@ trait TAssertions
 
     protected function showStringOrArray(string|array $variable): string
     {
-        return (is_string($variable) ? $variable : "(array)");
+        return (is_string($variable) ? "'$variable'" : var_export($variable, true));
     }
 
     /**
@@ -74,7 +74,7 @@ trait TAssertions
     protected function assertSame(mixed $expected, mixed $actual): void
     {
         $success = ($expected == $actual);
-        $message = ($success) ? "" : "The value is not $expected but $actual.";
+        $message = ($success) ? "" : "The value is not '$expected' but '$actual'.";
         $this->testResult($message, $success);
     }
 
@@ -84,7 +84,7 @@ trait TAssertions
     protected function assertNotSame(mixed $expected, mixed $actual): void
     {
         $success = ($expected !== $actual);
-        $message = ($success) ? "" : "The value is $expected.";
+        $message = ($success) ? "" : "The value is '$expected'.";
         $this->testResult($message, $success);
     }
 

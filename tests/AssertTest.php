@@ -87,10 +87,10 @@ final class AssertTest extends TestCase
         }, "Test 5 failed. abc\n");
         $this->assertOutput(function () {
             $this->assertSame("abc", "def");
-        }, "Test 7 failed. The value is not abc but def.\n");
+        }, "Test 7 failed. The value is not 'abc' but 'def'.\n");
         $this->assertOutput(function () {
             $this->assertNotSame("abc", "abc");
-        }, "Test 9 failed. The value is abc.\n");
+        }, "Test 9 failed. The value is 'abc'.\n");
         $this->assertOutput(function () {
             $this->assertGreaterThan(2, 1);
         }, "Test 11 failed. 1 is not greater than 2.\n");
@@ -120,19 +120,19 @@ final class AssertTest extends TestCase
         }, "Test 27 failed. abc is not in the variable.\n");
         $this->assertOutput(function () {
             $this->assertContains("abc", [1, 2, ]);
-        }, "Test 29 failed. abc is not in the variable.\n");
+        }, "Test 29 failed. 'abc' is not in the variable.\n");
         $this->assertOutput(function () {
             $this->assertContains(["abc", ], "abc");
-        }, "Test 31 failed. (array) is not in the variable.\n");
+        }, "Test 31 failed. array (\n  0 => 'abc',\n) is not in the variable.\n");
         $this->assertOutput(function () {
             $this->assertNotContains("abc", "abc");
         }, "Test 33 failed. abc is in the variable.\n");
         $this->assertOutput(function () {
             $this->assertNotContains("abc", ["abc", "def", ]);
-        }, "Test 35 failed. abc is in the variable.\n");
+        }, "Test 35 failed. 'abc' is in the variable.\n");
         $this->assertOutput(function () {
             $this->assertNotContains(["abc", "def", ], "abc");
-        }, "Test 37 failed. (array) is not in the variable.\n");
+        }, "Test 37 failed. array (\n  0 => 'abc',\n  1 => 'def',\n) is not in the variable.\n");
         $this->assertOutput(function () {
             $this->assertCount(1, ["abc", "def", ]);
         }, "Test 39 failed. Count of the variable is 2.\n");
@@ -196,7 +196,7 @@ final class AssertTest extends TestCase
     public function testShowStringOrArray(): void
     {
         $text = "abc";
-        $this->assertSame($text, $this->showStringOrArray($text));
-        $this->assertSame("(array)", $this->showStringOrArray([]));
+        $this->assertSame("'$text'", $this->showStringOrArray($text));
+        $this->assertSame("array (\n)", $this->showStringOrArray([]));
     }
 }
