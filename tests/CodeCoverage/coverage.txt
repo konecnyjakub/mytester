@@ -1,0 +1,8 @@
+Code coverage report for /var/project/src/
+
+Total code coverage: 62% (5 out of 8 lines)
+
+Code coverage per file:
+file1.php: 66% (2 out of 3 lines)
+sub1/file2.php: 33% (1 out of 3 lines)
+sub2/file3.php: 100% (2 out of 2 lines)
