@@ -275,6 +275,9 @@ final class Tester
         }
 
         $percentFormatter = new PercentFormatter();
-        echo $percentFormatter->render($coverageData);
+        /** @var resource $outputFile */
+        $outputFile = fopen($percentFormatter->getOutputFileName((string) getcwd()), "w");
+        fwrite($outputFile, $percentFormatter->render($coverageData));
+        fclose($outputFile);
     }
 }

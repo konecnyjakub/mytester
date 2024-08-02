@@ -29,4 +29,9 @@ final class PercentFormatter implements ICodeCoverageFormatter
         $result .= $coveragePercent . "% covered\n";
         return $result;
     }
+
+    public function getOutputFileName(string $folder): string
+    {
+        return "php://output";
+    }
 }
