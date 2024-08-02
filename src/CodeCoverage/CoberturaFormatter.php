@@ -60,13 +60,9 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
             $classes = $document->createElement("classes");
 
             foreach ($reportFile->classes as $reflectionClass) {
-                $classLines = array_filter($reportFile->data, function (int $line) use ($reflectionClass) {
-                    return ($line >= $reflectionClass->getStartLine() && $line <= $reflectionClass->getEndLine());
-                }, ARRAY_FILTER_USE_KEY);
+                $classLines = $this->getElementLines($reflectionClass, $reportFile->data);
                 $totalLines = count($classLines);
-                $coveredLines = count(array_filter($classLines, function (int $value) {
-                    return $value > 0;
-                }));
+                $coveredLines = $this->getCoveredLineCount($classLines);
                 $coveragePercent = ($totalLines === 0) ? 0 : (int) (($coveredLines / $totalLines) * 100);
 
                 $class = $document->createElement("class");
@@ -81,27 +77,22 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
                     if ($reflectionMethod->getFileName() !== $report->sourcePath . $reportFile->name) {
                         continue;
                     }
-                    $methodLines = array_filter($reportFile->data, function (int $line) use ($reflectionMethod) {
-                        return ($line >= $reflectionMethod->getStartLine() && $line <= $reflectionMethod->getEndLine());
-                    }, ARRAY_FILTER_USE_KEY);
+                    $methodLines = $this->getElementLines($reflectionMethod, $reportFile->data);
                     $totalLines = count($methodLines);
-                    $coveredLines = count(array_filter($methodLines, function (int $value) {
-                        return $value > 0;
-                    }));
+                    $coveredLines = $this->getCoveredLineCount($methodLines);
                     $coveragePercent = ($totalLines === 0) ? 0 : (int) (($coveredLines / $totalLines) * 100);
 
-                    $method = $document->createElement("method");
-                    $method->setAttribute("name", $reflectionMethod->getName());
-                    $method->setAttribute("signature", "");
-                    $method->setAttribute("line-rate", (string) $coveragePercent);
-                    $method->setAttribute("branch-rate", (string) 0);
+                    $method = $this->createMethodElement(
+                        $document,
+                        $reflectionMethod->getName(),
+                        "",
+                        $coveragePercent,
+                        0
+                    );
 
                     $lines = $document->createElement("lines");
                     foreach ($methodLines as $lineNumber => $hits) {
-                        $line = $document->createElement("line");
-                        $line->setAttribute("number", (string) $lineNumber);
-                        $line->setAttribute("hits", (string) max(0, $hits));
-                        $lines->appendChild($line);
+                        $lines->appendChild($this->createLineElement($document, $lineNumber, $hits));
                     }
                     $method->appendChild($lines);
 
@@ -111,10 +102,7 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
 
                 $lines = $document->createElement("lines");
                 foreach ($classLines as $lineNumber => $hits) {
-                    $line = $document->createElement("line");
-                    $line->setAttribute("number", (string) $lineNumber);
-                    $line->setAttribute("hits", (string) max(0, $hits));
-                    $lines->appendChild($line);
+                    $lines->appendChild($this->createLineElement($document, $lineNumber, $hits));
                 }
                 $class->appendChild($lines);
 
@@ -133,29 +121,17 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
 
                 $methods = $document->createElement("methods");
                 foreach ($reportFile->functions as $function) {
-                    $functionLines = array_filter($reportFile->data, function (int $line) use ($function) {
-                        return ($line >= $function->getStartLine() && $line <= $function->getEndLine());
-                    }, ARRAY_FILTER_USE_KEY);
+                    $functionLines = $this->getElementLines($function, $reportFile->data);
                     $totalLines = count($functionLines);
                     $totalLinesClass += $totalLines;
-                    $coveredLines = count(array_filter($functionLines, function (int $value) {
-                        return $value > 0;
-                    }));
+                    $coveredLines = $this->getCoveredLineCount($functionLines);
                     $coveredLinesClass += $coveredLines;
                     $coveragePercent = ($totalLines === 0) ? 0 : (int) (($coveredLines / $totalLines) * 100);
 
-                    $method = $document->createElement("method");
-                    $method->setAttribute("name", $function->getName());
-                    $method->setAttribute("signature", "");
-                    $method->setAttribute("line-rate", (string) $coveragePercent);
-                    $method->setAttribute("branch-rate", (string) 0);
-
+                    $method = $this->createMethodElement($document, $function->getName(), "", $coveragePercent, 0);
                     $lines = $document->createElement("lines");
                     foreach ($functionLines as $lineNumber => $hits) {
-                        $line = $document->createElement("line");
-                        $line->setAttribute("number", (string) $lineNumber);
-                        $line->setAttribute("hits", (string) max(0, $hits));
-                        $lines->appendChild($line);
+                        $lines->appendChild($this->createLineElement($document, $lineNumber, $hits));
                     }
                     $method->appendChild($lines);
                 }
@@ -183,5 +159,42 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
     public function setOutputFileName(string $baseFileName): void
     {
         $this->baseFileName = $baseFileName;
+    }
+
+    private function getElementLines(\ReflectionClass|\ReflectionFunctionAbstract $reflection, array $data): array
+    {
+        return array_filter($data, function (int $line) use ($reflection) {
+            return ($line >= $reflection->getStartLine() && $line <= $reflection->getEndLine());
+        }, ARRAY_FILTER_USE_KEY);
+    }
+
+    private function getCoveredLineCount(array $lines): int
+    {
+        return count(array_filter($lines, function (int $value) {
+            return $value > 0;
+        }));
+    }
+
+    private function createMethodElement(
+        \DOMDocument $document,
+        string $name,
+        string $signature,
+        int $lineCoveragePercent,
+        int $branchCoveragePercent
+    ): \DOMElement {
+        $method = $document->createElement("method");
+        $method->setAttribute("name", $name);
+        $method->setAttribute("signature", $signature);
+        $method->setAttribute("line-rate", (string) $lineCoveragePercent);
+        $method->setAttribute("branch-rate", (string) $branchCoveragePercent);
+        return $method;
+    }
+
+    private function createLineElement(\DOMDocument $document, int $lineNumber, int $hits): \DOMElement
+    {
+        $line = $document->createElement("line");
+        $line->setAttribute("number", (string) $lineNumber);
+        $line->setAttribute("hits", (string) max(0, $hits));
+        return $line;
     }
 }
