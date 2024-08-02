@@ -67,7 +67,7 @@ final class AssertTest extends TestCase
         $this->assertMatchesRegExp('/abc/', "1abc2");
         $this->assertArrayOfClass(
             \stdClass::class,
-            [new stdClass(), new stdClass(),]
+            [new stdClass(), new stdClass(), ]
         );
     }
 
@@ -170,7 +170,7 @@ final class AssertTest extends TestCase
         $this->assertOutput(function () {
             $this->assertArrayOfClass(
                 \stdClass::class,
-                [new stdClass(), new DummyEngine(), "abc",]
+                [new stdClass(), new DummyEngine(), "abc", ]
             );
         }, "Test 57 failed. The array does not contain only instances of stdClass.\n");
         $this->assertOutput(function () {
