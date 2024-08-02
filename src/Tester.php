@@ -72,6 +72,7 @@ final class Tester
         $this->codeCoverageCollector = new Collector();
         $this->codeCoverageCollector->registerEngine(new PcovEngine());
         $this->codeCoverageCollector->registerEngine(new XDebugEngine());
+        $this->codeCoverageCollector->registerFormatter(new PercentFormatter());
     }
 
     /**
@@ -261,7 +262,8 @@ final class Tester
         try {
             $engineName = $this->codeCoverageCollector->getEngineName();
             echo "\nCollecting code coverage via $engineName\n";
-            $coverageReport = $this->codeCoverageCollector->finish();
+            $this->codeCoverageCollector->finish();
+            $this->codeCoverageCollector->write((string) getcwd());
         } catch (CodeCoverageException $e) {
             if (
                 in_array(
@@ -273,11 +275,5 @@ final class Tester
             }
             throw $e;
         }
-
-        $percentFormatter = new PercentFormatter();
-        /** @var resource $outputFile */
-        $outputFile = fopen($percentFormatter->getOutputFileName((string) getcwd()), "w");
-        fwrite($outputFile, $percentFormatter->render($coverageReport));
-        fclose($outputFile);
     }
 }

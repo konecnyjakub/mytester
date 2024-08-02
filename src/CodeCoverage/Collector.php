@@ -17,10 +17,17 @@ final class Collector
     private array $engines = [];
     private ?ICodeCoverageEngine $currentEngine = null;
     private ?Report $report = null;
+    /** @var ICodeCoverageFormatter[] */
+    private array $formatters = [];
 
     public function registerEngine(ICodeCoverageEngine $engine): void
     {
         $this->engines[] = $engine;
+    }
+
+    public function registerFormatter(ICodeCoverageFormatter $formatter): void
+    {
+        $this->formatters[] = $formatter;
     }
 
     /**
@@ -47,6 +54,22 @@ final class Collector
         }
 
         return $this->report;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function write(string $outputFolder): void
+    {
+        $this->finish();
+        /** @var Report $report */
+        $report = $this->report;
+        foreach ($this->formatters as $formatter) {
+            /** @var resource $outputFile */
+            $outputFile = fopen($formatter->getOutputFileName($outputFolder), "w");
+            fwrite($outputFile, $formatter->render($report));
+            fclose($outputFile);
+        }
     }
 
     /**
