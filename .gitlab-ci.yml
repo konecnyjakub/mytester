@@ -7,14 +7,13 @@ stages:
     - test
     - announce
 
-cache:
-    paths:
-        - vendor/
-
 .job_template: &test_job
     stage: test
     script:
         - phing test
+    cache:
+        paths:
+            - vendor/
 
 test:php8.2:
     <<: *test_job
