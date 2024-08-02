@@ -16,8 +16,7 @@ use MyTester\Attributes\TestSuite;
 #[TestSuite("TestCase")]
 final class TestCaseTest extends TestCase
 {
-    /** @var bool|int */
-    private $one = false;
+    private int|bool $one = false;
 
     public function setUp(): void
     {
