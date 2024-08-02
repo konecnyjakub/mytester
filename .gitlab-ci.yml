@@ -29,9 +29,6 @@ test:php8.3:
             coverage_report:
                 coverage_format: cobertura
                 path: coverage.xml
-        paths:
-            - coverage.xml
-        expire_in: 1 hour
 
 sast:
     variables:
