@@ -18,11 +18,6 @@ final class JobTest extends TestCase
         parent::assertSame($expected, $actual);
     }
 
-    public function testResult(string $text, bool $success = true): void
-    {
-        parent::testResult($text, $success);
-    }
-
     protected function getJobs(): array
     {
         $test = new TestJobs($this);
