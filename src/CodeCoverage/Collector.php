@@ -16,6 +16,7 @@ final class Collector
     /** @var ICodeCoverageEngine[] */
     private array $engines = [];
     private ?ICodeCoverageEngine $currentEngine = null;
+    private ?Report $report = null;
 
     public function registerEngine(ICodeCoverageEngine $engine): void
     {
@@ -36,12 +37,16 @@ final class Collector
      */
     public function finish(): Report
     {
-        if ($this->currentEngine === null) {
-            throw new Exception("Code coverage collector has not been started.", Exception::COLLECTOR_NOT_STARTED);
+        if ($this->report === null) {
+            if ($this->currentEngine === null) {
+                throw new Exception("Code coverage collector has not been started.", Exception::COLLECTOR_NOT_STARTED);
+            }
+
+            $data = $this->currentEngine->collect();
+            $this->report = new Report($data);
         }
 
-        $data = $this->currentEngine->collect();
-        return new Report($data);
+        return $this->report;
     }
 
     /**
