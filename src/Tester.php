@@ -54,6 +54,7 @@ final class Tester
         Collector $codeCoverageCollector = new Collector()
     ) {
         $this->onExecute[] = [$this, "setup"];
+        $this->onExecute[] = [$this, "setupCodeCoverage"];
         $this->onExecute[] = [$this, "deleteOutputFiles"];
         $this->onExecute[] = [$this, "printInfo"];
         $this->onFinish[] = [$this, "printResults"];
@@ -110,12 +111,16 @@ final class Tester
         exit((int) $failed);
     }
 
-    /**
-     * @throws CodeCoverageException
-     */
     private function setup(): void
     {
         Timer::start(static::TIMER_NAME);
+    }
+
+    /**
+     * @throws CodeCoverageException
+     */
+    private function setupCodeCoverage(): void
+    {
         try {
             $this->codeCoverageCollector->start();
         } catch (CodeCoverageException $e) {
