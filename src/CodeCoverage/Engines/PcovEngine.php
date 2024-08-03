@@ -10,7 +10,6 @@ use MyTester\CodeCoverage\ICodeCoverageEngine;
  * Requires PHP extension pcov
  *
  * @author Jakub Konečný
- * @internal
  */
 final class PcovEngine implements ICodeCoverageEngine
 {

@@ -13,7 +13,6 @@ use ReflectionFunction;
  * Is a passed to {@see ICodeCoverageFormatter} to generate output
  *
  * @author Jakub Konečný
- * @internal
  */
 final readonly class Report
 {

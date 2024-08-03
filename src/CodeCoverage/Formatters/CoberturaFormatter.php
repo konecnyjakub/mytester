@@ -12,7 +12,6 @@ use MyTester\CodeCoverage\Report;
  * @see https://raw.githubusercontent.com/cobertura/web/master/htdocs/xml/coverage-04.dtd
  *
  * @author Jakub Konečný
- * @internal
  */
 final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
 {

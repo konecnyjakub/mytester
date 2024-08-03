@@ -5,7 +5,6 @@ namespace MyTester\CodeCoverage;
 
 /**
  * @author Jakub Konečný
- * @internal
  */
 interface ICodeCoverageFormatter
 {

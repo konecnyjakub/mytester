@@ -11,7 +11,6 @@ use MyTester\CodeCoverage\Report;
  * Reports only total % of code coverage
  *
  * @author Jakub Konečný
- * @internal
  */
 final class PercentFormatter implements ICodeCoverageFormatter
 {

@@ -11,7 +11,6 @@ use MyTester\CodeCoverage\Report;
  * Report total coverage and coverage per file (both percentage and number of lines)
  *
  * @author Jakub Konečný
- * @internal
  */
 final class TextFormatter implements ICodeCoverageCustomFileNameFormatter
 {

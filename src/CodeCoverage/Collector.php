@@ -9,7 +9,6 @@ use MyTester\CodeCoverage\CodeCoverageException as Exception;
  * Code coverage collector
  *
  * @author Jakub Konečný
- * @internal
  */
 final class Collector
 {

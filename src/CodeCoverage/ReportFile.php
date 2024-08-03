@@ -8,7 +8,6 @@ namespace MyTester\CodeCoverage;
  * Contains all relevant data in a convenient form
  *
  * @author Jakub Konečný
- * @internal
  */
 final readonly class ReportFile
 {

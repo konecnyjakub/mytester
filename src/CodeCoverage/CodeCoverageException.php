@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage;
 
-/**
- * @internal
- */
 class CodeCoverageException extends \Exception
 {
     public const NO_ENGINE_AVAILABLE = 1;

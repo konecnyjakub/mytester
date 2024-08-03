@@ -10,7 +10,6 @@ use MyTester\CodeCoverage\ICodeCoverageEngine;
  * Requires PHP extension XDebug
  *
  * @author Jakub Konečný
- * @internal
  */
 final class XDebugEngine implements ICodeCoverageEngine
 {
