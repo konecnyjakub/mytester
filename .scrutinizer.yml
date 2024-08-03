@@ -173,6 +173,7 @@ build:
                         analysis:
                             file: codesniffer.cs
                             format: 'general-checkstyle'
+                    - php ./tests/NetteDI.php
                     -
                         command: php ./tests/NetteDI.php
                         coverage:
