@@ -13,6 +13,8 @@
      <arg value="-e"/>
      <arg value="php"/>
      <arg value="--colors"/>
+     <arg value="--exclude"/>
+     <arg path="tests/temp"/>
    </exec>
    <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
      <arg value="."/>
