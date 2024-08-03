@@ -9,9 +9,7 @@ require $vendorDirectory . "/autoload.php";
 
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
-use MyTester\CodeCoverage\PcovEngine;
 use MyTester\CodeCoverage\PercentFormatter;
-use MyTester\CodeCoverage\XDebugEngine;
 use MyTester\Tester;
 use Nette\CommandLine\Parser;
 
@@ -31,8 +29,9 @@ $cmd = new Parser("", [
 $options = $cmd->parse();
 
 $codeCoverageCollector = new Collector();
-$codeCoverageCollector->registerEngine(new PcovEngine());
-$codeCoverageCollector->registerEngine(new XDebugEngine());
+foreach (CodeCoverageHelper::$defaultEngines as $engine) {
+    $codeCoverageCollector->registerEngine(new $engine()); // @phpstan-ignore argument.type
+}
 $codeCoverageCollector->registerFormatter(new PercentFormatter());
 $coverageFormat = $options["--coverageFormat"];
 if ($coverageFormat !== null) {
