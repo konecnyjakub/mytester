@@ -43,7 +43,7 @@ final class DataProvider
                 if (!$reflection->isPublic()) {
                     throw new InvalidDataProviderException("Method $className::$dataProvider is not public.");
                 }
-                $result = call_user_func([$class, $dataProvider]);
+                $result = call_user_func([$class, $dataProvider]); // @phpstan-ignore argument.type
                 if (!is_array($result)) {
                     throw new InvalidDataProviderException("Method $className::$dataProvider has to return an array.");
                 }

@@ -15,7 +15,7 @@ abstract class BaseTestSuitesFinder implements ITestSuitesFinder
     protected function isTestSuite(string $class): bool
     {
         try {
-            $reflection = new ReflectionClass($class);
+            $reflection = new ReflectionClass($class); // @phpstan-ignore argument.type
         } catch (ReflectionException) {
             return false;
         }
