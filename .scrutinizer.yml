@@ -174,7 +174,7 @@ build:
                             file: codesniffer.cs
                             format: 'general-checkstyle'
                     -
-                        command: php ./code-coverage.php
+                        command: php ./tests/NetteDI.php
                         coverage:
                             file: coverage.xml
                             format: 'cobertura'
