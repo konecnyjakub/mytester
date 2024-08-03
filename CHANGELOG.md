@@ -3,6 +3,7 @@ Version 5.0.0-dev
 - added option to skip test after it was started
 - automated tests runner and Nette DI container extension can generate code coverage reports
 - moved code coverage engines into namespace MyTester\CodeCoverage\Engines and formatters into MyTester\CodeCoverage\Formatters
+- BC break: renamed constant MyTesterExtension::TAG to TAG_TEST
 
 Version 4.2.0
 - moved CodeCoverageException to namespace MyTester\CodeCoverage

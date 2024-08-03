@@ -20,7 +20,7 @@ use Nette\Schema\Expect;
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension
 {
-    public const TAG = "mytester.test";
+    public const TAG_TEST = "mytester.test";
     private const SERVICE_RUNNER = "runner";
     private const SERVICE_SUITE_FACTORY = "suiteFactory";
     private const SERVICE_CC_COLLECTOR = "coverage.collector";
@@ -65,7 +65,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         foreach ($suites as $index => $suite) {
             $builder->addDefinition($this->prefix("test." . ($index + 1)))
                 ->setType($suite)
-                ->addTag(self::TAG);
+                ->addTag(self::TAG_TEST);
         }
 
         $builder->addDefinition($this->prefix(static::SERVICE_CC_COLLECTOR))
