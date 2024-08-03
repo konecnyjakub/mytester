@@ -37,7 +37,7 @@ $codeCoverageCollector->registerFormatter(new PercentFormatter());
 $coverageFormat = $options["--coverageFormat"];
 if ($coverageFormat !== null) {
     $type = CodeCoverageHelper::$availableFormatters[$coverageFormat];
-    $codeCoverageCollector->registerFormatter(new $type());// @phpstan-ignore argument.type
+    $codeCoverageCollector->registerFormatter(new $type()); // @phpstan-ignore argument.type
 }
 
 $tester = new Tester(folder: $options["path"], codeCoverageCollector: $codeCoverageCollector);
