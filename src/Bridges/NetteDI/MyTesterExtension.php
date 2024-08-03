@@ -70,7 +70,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         $builder->addDefinition($this->prefix(static::SERVICE_SUITE_FACTORY))
             ->setType(ContainerSuiteFactory::class);
 
-        $extensions = array_merge([CodeCoverageExtension::class,], $config["extensions"]);
+        $extensions = array_merge([CodeCoverageExtension::class, ], $config["extensions"]);
         foreach ($extensions as $index => $extension) {
             $builder->addDefinition($this->prefix(static::SERVICE_EXTENSION_PREFIX . ($index + 1)))
                 ->setType($extension)
