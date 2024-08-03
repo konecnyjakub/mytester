@@ -5,6 +5,9 @@ namespace MyTester\Bridges\NetteDI;
 
 use Exception;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\CodeCoverage\Collector;
+use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
+use MyTester\CodeCoverage\PercentFormatter;
 use MyTester\Tester;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
@@ -20,6 +23,13 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     public const TAG = "mytester.test";
     private const SERVICE_RUNNER = "runner";
     private const SERVICE_SUITE_FACTORY = "suiteFactory";
+    private const SERVICE_CC_COLLECTOR = "coverage.collector";
+    private const SERVICE_CC_ENGINE_PREFIX = "coverage.engine.";
+    private const SERVICE_CC_FORMATTER_PREFIX = "coverage.formatter";
+
+    private array $codeCoverageFormatters = [
+        "percent" => PercentFormatter::class,
+    ];
 
     public function getConfigSchema(): \Nette\Schema\Schema
     {
@@ -30,6 +40,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             "onExecute" => Expect::array()->default([]),
             "onFinish" => Expect::array()->default([]),
             "colors" => Expect::bool(false),
+            "coverageFormat" => Expect::anyOf(
+                null,
+                ...array_keys(CodeCoverageHelper::$availableFormatters)
+            )->default(null),
         ])->castTo("array");
     }
 
@@ -40,15 +54,33 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     {
         $config = $this->getConfig();
         $builder = $this->getContainerBuilder();
+
         $builder->addDefinition($this->prefix(static::SERVICE_RUNNER))
             ->setFactory(Tester::class, [$config["folder"]]);
+
         $builder->addDefinition($this->prefix(static::SERVICE_SUITE_FACTORY))
             ->setType(ContainerSuiteFactory::class);
+
         $suites = (new TestSuitesFinder())->getSuites($config["folder"]);
         foreach ($suites as $index => $suite) {
             $builder->addDefinition($this->prefix("test." . ($index + 1)))
                 ->setType($suite)
                 ->addTag(self::TAG);
+        }
+
+        $builder->addDefinition($this->prefix(static::SERVICE_CC_COLLECTOR))
+            ->setType(Collector::class);
+        foreach (CodeCoverageHelper::$defaultEngines as $name => $className) {
+            $builder->addDefinition($this->prefix(static::SERVICE_CC_ENGINE_PREFIX . $name))
+                ->setType($className);
+        }
+        $coverageFormat = $config["coverageFormat"];
+        if ($coverageFormat !== null) {
+            $this->codeCoverageFormatters[$coverageFormat] = CodeCoverageHelper::$availableFormatters[$coverageFormat];
+        }
+        foreach ($this->codeCoverageFormatters as $name => $className) {
+            $builder->addDefinition($this->prefix(static::SERVICE_CC_FORMATTER_PREFIX . $name))
+                ->setType($className);
         }
     }
 
@@ -57,6 +89,22 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         $config = $this->getConfig();
         $this->initialization->addBody('$runner = $this->getService(?);', [$this->prefix(static::SERVICE_RUNNER)]);
         $this->initialization->addBody('$runner->useColors = ?;', [$config["colors"]]);
+        $this->initialization->addBody(
+            '$coverageCollector = $this->getService(?);',
+            [$this->prefix(static::SERVICE_CC_COLLECTOR)]
+        );
+        foreach (array_keys(CodeCoverageHelper::$defaultEngines) as $name) {
+            $this->initialization->addBody(
+                '$coverageCollector->registerEngine($this->getService(?));',
+                [$this->prefix(static::SERVICE_CC_ENGINE_PREFIX . $name)]
+            );
+        }
+        foreach (array_keys($this->codeCoverageFormatters) as $name) {
+            $this->initialization->addBody(
+                '$coverageCollector->registerFormatter($this->getService(?));',
+                [$this->prefix(static::SERVICE_CC_FORMATTER_PREFIX . $name)]
+            );
+        }
         $this->writeRunnerEventHandlers("onExecute", $config["onExecute"]);
         $this->writeRunnerEventHandlers("onFinish", $config["onFinish"]);
     }

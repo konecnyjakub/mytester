@@ -185,34 +185,16 @@ Automated tests runner can print results with colors, but it is not enabled but 
 
 ### Code coverage
 
-My Tester is able to report % of code coverage. It is done in class MyTester\Tester, so it is available in the provided script *vendor/bin/mytester* and our extension for Nette DI container (see below). You just need to run the script with pcov or xdebug extension enabled.
+My Tester automatically generates report % of code coverage when possible. It is done in class MyTester\Tester, so it is available in the provided script *vendor/bin/mytester* and our extension for Nette DI container (see below). You just need to run the script with pcov or xdebug extension enabled.
 
-But it is not able to generate full code coverage reports yet. Before it is supported natively, we recommend using package [phpunit/php-code-coverage](https://packagist.org/packages/phpunit/php-code-coverage) and a custom script for running tests. Example:
+It is also able to generate full code coverage reports. Supported formats are Cobertura and text. Just pass argument *--coverageFormat to the script, the value is generally the name of the format in lower case.
 
-```php
-<?php
-declare(strict_types=1);
+```bash
+./vendor/bin/mytester tests/unit --coverageFormat cobertura
+```
 
-use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeCoverage\Driver\Selector;
-use SebastianBergmann\CodeCoverage\Filter;
-use SebastianBergmann\CodeCoverage\Report\Clover;
-use SebastianBergmann\FileIterator\Facade;
-
-require __DIR__ . "/vendor/autoload.php";
-
-$filter = new Filter();
-$filter->includeFiles((new Facade())->getFilesAsArray(__DIR__ . "/src", ".php"));
-
-$coverage = new CodeCoverage((new Selector())->forLineCoverage($filter), $filter);
-$coverage->start("My Tester");
-register_shutdown_function(function() use ($coverage) {
-  $coverage->stop();
-  (new Clover())->process($coverage, __DIR__ . "/coverage.xml");
-});
-
-require __DIR__ . "/vendor/bin/mytester.php";
-
+```bash
+./vendor/bin/mytester tests/unit --coverageFormat text
 ```
 
 Nette applications
@@ -263,6 +245,15 @@ Colors in output can be enabled by setting option colors to true:
 mytester:
     colors: true
 ```
+
+It is also possible to generate code coverage reports with the extension, just use setting coverageFormat. See section Code coverage for supported formats and values.
+
+```neon
+mytester:
+    coverageFormat: cobertura
+```
+
+If no format is set, only the total percent of code coverage will be reported.
 
 More examples
 -------------

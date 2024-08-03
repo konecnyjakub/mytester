@@ -53,7 +53,8 @@ final class Tester
     public function __construct(
         string $folder,
         ITestSuitesFinder $testSuitesFinder = null,
-        ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory()
+        ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
+        Collector $codeCoverageCollector = new Collector()
     ) {
         $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "deleteOutputFiles"];
@@ -67,12 +68,9 @@ final class Tester
         }
         $this->testSuitesFinder = $testSuitesFinder;
         $this->testSuiteFactory = $testSuiteFactory;
+        $this->codeCoverageCollector = $codeCoverageCollector;
         $this->folder = $folder;
         $this->console = new Console();
-        $this->codeCoverageCollector = new Collector();
-        $this->codeCoverageCollector->registerEngine(new PcovEngine());
-        $this->codeCoverageCollector->registerEngine(new XDebugEngine());
-        $this->codeCoverageCollector->registerFormatter(new PercentFormatter());
     }
 
     /**
