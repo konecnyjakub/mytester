@@ -27,8 +27,7 @@
      <arg value="--colors"/>
    </exec>
    <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true"/>
-   <exec executable="php" logoutput="true" passthru="true" checkreturn="true">
-     <arg file="code-coverage.php"/>
-   </exec>
+   <!-- It is run 2 times because the first run doesn't go through all code that it should -->
+   <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true"/>
  </target>
 </project>
