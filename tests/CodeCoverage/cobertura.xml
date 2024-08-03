@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 <coverage lines-valid="23" lines-covered="22" line-rate="95" branches-valid="0" branches-covered="0" branch-rate="0" complexity="" version="0.4" timestamp="1">
   <sources>

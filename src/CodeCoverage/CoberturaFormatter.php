@@ -30,7 +30,7 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
 
         $document = $implementation->createDocument("", "", $documentType);
         $document->xmlVersion = "1.0";
-        $document->encoding = "utf-8";
+        $document->encoding = "UTF-8";
         $document->formatOutput = true;
 
         $coverage = $document->createElement("coverage");
@@ -118,10 +118,12 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
 
                 $totalLinesClass = 0;
                 $coveredLinesClass = 0;
+                $functionsLines = $document->createElement("lines");
 
                 $methods = $document->createElement("methods");
                 foreach ($reportFile->functions as $function) {
                     $functionLines = $this->getElementLines($function, $reportFile->data);
+                    ksort($functionLines);
                     $totalLines = count($functionLines);
                     $totalLinesClass += $totalLines;
                     $coveredLines = $this->getCoveredLineCount($functionLines);
@@ -132,10 +134,13 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
                     $lines = $document->createElement("lines");
                     foreach ($functionLines as $lineNumber => $hits) {
                         $lines->appendChild($this->createLineElement($document, $lineNumber, $hits));
+                        $functionsLines->appendChild($this->createLineElement($document, $lineNumber, $hits));
                     }
                     $method->appendChild($lines);
+                    $methods->appendChild($method);
                 }
 
+                $methods->appendChild($functionsLines);
                 $coveragePercent = ($totalLinesClass === 0) ? 0 : (int) (($coveredLinesClass / $totalLinesClass) * 100);
                 $class->setAttribute("line-rate", (string) $coveragePercent);
                 $class->appendChild($methods);
