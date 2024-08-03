@@ -1,7 +1,3 @@
-A new version of My Tester is out. It is no longer possible to pass string to parameter $value of assertions assertCount and assertNotCount. It is now possible to skip a test method after it was started.
-
-But this version's highlight is the ability of automated tests runner and Nette DI container extension the ability to generate coverage reports. For now supported formats are Cobertura and text, more options and supported formats might be added in the future.
-
-Automated tests runner now supports extensions, they can add callbacks to certain events. They replace the previous system of adding events through Nette DI container extension.
+A new version of My Tester is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
