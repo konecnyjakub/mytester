@@ -7,6 +7,7 @@ use MyTester\CodeCoverage\ICodeCoverageEngine;
 
 /**
  * XDebug engine for code coverage collector
+ * Requires PHP extension XDebug
  *
  * @author Jakub Konečný
  * @internal

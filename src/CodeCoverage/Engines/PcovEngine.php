@@ -7,6 +7,7 @@ use MyTester\CodeCoverage\ICodeCoverageEngine;
 
 /**
  * Pcov engine for code coverage collector
+ * Requires PHP extension pcov
  *
  * @author Jakub Konečný
  * @internal

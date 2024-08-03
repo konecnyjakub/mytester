@@ -20,18 +20,30 @@ final class Collector
     /** @var ICodeCoverageFormatter[] */
     private array $formatters = [];
 
+    /**
+     * Registers a new possible engine
+     * The first registered engine that is available will be used
+     */
     public function registerEngine(ICodeCoverageEngine $engine): void
     {
         $this->engines[] = $engine;
     }
 
+    /**
+     * Registers a new formatter that will be used to write out the output
+     * All formatters will be used
+     * @see self::write()
+     */
     public function registerFormatter(ICodeCoverageFormatter $formatter): void
     {
         $this->formatters[] = $formatter;
     }
 
     /**
-     * @throws Exception
+     * Starts collection of code coverage data
+     * The first available engine is used
+     *
+     * @throws Exception If no engine is available
      */
     public function start(): void
     {
@@ -40,7 +52,9 @@ final class Collector
     }
 
     /**
-     * @throws Exception
+     * Finishes collection of code coverage data
+     *
+     * @throws Exception If collection was not started yet {@see self::start()}
      */
     public function finish(): Report
     {
@@ -57,6 +71,8 @@ final class Collector
     }
 
     /**
+     * Write out output using all registered formatters {@see self::registerFormatter()}
+     *
      * @throws Exception
      */
     public function write(string $outputFolder): void
@@ -73,7 +89,9 @@ final class Collector
     }
 
     /**
-     * @throws Exception
+     * Gets name of the used engine. If none is used yet, it will try select one
+     *
+     * @throws Exception If no engine is available
      */
     public function getEngineName(): string
     {
