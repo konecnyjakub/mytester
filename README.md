@@ -197,6 +197,10 @@ It is also able to generate full code coverage reports. Supported formats are Co
 ./vendor/bin/mytester tests/unit --coverageFormat text
 ```
 
+### Automated tests runner extensions
+
+Automated tests runner's functionality can be extended by extensions. They can add callbacks for certain events. Extensions have to implement the *MyTester\ITesterExtension* interface. For now, custom extensions cannot be registered when using the script *vendor/bin/mytester*,
+
 Nette applications
 ------------------
 
@@ -225,18 +229,12 @@ mytester:
     folder: %wwwDir%/tests
 ```
 
-. And if you need to do some tasks before/after your tests, you can use option onExecute/onFinish. It is an array of callbacks. Examples:
+. And if you need to do some tasks before/after your tests, you can use automated tests runner extensions. Just register them with option extensions.
 
 ```neon
 mytester:
-    onExecute:
-        - Class::staticMethod
-        - [@service, method]
-        - [Class, staticMethod]
-    onFinish:
-        - Class::staticMethod
-        - [@service, method]
-        - [Class, staticMethod]
+    extensions:
+        - MyExtensionClass
 ```
 
 Colors in output can be enabled by setting option colors to true:

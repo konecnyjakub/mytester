@@ -7,6 +7,7 @@ $vendorDirectory = findVendorDirectory();
 
 require $vendorDirectory . "/autoload.php";
 
+use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
@@ -39,6 +40,10 @@ if ($coverageFormat !== null) {
     $codeCoverageCollector->registerFormatter(new $type()); // @phpstan-ignore argument.type
 }
 
-$tester = new Tester(folder: $options["path"], codeCoverageCollector: $codeCoverageCollector);
+$extensions = [
+    new CodeCoverageExtension($codeCoverageCollector),
+];
+
+$tester = new Tester(folder: $options["path"], extensions: $extensions);
 $tester->useColors = isset($options["--colors"]);
 $tester->execute();

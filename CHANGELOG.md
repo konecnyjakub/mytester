@@ -4,6 +4,8 @@ Version 5.0.0-dev
 - automated tests runner and Nette DI container extension can generate code coverage reports
 - moved code coverage engines into namespace MyTester\CodeCoverage\Engines and formatters into MyTester\CodeCoverage\Formatters
 - BC break: renamed constant MyTesterExtension::TAG to TAG_TEST
+- added extensions for automated tests runner
+- BC break: removed options onExecute and onFinish of Nette DI container extension (replaced by automated tests runner's extensions)
 
 Version 4.2.0
 - moved CodeCoverageException to namespace MyTester\CodeCoverage

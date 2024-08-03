@@ -5,9 +5,11 @@ namespace MyTester\Bridges\NetteDI;
 
 use Exception;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\ITesterExtension;
 use MyTester\Tester;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
@@ -21,10 +23,12 @@ use Nette\Schema\Expect;
 final class MyTesterExtension extends \Nette\DI\CompilerExtension
 {
     public const TAG_TEST = "mytester.test";
+    public const TAG_EXTENSION = "mytester.extension";
     public const TAG_COVERAGE_ENGINE = "mytester.coverage.engine";
     public const TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
     private const SERVICE_RUNNER = "runner";
     private const SERVICE_SUITE_FACTORY = "suiteFactory";
+    private const SERVICE_EXTENSION_PREFIX = "extension.";
     private const SERVICE_CC_COLLECTOR = "coverage.collector";
     private const SERVICE_CC_ENGINE_PREFIX = "coverage.engine.";
     private const SERVICE_CC_FORMATTER_PREFIX = "coverage.formatter";
@@ -39,8 +43,11 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         return Expect::structure([
             "folder" => Expect::string(Helpers::expand("%appDir%/../tests", $params))
                 ->assert("is_dir", "Invalid folder"),
-            "onExecute" => Expect::array()->default([]),
-            "onFinish" => Expect::array()->default([]),
+            "extensions" => Expect::arrayOf("class")
+                ->default([])
+                ->assert(function (string $classname) {
+                    return is_subclass_of($classname, ITesterExtension::class);
+                }),
             "colors" => Expect::bool(false),
             "coverageFormat" => Expect::anyOf(
                 null,
@@ -62,6 +69,13 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 
         $builder->addDefinition($this->prefix(static::SERVICE_SUITE_FACTORY))
             ->setType(ContainerSuiteFactory::class);
+
+        $extensions = array_merge([CodeCoverageExtension::class,], $config["extensions"]);
+        foreach ($extensions as $index => $extension) {
+            $builder->addDefinition($this->prefix(static::SERVICE_EXTENSION_PREFIX . ($index + 1)))
+                ->setType($extension)
+                ->addTag(static::TAG_EXTENSION);
+        }
 
         $suites = (new TestSuitesFinder())->getSuites($config["folder"]);
         foreach ($suites as $index => $suite) {
@@ -108,25 +122,6 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 '$coverageCollector->registerFormatter($this->getService(?));',
                 [$this->prefix(static::SERVICE_CC_FORMATTER_PREFIX . $name)]
             );
-        }
-        $this->writeRunnerEventHandlers("onExecute", $config["onExecute"]);
-        $this->writeRunnerEventHandlers("onFinish", $config["onFinish"]);
-    }
-
-    private function writeRunnerEventHandlers(string $eventName, array $callbacks): void
-    {
-        foreach ($callbacks as &$task) {
-            if (!is_array($task)) {
-                $task = explode("::", $task);
-            } elseif (str_starts_with($task[0], "@")) {
-                $className = substr($task[0], 1);
-                $this->initialization->addBody(
-                    '$runner->' . $eventName . '[] = [$this->getService(?), ?];',
-                    [$className, $task[1]]
-                );
-                continue;
-            }
-            $this->initialization->addBody('$runner->' . $eventName . '[] = [?, ?];', [$task[0], $task[1]]);
         }
     }
 }

@@ -45,20 +45,36 @@ final class Tester
     /** @var TestWarning[] */
     private array $warnings = [];
     private string $results = "";
-    private Collector $codeCoverageCollector;
+    /** @var ITesterExtension[] */
+    private array $extensions = [];
 
+    /**
+     * @param ITesterExtension[] $extensions
+     */
     public function __construct(
         string $folder,
         ITestSuitesFinder $testSuitesFinder = null,
         ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
-        Collector $codeCoverageCollector = new Collector()
+        array $extensions = []
     ) {
         $this->onExecute[] = [$this, "setup"];
-        $this->onExecute[] = [$this, "setupCodeCoverage"];
         $this->onExecute[] = [$this, "deleteOutputFiles"];
         $this->onExecute[] = [$this, "printInfo"];
+        $this->onExecute[] = function () {
+            foreach ($this->extensions as $extension) {
+                foreach ($extension->getEventsPreRun() as $callback) {
+                    $callback();
+                }
+            }
+        };
         $this->onFinish[] = [$this, "printResults"];
-        $this->onFinish[] = [$this, "reportCodeCoverage"];
+        $this->onFinish[] = function () {
+            foreach ($this->extensions as $extension) {
+                foreach ($extension->getEventsAfterRun() as $callback) {
+                    $callback();
+                }
+            }
+        };
         if ($testSuitesFinder === null) {
             $testSuitesFinder = new ChainTestSuitesFinder();
             $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder());
@@ -66,9 +82,9 @@ final class Tester
         }
         $this->testSuitesFinder = $testSuitesFinder;
         $this->testSuiteFactory = $testSuiteFactory;
-        $this->codeCoverageCollector = $codeCoverageCollector;
         $this->folder = $folder;
         $this->console = new Console();
+        $this->extensions = $extensions;
     }
 
     /**
@@ -114,20 +130,6 @@ final class Tester
     private function setup(): void
     {
         Timer::start(static::TIMER_NAME);
-    }
-
-    /**
-     * @throws CodeCoverageException
-     */
-    private function setupCodeCoverage(): void
-    {
-        try {
-            $this->codeCoverageCollector->start();
-        } catch (CodeCoverageException $e) {
-            if ($e->getCode() !== CodeCoverageException::NO_ENGINE_AVAILABLE) {
-                throw $e;
-            }
-        }
     }
 
     private function deleteOutputFiles(): void
@@ -251,29 +253,6 @@ final class Tester
                     break;
             }
             $this->results .= $job->result->output();
-        }
-    }
-
-    /**
-     * @throws CodeCoverageException
-     */
-    private function reportCodeCoverage(): void
-    {
-        try {
-            $engineName = $this->codeCoverageCollector->getEngineName();
-            echo "\nCollecting code coverage via $engineName\n";
-            $this->codeCoverageCollector->finish();
-            $this->codeCoverageCollector->write((string) getcwd());
-        } catch (CodeCoverageException $e) {
-            if (
-                in_array(
-                    $e->getCode(),
-                    [CodeCoverageException::NO_ENGINE_AVAILABLE, CodeCoverageException::COLLECTOR_NOT_STARTED, ]
-                )
-            ) {
-                return;
-            }
-            throw $e;
         }
     }
 }
