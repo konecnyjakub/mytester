@@ -21,6 +21,8 @@ use Nette\Schema\Expect;
 final class MyTesterExtension extends \Nette\DI\CompilerExtension
 {
     public const TAG_TEST = "mytester.test";
+    public const TAG_COVERAGE_ENGINE = "mytester.coverage.engine";
+    public const TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
     private const SERVICE_RUNNER = "runner";
     private const SERVICE_SUITE_FACTORY = "suiteFactory";
     private const SERVICE_CC_COLLECTOR = "coverage.collector";
@@ -72,7 +74,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             ->setType(Collector::class);
         foreach (CodeCoverageHelper::$defaultEngines as $name => $className) {
             $builder->addDefinition($this->prefix(static::SERVICE_CC_ENGINE_PREFIX . $name))
-                ->setType($className);
+                ->setType($className)
+                ->addTag(static::TAG_COVERAGE_ENGINE);
         }
         $coverageFormat = $config["coverageFormat"];
         if ($coverageFormat !== null) {
@@ -80,7 +83,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         }
         foreach ($this->codeCoverageFormatters as $name => $className) {
             $builder->addDefinition($this->prefix(static::SERVICE_CC_FORMATTER_PREFIX . $name))
-                ->setType($className);
+                ->setType($className)
+                ->addTag(static::TAG_COVERAGE_FORMATTER);
         }
     }
 
