@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\CodeCoverage;
+namespace MyTester\CodeCoverage\Engines;
+
+use MyTester\CodeCoverage\ICodeCoverageEngine;
 
 class TestEngine implements ICodeCoverageEngine
 {
@@ -21,7 +23,7 @@ class TestEngine implements ICodeCoverageEngine
 
     public function collect(): array
     {
-        $basePath = realpath(__DIR__ . "/../../src");
+        $basePath = realpath(__DIR__ . "/../../../src");
         return [
             $basePath . "/ChainTestSuitesFinder.php" => [
                 17 => 1,

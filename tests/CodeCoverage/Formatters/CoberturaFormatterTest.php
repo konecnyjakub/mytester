@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\CodeCoverage;
+namespace MyTester\CodeCoverage\Formatters;
 
 use MyTester\Attributes\TestSuite;
+use MyTester\CodeCoverage\Report;
+use MyTester\CodeCoverage\Engines\TestEngine;
 use MyTester\TestCase;
 
 /**

@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage;
 
+use MyTester\CodeCoverage\Engines\PcovEngine;
+use MyTester\CodeCoverage\Engines\XDebugEngine;
+use MyTester\CodeCoverage\Formatters\CoberturaFormatter;
+use MyTester\CodeCoverage\Formatters\TextFormatter;
+
 /**
  * @author Jakub Konečný
  * @internal

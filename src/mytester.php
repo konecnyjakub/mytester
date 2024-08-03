@@ -9,7 +9,7 @@ require $vendorDirectory . "/autoload.php";
 
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
-use MyTester\CodeCoverage\PercentFormatter;
+use MyTester\CodeCoverage\Formatters\PercentFormatter;
 use MyTester\Tester;
 use Nette\CommandLine\Parser;
 

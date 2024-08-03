@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\CodeCoverage;
 
 use MyTester\Attributes\TestSuite;
+use MyTester\CodeCoverage\Engines\DummyEngine;
 use MyTester\TestCase;
 
 /**

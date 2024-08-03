@@ -5,6 +5,7 @@ namespace MyTester\CodeCoverage;
 
 use MyTester\Attributes\TestSuite;
 use MyTester\CodeCoverage\CodeCoverageException as Exception;
+use MyTester\CodeCoverage\Engines\DummyEngine;
 use MyTester\TestCase;
 
 /**

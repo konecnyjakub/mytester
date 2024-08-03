@@ -2,6 +2,7 @@ Version 5.0.0-dev
 - BC break: forbidden passing string to parameter $value of assertions assertCount and assertNotCount
 - added option to skip test after it was started
 - automated tests runner and Nette DI container extension can generate code coverage reports
+- moved code coverage engines into namespace MyTester\CodeCoverage\Engines and formatters into MyTester\CodeCoverage\Formatters
 
 Version 4.2.0
 - moved CodeCoverageException to namespace MyTester\CodeCoverage

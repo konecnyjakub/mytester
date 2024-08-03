@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\CodeCoverage;
+namespace MyTester\CodeCoverage\Formatters;
+
+use MyTester\CodeCoverage\ICodeCoverageFormatter;
+use MyTester\CodeCoverage\Report;
 
 /**
  * Percent formatter for code coverage

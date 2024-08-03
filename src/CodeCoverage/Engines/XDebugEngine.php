@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\CodeCoverage;
+namespace MyTester\CodeCoverage\Engines;
+
+use MyTester\CodeCoverage\ICodeCoverageEngine;
 
 /**
  * XDebug engine for code coverage collector
