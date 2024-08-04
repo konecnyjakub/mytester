@@ -173,7 +173,7 @@ final class TestCaseTest extends TestCase
     public function testGetJobs(): void
     {
         $jobs = $this->getJobs();
-        $this->assertCount(19, $jobs);
+        $this->assertCount(20, $jobs);
 
         $job = $jobs[0];
         $this->assertSame("TestCase::testState", $job->name);
@@ -307,6 +307,13 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+
+        $job = $jobs[19];
+        $this->assertSame("TestCase::testWhatever", $job->name);
+        $this->assertSame([$this, "testWhatever", ], $job->callback);
+        $this->assertSame([], $job->params);
+        $this->assertFalse((bool) $job->skip);
+        $this->assertCount(1, $job->onAfterExecute);
     }
 
     public function testIncomplete(): void
@@ -331,5 +338,13 @@ final class TestCaseTest extends TestCase
         }, SkippedTestException::class, "abc");
         $this->markTestSkipped("test");
         $this->assertTrue(false);
+    }
+
+    /**
+     * The last test method in this class has to executed so {@see self::shutDown()} does not report a failure
+     */
+    public function testWhatever(): void
+    {
+        $this->assertTrue(true);
     }
 }
