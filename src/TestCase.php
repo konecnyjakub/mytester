@@ -189,9 +189,7 @@ abstract class TestCase
         $passed = true;
         foreach ($jobs as $job) {
             $this->runJob($job);
-            if ($job->result === JobResult::FAILED) {
-                $passed = false;
-            }
+            $passed = $passed && $job->result !== JobResult::FAILED;
         }
         $this->shutDown();
         return $passed;
