@@ -19,11 +19,11 @@ final class Job
 
     public readonly string $name;
     /** @var callable Task */
-    protected $callback;
+    private $callback;
     public readonly array $params;
-    protected bool|string $skip;
-    protected JobResult $result = JobResult::PASSED;
-    protected string $output = "";
+    private bool|string $skip;
+    private JobResult $result = JobResult::PASSED;
+    private string $output = "";
     /** @var callable[] */
     public array $onAfterExecute = [];
 
