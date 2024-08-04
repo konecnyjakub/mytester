@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use Ayesh\PHP_Timer\Timer;
+
 /**
  * One job of the test suite
  *
@@ -11,6 +13,7 @@ namespace MyTester;
  * @property-read bool|string $skip
  * @property-read JobResult $result
  * @property-read string $output @internal
+ * @property-read int $totalTime Total elapsed time in milliseconds
  * @method void onAfterExecute()
  */
 final class Job
@@ -24,6 +27,8 @@ final class Job
     private bool|string $skip;
     private JobResult $result = JobResult::PASSED;
     private string $output = "";
+    /** @var int Total elapsed time in milliseconds */
+    private int $totalTime = 0;
     /** @var callable[] */
     public array $onAfterExecute = [];
 
@@ -61,12 +66,19 @@ final class Job
         return $this->output;
     }
 
+    protected function getTotalTime(): int
+    {
+        return $this->totalTime;
+    }
+
     /**
      * Executes the task
      */
     public function execute(): void
     {
         if (!$this->skip) {
+            $timerName = $this->name . time();
+            Timer::start($timerName);
             ob_start();
             try {
                 call_user_func_array($this->callback, $this->params);
@@ -80,6 +92,9 @@ final class Job
             /** @var string $output */
             $output = ob_get_clean();
             $this->output = $output;
+            Timer::stop($timerName);
+            // @phpstan-ignore argument.type
+            $this->totalTime = (int) Timer::read($timerName, Timer::FORMAT_PRECISE);
         }
         $this->result = JobResult::fromJob($this);
     }
