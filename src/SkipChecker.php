@@ -59,7 +59,8 @@ final class SkipChecker
                 if ($checker === null) {
                     return false;
                 }
-                return $checker($v);
+                $value = $checker($v);
+                return $value ?? false;
             }
         }
         return false;
