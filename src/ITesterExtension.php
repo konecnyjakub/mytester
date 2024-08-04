@@ -5,6 +5,8 @@ namespace MyTester;
 
 /**
  * Extension for {@see Tester}
+ *
+ * @author Jakub Konečný
  */
 interface ITesterExtension
 {
