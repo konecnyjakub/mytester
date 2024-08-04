@@ -23,4 +23,11 @@ class PercentFormatterTest extends TestCase
         $result = $formatter->render($report);
         $this->assertSame("Calculating code coverage... 62% covered\n", $result);
     }
+
+    public function testGetOutputFileName(): void
+    {
+        $formatter = new PercentFormatter();
+        $this->assertSame("php://output", $formatter->getOutputFileName("/var/project"));
+        $this->assertSame("php://output", $formatter->getOutputFileName("/var/project/sub1"));
+    }
 }

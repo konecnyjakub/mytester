@@ -1,0 +1,7 @@
+..s.FWsW
+MyTester\OutputFormatters\TestCaseTwo::testThree passed with warning: No assertions were performed.
+MyTester\OutputFormatters\TestCaseThree::testTwo passed with warning: incomplete
+Skipped MyTester\OutputFormatters\TestCaseOne::testThree
+Skipped MyTester\OutputFormatters\TestCaseThree::testOne
+
+Failed (8 tests, 3 passed, 2 passed with warnings, 1 failed, 2 skipped, 1 ms)
