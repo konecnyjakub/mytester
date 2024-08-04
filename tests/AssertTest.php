@@ -61,6 +61,9 @@ final class AssertTest extends TestCase
         $this->assertThrowsException(function () {
             throw new \RuntimeException("abc", 1);
         }, \RuntimeException::class, "abc", 1);
+        $this->assertNoException(function () {
+            time();
+        });
         $this->assertOutput(function () {
             echo "abc";
         }, "abc");
@@ -165,20 +168,25 @@ final class AssertTest extends TestCase
             }, \RuntimeException::class, "abc", 1);
         }, "Test 53 failed. The code does not throw an exception with code 1 but 2.\n");
         $this->assertOutput(function () {
+            $this->assertNoException(function () {
+                throw new \RuntimeException();
+            });
+        }, "Test 55 failed. No exception was expected but RuntimeException was thrown.\n");
+        $this->assertOutput(function () {
             $this->assertMatchesRegExp('/abc/', "def");
-        }, "Test 55 failed. The string does not match regular expression.\n");
+        }, "Test 57 failed. The string does not match regular expression.\n");
         $this->assertOutput(function () {
             $this->assertArrayOfClass(
                 \stdClass::class,
                 [new stdClass(), new DummyEngine(), "abc", ]
             );
-        }, "Test 57 failed. The array does not contain only instances of stdClass.\n");
+        }, "Test 59 failed. The array does not contain only instances of stdClass.\n");
         $this->assertOutput(function () {
             $this->assertArrayOfClass(
                 \stdClass::class,
                 []
             );
-        }, "Test 59 failed. The array is empty.\n");
+        }, "Test 61 failed. The array is empty.\n");
     }
 
     /**

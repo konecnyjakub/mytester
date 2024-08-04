@@ -289,6 +289,18 @@ trait TAssertions
         $this->testResult($errorMessage, $success);
     }
 
+    protected function assertNoException(callable $callback): void
+    {
+        $e = null;
+        try {
+            $callback();
+        } catch (\Throwable $e) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
+        }
+        $success = ($e === null);
+        $message = ($success) ? "" : "No exception was expected but " . $e::class . " was thrown.";
+        $this->testResult($message, $success);
+    }
+
     /**
      * Is output of code $expected?
      */

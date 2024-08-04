@@ -1,3 +1,6 @@
+Version 5.1.0-dev
+- added assertion assertNoException
+
 Version 5.0.0
 - BC break: forbidden passing string to parameter $value of assertions assertCount and assertNotCount
 - added option to skip test after it was started
