@@ -9,7 +9,7 @@ final class TestCaseThree extends TestCase
 {
     public function testOne(): void
     {
-        $this->markTestSkipped();
+        $this->markTestSkipped("abc");
     }
 
     /**
