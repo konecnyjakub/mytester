@@ -1,0 +1,10 @@
+TAP version 14
+ok 1
+ok 2
+ok 3 # SKIP
+ok 4
+not ok 5 - Test 1 failed. The value is not true.
+ok 6 - No assertions were performed. # TODO
+ok 7 - abc # SKIP
+ok 8 - incomplete # TODO
+1..8
