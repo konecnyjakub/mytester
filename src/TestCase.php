@@ -98,8 +98,10 @@ abstract class TestCase
 
     /**
      * Get name of a test suite
+     *
+     * @internal
      */
-    protected function getSuiteName(string|object|null $class = null): string
+    public function getSuiteName(string|object|null $class = null): string
     {
         $class = $class ?? static::class;
         $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST_SUITE, $class);
