@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="MyTester" basedir="." default="test">
  <target name="test">
+   <delete verbose="true" failonerror="false">
+     <fileset dir="${project.basedir}/tests/temp/cache/nette.configurator">
+       <include name="Container_*"/>
+     </fileset>
+   </delete>
    <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
      <arg value="install"/>
      <arg value="--prefer-dist"/>
