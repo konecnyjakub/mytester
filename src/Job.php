@@ -29,6 +29,10 @@ final class Job
     private string $output = "";
     /** @var int Total elapsed time in milliseconds */
     private int $totalTime = 0;
+    /**
+     * @internal
+     */
+    public int $totalAssertions = 0;
     /** @var callable[] */
     public array $onAfterExecute = [];
 

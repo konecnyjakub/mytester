@@ -172,6 +172,7 @@ abstract class TestCase
             $this->setUp();
         }
         $job->execute();
+        $job->totalAssertions = $this->getCounter();
         if (!$job->skip) {
             $this->tearDown();
         }
