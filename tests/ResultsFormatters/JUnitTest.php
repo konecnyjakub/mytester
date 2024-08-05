@@ -27,6 +27,7 @@ final class JUnitTest extends TestCase
         $testCase3->run();
         $outputFormatter->reportTestCase($testCase3);
         $result = $outputFormatter->render(1);
+        $result = str_replace(__DIR__, "/var/project/tests/ResultsFormatters", $result);
         $this->assertSame(file_get_contents(__DIR__ . "/junit_output.xml"), $result);
     }
 
