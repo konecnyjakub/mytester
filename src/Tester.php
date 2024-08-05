@@ -57,7 +57,11 @@ final class Tester
         $this->testSuiteFactory = $testSuiteFactory;
         $this->folder = $folder;
         $this->console = new Console();
-        $this->resultsFormatter = new ResultsFormatters\Console($this->console, $this->folder);
+        $this->resultsFormatter = new ResultsFormatters\Console();
+        $this->resultsFormatter->setTestsFolder($this->folder);
+        if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
+            $this->resultsFormatter->setConsole($this->console);
+        }
         $this->extensions = $extensions;
 
         $this->onExecute[] = [$this, "setup"];

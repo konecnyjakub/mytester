@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
-use MyTester\IResultsFormatter;
+use MyTester\IConsoleAwareResultsFormatter;
 use MyTester\JobResult;
 use MyTester\SkippedTest;
 use MyTester\TestCase;
@@ -19,11 +19,11 @@ use Nette\Utils\Finder;
  * @author Jakub Konečný
  * @internal
  */
-final class Console implements IResultsFormatter
+final class Console implements IConsoleAwareResultsFormatter
 {
-    public readonly \Nette\CommandLine\Console $console;
+    public \Nette\CommandLine\Console $console;
 
-    private readonly string $folder;
+    private string $folder;
 
     /** @var SkippedTest[] */
     private array $skipped = [];
@@ -32,12 +32,6 @@ final class Console implements IResultsFormatter
     private array $warnings = [];
 
     private string $results = "";
-
-    public function __construct(\Nette\CommandLine\Console $console, string $folder)
-    {
-        $this->console = $console;
-        $this->folder = $folder;
-    }
 
     public function setup(): void
     {
@@ -48,6 +42,16 @@ final class Console implements IResultsFormatter
             } catch (IOException) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
             }
         }
+    }
+
+    public function setTestsFolder(string $folder): void
+    {
+        $this->folder = $folder;
+    }
+
+    public function setConsole(\Nette\CommandLine\Console $console): void
+    {
+        $this->console = $console;
     }
 
     public function reportTestCase(TestCase $testCase): void
