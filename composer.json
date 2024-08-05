@@ -34,7 +34,7 @@
     },
     "suggest": {
         "ext-pcov": "For generating code coverage reports",
-        "ext-dom": "For generating Cobertura code coverage reports"
+        "ext-dom": "For generating Cobertura code coverage reports and/or JUnit reports"
     },
     "conflict": {
         "nette/robot-loader": "<4.0.1",
