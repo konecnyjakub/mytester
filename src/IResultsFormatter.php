@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace MyTester;
 
 /**
- * Output formatter for {@see Tester}
+ * Results formatter for {@see Tester}
  *
  * @author Jakub Konečný
  * @internal
  */
-interface IOutputFormatter
+interface IResultsFormatter
 {
     public function setup(): void;
 

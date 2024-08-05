@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\OutputFormatters;
+namespace MyTester\ResultsFormatters;
 
-use MyTester\IOutputFormatter;
+use MyTester\IResultsFormatter;
 use MyTester\JobResult;
 use MyTester\SkippedTest;
 use MyTester\TestCase;
@@ -13,13 +13,13 @@ use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
 
 /**
- * Console output formatter for Tester
+ * Console results formatter for Tester
  * Prints the results to console/standard output
  *
  * @author Jakub Konečný
  * @internal
  */
-final class Console implements IOutputFormatter
+final class Console implements IResultsFormatter
 {
     public readonly \Nette\CommandLine\Console $console;
 

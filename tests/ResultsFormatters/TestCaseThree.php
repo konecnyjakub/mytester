@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\OutputFormatters;
+namespace MyTester\ResultsFormatters;
 
 use MyTester\TestCase;
 

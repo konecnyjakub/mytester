@@ -1,14 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\OutputFormatters;
+namespace MyTester\ResultsFormatters;
 
+use MyTester\Attributes\Skip;
 use MyTester\TestCase;
 
 /**
  * @author Jakub Konečný
  */
-final class TestCaseTwo extends TestCase
+final class TestCaseOne extends TestCase
 {
     public function testOne(): void
     {
@@ -17,10 +18,12 @@ final class TestCaseTwo extends TestCase
 
     public function testTwo(): void
     {
-        $this->assertTrue(false);
+        $this->assertTrue(true);
     }
 
+    #[Skip()]
     public function testThree(): void
     {
+        $this->assertFalse(true);
     }
 }

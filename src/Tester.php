@@ -32,7 +32,7 @@ final class Tester
     public array $onFinish = [];
     public ITestSuiteFactory $testSuiteFactory;
     public ITestSuitesFinder $testSuitesFinder;
-    private IOutputFormatter $outputFormatter;
+    private IResultsFormatter $resultsFormatter;
     private Console $console;
     private readonly string $folder;
     private bool $useColors = false;
@@ -57,12 +57,12 @@ final class Tester
         $this->testSuiteFactory = $testSuiteFactory;
         $this->folder = $folder;
         $this->console = new Console();
-        $this->outputFormatter = new \MyTester\OutputFormatters\Console($this->console, $this->folder);
+        $this->resultsFormatter = new ResultsFormatters\Console($this->console, $this->folder);
         $this->extensions = $extensions;
 
         $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "printInfo"];
-        $this->onExecute[] = [$this->outputFormatter, "setup"];
+        $this->onExecute[] = [$this->resultsFormatter, "setup"];
         $this->onExecute[] = function () {
             foreach ($this->extensions as $extension) {
                 foreach ($extension->getEventsPreRun() as $callback) {
@@ -115,7 +115,7 @@ final class Tester
             if (!$suite->run()) {
                 $failed = true;
             }
-            $this->outputFormatter->reportTestCase($suite);
+            $this->resultsFormatter->reportTestCase($suite);
         }
         $this->onFinish();
         exit((int) $failed);
@@ -144,8 +144,8 @@ final class Tester
         // @phpstan-ignore argument.type
         $totalTime = (int) Timer::read(static::TIMER_NAME, Timer::FORMAT_PRECISE);
         /** @var resource $outputFile */
-        $outputFile = fopen($this->outputFormatter->getOutputFileName((string) getcwd()), "w");
-        fwrite($outputFile, $this->outputFormatter->render($totalTime));
+        $outputFile = fopen($this->resultsFormatter->getOutputFileName((string) getcwd()), "w");
+        fwrite($outputFile, $this->resultsFormatter->render($totalTime));
         fclose($outputFile);
     }
 }

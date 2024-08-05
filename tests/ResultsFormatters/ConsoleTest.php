@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\OutputFormatters;
+namespace MyTester\ResultsFormatters;
 
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
@@ -11,7 +11,7 @@ use MyTester\TestCase;
  *
  * @author Jakub Konečný
  */
-#[TestSuite("Output formatter console")]
+#[TestSuite("Results formatter console")]
 final class ConsoleTest extends TestCase
 {
     public function testRender(): void
