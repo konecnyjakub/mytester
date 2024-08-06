@@ -169,9 +169,9 @@ build:
             tests:
                 override:
                     -
-                        command: ./vendor/bin/phpcs . --extensions=php --report=checkstyle --report-file=codesniffer.cs --standard=phpcs.xml
+                        command: ./vendor/bin/phpcs . --extensions=php --report=checkstyle --report-file=codesniffer.xml --standard=phpcs.xml
                         analysis:
-                            file: codesniffer.cs
+                            file: codesniffer.xml
                             format: 'general-checkstyle'
                     - php ./tests/NetteDI.php
                     -
