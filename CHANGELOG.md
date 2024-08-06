@@ -1,6 +1,7 @@
 Version 5.1.0-dev
 - added assertions assertNoException and assertMatchesFile
 - Job reports total elapsed time in milliseconds in $totalTime
+- added the option to output results of tests in a different format to automated tests runner
 
 Version 5.0.0
 - BC break: forbidden passing string to parameter $value of assertions assertCount and assertNotCount
