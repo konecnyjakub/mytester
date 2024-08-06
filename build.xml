@@ -12,27 +12,44 @@
      <arg value="--no-progress"/>
      <arg value="--no-interaction"/>
    </exec>
-   <exec executable="vendor/bin/parallel-lint" logoutput="true" passthru="true" checkreturn="true">
-     <arg path="src"/>
-     <arg path="tests"/>
-     <arg value="-e"/>
-     <arg value="php"/>
-     <arg value="--colors"/>
-     <arg value="--exclude"/>
-     <arg path="tests/temp"/>
-   </exec>
-   <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
-     <arg value="."/>
-     <arg value="--colors"/>
-   </exec>
-   <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
-     <arg value="analyze"/>
-   </exec>
-   <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
-     <arg value="--colors"/>
-     <arg value="--resultsFormat"/>
-     <arg value="junit"/>
-   </exec>
+   <if>
+     <not>
+       <isset property="env.REPORTS"/>
+     </not>
+     <then>
+       <exec executable="vendor/bin/parallel-lint" logoutput="true" passthru="true" checkreturn="true">
+         <arg path="src"/>
+         <arg path="tests"/>
+         <arg value="-e"/>
+         <arg value="php"/>
+         <arg value="--colors"/>
+         <arg value="--exclude"/>
+         <arg path="tests/temp"/>
+       </exec>
+       <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
+         <arg value="."/>
+         <arg value="--colors"/>
+       </exec>
+       <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
+         <arg value="analyze"/>
+       </exec>
+     </then>
+   </if>
+   <if>
+     <isset property="env.REPORTS"/>
+     <then>
+       <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
+         <arg value="--colors"/>
+         <arg value="--resultsFormat"/>
+         <arg value="junit"/>
+       </exec>
+     </then>
+     <else>
+       <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
+         <arg value="--colors"/>
+       </exec>
+     </else>
+   </if>
    <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true"/>
    <!-- It is run 2 times because the first run doesn't go through all code that it should -->
    <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true"/>
