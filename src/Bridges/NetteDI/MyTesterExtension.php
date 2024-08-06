@@ -10,6 +10,7 @@ use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
 use MyTester\ITesterExtension;
+use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
@@ -28,6 +29,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     public const TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
     private const SERVICE_RUNNER = "runner";
     private const SERVICE_SUITE_FACTORY = "suiteFactory";
+    private const SERVICE_RESULTS_FORMATTER = "resultsFormatter";
     private const SERVICE_EXTENSION_PREFIX = "extension.";
     private const SERVICE_CC_COLLECTOR = "coverage.collector";
     private const SERVICE_CC_ENGINE_PREFIX = "coverage.engine.";
@@ -52,6 +54,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             "coverageFormat" => Expect::anyOf(
                 null,
                 ...array_keys(CodeCoverageHelper::$availableFormatters)
+            )->default(null),
+            "resultsFormat" => Expect::anyOf(
+                null,
+                ...array_keys(ResultsHelper::$availableFormatters)
             )->default(null),
         ])->castTo("array");
     }
@@ -99,6 +105,11 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             $builder->addDefinition($this->prefix(static::SERVICE_CC_FORMATTER_PREFIX . $name))
                 ->setType($className)
                 ->addTag(static::TAG_COVERAGE_FORMATTER);
+        }
+
+        if ($config["resultsFormat"] !== null) {
+            $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER))
+                ->setType(ResultsHelper::$availableFormatters[$config["resultsFormat"]]);
         }
     }
 

@@ -1,3 +1,5 @@
-A new version of My Tester is out. It adds assertion assertNoException.
+A new version of My Tester is out. It adds the option to output results of tests in a different format. Several options are already available, more might be added in the future.
+
+There is new assertion assertNoException.
 
 For complete list of changes since previous version, see CHANGELOG.md.

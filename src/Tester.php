@@ -46,7 +46,8 @@ final class Tester
         string $folder,
         ITestSuitesFinder $testSuitesFinder = null,
         ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
-        array $extensions = []
+        array $extensions = [],
+        ?IResultsFormatter $resultsFormatter = null
     ) {
         if ($testSuitesFinder === null) {
             $testSuitesFinder = new ChainTestSuitesFinder();
@@ -57,7 +58,7 @@ final class Tester
         $this->testSuiteFactory = $testSuiteFactory;
         $this->folder = $folder;
         $this->console = new Console();
-        $this->resultsFormatter = new ResultsFormatters\Console();
+        $this->resultsFormatter = $resultsFormatter ?? new ResultsFormatters\Console();
         $this->resultsFormatter->setTestsFolder($this->folder);
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);

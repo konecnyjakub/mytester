@@ -11,6 +11,7 @@ use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use Nette\CommandLine\Parser;
 
@@ -26,6 +27,11 @@ $cmd = new Parser("", [
         Parser::Optional => true,
         Parser::Enum => array_keys(CodeCoverageHelper::$availableFormatters),
     ],
+    "--resultsFormat" => [
+        Parser::Argument => true,
+        Parser::Optional => true,
+        Parser::Enum => array_keys(ResultsHelper::$availableFormatters),
+    ],
 ]);
 $options = $cmd->parse();
 
@@ -40,10 +46,18 @@ if ($coverageFormat !== null) {
     $codeCoverageCollector->registerFormatter(new $type()); // @phpstan-ignore argument.type
 }
 
+$resultsFormatter = null;
+$resultsFormat = $options["--resultsFormat"];
+if ($resultsFormat !== null) {
+    $type = ResultsHelper::$availableFormatters[$resultsFormat];
+    /** @var \MyTester\IResultsFormatter $resultsFormatter */
+    $resultsFormatter = new $type();
+}
+
 $extensions = [
     new CodeCoverageExtension($codeCoverageCollector),
 ];
 
-$tester = new Tester(folder: $options["path"], extensions: $extensions);
+$tester = new Tester(folder: $options["path"], extensions: $extensions, resultsFormatter: $resultsFormatter);
 $tester->useColors = isset($options["--colors"]);
 $tester->execute();

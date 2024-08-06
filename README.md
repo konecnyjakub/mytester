@@ -183,11 +183,29 @@ Automated tests runner can print results with colors, but it is not enabled but 
 ./vendor/bin/mytester tests/unit --colors
 ```
 
+### Results format
+
+It is possible to display results of tests in a different format and for some formats even put them into a file that can be processed by your continuous integration system, just pass argument *--resultsFormat* to the script. Supported formats at the moment are JUnit, TAP and TextDox (value is name of the format lower cased).
+
+JUnit prints the results into file junit.xml. TestDox uses custom names set by attributes TestSuite/Test if they are set, otherwise just class name and method name.
+
+```bash
+./vendor/bin/mytester tests/unit ----resultsFormat junit
+```
+
+```bash
+./vendor/bin/mytester tests/unit ----resultsFormat tap
+```
+
+```bash
+./vendor/bin/mytester tests/unit ----resultsFormat testdox
+```
+
 ### Code coverage
 
 My Tester automatically generates report % of code coverage when possible. It is done in class MyTester\Tester, so it is available in the provided script *vendor/bin/mytester* and our extension for Nette DI container (see below). You just need to run the script with pcov or xdebug extension enabled.
 
-It is also able to generate full code coverage reports. Supported formats are Cobertura and text. Just pass argument *--coverageFormat to the script, the value is generally the name of the format in lower case.
+It is also able to generate full code coverage reports. Supported formats are Cobertura and text. Just pass argument *--coverageFormat to the script, the value is generally the name of the format in lower case. Both of them put the report into a file, for Cobertura it is coverage.xml, for text coverage.txt.
 
 ```bash
 ./vendor/bin/mytester tests/unit --coverageFormat cobertura
