@@ -7,6 +7,7 @@ $vendorDirectory = findVendorDirectory();
 
 require $vendorDirectory . "/autoload.php";
 
+use Composer\InstalledVersions;
 use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
@@ -32,8 +33,17 @@ $cmd = new Parser("", [
         Parser::Optional => true,
         Parser::Enum => array_keys(ResultsHelper::$availableFormatters),
     ],
+    "--version" => [
+        Parser::Optional => true,
+    ],
 ]);
 $options = $cmd->parse();
+
+if (isset($options["--version"])) {
+    $version = InstalledVersions::getPrettyVersion("konecnyjakub/mytester");
+    echo "My Tester $version\n";
+    exit;
+}
 
 $codeCoverageCollector = new Collector();
 foreach (CodeCoverageHelper::$defaultEngines as $engine) {
