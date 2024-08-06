@@ -1,0 +1,13 @@
+MyTester\ResultsFormatters\TestCaseOne
+ [x] MyTester\ResultsFormatters\TestCaseOne::testOne
+ [x] MyTester\ResultsFormatters\TestCaseOne::testTwo
+ [ ] MyTester\ResultsFormatters\TestCaseOne::testThree
+
+MyTester\ResultsFormatters\TestCaseTwo
+ [x] MyTester\ResultsFormatters\TestCaseTwo::testOne
+ [ ] MyTester\ResultsFormatters\TestCaseTwo::testTwo
+ [ ] MyTester\ResultsFormatters\TestCaseTwo::testThree
+
+MyTester\ResultsFormatters\TestCaseThree
+ [ ] MyTester\ResultsFormatters\TestCaseThree::testOne
+ [ ] MyTester\ResultsFormatters\TestCaseThree::testTwo
