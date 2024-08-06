@@ -30,6 +30,8 @@
    </exec>
    <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
      <arg value="--colors"/>
+     <arg value="--resultsFormat"/>
+     <arg value="junit"/>
    </exec>
    <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true"/>
    <!-- It is run 2 times because the first run doesn't go through all code that it should -->
