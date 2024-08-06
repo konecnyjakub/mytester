@@ -326,6 +326,19 @@ trait TAssertions
     }
 
     /**
+     * Does $actual matches content of file $filename?
+     */
+    protected function assertMatchesFile(string $filename, string $actual): void
+    {
+        $expected = @file_get_contents($filename);
+        if ($expected === false) {
+            $this->testResult("File $filename could not be loaded.", false);
+            return;
+        }
+        $this->assertSame($expected, $actual);
+    }
+
+    /**
      * Is $actual an array consisting only of instances of $className
      *
      * @param class-string $className

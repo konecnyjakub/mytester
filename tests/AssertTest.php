@@ -68,6 +68,7 @@ final class AssertTest extends TestCase
             echo "abc";
         }, "abc");
         $this->assertMatchesRegExp('/abc/', "1abc2");
+        $this->assertMatchesFile(__DIR__ . "/test.txt", "abc\n");
         $this->assertArrayOfClass(
             \stdClass::class,
             [new stdClass(), new stdClass(), ]
@@ -182,11 +183,17 @@ final class AssertTest extends TestCase
             );
         }, "Test 59 failed. The array does not contain only instances of stdClass.\n");
         $this->assertOutput(function () {
+            $this->assertMatchesFile(__DIR__ . "/non_existing.txt", "");
+        }, "Test 61 failed. File " . __DIR__ . "/non_existing.txt could not be loaded.\n");
+        $this->assertOutput(function () {
+            $this->assertMatchesFile(__DIR__ . "/test.txt", "");
+        }, "Test 63 failed. The value is not 'abc\n' but ''.\n");
+        $this->assertOutput(function () {
             $this->assertArrayOfClass(
                 \stdClass::class,
                 []
             );
-        }, "Test 61 failed. The array is empty.\n");
+        }, "Test 65 failed. The array is empty.\n");
     }
 
     /**

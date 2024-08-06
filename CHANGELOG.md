@@ -1,5 +1,5 @@
 Version 5.1.0-dev
-- added assertion assertNoException
+- added assertions assertNoException and assertMatchesFile
 - Job reports total elapsed time in milliseconds in $totalTime
 
 Version 5.0.0
