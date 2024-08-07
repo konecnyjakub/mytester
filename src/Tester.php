@@ -6,6 +6,7 @@ namespace MyTester;
 use Ayesh\PHP_Timer\Timer;
 use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use Nette\CommandLine\Console;
 
 /**
@@ -157,8 +158,13 @@ final class Tester
 
     private function printResults(): void
     {
+        $filename = $this->resultsFormatter->getOutputFileName((string) getcwd());
+        if (ResultsHelper::isFileOutput($filename)) {
+            echo "Results are redirected into file $filename\n";
+        }
+
         /** @var resource $outputFile */
-        $outputFile = fopen($this->resultsFormatter->getOutputFileName((string) getcwd()), "w");
+        $outputFile = fopen($filename, "w");
         fwrite($outputFile, $this->resultsFormatter->render());
         fclose($outputFile);
     }
