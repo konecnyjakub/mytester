@@ -9,7 +9,7 @@ namespace MyTester;
  * @author Jakub Konečný
  * @internal
  */
-interface ITestFolderAwareResultsFormatter extends IResultsFormatter
+interface ITestsFolderAwareResultsFormatter extends IResultsFormatter
 {
     public function setTestsFolder(string $folder): void;
 }
