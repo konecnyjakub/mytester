@@ -59,7 +59,9 @@ final class Tester
         $this->folder = $folder;
         $this->console = new Console();
         $this->resultsFormatter = $resultsFormatter ?? new ResultsFormatters\Console();
-        $this->resultsFormatter->setTestsFolder($this->folder);
+        if (is_subclass_of($this->resultsFormatter, ITestFolderAwareResultsFormatter::class)) {
+            $this->resultsFormatter->setTestsFolder($this->folder);
+        }
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
         }

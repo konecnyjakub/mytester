@@ -13,8 +13,6 @@ interface IResultsFormatter
 {
     public function setup(): void;
 
-    public function setTestsFolder(string $folder): void;
-
     /**
      * Report results of one {@see TestCase}
      */

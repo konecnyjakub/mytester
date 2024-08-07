@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\IConsoleAwareResultsFormatter;
+use MyTester\ITestFolderAwareResultsFormatter;
 use MyTester\JobResult;
 use MyTester\SkippedTest;
 use MyTester\TestCase;
@@ -19,7 +20,7 @@ use Nette\Utils\Finder;
  * @author Jakub Konečný
  * @internal
  */
-final class Console implements IConsoleAwareResultsFormatter
+final class Console implements IConsoleAwareResultsFormatter, ITestFolderAwareResultsFormatter
 {
     public \Nette\CommandLine\Console $console;
 
