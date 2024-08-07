@@ -4,10 +4,9 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use DOMDocument;
-use MyTester\IResultsFormatter;
+use MyTester\AbstractResultsFormatter;
 use MyTester\Job;
 use MyTester\JobResult;
-use MyTester\TestCase;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
@@ -22,25 +21,9 @@ use ReflectionMethod;
  * @author Jakub Konečný
  * @internal
  */
-final class JUnit implements IResultsFormatter
+final class JUnit extends AbstractResultsFormatter
 {
     private string $baseFileName = "junit.xml";
-
-    /** @var TestCase[] */
-    private array $testCases = [];
-
-    public function setup(): void
-    {
-    }
-
-    public function setTestsFolder(string $folder): void
-    {
-    }
-
-    public function reportTestCase(TestCase $testCase): void
-    {
-        $this->testCases[] = $testCase;
-    }
 
     public function render(int $totalTime): string
     {

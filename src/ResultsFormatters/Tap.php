@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
-use MyTester\IResultsFormatter;
+use MyTester\AbstractResultsFormatter;
 use MyTester\JobResult;
-use MyTester\TestCase;
 
 /**
  * TAP results formatter for Tester
@@ -15,25 +14,9 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  * @internal
  */
-final class Tap implements IResultsFormatter
+final class Tap extends AbstractResultsFormatter
 {
     public const TAP_VERSION = 14;
-
-    /** @var TestCase[] */
-    private array $testCases = [];
-
-    public function setup(): void
-    {
-    }
-
-    public function setTestsFolder(string $folder): void
-    {
-    }
-
-    public function reportTestCase(TestCase $testCase): void
-    {
-        $this->testCases[] = $testCase;
-    }
 
     public function render(int $totalTime): string
     {
@@ -69,10 +52,5 @@ final class Tap implements IResultsFormatter
         /** @var string $result */
         $result = ob_get_clean();
         return $result;
-    }
-
-    public function getOutputFileName(string $folder): string
-    {
-        return "php://output";
     }
 }
