@@ -3,17 +3,18 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use MyTester\ICustomFileNameResultsFormatter;
 use MyTester\JobResult;
 use MyTester\TestCase;
 
 /**
  * TAP results formatter for Tester
- * Outputs the results to console/standard output in TAP format
+ * Outputs the results to console/standard output in TAP format (can be set to output into a file)
  * @see http://testanything.org/tap-version-14-specification.html
  *
  * @author Jakub Konečný
  */
-final class Tap extends AbstractResultsFormatter
+final class Tap extends AbstractResultsFormatter implements ICustomFileNameResultsFormatter
 {
     public const TAP_VERSION = 14;
 
@@ -64,5 +65,13 @@ final class Tap extends AbstractResultsFormatter
         /** @var string $result */
         $result = ob_get_clean();
         return $result;
+    }
+
+    /**
+     * @internal
+     */
+    public function setOutputFileName(string $baseFileName): void
+    {
+        $this->baseFileName = $baseFileName;
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use DOMDocument;
+use MyTester\ICustomFileNameResultsFormatter;
 use MyTester\Job;
 use MyTester\JobResult;
 use ReflectionClass;
@@ -19,9 +20,9 @@ use ReflectionMethod;
  *
  * @author Jakub Konečný
  */
-final class JUnit extends AbstractResultsFormatter
+final class JUnit extends AbstractResultsFormatter implements ICustomFileNameResultsFormatter
 {
-    private string $baseFileName = "junit.xml";
+    protected string $baseFileName = "junit.xml";
 
     public function render(): string
     {
@@ -122,9 +123,12 @@ final class JUnit extends AbstractResultsFormatter
         return (string) $document->saveXML();
     }
 
-    public function getOutputFileName(string $folder): string
+    /**
+     * @internal
+     */
+    public function setOutputFileName(string $baseFileName): void
     {
-        return "$folder/{$this->baseFileName}";
+        $this->baseFileName = $baseFileName;
     }
 
     private function createReflectionFromCallback(callable $callback): ReflectionFunctionAbstract

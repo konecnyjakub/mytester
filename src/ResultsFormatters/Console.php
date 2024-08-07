@@ -127,11 +127,6 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
         return $result;
     }
 
-    public function getOutputFileName(string $folder): string
-    {
-        return "php://output";
-    }
-
     /**
      * Print info about tests with warnings
      */

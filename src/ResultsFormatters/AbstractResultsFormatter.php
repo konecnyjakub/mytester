@@ -17,6 +17,8 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
     /** @var TestCase[] All test cases that have finished (no matter their result) */
     protected array $testCases = [];
 
+    protected string $baseFileName = "php://output";
+
     /** @var int Total elapsed time in milliseconds */
     protected int $totalTime = 0;
 
@@ -44,6 +46,9 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
 
     public function getOutputFileName(string $folder): string
     {
-        return "php://output";
+        if ($this->baseFileName === "php://output") {
+            return $this->baseFileName;
+        }
+        return "$folder/{$this->baseFileName}";
     }
 }

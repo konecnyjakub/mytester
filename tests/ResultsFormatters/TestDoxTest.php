@@ -37,5 +37,8 @@ final class TestDoxTest extends TestCase
         $outputFormatter = new TestDox();
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project"));
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project/sub1"));
+        $outputFormatter->setOutputFileName("testdox.txt");
+        $this->assertSame("/var/project/testdox.txt", $outputFormatter->getOutputFileName("/var/project"));
+        $this->assertSame("/var/project/sub1/testdox.txt", $outputFormatter->getOutputFileName("/var/project/sub1"));
     }
 }

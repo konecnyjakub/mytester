@@ -37,5 +37,8 @@ final class TAPTest extends TestCase
         $outputFormatter = new Tap();
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project"));
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project/sub1"));
+        $outputFormatter->setOutputFileName("tap.txt");
+        $this->assertSame("/var/project/tap.txt", $outputFormatter->getOutputFileName("/var/project"));
+        $this->assertSame("/var/project/sub1/tap.txt", $outputFormatter->getOutputFileName("/var/project/sub1"));
     }
 }

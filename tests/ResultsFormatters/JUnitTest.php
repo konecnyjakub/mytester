@@ -38,5 +38,8 @@ final class JUnitTest extends TestCase
         $outputFormatter = new JUnit();
         $this->assertSame("/var/project/junit.xml", $outputFormatter->getOutputFileName("/var/project"));
         $this->assertSame("/var/project/sub1/junit.xml", $outputFormatter->getOutputFileName("/var/project/sub1"));
+        $outputFormatter->setOutputFileName("junit_output.xml");
+        $this->assertSame("/var/project/junit_output.xml", $outputFormatter->getOutputFileName("/var/project"));
+        $this->assertSame("/var/project/sub1/junit_output.xml", $outputFormatter->getOutputFileName("/var/project/sub1"));
     }
 }

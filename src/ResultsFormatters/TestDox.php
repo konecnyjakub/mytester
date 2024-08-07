@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use MyTester\ICustomFileNameResultsFormatter;
 use MyTester\JobResult;
 
 /**
  * TestDox results formatter for Tester
- * Outputs the results to console/standard output in TestDox format
+ * Outputs the results to console/standard output in TestDox format (can be set to output into a file)
  *
  * @author Jakub Konečný
  */
-final class TestDox extends AbstractResultsFormatter
+final class TestDox extends AbstractResultsFormatter implements ICustomFileNameResultsFormatter
 {
     public function render(): string
     {
@@ -34,5 +35,13 @@ final class TestDox extends AbstractResultsFormatter
         /** @var string $result */
         $result = ob_get_clean();
         return $result;
+    }
+
+    /**
+     * @internal
+     */
+    public function setOutputFileName(string $baseFileName): void
+    {
+        $this->baseFileName = $baseFileName;
     }
 }
