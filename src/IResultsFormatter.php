@@ -11,6 +11,9 @@ namespace MyTester;
  */
 interface IResultsFormatter
 {
+    /**
+     * Anything that needs to be done before tests start running
+     */
     public function setup(): void;
 
     /**

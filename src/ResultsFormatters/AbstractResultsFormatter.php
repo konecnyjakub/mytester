@@ -8,13 +8,14 @@ use MyTester\TestCase;
 
 /**
  * Base results formatter for Tester
+ * Allows defining only necessary method for the results formatter
  *
  * @author Jakub Konečný
  * @internal
  */
 abstract class AbstractResultsFormatter implements IResultsFormatter
 {
-    /** @var TestCase[] */
+    /** @var TestCase[] All test cases that have finished (no matter their result) */
     protected array $testCases = [];
 
     /** @var int Total elapsed time in milliseconds */
