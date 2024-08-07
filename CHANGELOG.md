@@ -1,4 +1,4 @@
-Version 5.1.0-dev
+Version 5.1.0
 - added assertions assertNoException and assertMatchesFile
 - Job reports total elapsed time in milliseconds in $totalTime
 - added the option to output results of tests in a different format to automated tests runner
