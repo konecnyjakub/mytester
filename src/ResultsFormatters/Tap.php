@@ -17,7 +17,7 @@ final class Tap extends AbstractResultsFormatter
 {
     public const TAP_VERSION = 14;
 
-    public function render(int $totalTime): string
+    public function render(): string
     {
         ob_start();
 

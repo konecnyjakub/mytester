@@ -130,7 +130,10 @@ final class Tester
             }
             $this->resultsFormatter->reportTestCaseFinished($testCase);
         }
-        $this->resultsFormatter->reportTestsFinished($testCases);
+        Timer::stop(static::TIMER_NAME);
+        // @phpstan-ignore argument.type
+        $totalTime = (int) Timer::read(static::TIMER_NAME, Timer::FORMAT_PRECISE);
+        $this->resultsFormatter->reportTestsFinished($testCases, $totalTime);
         $this->onFinish();
         exit((int) $failed);
     }
@@ -154,12 +157,9 @@ final class Tester
 
     private function printResults(): void
     {
-        Timer::stop(static::TIMER_NAME);
-        // @phpstan-ignore argument.type
-        $totalTime = (int) Timer::read(static::TIMER_NAME, Timer::FORMAT_PRECISE);
         /** @var resource $outputFile */
         $outputFile = fopen($this->resultsFormatter->getOutputFileName((string) getcwd()), "w");
-        fwrite($outputFile, $this->resultsFormatter->render($totalTime));
+        fwrite($outputFile, $this->resultsFormatter->render());
         fclose($outputFile);
     }
 }

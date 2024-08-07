@@ -79,7 +79,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
         }
     }
 
-    public function render(int $totalTime): string
+    public function render(): string
     {
         ob_start();
         $results = $this->results;
@@ -116,7 +116,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
         if (str_contains($results, $rs)) {
             $resultsLine .= ", " . substr_count($results, $rs) . " skipped";
         }
-        $time = \Ayesh\PHP_Timer\Formatter::formatTime($totalTime);
+        $time = \Ayesh\PHP_Timer\Formatter::formatTime($this->totalTime);
         $resultsLine .= ", $time)";
         $resultsLine = $this->console->color((!$failed) ? "green" : "red", $resultsLine);
         echo $resultsLine . "\n";

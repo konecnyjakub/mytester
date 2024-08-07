@@ -17,6 +17,7 @@ final class TestDoxTest extends TestCase
     public function testRender(): void
     {
         $outputFormatter = new TestDox();
+        $outputFormatter->reportTestsStarted([]);
         $testCase1 = new TestCaseOne();
         $testCase1->run();
         $outputFormatter->reportTestCaseFinished($testCase1);
@@ -26,7 +27,8 @@ final class TestDoxTest extends TestCase
         $testCase3 = new TestCaseThree();
         $testCase3->run();
         $outputFormatter->reportTestCaseFinished($testCase3);
-        $result = $outputFormatter->render(1);
+        $outputFormatter->reportTestsFinished([], 1);
+        $result = $outputFormatter->render();
         $this->assertMatchesFile(__DIR__ . "/testdox_output.txt", $result);
     }
 

@@ -24,8 +24,9 @@ interface IResultsFormatter
      * Report that all tests finished
      *
      * @param TestCase[] $testCases
+     * @param int $totalTime Total elapsed time in milliseconds
      */
-    public function reportTestsFinished(array $testCases): void;
+    public function reportTestsFinished(array $testCases, int $totalTime): void;
 
     /**
      * Report that a {@see TestCase} was started
@@ -39,10 +40,8 @@ interface IResultsFormatter
 
     /**
      * Generates and returns results of Tester run as string
-     *
-     * @param int $totalTime Total elapsed time in milliseconds
      */
-    public function render(int $totalTime): string;
+    public function render(): string;
 
     /**
      * Returns file name to which result of {@see self::render()} should written. The file does not have to exist yet

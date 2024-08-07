@@ -14,7 +14,7 @@ use MyTester\JobResult;
  */
 final class TestDox extends AbstractResultsFormatter
 {
-    public function render(int $totalTime): string
+    public function render(): string
     {
         ob_start();
 

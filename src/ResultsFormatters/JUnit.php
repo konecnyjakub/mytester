@@ -24,7 +24,7 @@ final class JUnit extends AbstractResultsFormatter
 {
     private string $baseFileName = "junit.xml";
 
-    public function render(int $totalTime): string
+    public function render(): string
     {
         if (!extension_loaded("dom")) {
             return "";
@@ -41,7 +41,7 @@ final class JUnit extends AbstractResultsFormatter
 
         $testSuites = $document->createElement("testsuites");
         $testSuites->setAttribute("name", "Project test suite by My Tester");
-        $testSuites->setAttribute("time", (string) round($totalTime / 1000, 6));
+        $testSuites->setAttribute("time", (string) round($this->totalTime / 1000, 6));
 
         foreach ($this->testCases as $testCase) {
             $testSuiteTests = count($testCase->jobs);

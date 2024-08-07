@@ -17,6 +17,9 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
     /** @var TestCase[] */
     protected array $testCases = [];
 
+    /** @var int Total elapsed time in milliseconds */
+    protected int $totalTime = 0;
+
     public function setup(): void
     {
     }
@@ -25,8 +28,9 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
     {
     }
 
-    public function reportTestsFinished(array $testCases): void
+    public function reportTestsFinished(array $testCases, int $totalTime): void
     {
+        $this->totalTime = $totalTime;
     }
 
     public function reportTestCaseStarted(TestCase $testCase): void
