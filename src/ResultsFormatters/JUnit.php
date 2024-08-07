@@ -123,9 +123,6 @@ final class JUnit extends AbstractResultsFormatter implements ICustomFileNameRes
         return (string) $document->saveXML();
     }
 
-    /**
-     * @internal
-     */
     public function setOutputFileName(string $baseFileName): void
     {
         $this->baseFileName = $baseFileName;

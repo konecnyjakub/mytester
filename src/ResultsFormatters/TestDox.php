@@ -37,9 +37,6 @@ final class TestDox extends AbstractResultsFormatter implements ICustomFileNameR
         return $result;
     }
 
-    /**
-     * @internal
-     */
     public function setOutputFileName(string $baseFileName): void
     {
         $this->baseFileName = $baseFileName;

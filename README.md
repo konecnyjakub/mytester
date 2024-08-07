@@ -177,7 +177,7 @@ If you have correctly configured Composer to autoload your test suites and use o
 
 ### Colorized output
 
-Automated tests runner can print results with colors, but it is not enabled but default. To use colors just pass argument *--colors* to the script.
+Automated tests runner can print results with colors, but it is not enabled by default. To use colors just pass argument *--colors* to the script.
 
 ```bash
 ./vendor/bin/mytester tests/unit --colors
@@ -187,7 +187,7 @@ Automated tests runner can print results with colors, but it is not enabled but 
 
 It is possible to display results of tests in a different format and for some formats even put them into a file that can be processed by your continuous integration system, just pass argument *--resultsFormat* to the script. Supported formats at the moment are JUnit, TAP and TextDox (value is name of the format lower cased).
 
-JUnit prints the results into file junit.xml. TestDox uses custom names set by attributes TestSuite/Test if they are set, otherwise just class name and method name.
+JUnit prints the results into file junit.xml, TAP and TestBox by default show the results in console/terminal. TestDox uses custom names set by attributes TestSuite/Test if they are set, otherwise just class name and method name.
 
 ```bash
 ./vendor/bin/mytester tests/unit ----resultsFormat junit
@@ -199,6 +199,12 @@ JUnit prints the results into file junit.xml. TestDox uses custom names set by a
 
 ```bash
 ./vendor/bin/mytester tests/unit ----resultsFormat testdox
+```
+
+If you want to change the file for output with format JUnit or want to print the results into a file with formats TAP and TestBox, use also argument *--resultsFile*.
+
+```bash
+./vendor/bin/mytester tests/unit ----resultsFormat junit --resultsFile custom_name.xml
 ```
 
 ### Code coverage
@@ -213,6 +219,12 @@ It is also able to generate full code coverage reports. Supported formats are Co
 
 ```bash
 ./vendor/bin/mytester tests/unit --coverageFormat text
+```
+
+It is possible to change the name for output for formats Cobertura and text, just add argument *--coverageFile*.
+
+```bash
+./vendor/bin/mytester tests/unit --coverageFormat cobertura --coverageFile cobertura.xml
 ```
 
 ### Automated tests runner extensions

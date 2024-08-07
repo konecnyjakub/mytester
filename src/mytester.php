@@ -12,6 +12,7 @@ use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\ICustomFileNameResultsFormatter;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use Nette\CommandLine\Parser;
@@ -28,10 +29,18 @@ $cmd = new Parser("", [
         Parser::Optional => true,
         Parser::Enum => array_keys(CodeCoverageHelper::$availableFormatters),
     ],
+    "--coverageFile" => [
+        Parser::Argument => true,
+        Parser::Optional => true,
+    ],
     "--resultsFormat" => [
         Parser::Argument => true,
         Parser::Optional => true,
         Parser::Enum => array_keys(ResultsHelper::$availableFormatters),
+    ],
+    "--resultsFile" => [
+        Parser::Argument => true,
+        Parser::Optional => true,
     ],
     "--version" => [
         Parser::Optional => true,
@@ -53,7 +62,15 @@ $codeCoverageCollector->registerFormatter(new PercentFormatter());
 $coverageFormat = $options["--coverageFormat"];
 if ($coverageFormat !== null) {
     $type = CodeCoverageHelper::$availableFormatters[$coverageFormat];
-    $codeCoverageCollector->registerFormatter(new $type()); // @phpstan-ignore argument.type
+    /** @var \MyTester\CodeCoverage\ICodeCoverageFormatter $codeCoverageFormatter */
+    $codeCoverageFormatter = new $type();
+    if (
+        $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
+        isset($options["--coverageFile"])
+    ) {
+        $codeCoverageFormatter->setOutputFileName($options["--coverageFile"]);
+    }
+    $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
 }
 
 $resultsFormatter = null;
@@ -62,6 +79,9 @@ if ($resultsFormat !== null) {
     $type = ResultsHelper::$availableFormatters[$resultsFormat];
     /** @var \MyTester\IResultsFormatter $resultsFormatter */
     $resultsFormatter = new $type();
+    if ($resultsFormatter instanceof ICustomFileNameResultsFormatter && isset($options["--resultsFile"])) {
+        $resultsFormatter->setOutputFileName($options["--resultsFile"]);
+    }
 }
 
 $extensions = [

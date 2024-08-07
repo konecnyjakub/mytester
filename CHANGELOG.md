@@ -3,6 +3,7 @@ Version 5.1.0-dev
 - Job reports total elapsed time in milliseconds in $totalTime
 - added the option to output results of tests in a different format to automated tests runner
 - added argument --version to script mytester.php
+- added option to change filename for some code coverage reports
 
 Version 5.0.0
 - BC break: forbidden passing string to parameter $value of assertions assertCount and assertNotCount

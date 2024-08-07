@@ -67,9 +67,6 @@ final class Tap extends AbstractResultsFormatter implements ICustomFileNameResul
         return $result;
     }
 
-    /**
-     * @internal
-     */
     public function setOutputFileName(string $baseFileName): void
     {
         $this->baseFileName = $baseFileName;

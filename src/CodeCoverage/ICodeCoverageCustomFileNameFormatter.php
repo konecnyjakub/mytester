@@ -7,7 +7,6 @@ namespace MyTester\CodeCoverage;
  * Code coverage formatter that allows customization of file name of the report
  *
  * @author Jakub Konečný
- * @internal
  */
 interface ICodeCoverageCustomFileNameFormatter extends ICodeCoverageFormatter
 {

@@ -7,7 +7,6 @@ namespace MyTester;
  * Results formatter that allows customization of file name for results
  *
  * @author Jakub Konečný
- * @internal
  */
 interface ICustomFileNameResultsFormatter extends IResultsFormatter
 {
