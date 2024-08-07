@@ -1,7 +1,3 @@
-A new version of My Tester is out. It adds the option to output results of tests in a different format. Several options are already available, more might be added in the future.
-
-It is now possible to change filename for output for some code coverage formats.
-
-There are new assertions assertNoException and assertMatchesFile.
+A new version of My Tester is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
