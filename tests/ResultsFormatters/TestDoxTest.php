@@ -19,13 +19,13 @@ final class TestDoxTest extends TestCase
         $outputFormatter = new TestDox();
         $testCase1 = new TestCaseOne();
         $testCase1->run();
-        $outputFormatter->reportTestCase($testCase1);
+        $outputFormatter->reportTestCaseFinished($testCase1);
         $testCase2 = new TestCaseTwo();
         $testCase2->run();
-        $outputFormatter->reportTestCase($testCase2);
+        $outputFormatter->reportTestCaseFinished($testCase2);
         $testCase3 = new TestCaseThree();
         $testCase3->run();
-        $outputFormatter->reportTestCase($testCase3);
+        $outputFormatter->reportTestCaseFinished($testCase3);
         $result = $outputFormatter->render(1);
         $this->assertMatchesFile(__DIR__ . "/testdox_output.txt", $result);
     }

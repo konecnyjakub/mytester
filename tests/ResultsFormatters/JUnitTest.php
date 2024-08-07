@@ -19,13 +19,13 @@ final class JUnitTest extends TestCase
         $outputFormatter = new JUnit();
         $testCase1 = new TestCaseOne();
         $testCase1->run();
-        $outputFormatter->reportTestCase($testCase1);
+        $outputFormatter->reportTestCaseFinished($testCase1);
         $testCase2 = new TestCaseTwo();
         $testCase2->run();
-        $outputFormatter->reportTestCase($testCase2);
+        $outputFormatter->reportTestCaseFinished($testCase2);
         $testCase3 = new TestCaseThree();
         $testCase3->run();
-        $outputFormatter->reportTestCase($testCase3);
+        $outputFormatter->reportTestCaseFinished($testCase3);
         $result = $outputFormatter->render(1);
         $result = str_replace(__DIR__, "/var/project/tests/ResultsFormatters", $result);
         $this->assertMatchesFile(__DIR__ . "/junit_output.xml", $result);

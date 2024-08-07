@@ -14,9 +14,28 @@ interface IResultsFormatter
     public function setup(): void;
 
     /**
+     * Report that we started running tests
+     *
+     * @param TestCase[] $testCases
+     */
+    public function reportTestsStarted(array $testCases): void;
+
+    /**
+     * Report that all tests finished
+     *
+     * @param TestCase[] $testCases
+     */
+    public function reportTestsFinished(array $testCases): void;
+
+    /**
+     * Report that a {@see TestCase} was started
+     */
+    public function reportTestCaseStarted(TestCase $testCase): void;
+
+    /**
      * Report results of one {@see TestCase}
      */
-    public function reportTestCase(TestCase $testCase): void;
+    public function reportTestCaseFinished(TestCase $testCase): void;
 
     /**
      * Generates and returns results of Tester run as string

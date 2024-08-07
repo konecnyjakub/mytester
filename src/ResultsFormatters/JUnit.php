@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use DOMDocument;
-use MyTester\AbstractResultsFormatter;
 use MyTester\Job;
 use MyTester\JobResult;
 use ReflectionClass;

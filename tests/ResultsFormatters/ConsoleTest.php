@@ -23,13 +23,13 @@ final class ConsoleTest extends TestCase
         $outputFormatter->setConsole($console);
         $testCase1 = new TestCaseOne();
         $testCase1->run();
-        $outputFormatter->reportTestCase($testCase1);
+        $outputFormatter->reportTestCaseFinished($testCase1);
         $testCase2 = new TestCaseTwo();
         $testCase2->run();
-        $outputFormatter->reportTestCase($testCase2);
+        $outputFormatter->reportTestCaseFinished($testCase2);
         $testCase3 = new TestCaseThree();
         $testCase3->run();
-        $outputFormatter->reportTestCase($testCase3);
+        $outputFormatter->reportTestCaseFinished($testCase3);
         $result = $outputFormatter->render(1);
         $this->assertSame(file_get_contents(__DIR__ . "/console_output.txt"), $result);
     }

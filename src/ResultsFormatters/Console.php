@@ -20,7 +20,7 @@ use Nette\Utils\Finder;
  * @author Jakub Konečný
  * @internal
  */
-final class Console implements IConsoleAwareResultsFormatter, ITestFolderAwareResultsFormatter
+final class Console extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter, ITestFolderAwareResultsFormatter
 {
     public \Nette\CommandLine\Console $console;
 
@@ -55,7 +55,7 @@ final class Console implements IConsoleAwareResultsFormatter, ITestFolderAwareRe
         $this->console = $console;
     }
 
-    public function reportTestCase(TestCase $testCase): void
+    public function reportTestCaseFinished(TestCase $testCase): void
     {
         $jobs = $testCase->jobs;
         foreach ($jobs as $job) {

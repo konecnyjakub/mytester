@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester;
+namespace MyTester\ResultsFormatters;
+
+use MyTester\IResultsFormatter;
+use MyTester\TestCase;
 
 /**
  * Base results formatter for Tester
@@ -18,14 +21,23 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
     {
     }
 
-    public function reportTestCase(TestCase $testCase): void
+    public function reportTestsStarted(array $testCases): void
+    {
+    }
+
+    public function reportTestsFinished(array $testCases): void
+    {
+    }
+
+    public function reportTestCaseStarted(TestCase $testCase): void
+    {
+    }
+
+    public function reportTestCaseFinished(TestCase $testCase): void
     {
         $this->testCases[] = $testCase;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getOutputFileName(string $folder): string
     {
         return "php://output";

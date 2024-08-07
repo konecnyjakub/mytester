@@ -117,13 +117,20 @@ final class Tester
     {
         $this->onExecute();
         $failed = false;
+        /** @var TestCase[] $testCases */
+        $testCases = [];
         foreach ($this->getSuites() as $suite) {
-            $suite = $this->testSuiteFactory->create($suite);
-            if (!$suite->run()) {
+            $testCases[] = $this->testSuiteFactory->create($suite);
+        }
+        $this->resultsFormatter->reportTestsStarted($testCases);
+        foreach ($testCases as $testCase) {
+            $this->resultsFormatter->reportTestCaseStarted($testCase);
+            if (!$testCase->run()) {
                 $failed = true;
             }
-            $this->resultsFormatter->reportTestCase($suite);
+            $this->resultsFormatter->reportTestCaseFinished($testCase);
         }
+        $this->resultsFormatter->reportTestsFinished($testCases);
         $this->onFinish();
         exit((int) $failed);
     }
