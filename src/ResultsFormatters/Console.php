@@ -18,10 +18,12 @@ use Nette\Utils\Finder;
  * Prints the results to console/standard output
  *
  * @author Jakub Konečný
- * @internal
  */
 final class Console extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter, ITestsFolderAwareResultsFormatter
 {
+    /**
+     * @internal
+     */
     public \Nette\CommandLine\Console $console;
 
     private string $folder;

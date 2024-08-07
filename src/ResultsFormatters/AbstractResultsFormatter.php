@@ -11,7 +11,6 @@ use MyTester\TestCase;
  * Allows defining only necessary method for the results formatter
  *
  * @author Jakub Konečný
- * @internal
  */
 abstract class AbstractResultsFormatter implements IResultsFormatter
 {

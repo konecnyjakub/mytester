@@ -10,7 +10,6 @@ use MyTester\JobResult;
  * Outputs the results to console/standard output in TestDox format
  *
  * @author Jakub Konečný
- * @internal
  */
 final class TestDox extends AbstractResultsFormatter
 {

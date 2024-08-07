@@ -18,7 +18,6 @@ use ReflectionMethod;
  * @see https://llg.cubic.org/docs/junit/
  *
  * @author Jakub Konečný
- * @internal
  */
 final class JUnit extends AbstractResultsFormatter
 {

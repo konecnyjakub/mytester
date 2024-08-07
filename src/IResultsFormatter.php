@@ -7,7 +7,6 @@ namespace MyTester;
  * Results formatter for {@see Tester}
  *
  * @author Jakub Konečný
- * @internal
  */
 interface IResultsFormatter
 {

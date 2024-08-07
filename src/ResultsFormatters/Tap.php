@@ -12,7 +12,6 @@ use MyTester\TestCase;
  * @see http://testanything.org/tap-version-14-specification.html
  *
  * @author Jakub Konečný
- * @internal
  */
 final class Tap extends AbstractResultsFormatter
 {
