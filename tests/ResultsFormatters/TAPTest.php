@@ -16,15 +16,15 @@ final class TAPTest extends TestCase
 {
     public function testRender(): void
     {
-        $outputFormatter = new Tap();
-        $outputFormatter->reportTestsStarted([]);
         $testCase1 = new TestCaseOne();
+        $testCase2 = new TestCaseTwo();
+        $testCase3 = new TestCaseThree();
+        $outputFormatter = new Tap();
+        $outputFormatter->reportTestsStarted([$testCase1, $testCase2, $testCase3, ]);
         $testCase1->run();
         $outputFormatter->reportTestCaseFinished($testCase1);
-        $testCase2 = new TestCaseTwo();
         $testCase2->run();
         $outputFormatter->reportTestCaseFinished($testCase2);
-        $testCase3 = new TestCaseThree();
         $testCase3->run();
         $outputFormatter->reportTestCaseFinished($testCase3);
         $outputFormatter->reportTestsFinished([], 1);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\JobResult;
+use MyTester\TestCase;
 
 /**
  * TAP results formatter for Tester
@@ -17,17 +18,32 @@ final class Tap extends AbstractResultsFormatter
 {
     public const TAP_VERSION = 14;
 
+    private int $totalTests = 0;
+
+    /**
+     * @param TestCase[] $testCases
+     */
+    public function reportTestsStarted(array $testCases): void
+    {
+        foreach ($testCases as $testCase) {
+            foreach ($testCase->jobs as $job) {
+                $this->totalTests++;
+            }
+        }
+    }
+
     public function render(): string
     {
         ob_start();
 
         echo "TAP version " . static::TAP_VERSION . "\n";
+        echo "1..{$this->totalTests}\n";
 
-        $totalTests = 0;
+        $currentTest = 0;
 
         foreach ($this->testCases as $testCase) {
             foreach ($testCase->jobs as $job) {
-                $totalTests++;
+                $currentTest++;
                 $result = match ($job->result) {
                     JobResult::FAILED => "not ok",
                     default => "ok",
@@ -42,11 +58,9 @@ final class Tap extends AbstractResultsFormatter
                     JobResult::WARNING => " - $output # TODO",
                     default => "",
                 };
-                printf("%s %d%s\n", $result, $totalTests, $description);
+                printf("%s %d%s\n", $result, $currentTest, $description);
             }
         }
-
-        echo "1..$totalTests\n";
 
         /** @var string $result */
         $result = ob_get_clean();
