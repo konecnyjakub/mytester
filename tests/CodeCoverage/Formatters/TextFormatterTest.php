@@ -21,7 +21,7 @@ class TextFormatterTest extends TestCase
         $report = new Report((new DummyEngine())->collect());
         $formatter = new TextFormatter();
         $result = $formatter->render($report);
-        $this->assertSame(file_get_contents(__DIR__ . "/coverage.txt"), $result);
+        $this->assertMatchesFile(__DIR__ . "/coverage.txt", $result);
     }
 
     public function testGetOutputFileName(): void

@@ -27,7 +27,7 @@ final class TestDoxTest extends TestCase
         $testCase3->run();
         $outputFormatter->reportTestCase($testCase3);
         $result = $outputFormatter->render(1);
-        $this->assertSame(file_get_contents(__DIR__ . "/testdox_output.txt"), $result);
+        $this->assertMatchesFile(__DIR__ . "/testdox_output.txt", $result);
     }
 
     public function testGetOutputFileName(): void

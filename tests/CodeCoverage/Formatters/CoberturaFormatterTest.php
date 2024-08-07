@@ -24,7 +24,7 @@ final class CoberturaFormatterTest extends TestCase
         /** @var string $result */
         $result = preg_replace('/(timestamp="\d+")/', 'timestamp="1"', $result);
         $result = str_replace($report->sourcePath, "/var/project/src/", $result);
-        $this->assertSame(file_get_contents(__DIR__ . "/cobertura.xml"), $result);
+        $this->assertMatchesFile(__DIR__ . "/cobertura.xml", $result);
     }
 
     public function testGetOutputFileName(): void

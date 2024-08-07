@@ -27,7 +27,7 @@ final class TAPTest extends TestCase
         $testCase3->run();
         $outputFormatter->reportTestCase($testCase3);
         $result = $outputFormatter->render(1);
-        $this->assertSame(file_get_contents(__DIR__ . "/tap_output.txt"), $result);
+        $this->assertMatchesFile(__DIR__ . "/tap_output.txt", $result);
     }
 
     public function testGetOutputFileName(): void

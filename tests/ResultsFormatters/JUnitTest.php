@@ -28,7 +28,7 @@ final class JUnitTest extends TestCase
         $outputFormatter->reportTestCase($testCase3);
         $result = $outputFormatter->render(1);
         $result = str_replace(__DIR__, "/var/project/tests/ResultsFormatters", $result);
-        $this->assertSame(file_get_contents(__DIR__ . "/junit_output.xml"), $result);
+        $this->assertMatchesFile(__DIR__ . "/junit_output.xml", $result);
     }
 
     public function testGetOutputFileName(): void
