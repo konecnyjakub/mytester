@@ -154,7 +154,7 @@ coding_style:
 build:
     environment:
         php:
-            version: 8.3
+            version: 8.3.3
         postgresql: false
         redis: false
         rabbitmq: false
