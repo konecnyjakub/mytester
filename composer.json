@@ -20,13 +20,13 @@
         "php": ">=8.2.0",
         "composer-runtime-api": "^2.0",
         "ayesh/php-timer": "^2.2",
-        "nette/utils": "^4.0.1",
+        "nette/utils": "^4.0.4",
         "nette/command-line": "^1.7",
         "symfony/polyfill-php84": "^1.30"
     },
     "require-dev": {
         "nette/robot-loader": "^4.0.1",
-        "nette/bootstrap": "^3.2.1",
+        "nette/bootstrap": "^3.2.4",
         "php-parallel-lint/php-parallel-lint": "^1.4",
         "php-parallel-lint/php-console-highlighter": "^0.5",
         "squizlabs/php_codesniffer": "^3.10",
