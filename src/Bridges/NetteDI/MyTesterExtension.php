@@ -50,7 +50,6 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->assert(function (string $classname) {
                     return is_subclass_of($classname, ITesterExtension::class);
                 }),
-            "colors" => Expect::bool(false),
             "coverageFormat" => Expect::anyOf(
                 null,
                 ...array_keys(CodeCoverageHelper::$availableFormatters)
@@ -115,9 +114,6 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 
     public function afterCompile(\Nette\PhpGenerator\ClassType $class): void
     {
-        $config = $this->getConfig();
-        $this->initialization->addBody('$runner = $this->getService(?);', [$this->prefix(static::SERVICE_RUNNER)]);
-        $this->initialization->addBody('$runner->useColors = ?;', [$config["colors"]]);
         $this->initialization->addBody(
             '$coverageCollector = $this->getService(?);',
             [$this->prefix(static::SERVICE_CC_COLLECTOR)]

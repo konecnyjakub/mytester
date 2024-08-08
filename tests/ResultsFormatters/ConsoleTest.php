@@ -20,7 +20,6 @@ final class ConsoleTest extends TestCase
         $console->useColors(false);
         $outputFormatter = new Console();
         $outputFormatter->setTestsFolder(__DIR__);
-        $outputFormatter->setConsole($console);
         $outputFormatter->reportTestsStarted([]);
         $testCase1 = new TestCaseOne();
         $testCase1->run();
@@ -39,7 +38,6 @@ final class ConsoleTest extends TestCase
     public function testGetOutputFileName(): void
     {
         $outputFormatter = new Console();
-        $outputFormatter->setConsole(new \Nette\CommandLine\Console());
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project"));
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project/sub1"));
     }

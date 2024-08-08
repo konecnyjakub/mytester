@@ -39,15 +39,12 @@
      <isset property="env.REPORTS"/>
      <then>
        <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
-         <arg value="--colors"/>
          <arg value="--resultsFormat"/>
          <arg value="junit"/>
        </exec>
      </then>
      <else>
-       <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
-         <arg value="--colors"/>
-       </exec>
+       <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true"/>
      </else>
    </if>
    <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true"/>

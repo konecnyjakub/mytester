@@ -21,9 +21,6 @@ $cmd = new Parser("", [
     "path" => [
         Parser::Default => $vendorDirectory . "/../tests",
     ],
-    "--colors" => [
-        Parser::Optional => true,
-    ],
     "--coverageFormat" => [
         Parser::Argument => true,
         Parser::Optional => true,
@@ -89,5 +86,4 @@ $extensions = [
 ];
 
 $tester = new Tester(folder: $options["path"], extensions: $extensions, resultsFormatter: $resultsFormatter);
-$tester->useColors = isset($options["--colors"]);
 $tester->execute();

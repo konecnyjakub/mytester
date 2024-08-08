@@ -14,7 +14,6 @@ use Nette\CommandLine\Console;
  *
  * @author Jakub Konečný
  * @property-read string[] $suites
- * @property bool $useColors
  * @method void onExecute()
  * @method void onFinish()
  */
@@ -36,7 +35,6 @@ final class Tester
     private IResultsFormatter $resultsFormatter;
     private Console $console;
     private readonly string $folder;
-    private bool $useColors = false;
     /** @var ITesterExtension[] */
     private array $extensions = [];
 
@@ -62,9 +60,6 @@ final class Tester
         $this->resultsFormatter = $resultsFormatter ?? new ResultsFormatters\Console();
         if (is_subclass_of($this->resultsFormatter, ITestsFolderAwareResultsFormatter::class)) {
             $this->resultsFormatter->setTestsFolder($this->folder);
-        }
-        if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
-            $this->resultsFormatter->setConsole($this->console);
         }
         $this->extensions = $extensions;
 
@@ -98,17 +93,6 @@ final class Tester
             $this->suites = $this->testSuitesFinder->getSuites($this->folder);
         }
         return $this->suites;
-    }
-
-    protected function isUseColors(): bool
-    {
-        return $this->useColors;
-    }
-
-    protected function setUseColors(bool $useColors): void
-    {
-        $this->useColors = $useColors;
-        $this->console->useColors($useColors);
     }
 
     /**
