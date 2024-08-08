@@ -99,8 +99,7 @@ final class JUnit extends AbstractResultsFormatter implements ICustomFileNameRes
                             (string) $rc->getFileName() . ":" . $reflectionCallback->getStartLine();
                         $failure = $document->createElement("failure", $message);
                         $failure->setAttribute("type", "assert");
-                        // each assertion failure is printed at a new line but \n is malformed as value of attribute
-                        $failure->setAttribute("message", (string) str_replace("\n", " ", $job->output));
+                        $failure->setAttribute("message", $job->output);
                         $testCaseElement->appendChild($failure);
                         break;
                 }

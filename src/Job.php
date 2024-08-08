@@ -91,6 +91,8 @@ final class Job
             } catch (IncompleteTestException $e) {
                 $message = $e->getMessage() !== "" ? $e->getMessage() : "incomplete";
                 echo "Warning: $message\n";
+            } catch (AssertionFailedException $e) {
+                echo $e->getMessage();
             }
             $this->onAfterExecute();
             /** @var string $output */

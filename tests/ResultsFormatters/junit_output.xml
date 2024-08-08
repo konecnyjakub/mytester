@@ -10,8 +10,7 @@
   <testsuite id="MyTester\ResultsFormatters\TestCaseTwo" name="MyTester\ResultsFormatters\TestCaseTwo" file="/var/project/tests/ResultsFormatters/TestCaseTwo.php" tests="3" failures="1" skipped="0" warnings="1" time="0" assertions="2">
     <testcase name="MyTester\ResultsFormatters\TestCaseTwo::testOne" class="MyTester\ResultsFormatters\TestCaseTwo" classname="MyTester.ResultsFormatters.TestCaseTwo" file="/var/project/tests/ResultsFormatters/TestCaseTwo.php" line="13" time="0" assertions="1"/>
     <testcase name="MyTester\ResultsFormatters\TestCaseTwo::testTwo" class="MyTester\ResultsFormatters\TestCaseTwo" classname="MyTester.ResultsFormatters.TestCaseTwo" file="/var/project/tests/ResultsFormatters/TestCaseTwo.php" line="18" time="0" assertions="1">
-      <failure type="assert" message="Test 1 failed. The value is not true. ">Test 1 failed. The value is not true.
-
+      <failure type="assert" message="Test 1 failed. The value is not true.">Test 1 failed. The value is not true.
 
 /var/project/tests/ResultsFormatters/TestCaseTwo.php:18</failure>
     </testcase>

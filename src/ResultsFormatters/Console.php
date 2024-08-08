@@ -68,7 +68,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
                 case JobResult::FAILED:
                     $output = $job->output;
                     if (strlen($output) > 0) {
-                        file_put_contents("$this->folder/$job->name.errors", $output);
+                        file_put_contents("$this->folder/$job->name.errors", $output . "\n");
                     }
                     break;
                 case JobResult::WARNING:

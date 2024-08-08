@@ -1,3 +1,6 @@
+Version 6.0.0-dev
+- first assertion failure in a test method now ends the method's execution
+
 Version 5.1.0
 - added assertions assertNoException and assertMatchesFile
 - Job reports total elapsed time in milliseconds in $totalTime
