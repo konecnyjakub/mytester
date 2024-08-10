@@ -11,12 +11,15 @@ use MyTester\TestCase;
  *
  * @author Jakub Konečný
  */
-#[TestSuite("Results formatter TAP")]
+#[TestSuite("Results formatter TestDox")]
 final class TestDoxTest extends TestCase
 {
     public function testRender(): void
     {
+        $console = new \Nette\CommandLine\Console();
+        $console->useColors(false);
         $outputFormatter = new TestDox();
+        $outputFormatter->setConsole($console);
         $outputFormatter->reportTestsStarted([]);
         $testCase1 = new TestCaseOne();
         $testCase1->run();
@@ -34,7 +37,10 @@ final class TestDoxTest extends TestCase
 
     public function testGetOutputFileName(): void
     {
+        $console = new \Nette\CommandLine\Console();
+        $console->useColors(false);
         $outputFormatter = new TestDox();
+        $outputFormatter->setConsole($console);
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project"));
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project/sub1"));
         $outputFormatter->setOutputFileName("testdox.txt");

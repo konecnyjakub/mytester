@@ -46,9 +46,14 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
 
     public function getOutputFileName(string $folder): string
     {
-        if ($this->baseFileName === "php://output") {
+        if ($this->isOutputConsole()) {
             return $this->baseFileName;
         }
         return "$folder/{$this->baseFileName}";
+    }
+
+    protected function isOutputConsole(): bool
+    {
+        return in_array($this->baseFileName, ["php://output", "php://stdout", ], true);
     }
 }

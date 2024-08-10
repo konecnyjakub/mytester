@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use MyTester\IConsoleAwareResultsFormatter;
 use MyTester\ICustomFileNameResultsFormatter;
 use MyTester\JobResult;
 
@@ -12,8 +13,18 @@ use MyTester\JobResult;
  *
  * @author Jakub Konečný
  */
-final class TestDox extends AbstractResultsFormatter implements ICustomFileNameResultsFormatter
+final class TestDox extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter, ICustomFileNameResultsFormatter
 {
+    /**
+     * @internal
+     */
+    public \Nette\CommandLine\Console $console;
+
+    public function setConsole(\Nette\CommandLine\Console $console): void
+    {
+        $this->console = $console;
+    }
+
     public function render(): string
     {
         ob_start();
@@ -25,8 +36,8 @@ final class TestDox extends AbstractResultsFormatter implements ICustomFileNameR
             echo $testCase->getSuiteName() . "\n";
             foreach ($testCase->jobs as $job) {
                 printf(
-                    " [%s] %s\n",
-                    ($job->result === JobResult::PASSED) ? "x" : " ",
+                    " %s %s\n",
+                    $this->getOutput($job->result),
                     $job->name
                 );
             }
@@ -35,6 +46,16 @@ final class TestDox extends AbstractResultsFormatter implements ICustomFileNameR
         /** @var string $result */
         $result = ob_get_clean();
         return $result;
+    }
+
+    private function getOutput(JobResult $jobResult): string
+    {
+        return match ($jobResult) {
+            JobResult::PASSED => $this->isOutputConsole() ? $this->console->color("green", "✔") : "[ ]",
+            JobResult::SKIPPED => $this->isOutputConsole() ? $this->console->color("blue", "↩") : "[x]",
+            JobResult::WARNING => $this->isOutputConsole() ? $this->console->color("yellow", "⚠") : "[x]",
+            JobResult::FAILED => $this->isOutputConsole() ? $this->console->color("red", "✘") : "[x]",
+        };
     }
 
     public function setOutputFileName(string $baseFileName): void
