@@ -39,8 +39,8 @@ sast:
 announce:gitlab:
     stage: announce
     image: registry.gitlab.com/gitlab-org/release-cli:latest
-    only:
-        - tags@konecnyjakub/mytester
+    rules:
+        - if: $CI_COMMIT_TAG
     script:
         - echo "Creating GitLab release"
     release:
