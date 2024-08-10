@@ -10,7 +10,6 @@ use Nette\CommandLine\Console;
  *
  * @author Jakub Konečný
  * @internal
- * @deprecated
  */
 interface IConsoleAwareResultsFormatter extends IResultsFormatter
 {
