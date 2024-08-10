@@ -33,7 +33,7 @@ final class ConsoleTest extends TestCase
         $outputFormatter->reportTestCaseFinished($testCase3);
         $outputFormatter->reportTestsFinished([], 1);
         $result = $outputFormatter->render();
-        $this->assertSame(file_get_contents(__DIR__ . "/console_output.txt"), $result);
+        $this->assertMatchesFile(__DIR__ . "/console_output.txt", $result);
     }
 
     public function testGetOutputFileName(): void
