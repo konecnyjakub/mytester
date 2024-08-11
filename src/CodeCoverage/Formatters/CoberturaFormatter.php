@@ -63,6 +63,7 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
 
             foreach ($reportFile->classes as $reflectionClass) {
                 $classLines = $this->getElementLines($reflectionClass, $reportFile->data);
+                ksort($classLines);
                 $totalLines = count($classLines);
                 $coveredLines = $this->getCoveredLineCount($classLines);
                 $coveragePercent = ($totalLines === 0) ? 0 : (int) (($coveredLines / $totalLines) * 100);
@@ -80,6 +81,7 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
                         continue;
                     }
                     $methodLines = $this->getElementLines($reflectionMethod, $reportFile->data);
+                    ksort($methodLines);
                     $totalLines = count($methodLines);
                     $coveredLines = $this->getCoveredLineCount($methodLines);
                     $coveragePercent = ($totalLines === 0) ? 0 : (int) (($coveredLines / $totalLines) * 100);
