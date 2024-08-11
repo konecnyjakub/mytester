@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use Ayesh\PHP_Timer\Timer;
 use MyTester\IResultsFormatter;
 use MyTester\TestCase;
 
@@ -14,6 +15,8 @@ use MyTester\TestCase;
  */
 abstract class AbstractResultsFormatter implements IResultsFormatter
 {
+    private const TIMER_NAME = "My Tester";
+
     /** @var TestCase[] All test cases that have finished (no matter their result) */
     protected array $testCases = [];
 
@@ -28,10 +31,14 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
 
     public function reportTestsStarted(array $testCases): void
     {
+        Timer::start(self::TIMER_NAME);
     }
 
-    public function reportTestsFinished(array $testCases, int $totalTime): void
+    public function reportTestsFinished(array $testCases): void
     {
+        Timer::stop(self::TIMER_NAME);
+        // @phpstan-ignore argument.type
+        $totalTime = (int) Timer::read(self::TIMER_NAME, Timer::FORMAT_PRECISE);
         $this->totalTime = $totalTime;
     }
 

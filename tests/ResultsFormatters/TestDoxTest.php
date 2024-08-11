@@ -30,7 +30,7 @@ final class TestDoxTest extends TestCase
         $testCase3 = new TestCaseThree();
         $testCase3->run();
         $outputFormatter->reportTestCaseFinished($testCase3);
-        $outputFormatter->reportTestsFinished([], 1);
+        $outputFormatter->reportTestsFinished([]);
         $result = $outputFormatter->render();
         $this->assertMatchesFile(__DIR__ . "/testdox_output.txt", $result);
     }

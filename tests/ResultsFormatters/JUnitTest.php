@@ -27,9 +27,10 @@ final class JUnitTest extends TestCase
         $testCase3 = new TestCaseThree();
         $testCase3->run();
         $outputFormatter->reportTestCaseFinished($testCase3);
-        $outputFormatter->reportTestsFinished([], 1);
+        $outputFormatter->reportTestsFinished([]);
         $result = $outputFormatter->render();
         $result = str_replace(__DIR__, "/var/project/tests/ResultsFormatters", $result);
+        $result = (string) preg_replace('/time="0\.[0-9]+"/', 'time="0.001"', $result);
         $this->assertMatchesFile(__DIR__ . "/junit_output.xml", $result);
     }
 

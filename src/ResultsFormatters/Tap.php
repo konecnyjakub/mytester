@@ -25,6 +25,7 @@ final class Tap extends AbstractResultsFormatter implements ICustomFileNameResul
      */
     public function reportTestsStarted(array $testCases): void
     {
+        parent::reportTestsStarted($testCases);
         foreach ($testCases as $testCase) {
             foreach ($testCase->jobs as $job) {
                 $this->totalTests++;

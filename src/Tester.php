@@ -23,7 +23,6 @@ final class Tester
     use \Nette\SmartObject;
 
     private const PACKAGE_NAME = "konecnyjakub/mytester";
-    private const TIMER_NAME = "My Tester";
 
     /** @var string[] */
     private array $suites = [];
@@ -68,7 +67,6 @@ final class Tester
         }
         $this->extensions = $extensions;
 
-        $this->onExecute[] = [$this, "setup"];
         $this->onExecute[] = [$this, "printInfo"];
         $this->onExecute[] = [$this->resultsFormatter, "setup"];
         $this->onExecute[] = function () {
@@ -131,17 +129,9 @@ final class Tester
             }
             $this->resultsFormatter->reportTestCaseFinished($testCase);
         }
-        Timer::stop(static::TIMER_NAME);
-        // @phpstan-ignore argument.type
-        $totalTime = (int) Timer::read(static::TIMER_NAME, Timer::FORMAT_PRECISE);
-        $this->resultsFormatter->reportTestsFinished($testCases, $totalTime);
+        $this->resultsFormatter->reportTestsFinished($testCases);
         $this->onFinish();
         exit((int) $failed);
-    }
-
-    private function setup(): void
-    {
-        Timer::start(static::TIMER_NAME);
     }
 
     /**

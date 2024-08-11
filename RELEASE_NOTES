@@ -1,3 +1,5 @@
 A new version of My Tester is out, it is only for PHP 8.3 and later. Now only first assertion failure in a test method is reported, following ones are not performed. Output of results formatter TextDox in console was improved.
 
+Total elapsed time is no longer passed when reporting that all tests finished to results formatters. If they went to display it, they have to measure it themselves (it is done in AbstractResultsFormatter).
+
 For complete list of changes since previous version, see CHANGELOG.md.

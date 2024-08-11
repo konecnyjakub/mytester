@@ -31,8 +31,9 @@ final class ConsoleTest extends TestCase
         $testCase3 = new TestCaseThree();
         $testCase3->run();
         $outputFormatter->reportTestCaseFinished($testCase3);
-        $outputFormatter->reportTestsFinished([], 1);
+        $outputFormatter->reportTestsFinished([]);
         $result = $outputFormatter->render();
+        $result = (string) preg_replace('/[0-9]+ ms\)/', "1 ms)", $result);
         $this->assertMatchesFile(__DIR__ . "/console_output.txt", $result);
     }
 

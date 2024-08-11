@@ -26,9 +26,8 @@ interface IResultsFormatter
      * Report that all tests finished
      *
      * @param TestCase[] $testCases
-     * @param int $totalTime Total elapsed time in milliseconds
      */
-    public function reportTestsFinished(array $testCases, int $totalTime): void;
+    public function reportTestsFinished(array $testCases): void;
 
     /**
      * Report that a {@see TestCase} was started

@@ -27,7 +27,7 @@ final class TAPTest extends TestCase
         $outputFormatter->reportTestCaseFinished($testCase2);
         $testCase3->run();
         $outputFormatter->reportTestCaseFinished($testCase3);
-        $outputFormatter->reportTestsFinished([], 1);
+        $outputFormatter->reportTestsFinished([]);
         $result = $outputFormatter->render();
         $this->assertMatchesFile(__DIR__ . "/tap_output.txt", $result);
     }
