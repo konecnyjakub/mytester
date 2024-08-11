@@ -7,6 +7,7 @@ use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use Nette\CommandLine\Console;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Automated tests runner
@@ -34,6 +35,7 @@ final class Tester
     private bool $useColors = false;
     /** @var ITesterExtension[] */
     private array $extensions = [];
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param ITesterExtension[] $extensions
@@ -63,24 +65,41 @@ final class Tester
         }
         $this->extensions = $extensions;
 
-        $this->onExecute[] = [$this, "printInfo"];
-        $this->onExecute[] = [$this->resultsFormatter, "setup"];
-        $this->onExecute[] = function () {
-            foreach ($this->extensions as $extension) {
-                foreach ($extension->getEventsPreRun() as $callback) {
-                    $callback();
-                }
+        $listenerProvider = new TesterListenerProvider($this->extensions);
+        $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
+            $this->printInfo();
+        });
+        $listenerProvider->registerListener(Events\TestsStartedEvent::class, [$this->resultsFormatter, "setup"]);
+        $listenerProvider->registerListener(Events\TestsStartedEvent::class, [$this, "onExecute"]);
+        $listenerProvider->registerListener(
+            Events\TestsStartedEvent::class,
+            function (Events\TestsStartedEvent $event) {
+                $this->resultsFormatter->reportTestsStarted($event->testCases);
             }
-        };
-
-        $this->onFinish[] = [$this, "printResults"];
-        $this->onFinish[] = function () {
-            foreach ($this->extensions as $extension) {
-                foreach ($extension->getEventsAfterRun() as $callback) {
-                    $callback();
-                }
+        );
+        $listenerProvider->registerListener(Events\TestsFinishedEvent::class, function () {
+            $this->printResults();
+        });
+        $listenerProvider->registerListener(Events\TestsFinishedEvent::class, [$this, "onFinish"]);
+        $listenerProvider->registerListener(
+            Events\TestsFinishedEvent::class,
+            function (Events\TestsFinishedEvent $event) {
+                $this->resultsFormatter->reportTestsFinished($event->testCases);
             }
-        };
+        );
+        $listenerProvider->registerListener(
+            Events\TestCaseStarted::class,
+            function (Events\TestCaseStarted $event) {
+                $this->resultsFormatter->reportTestCaseStarted($event->testCase);
+            }
+        );
+        $listenerProvider->registerListener(
+            Events\TestCaseFinished::class,
+            function (Events\TestCaseFinished $event) {
+                $this->resultsFormatter->reportTestCaseFinished($event->testCase);
+            }
+        );
+        $this->eventDispatcher = new TesterEventDispatcher($listenerProvider);
     }
 
     protected function isUseColors(): bool
@@ -99,24 +118,27 @@ final class Tester
      */
     public function execute(): void
     {
-        $this->onExecute();
         $failed = false;
+
         /** @var TestCase[] $testCases */
         $testCases = [];
         $suites = $this->testSuitesFinder->getSuites($this->folder);
         foreach ($suites as $suite) {
             $testCases[] = $this->testSuiteFactory->create($suite);
         }
-        $this->resultsFormatter->reportTestsStarted($testCases);
+
+        $this->eventDispatcher->dispatch(new Events\TestsStartedEvent($testCases));
+
         foreach ($testCases as $testCase) {
-            $this->resultsFormatter->reportTestCaseStarted($testCase);
+            $this->eventDispatcher->dispatch(new Events\TestCaseStarted($testCase));
             if (!$testCase->run()) {
                 $failed = true;
             }
-            $this->resultsFormatter->reportTestCaseFinished($testCase);
+            $this->eventDispatcher->dispatch(new Events\TestCaseFinished($testCase));
         }
-        $this->resultsFormatter->reportTestsFinished($testCases);
-        $this->onFinish();
+
+        $this->eventDispatcher->dispatch(new Events\TestsFinishedEvent($testCases));
+
         exit((int) $failed);
     }
 
