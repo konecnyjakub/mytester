@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Ayesh\PHP_Timer\Timer;
 use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
