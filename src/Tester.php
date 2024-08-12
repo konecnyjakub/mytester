@@ -14,8 +14,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  *
  * @author Jakub Konečný
  * @property bool $useColors
- * @method void onExecute()
- * @method void onFinish()
  */
 final class Tester
 {
@@ -23,10 +21,6 @@ final class Tester
 
     private const PACKAGE_NAME = "konecnyjakub/mytester";
 
-    /** @var callable[] */
-    public array $onExecute = [];
-    /** @var callable[] */
-    public array $onFinish = [];
     public ITestSuiteFactory $testSuiteFactory;
     public ITestSuitesFinder $testSuitesFinder;
     private IResultsFormatter $resultsFormatter;
@@ -70,7 +64,6 @@ final class Tester
             $this->printInfo();
         });
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, [$this->resultsFormatter, "setup"]);
-        $listenerProvider->registerListener(Events\TestsStartedEvent::class, [$this, "onExecute"]);
         $listenerProvider->registerListener(
             Events\TestsStartedEvent::class,
             function (Events\TestsStartedEvent $event) {
@@ -80,7 +73,6 @@ final class Tester
         $listenerProvider->registerListener(Events\TestsFinishedEvent::class, function () {
             $this->printResults();
         });
-        $listenerProvider->registerListener(Events\TestsFinishedEvent::class, [$this, "onFinish"]);
         $listenerProvider->registerListener(
             Events\TestsFinishedEvent::class,
             function (Events\TestsFinishedEvent $event) {

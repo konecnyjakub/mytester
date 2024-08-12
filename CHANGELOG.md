@@ -4,6 +4,7 @@ Version 6.0.0-dev
 - improved output of results formatter TextDox in console
 - BC break: removed parameter $totalTime of IResultsFormatter::reportTestsFinished()
 - BC break: removed Tester::$suites
+- BC break: removed events onExecute and onFinish from Tester, use extensions instead
 
 Version 5.1.0
 - added assertions assertNoException and assertMatchesFile
