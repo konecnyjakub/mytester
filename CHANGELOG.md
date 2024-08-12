@@ -3,6 +3,7 @@ Version 6.0.0-dev
 - raised minimal version of PHP to 8.3
 - improved output of results formatter TextDox in console
 - BC break: removed parameter $totalTime of IResultsFormatter::reportTestsFinished()
+- BC break: removed Tester::$suites
 
 Version 5.1.0
 - added assertions assertNoException and assertMatchesFile

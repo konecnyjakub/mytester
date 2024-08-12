@@ -12,7 +12,6 @@ use Nette\CommandLine\Console;
  * Automated tests runner
  *
  * @author Jakub Konečný
- * @property-read string[] $suites
  * @property bool $useColors
  * @method void onExecute()
  * @method void onFinish()
@@ -23,8 +22,6 @@ final class Tester
 
     private const PACKAGE_NAME = "konecnyjakub/mytester";
 
-    /** @var string[] */
-    private array $suites = [];
     /** @var callable[] */
     public array $onExecute = [];
     /** @var callable[] */
@@ -86,17 +83,6 @@ final class Tester
         };
     }
 
-    /**
-     * @return string[]
-     */
-    protected function getSuites(): array
-    {
-        if (count($this->suites) === 0) {
-            $this->suites = $this->testSuitesFinder->getSuites($this->folder);
-        }
-        return $this->suites;
-    }
-
     protected function isUseColors(): bool
     {
         return $this->useColors;
@@ -117,7 +103,8 @@ final class Tester
         $failed = false;
         /** @var TestCase[] $testCases */
         $testCases = [];
-        foreach ($this->getSuites() as $suite) {
+        $suites = $this->testSuitesFinder->getSuites($this->folder);
+        foreach ($suites as $suite) {
             $testCases[] = $this->testSuiteFactory->create($suite);
         }
         $this->resultsFormatter->reportTestsStarted($testCases);
