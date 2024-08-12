@@ -7,6 +7,7 @@ My Tester allows to run simple tests. Requires PHP 8.3 or later and Composer 2.
 
 Installation
 ------------
+
 The best way to install My Tester is via Composer. Just add konecnyjakub/mytester to your (dev) dependencies.
 
 Usage
@@ -15,6 +16,7 @@ Usage
 ### Test Case
 
 My Tester uses object-oriented style to define tests. Your classes with tests have to extend MyTester\TestCase. All its public methods which name starts with "test" will be automatically launched when you call method "run". Call methods assert*Something* inside them. An example:
+
 ```php
 <?php
 declare(strict_types=1);
@@ -29,12 +31,12 @@ class Tests extends MyTester\TestCase
         $this->assertSame("def", $text);
     }
 }
-
 ```
 
 #### Parameters for test methods
 
 Test methods of TestCase descendants can take one parameter. You can provide a name of a public method from the class which returns an array with DataProvider attribute. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
+
 ```php
 <?php
 declare(strict_types=1);
@@ -56,12 +58,12 @@ class Tests extends MyTester\TestCase
         ];
     }
 }
-
 ```
 
 #### Custom names for tests
 
 You can give test methods and whole test suites custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via attribute Test/TestSuite. Example:
+
 ```php
 <?php
 declare(strict_types=1);
@@ -78,12 +80,12 @@ class Tests extends MyTester\TestCase
         $this->assertTrue(true);
     }
 }
-
 ```
 
 #### Skipping tests
 
 It is possible to unconditionally skip a test. Just use attribute Skip. Example:
+
 ```php
 <?php
 declare(strict_types=1);
@@ -98,10 +100,10 @@ class Tests extends MyTester\TestCase
         $this->assertTrue(false);
     }
 }
-
 ```
 
 . You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. Skipped tests are shown in output. Examples:
+
 ```php
 <?php
 declare(strict_types=1);
@@ -121,10 +123,10 @@ class Tests extends MyTester\TestCase
         $this->assertTrue(false);
     }
 }
-
 ```
 
 If the condition is too complicated (or you don't want to use an attribute for any reason), use can call method markTestSkipped from the test method. It optionally accepts a message explaining why it is skipped.
+
 ```php
 <?php
 declare(strict_types=1);
@@ -139,12 +141,12 @@ class Tests extends MyTester\TestCase
         $this->assertTrue(false);
     }
 }
-
 ```
 
 #### Incomplete tests
 
 If a test is not completely written yet, you can mark it as incomplete and it will be passed with warning. Just call method markTestIncomplete. You can optionally pass it a message explaining why it is incomplete. Once the method is called, no other assertions will be performed in the method where it is called.
+
 ```php
 <?php
 declare(strict_types=1);
@@ -157,7 +159,6 @@ class Tests extends MyTester\TestCase
         $this->markTestIncomplete("Optional message");
     }
 }
-
 ```
 
 #### Setup and clean up
@@ -211,7 +212,7 @@ If you want to change the file for output with format JUnit or want to print the
 
 My Tester automatically generates report % of code coverage when possible. It is done in class MyTester\Tester, so it is available in the provided script *vendor/bin/mytester* and our extension for Nette DI container (see below). You just need to run the script with pcov or xdebug extension enabled.
 
-It is also able to generate full code coverage reports. Supported formats are Cobertura and text. Just pass argument *--coverageFormat to the script, the value is generally the name of the format in lower case. Both of them put the report into a file, for Cobertura it is coverage.xml, for text coverage.txt.
+It is also able to generate full code coverage reports. Supported formats are Cobertura and text. Just pass argument *--coverageFormat* to the script, the value is generally the name of the format in lower case. Both of them put the report into a file, for Cobertura it is coverage.xml, for text coverage.txt.
 
 ```bash
 ./vendor/bin/mytester tests/unit --coverageFormat cobertura
@@ -240,6 +241,7 @@ If you are developing a Nette application, you may want to use our extension for
 extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 ```
+
 Then you get service named **mytester.runner** (of type MyTester\Tester) from the container and run its method execute. It automatically ends the script with 0/1 depending on whether all tests passed.
 
 ```php
@@ -249,7 +251,6 @@ declare(strict_types=1);
 
 $result = $container->getService("mytester.runner")->execute(); //or
 $container->getByType(MyTester\Tester::class)->execute();
-
 ```
 
 The extension expects your test cases to be place in *your_project_root/tests*. If they are in a different folder, you have to add folder parameter to the extension:
