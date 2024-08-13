@@ -17,7 +17,8 @@ final class TesterTest extends TestCase
 {
     public function testSetUp(): void
     {
-        $resultsFormatter = new class extends AbstractResultsFormatter implements ITestsFolderAwareResultsFormatter, IConsoleAwareResultsFormatter {
+        $resultsFormatter = new class extends AbstractResultsFormatter implements ITestsFolderAwareResultsFormatter, IConsoleAwareResultsFormatter
+        {
             public Console $console;
             public string $testsFolder = "";
 
@@ -51,9 +52,9 @@ final class TesterTest extends TestCase
 
     public function testColors(): void
     {
-        $resultsFormatter = new class extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter {
+        $resultsFormatter = new class extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
+        {
             public Console $console;
-            public string $testsFolder = "";
 
             public function setConsole(Console $console): void
             {
