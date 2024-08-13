@@ -1,4 +1,4 @@
-Version 6.0.0-dev
+Version 6.0.0
 - first assertion failure in a test method now ends the method's execution
 - raised minimal version of PHP to 8.3
 - improved output of results formatter TextDox in console
