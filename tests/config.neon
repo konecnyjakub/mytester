@@ -1,5 +1,3 @@
-extensions:
-    mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 mytester:
     colors: true
     coverageFormat: cobertura
