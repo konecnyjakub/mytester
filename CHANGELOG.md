@@ -1,3 +1,6 @@
+Version 6.0.0+dev
+- Cobertura code coverage report now shows coverage in traits
+
 Version 6.0.0
 - first assertion failure in a test method now ends the method's execution
 - raised minimal version of PHP to 8.3
