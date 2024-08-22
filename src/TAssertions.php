@@ -333,7 +333,6 @@ trait TAssertions
         $expected = @file_get_contents($filename);
         if ($expected === false) {
             $this->testResult("File $filename could not be loaded.", false);
-            return;
         }
         $this->assertSame($expected, $actual);
     }
@@ -347,7 +346,6 @@ trait TAssertions
     {
         if (count($actual) === 0) {
             $this->testResult("The array is empty.", false);
-            return;
         }
         $success = array_all($actual, function (mixed $value) use ($className) {
             return $value instanceof $className;
