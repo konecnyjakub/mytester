@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="23" lines-covered="22" line-rate="95" branches-valid="0" branches-covered="0" branch-rate="0" complexity="" version="0.4" timestamp="1">
+<coverage lines-valid="35" lines-covered="33" line-rate="94" branches-valid="0" branches-covered="0" branch-rate="0" complexity="" version="0.4" timestamp="1">
   <sources>
     <source>/var/project/src/</source>
   </sources>
@@ -97,6 +97,66 @@
             <line number="33" hits="1"/>
             <line number="36" hits="1"/>
             <line number="41" hits="1"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="functions.php" line-rate="88" branch-rate="0" complexity="">
+      <classes>
+        <class name="functions.php" filename="functions.php" branch-rate="0" complexity="0" line-rate="88">
+          <methods>
+            <method name="findVendorDirectory" signature="" line-rate="88" branch-rate="0">
+              <lines>
+                <line number="9" hits="1"/>
+                <line number="10" hits="1"/>
+                <line number="11" hits="1"/>
+                <line number="12" hits="0"/>
+                <line number="14" hits="1"/>
+                <line number="15" hits="1"/>
+                <line number="16" hits="1"/>
+                <line number="18" hits="1"/>
+                <line number="20" hits="1"/>
+              </lines>
+            </method>
+            <lines>
+              <line number="9" hits="1"/>
+              <line number="10" hits="1"/>
+              <line number="11" hits="1"/>
+              <line number="12" hits="0"/>
+              <line number="14" hits="1"/>
+              <line number="15" hits="1"/>
+              <line number="16" hits="1"/>
+              <line number="18" hits="1"/>
+              <line number="20" hits="1"/>
+            </lines>
+          </methods>
+        </class>
+      </classes>
+    </package>
+    <package name="Bridges/NetteDI/TCompiledContainer.php" line-rate="100" branch-rate="0" complexity="">
+      <classes>
+        <class name="MyTester\Bridges\NetteDI\TCompiledContainer" filename="Bridges/NetteDI/TCompiledContainer.php" line-rate="100" branch-rate="0" complexity="0">
+          <methods>
+            <method name="getContainer" signature="" line-rate="100" branch-rate="0">
+              <lines>
+                <line number="16" hits="1"/>
+              </lines>
+            </method>
+            <method name="getService" signature="" line-rate="100" branch-rate="0">
+              <lines>
+                <line number="26" hits="1"/>
+              </lines>
+            </method>
+            <method name="refreshContainer" signature="" line-rate="100" branch-rate="0">
+              <lines>
+                <line number="31" hits="1"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="16" hits="1"/>
+            <line number="26" hits="1"/>
+            <line number="31" hits="1"/>
           </lines>
         </class>
       </classes>

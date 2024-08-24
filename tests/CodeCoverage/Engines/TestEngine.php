@@ -54,6 +54,22 @@ final class TestEngine implements ICodeCoverageEngine
                 36 => 1,
                 41 => 1,
             ],
+            $basePath . "/functions.php" => [
+                9 => 1,
+                10 => 1,
+                11 => 1,
+                12 => 0,
+                14 => 1,
+                15 => 1,
+                16 => 1,
+                18 => 1,
+                20 => 1,
+            ],
+            $basePath . "/Bridges/NetteDI/TCompiledContainer.php" => [
+                16 => 1,
+                26 => 1,
+                31 => 1,
+            ],
         ];
     }
 }

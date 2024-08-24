@@ -32,6 +32,18 @@ final class DataProviderTest extends TestCase
         $data = $this->getDataProvider()->getData($this, "dataProvider");
         $this->assertType("array", $data);
         $this->assertCount(2, $data);
+
+        $this->assertThrowsException(function () {
+            $this->getDataProvider()->getData($this, "dataProviderNonExisting");
+        }, InvalidDataProviderException::class, "Method MyTester\DataProviderTest::nonExisting does not exist.");
+
+        $this->assertThrowsException(function () {
+            $this->getDataProvider()->getData($this, "dataProviderPrivate");
+        }, InvalidDataProviderException::class, "Method MyTester\DataProviderTest::noData is not public.");
+
+        $this->assertThrowsException(function () {
+            $this->getDataProvider()->getData($this, "dataProviderNonArray");
+        }, InvalidDataProviderException::class, "Method MyTester\DataProviderTest::dataSourceNonArray has to return an array.");
     }
 
     private function noData(): void
@@ -48,11 +60,31 @@ final class DataProviderTest extends TestCase
     {
     }
 
+    #[DataProviderAttribute("nonExisting")]
+    private function dataProviderNonExisting(string $input): void
+    {
+    }
+
+    #[DataProviderAttribute("noData")]
+    private function dataProviderPrivate(string $input): void
+    {
+    }
+
+    #[DataProviderAttribute("dataSourceNonArray")]
+    private function dataProviderNonArray(string $input): void
+    {
+    }
+
     public function dataSource(): array
     {
         return [
             ["abc", ],
             ["def", ],
         ];
+    }
+
+    public function dataSourceNonArray(): string
+    {
+        return "abc";
     }
 }
