@@ -13,7 +13,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Code coverage report")]
-class ReportTest extends TestCase
+final class ReportTest extends TestCase
 {
     public function testReport(): void
     {

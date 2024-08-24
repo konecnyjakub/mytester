@@ -5,7 +5,7 @@ namespace MyTester\CodeCoverage\Engines;
 
 use MyTester\CodeCoverage\ICodeCoverageEngine;
 
-class TestEngine implements ICodeCoverageEngine
+final class TestEngine implements ICodeCoverageEngine
 {
     public function getName(): string
     {

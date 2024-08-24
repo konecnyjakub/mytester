@@ -14,7 +14,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Code coverage collector")]
-class CollectorTest extends TestCase
+final class CollectorTest extends TestCase
 {
     public function testStart(): void
     {
