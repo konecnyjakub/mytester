@@ -45,13 +45,23 @@
        </exec>
      </then>
      <else>
-       <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true">
+       <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true" osFamily="unix">
+         <arg value="--colors"/>
+       </exec>
+       <exec executable="php" logoutput="true" passthru="true" checkreturn="true" osFamily="windows">
+         <arg value="src/mytester"/>
          <arg value="--colors"/>
        </exec>
      </else>
    </if>
-   <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true"/>
+   <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true" osFamily="unix"/>
+   <exec executable="php" logoutput="true" passthru="true" checkreturn="true" osFamily="windows">
+     <arg value="tests/NetteDI.php"/>
+   </exec>
    <!-- It is run 2 times because the first run doesn't go through all code that it should -->
-   <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true"/>
+   <exec executable="tests/NetteDI.php" logoutput="true" passthru="true" checkreturn="true" osFamily="unix"/>
+   <exec executable="php" logoutput="true" passthru="true" checkreturn="true" osFamily="windows">
+     <arg value="tests/NetteDI.php"/>
+   </exec>
  </target>
 </project>
