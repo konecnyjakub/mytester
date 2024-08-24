@@ -23,17 +23,17 @@ use Nette\Schema\Expect;
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension
 {
-    public const TAG_TEST = "mytester.test";
-    public const TAG_EXTENSION = "mytester.extension";
-    public const TAG_COVERAGE_ENGINE = "mytester.coverage.engine";
-    public const TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
-    private const SERVICE_RUNNER = "runner";
-    private const SERVICE_SUITE_FACTORY = "suiteFactory";
-    private const SERVICE_RESULTS_FORMATTER = "resultsFormatter";
-    private const SERVICE_EXTENSION_PREFIX = "extension.";
-    private const SERVICE_CC_COLLECTOR = "coverage.collector";
-    private const SERVICE_CC_ENGINE_PREFIX = "coverage.engine.";
-    private const SERVICE_CC_FORMATTER_PREFIX = "coverage.formatter";
+    public const string TAG_TEST = "mytester.test";
+    public const string TAG_EXTENSION = "mytester.extension";
+    public const string TAG_COVERAGE_ENGINE = "mytester.coverage.engine";
+    public const string TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
+    private const string SERVICE_RUNNER = "runner";
+    private const string SERVICE_SUITE_FACTORY = "suiteFactory";
+    private const string SERVICE_RESULTS_FORMATTER = "resultsFormatter";
+    private const string SERVICE_EXTENSION_PREFIX = "extension.";
+    private const string SERVICE_CC_COLLECTOR = "coverage.collector";
+    private const string SERVICE_CC_ENGINE_PREFIX = "coverage.engine.";
+    private const string SERVICE_CC_FORMATTER_PREFIX = "coverage.formatter";
 
     private array $codeCoverageFormatters = [
         "percent" => PercentFormatter::class,

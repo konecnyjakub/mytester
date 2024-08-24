@@ -19,7 +19,7 @@ final class Tester
 {
     use \Nette\SmartObject;
 
-    private const PACKAGE_NAME = "konecnyjakub/mytester";
+    private const string PACKAGE_NAME = "konecnyjakub/mytester";
 
     public ITestSuiteFactory $testSuiteFactory;
     public ITestSuitesFinder $testSuitesFinder;

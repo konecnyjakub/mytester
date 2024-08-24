@@ -16,7 +16,7 @@ use MyTester\TestCase;
  */
 final class Tap extends AbstractResultsFormatter implements ICustomFileNameResultsFormatter
 {
-    public const TAP_VERSION = 14;
+    public const int TAP_VERSION = 14;
 
     private int $totalTests = 0;
 

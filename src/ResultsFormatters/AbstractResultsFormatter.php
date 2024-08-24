@@ -15,7 +15,7 @@ use MyTester\TestCase;
  */
 abstract class AbstractResultsFormatter implements IResultsFormatter
 {
-    private const TIMER_NAME = "My Tester";
+    private const string TIMER_NAME = "My Tester";
 
     /** @var TestCase[] All test cases that have finished (no matter their result) */
     protected array $testCases = [];

@@ -16,7 +16,7 @@ final class SkipChecker
 {
     use \Nette\SmartObject;
 
-    public const ANNOTATION_NAME = "skip";
+    public const string ANNOTATION_NAME = "skip";
 
     private Reader $annotationsReader;
     /** @var callable[] */

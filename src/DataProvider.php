@@ -16,7 +16,7 @@ final class DataProvider
 {
     use \Nette\SmartObject;
 
-    public const ANNOTATION_NAME = "dataProvider";
+    public const string ANNOTATION_NAME = "dataProvider";
 
     private Reader $annotationsReader;
 
