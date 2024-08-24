@@ -1,4 +1,4 @@
-Version 6.0.0+dev
+Version 6.0.1
 - Cobertura code coverage report now shows coverage in traits
 - fixed invalid placement of lines for all functions in Cobertura code coverage report
 
