@@ -144,10 +144,10 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
                     $methods->appendChild($method);
                 }
 
-                $methods->appendChild($functionsLines);
                 $coveragePercent = ($totalLinesClass === 0) ? 0 : (int) (($coveredLinesClass / $totalLinesClass) * 100);
                 $class->setAttribute("line-rate", (string) $coveragePercent);
                 $class->appendChild($methods);
+                $class->appendChild($functionsLines);
 
                 $classes->appendChild($class);
             }

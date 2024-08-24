@@ -1,5 +1,6 @@
 Version 6.0.0+dev
 - Cobertura code coverage report now shows coverage in traits
+- fixed invalid placement of lines for all functions in Cobertura code coverage report
 
 Version 6.0.0
 - first assertion failure in a test method now ends the method's execution
