@@ -6,3 +6,5 @@
 /build.xml          export-ignore
 /RELEASE_NOTES      export-ignore
 .editorconfig       export-ignore
+
+*.php               text eol=lf
