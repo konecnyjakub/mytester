@@ -16,7 +16,6 @@ FileSystem::createDir(ContainerFactory::$tempDir);
 ContainerFactory::$onCreate = function (Configurator $configurator): void {
     $configurator->addStaticParameters([
         "appDir" => __DIR__,
-        "tempDir" => ContainerFactory::$tempDir,
     ]);
     $configurator->addConfig(__DIR__ . "/config.neon");
 };
