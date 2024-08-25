@@ -2,6 +2,8 @@ build:
     environment:
         php:
             version: 8.3.3
+            pecl_extensions:
+                - pcov
         postgresql: false
         redis: false
         rabbitmq: false
@@ -10,9 +12,6 @@ build:
             cache:
                 directories:
                     - vendor/
-            environment:
-                variables:
-                    XDEBUG_MODE: 'coverage'
             tests:
                 override:
                     -
