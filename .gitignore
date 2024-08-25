@@ -6,3 +6,4 @@ temp/
 *.errors
 /coverage.*
 /junit.xml
+/phpstan.json

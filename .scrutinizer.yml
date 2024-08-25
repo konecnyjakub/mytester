@@ -20,6 +20,11 @@ build:
                         analysis:
                             file: codesniffer.xml
                             format: 'general-checkstyle'
+                    -
+                        command: ./vendor/bin/phpstan analyze --error-format=checkstyle | tee phpstan.xml
+                        analysis:
+                            file: phpstan.xml
+                            format: 'general-checkstyle'
                     - php ./tests/NetteDI.php
                     -
                         command: php ./tests/NetteDI.php

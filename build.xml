@@ -30,10 +30,20 @@
          <arg value="."/>
          <arg value="--colors"/>
        </exec>
+     </then>
+   </if>
+   <if>
+     <isset property="env.REPORTS"/>
+     <then>
+       <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
+         <arg line="analyze --error-format=gitlab | tee phpstan.json"/>
+       </exec>
+     </then>
+     <else>
        <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
          <arg value="analyze"/>
        </exec>
-     </then>
+     </else>
    </if>
    <if>
      <isset property="env.REPORTS"/>
