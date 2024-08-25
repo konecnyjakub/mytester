@@ -26,6 +26,10 @@ test:reports:
         REPORTS: 1
     coverage: '/(\d+\%) covered/'
     artifacts:
+        paths:
+            - coverage.xml
+            - junit.xml
+            - phpstan.json
         reports:
             coverage_report:
                 coverage_format: cobertura
