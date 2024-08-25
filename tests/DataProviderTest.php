@@ -41,9 +41,13 @@ final class DataProviderTest extends TestCase
             $this->getDataProvider()->getData($this, "dataProviderPrivate");
         }, InvalidDataProviderException::class, "Method MyTester\DataProviderTest::noData is not public.");
 
-        $this->assertThrowsException(function () {
-            $this->getDataProvider()->getData($this, "dataProviderNonArray");
-        }, InvalidDataProviderException::class, "Method MyTester\DataProviderTest::dataSourceNonArray has to return an array.");
+        $this->assertThrowsException(
+            function () {
+                $this->getDataProvider()->getData($this, "dataProviderNonArray");
+            },
+            InvalidDataProviderException::class,
+            "Method MyTester\DataProviderTest::dataSourceNonArray has to return an array."
+        );
     }
 
     private function noData(): void
