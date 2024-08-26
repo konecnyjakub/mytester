@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Bridges\NetteDI;
 
 use Exception;
+use MyTester\Bridges\NetteApplication\PresenterMock;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
@@ -34,6 +35,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     private const string SERVICE_CC_COLLECTOR = "coverage.collector";
     private const string SERVICE_CC_ENGINE_PREFIX = "coverage.engine.";
     private const string SERVICE_CC_FORMATTER_PREFIX = "coverage.formatter";
+    private const string SERVICE_PRESENTER_MOCK = "presenterMock";
 
     private array $codeCoverageFormatters = [
         "percent" => PercentFormatter::class,
@@ -75,6 +77,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 
         $builder->addDefinition($this->prefix(static::SERVICE_SUITE_FACTORY))
             ->setType(ContainerSuiteFactory::class);
+
+        $builder->addDefinition($this->prefix(static::SERVICE_PRESENTER_MOCK))
+            ->setType(PresenterMock::class)
+            ->setAutowired(PresenterMock::class);
 
         $extensions = array_merge([CodeCoverageExtension::class, ], $config["extensions"]);
         foreach ($extensions as $index => $extension) {
