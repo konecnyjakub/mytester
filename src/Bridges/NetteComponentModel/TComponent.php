@@ -39,7 +39,7 @@ trait TComponent
         $this->presenterMock->onStartup[] = function (PresenterMock $presenter) use ($component, $name): void {
             try {
                 $presenter->removeComponent($presenter->getComponent($name));
-            } catch (InvalidArgumentException) {
+            } catch (InvalidArgumentException) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
             }
             $presenter->addComponent($component, $name);
         };
