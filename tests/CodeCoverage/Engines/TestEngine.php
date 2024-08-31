@@ -23,19 +23,20 @@ final class TestEngine implements ICodeCoverageEngine
 
     public function collect(): array
     {
-        $basePath = realpath(__DIR__ . "/../../../src");
+        $ds = DIRECTORY_SEPARATOR;
+        $basePath = realpath(__DIR__ . "/../../../src") . $ds;
         return [
-            $basePath . "/ChainTestSuitesFinder.php" => [
+            $basePath . "ChainTestSuitesFinder.php" => [
                 17 => 1,
                 22 => 1,
                 23 => 1,
                 24 => 1,
                 26 => 1,
             ],
-            $basePath . "/Attributes/Skip.php" => [
+            $basePath . "Attributes{$ds}Skip.php" => [
                 20 => 1,
             ],
-            $basePath . "/Bridges/NetteRobotLoader/TestSuitesFinder.php" => [
+            $basePath . "Bridges{$ds}NetteRobotLoader{$ds}TestSuitesFinder.php" => [
                 18 => 1,
                 19 => -1,
                 21 => 1,
@@ -54,7 +55,7 @@ final class TestEngine implements ICodeCoverageEngine
                 36 => 1,
                 41 => 1,
             ],
-            $basePath . "/functions.php" => [
+            $basePath . "functions.php" => [
                 9 => 1,
                 10 => 1,
                 11 => 1,
@@ -65,7 +66,7 @@ final class TestEngine implements ICodeCoverageEngine
                 18 => 1,
                 20 => 1,
             ],
-            $basePath . "/Bridges/NetteDI/TCompiledContainer.php" => [
+            $basePath . "Bridges{$ds}NetteDI{$ds}TCompiledContainer.php" => [
                 16 => 1,
                 26 => 1,
                 31 => 1,

@@ -44,11 +44,11 @@ final class ReportTest extends TestCase
 
     public function testFileClasses(): void
     {
-        $basePath = (string) realpath(__DIR__ . "/../../src");
+        $basePath = realpath(__DIR__ . "/../../src") . DIRECTORY_SEPARATOR;
         $data = [
-            $basePath . "/TestCase.php" => [],
-            $basePath . "/Tester.php" => [],
-            $basePath . "/SkipChecker.php" => [],
+            $basePath . "TestCase.php" => [],
+            $basePath . "Tester.php" => [],
+            $basePath . "SkipChecker.php" => [],
         ];
         $report = new Report($data);
 

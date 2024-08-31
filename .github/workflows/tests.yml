@@ -13,6 +13,7 @@ jobs:
                     - '8.3'
                 os:
                     - ubuntu-latest
+                    - windows-latest
         steps:
             - uses: actions/checkout@v4
             - uses: shivammathur/setup-php@v2

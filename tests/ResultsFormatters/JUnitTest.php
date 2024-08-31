@@ -31,6 +31,11 @@ final class JUnitTest extends TestCase
         $result = $outputFormatter->render();
         $result = str_replace(__DIR__, "/var/project/tests/ResultsFormatters", $result);
         $result = (string) preg_replace('/time="0\.[0-9]+"/', 'time="0.001"', $result);
+        $result = str_replace(
+            "/var/project/tests/ResultsFormatters\\",
+            "/var/project/tests/ResultsFormatters/",
+            $result
+        ); // this is necessary on Windows
         $this->assertMatchesFile(__DIR__ . "/junit_output.xml", $result);
     }
 
