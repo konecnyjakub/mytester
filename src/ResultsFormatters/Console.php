@@ -28,6 +28,9 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
 
     private string $folder;
 
+    /** @var array<string, string> */
+    private array $failures = [];
+
     /** @var SkippedTest[] */
     private array $skipped = [];
 
@@ -68,6 +71,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
                 case JobResult::FAILED:
                     $output = $job->output;
                     if (strlen($output) > 0) {
+                        $this->failures[$job->name] = $output;
                         file_put_contents("$this->folder/$job->name.errors", $output . "\n");
                     }
                     break;
@@ -152,12 +156,8 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
      */
     private function printFailed(): void
     {
-        $filenameSuffix = ".errors";
-        $files = Finder::findFiles("*$filenameSuffix")->in($this->folder);
-        /** @var \SplFileInfo $file */
-        foreach ($files as $name => $file) {
-            echo "--- " . $file->getBasename($filenameSuffix) . "\n";
-            echo file_get_contents($name);
+        foreach ($this->failures as $name => $text) {
+            echo "--- " . $name . "\n$text\n";
         }
     }
 }

@@ -3,5 +3,7 @@ MyTester\ResultsFormatters\TestCaseTwo::testThree passed with warning: No assert
 MyTester\ResultsFormatters\TestCaseThree::testTwo passed with warning: incomplete
 Skipped MyTester\ResultsFormatters\TestCaseOne::testThree
 Skipped MyTester\ResultsFormatters\TestCaseThree::testOne: abc
+--- MyTester\ResultsFormatters\TestCaseTwo::testTwo
+Test 1 failed. The value is not true.
 
 Failed (8 tests, 3 passed, 2 passed with warnings, 1 failed, 2 skipped, 1 ms)
