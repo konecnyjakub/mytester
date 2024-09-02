@@ -12,7 +12,7 @@ use ReflectionMethod;
  * @author Jakub Konečný
  * @internal
  */
-final class DataProvider
+final class DataProvider implements IDataProvider
 {
     use \Nette\SmartObject;
 
@@ -26,8 +26,8 @@ final class DataProvider
     }
 
     /**
-     * @throws InvalidDataProviderException
-     * @throws \ReflectionException
+     * @throws InvalidDataProviderException If the provided source does not exist, is not accessible or does not return array
+     * @throws \ReflectionException If the specified test method does not exist
      */
     public function getData(object $class, string $method): array
     {

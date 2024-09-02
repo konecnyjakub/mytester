@@ -12,7 +12,7 @@ use Nette\Utils\Arrays;
  * @author Jakub Konečný
  * @internal
  */
-final class SkipChecker
+final class SkipChecker implements ISkipChecker
 {
     use \Nette\SmartObject;
 
@@ -45,9 +45,6 @@ final class SkipChecker
         return $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
     }
 
-    /**
-     * Check whether to skip a test method
-     */
     public function shouldSkip(string $class, string $method): bool|string
     {
         $value = $this->getSkipValue($class, $method);
