@@ -5,15 +5,12 @@ namespace MyTester;
 
 trait TAssertions
 {
-    /** @internal */
-    protected int $taskCount = 0;
+    private int $taskCount = 0;
 
     /**
      * Prints result of a test
-     *
-     * @internal
      */
-    protected function testResult(string $text, bool $success = true): void
+    final protected function testResult(string $text, bool $success = true): void
     {
         $this->incCounter();
         if ($success) {
@@ -24,25 +21,21 @@ trait TAssertions
 
     /**
      * Increases task counter
-     *
-     * @internal
      */
-    protected function incCounter(): void
+    final protected function incCounter(): void
     {
         $this->taskCount++;
     }
 
     /**
      * Resets task counter
-     *
-     * @internal
      */
-    protected function resetCounter(): void
+    final protected function resetCounter(): void
     {
         $this->taskCount = 0;
     }
 
-    protected function getCounter(): int
+    final protected function getCounter(): int
     {
         return $this->taskCount;
     }
