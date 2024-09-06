@@ -19,12 +19,12 @@ abstract class TestCase
     use \Nette\SmartObject;
     use TAssertions;
 
-    public const METHOD_PATTERN = '#^test[A-Z0-9_]#';
+    public const string METHOD_PATTERN = '#^test[A-Z0-9_]#';
 
     /** @internal */
-    public const ANNOTATION_TEST = "test";
+    public const string ANNOTATION_TEST = "test";
     /** @internal */
-    public const ANNOTATION_TEST_SUITE = "testSuite";
+    public const string ANNOTATION_TEST_SUITE = "testSuite";
 
     protected ISkipChecker $skipChecker;
     protected IDataProvider $dataProvider;

@@ -5,6 +5,6 @@ namespace MyTester\CodeCoverage;
 
 class CodeCoverageException extends \Exception
 {
-    public const NO_ENGINE_AVAILABLE = 1;
-    public const COLLECTOR_NOT_STARTED = 2;
+    public const int NO_ENGINE_AVAILABLE = 1;
+    public const int COLLECTOR_NOT_STARTED = 2;
 }
