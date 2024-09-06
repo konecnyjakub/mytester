@@ -26,8 +26,8 @@ abstract class TestCase
     /** @internal */
     public const ANNOTATION_TEST_SUITE = "testSuite";
 
-    protected SkipChecker $skipChecker;
-    protected DataProvider $dataProvider;
+    protected ISkipChecker $skipChecker;
+    protected IDataProvider $dataProvider;
     protected Reader $annotationsReader;
 
     /** @var Job[] */

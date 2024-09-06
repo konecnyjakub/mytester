@@ -7,7 +7,6 @@ namespace MyTester;
  * Skip checker for test methods in {@see TestCase}
  *
  * @author Jakub Konečný
- * @internal
  */
 interface ISkipChecker
 {

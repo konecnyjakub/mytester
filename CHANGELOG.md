@@ -1,3 +1,6 @@
+Version 7.0.0-dev
+- BC break: used interfaces for data provider and skip checker in TestCase
+
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api
 - added TCompiledContainer, ContainerFactory and TComponent

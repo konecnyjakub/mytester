@@ -7,7 +7,6 @@ namespace MyTester;
  * Data provider for {@see TestCase}
  *
  * @author Jakub Konečný
- * @internal
  */
 interface IDataProvider
 {
