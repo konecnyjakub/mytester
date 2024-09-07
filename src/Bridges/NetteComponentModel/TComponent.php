@@ -5,7 +5,6 @@ namespace MyTester\Bridges\NetteComponentModel;
 
 use MyTester\Bridges\NetteApplication\PresenterMock;
 use MyTester\Bridges\NetteDI\ContainerFactory;
-use MyTester\TAssertions;
 use Nette\Application\Request;
 use Nette\ComponentModel\IComponent;
 use Nette\InvalidArgumentException;
@@ -17,8 +16,6 @@ use ReflectionClass;
  */
 trait TComponent
 {
-    use TAssertions;
-
     private ?PresenterMock $presenterMock = null;
 
     protected function attachToPresenter(IComponent $component, ?string $name = null): void
