@@ -16,7 +16,7 @@ final class SkipCheckerTest extends TestCase
 {
     private function getSkipChecker(): SkipChecker
     {
-        return $this->skipChecker;
+        return (new SkipChecker($this->annotationsReader));
     }
 
     public function testCheckPhpVersion(): void
