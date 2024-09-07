@@ -25,8 +25,16 @@ final class CoberturaFormatterTest extends TestCase
         $result = preg_replace('/(timestamp="\d+")/', 'timestamp="1"', $result);
         $result = str_replace($report->sourcePath, "/var/project/src/", $result);
         $result = str_replace(
-            ["Attributes\\Skip.php", "Bridges\\NetteRobotLoader\\TestSuitesFinder.php", "Bridges\\NetteDI\\TCompiledContainer.php", ],
-            ["Attributes/Skip.php", "Bridges/NetteRobotLoader/TestSuitesFinder.php", "Bridges/NetteDI/TCompiledContainer.php", ],
+            [
+                "Attributes\\Skip.php",
+                "Bridges\\NetteRobotLoader\\TestSuitesFinder.php",
+                "Bridges\\NetteDI\\TCompiledContainer.php",
+            ],
+            [
+                "Attributes/Skip.php",
+                "Bridges/NetteRobotLoader/TestSuitesFinder.php",
+                "Bridges/NetteDI/TCompiledContainer.php",
+            ],
             $result
         ); // this is necessary on Windows
         $this->assertMatchesFile(__DIR__ . "/cobertura.xml", $result);
