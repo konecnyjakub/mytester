@@ -1,12 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\Bridges\NetteComponentModel;
+namespace MyTester\Bridges\NetteApplication;
 
-use MyTester\Bridges\NetteApplication\PresenterMock;
 use MyTester\Bridges\NetteDI\ContainerFactory;
 use Nette\Application\Request;
-use Nette\ComponentModel\IComponent;
+use Nette\Application\UI\Component;
 use Nette\InvalidArgumentException;
 use ReflectionClass;
 
@@ -18,7 +17,7 @@ trait TComponent
 {
     private ?PresenterMock $presenterMock = null;
 
-    protected function attachToPresenter(IComponent $component, ?string $name = null): void
+    protected function attachToPresenter(Component $component, ?string $name = null): void
     {
         if ($name === null) {
             $name = $component->getName();
@@ -43,7 +42,7 @@ trait TComponent
         $this->presenterMock->run(new Request('Foo'));
     }
 
-    private function getRenderOutput(IComponent $control, array $params = [], string $renderMethod = "render"): string
+    private function getRenderOutput(Component $control, array $params = [], string $renderMethod = "render"): string
     {
         if ($control->getParent() === null) {
             $this->attachToPresenter($control);
@@ -54,7 +53,7 @@ trait TComponent
     }
 
     protected function assertRenderOutput(
-        IComponent $control,
+        Component $control,
         string $expected,
         array $params = [],
         string $renderMethod = "render"
@@ -63,7 +62,7 @@ trait TComponent
     }
 
     protected function assertRenderOutputFile(
-        IComponent $control,
+        Component $control,
         string $filename,
         array $params = [],
         string $renderMethod = "render"

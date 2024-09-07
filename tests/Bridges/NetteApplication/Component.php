@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace MyTester\Bridges\NetteComponentModel;
+namespace MyTester\Bridges\NetteApplication;
 
 use Nette\Application\UI\Control;
 
