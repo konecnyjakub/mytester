@@ -19,7 +19,7 @@ trait TAssertions
         if ($success) {
             return;
         }
-        throw new AssertionFailedException("Test $this->taskCount failed. $text");
+        throw new AssertionFailedException($text, $this->getCounter());
     }
 
     /**
