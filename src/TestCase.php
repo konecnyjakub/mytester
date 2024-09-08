@@ -42,6 +42,27 @@ abstract class TestCase
     }
 
     /**
+     * Get list of test methods in current test suite
+     *
+     * @return string[]
+     */
+    protected function getTestMethodsNames(): array
+    {
+        $r = new ReflectionClass(static::class);
+        return array_values(
+            (array) preg_grep(
+                static::METHOD_PATTERN,
+                array_map(
+                    function (ReflectionMethod $rm) {
+                        return $rm->getName();
+                    },
+                    $r->getMethods(ReflectionMethod::IS_PUBLIC)
+                )
+            )
+        );
+    }
+
+    /**
      * Get list of jobs with parameters for current test suite
      *
      * @return Job[]
@@ -49,18 +70,7 @@ abstract class TestCase
     protected function getJobs(): array
     {
         if (count($this->jobs) === 0) {
-            $r = new ReflectionClass(static::class);
-            $methods = array_values(
-                (array) preg_grep(
-                    static::METHOD_PATTERN,
-                    array_map(
-                        function (ReflectionMethod $rm) {
-                            return $rm->getName();
-                        },
-                        $r->getMethods(ReflectionMethod::IS_PUBLIC)
-                    )
-                )
-            );
+            $methods = $this->getTestMethodsNames();
             foreach ($methods as $method) {
                 /** @var callable $callback */
                 $callback = [$this, $method];
