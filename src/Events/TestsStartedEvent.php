@@ -11,11 +11,10 @@ use MyTester\TestCase;
  */
 final class TestsStartedEvent
 {
-    /** @var TestCase[] */
-    public array $testCases = [];
-
-    public function __construct(array $testCases)
+    /**
+     * @param TestCase[] $testCases
+     */
+    public function __construct(public array $testCases = [])
     {
-        $this->testCases = $testCases;
     }
 }

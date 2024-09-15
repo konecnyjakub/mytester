@@ -18,11 +18,8 @@ final class DataProvider implements IDataProvider
 
     public const string ANNOTATION_NAME = "dataProvider";
 
-    private Reader $annotationsReader;
-
-    public function __construct(Reader $annotationsReader)
+    public function __construct(private Reader $annotationsReader)
     {
-        $this->annotationsReader = $annotationsReader;
     }
 
     /**

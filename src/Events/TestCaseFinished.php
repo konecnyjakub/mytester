@@ -11,10 +11,7 @@ use MyTester\TestCase;
  */
 final class TestCaseFinished
 {
-    public TestCase $testCase;
-
-    public function __construct(TestCase $testCase)
+    public function __construct(public TestCase $testCase)
     {
-        $this->testCase = $testCase;
     }
 }

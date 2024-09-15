@@ -12,13 +12,8 @@ final readonly class TestWarning
 {
     use \Nette\SmartObject;
 
-    public string $name;
-    public string $text;
-
-    public function __construct(string $name, string $text)
+    public function __construct(public string $name, public string $text)
     {
-        $this->name = $name;
-        $this->text = $text;
     }
 
     public function __toString(): string

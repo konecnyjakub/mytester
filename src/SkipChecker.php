@@ -18,13 +18,11 @@ final class SkipChecker implements ISkipChecker
 
     public const string ANNOTATION_NAME = "skip";
 
-    private Reader $annotationsReader;
     /** @var callable[] */
     private array $checkers = [];
 
-    public function __construct(Reader $annotationsReader)
+    public function __construct(private Reader $annotationsReader)
     {
-        $this->annotationsReader = $annotationsReader;
         $this->addDefaultCheckers();
     }
 

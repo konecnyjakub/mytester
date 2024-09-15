@@ -20,11 +20,8 @@ final class Job
 {
     use \Nette\SmartObject;
 
-    public readonly string $name;
     /** @var callable Task */
     private $callback;
-    public readonly array $params;
-    private bool|string $skip;
     private JobResult $result = JobResult::PASSED;
     private string $output = "";
     /** @var int Total elapsed time in milliseconds */
@@ -33,21 +30,18 @@ final class Job
      * @internal
      */
     public int $totalAssertions = 0;
-    /** @var callable[] */
-    public array $onAfterExecute = [];
 
+    /**
+     * @param callable[] $onAfterExecute
+     */
     public function __construct(
-        string $name,
+        public readonly string $name,
         callable $callback,
-        array $params = [],
-        bool|string $skip = false,
-        array $onAfterExecute = []
+        public readonly array $params = [],
+        private bool|string $skip = false,
+        public array $onAfterExecute = []
     ) {
-        $this->name = $name;
         $this->callback = $callback;
-        $this->params = $params;
-        $this->skip = $skip;
-        $this->onAfterExecute = $onAfterExecute;
     }
 
     protected function getCallback(): callable

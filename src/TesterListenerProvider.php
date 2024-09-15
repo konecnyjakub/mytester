@@ -13,9 +13,6 @@ use Psr\EventDispatcher\ListenerProviderInterface;
  */
 final class TesterListenerProvider implements ListenerProviderInterface
 {
-    /** @var ITesterExtension[] */
-    private array $extensions;
-
     /**
      * @var array<class-string, callable[]>
      */
@@ -24,9 +21,8 @@ final class TesterListenerProvider implements ListenerProviderInterface
     /**
      * @param ITesterExtension[] $extensions
      */
-    public function __construct(array $extensions)
+    public function __construct(private array $extensions)
     {
-        $this->extensions = $extensions;
     }
 
     /**

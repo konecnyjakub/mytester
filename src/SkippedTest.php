@@ -12,13 +12,8 @@ final readonly class SkippedTest
 {
     use \Nette\SmartObject;
 
-    public string $name;
-    public string $reason;
-
-    public function __construct(string $name, string $reason)
+    public function __construct(public string $name, public string $reason)
     {
-        $this->name = $name;
-        $this->reason = $reason;
     }
 
     public function __toString(): string

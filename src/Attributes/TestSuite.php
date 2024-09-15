@@ -13,10 +13,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 final class TestSuite extends BaseAttribute
 {
-    public string $value;
-
-    public function __construct(string $value)
+    public function __construct(public string $value)
     {
-        $this->value = $value;
     }
 }

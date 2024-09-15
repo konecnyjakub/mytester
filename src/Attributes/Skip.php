@@ -13,10 +13,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 final class Skip extends BaseAttribute
 {
-    public mixed $value;
-
-    public function __construct(mixed $value = true)
+    public function __construct(public mixed $value = true)
     {
-        $this->value = $value;
     }
 }
