@@ -21,7 +21,7 @@ final class TesterListenerProvider implements ListenerProviderInterface
     /**
      * @param ITesterExtension[] $extensions
      */
-    public function __construct(private array $extensions)
+    public function __construct(private readonly array $extensions)
     {
     }
 

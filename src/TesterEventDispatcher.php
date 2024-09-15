@@ -13,7 +13,7 @@ use Psr\EventDispatcher\StoppableEventInterface;
  * @author Jakub Konečný
  * @internal
  */
-final class TesterEventDispatcher implements EventDispatcherInterface
+final readonly class TesterEventDispatcher implements EventDispatcherInterface
 {
     public function __construct(private ListenerProviderInterface $listenerProvider)
     {
