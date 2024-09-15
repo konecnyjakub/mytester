@@ -11,13 +11,10 @@ use MyTester\ITesterExtension;
  * @author Jakub Konečný
  * @internal
  */
-final class CodeCoverageExtension implements ITesterExtension
+final readonly class CodeCoverageExtension implements ITesterExtension
 {
-    private Collector $collector;
-
-    public function __construct(Collector $collector)
+    public function __construct(private Collector $collector)
     {
-        $this->collector = $collector;
     }
 
     public function getEventsPreRun(): array
