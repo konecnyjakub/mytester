@@ -22,7 +22,6 @@
 
 # PHP Code
 /src/               @konecnyjakub
-/code-coverage.php  @konecnyjakub
 
 # Tests
 /tests/             @konecnyjakub
