@@ -86,6 +86,13 @@ $extensions = [
     new CodeCoverageExtension($codeCoverageCollector),
 ];
 
-$tester = new Tester(folder: $options["path"], extensions: $extensions, resultsFormatter: $resultsFormatter);
+$params = [
+    "folder" => $options["path"],
+    "extensions" => $extensions,
+];
+if ($resultsFormatter !== null) {
+    $params["resultsFormatter"] = $resultsFormatter;
+}
+$tester = new Tester(...$params);
 $tester->useColors = isset($options["--colors"]);
 $tester->execute();

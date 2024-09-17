@@ -2,6 +2,7 @@ Version 7.0.0-dev
 - BC break: used interfaces for data provider and skip checker in TestCase
 - BC break: used typed class constants
 - BC break: made some methods in TAssertions final
+- BC break: it is no longer possible to pass null for corresponding parameter to constructor
 
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api

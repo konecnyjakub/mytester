@@ -27,7 +27,6 @@ final class Tester
     private const string PACKAGE_NAME = "konecnyjakub/mytester";
 
     public ITestSuitesFinder $testSuitesFinder;
-    private IResultsFormatter $resultsFormatter;
     private Console $console;
     private bool $useColors = false;
     private EventDispatcherInterface $eventDispatcher;
@@ -40,7 +39,7 @@ final class Tester
         ITestSuitesFinder $testSuitesFinder = null,
         public ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
         private readonly array $extensions = [],
-        ?IResultsFormatter $resultsFormatter = null
+        private readonly IResultsFormatter $resultsFormatter = new ResultsFormatters\Console()
     ) {
         if ($testSuitesFinder === null) {
             $testSuitesFinder = new ChainTestSuitesFinder();
@@ -49,7 +48,6 @@ final class Tester
         }
         $this->testSuitesFinder = $testSuitesFinder;
         $this->console = new Console();
-        $this->resultsFormatter = $resultsFormatter ?? new ResultsFormatters\Console();
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
         }
