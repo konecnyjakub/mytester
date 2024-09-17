@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Composer\InstalledVersions;
+use Konecnyjakub\EventDispatcher\EventDispatcher;
+use Konecnyjakub\EventDispatcher\ListenerProvider;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use Nette\CommandLine\Console;
@@ -52,7 +54,7 @@ final class Tester
             $this->resultsFormatter->setConsole($this->console);
         }
 
-        $listenerProvider = new TesterListenerProvider($this->extensions);
+        $listenerProvider = new ListenerProvider();
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
             $this->clearErrorsFiles();
             $this->printInfo();
@@ -64,6 +66,14 @@ final class Tester
                 $this->resultsFormatter->reportTestsStarted($event->testCases);
             }
         );
+        $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
+            foreach ($this->extensions as $extension) {
+                $callbacks = $extension->getEventsPreRun();
+                foreach ($callbacks as $callback) {
+                    $callback();
+                }
+            }
+        });
         $listenerProvider->registerListener(Events\TestsFinishedEvent::class, function () {
             $this->printResults();
         });
@@ -73,6 +83,14 @@ final class Tester
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
             }
         );
+        $listenerProvider->registerListener(Events\TestsFinishedEvent::class, function () {
+            foreach ($this->extensions as $extension) {
+                $callbacks = $extension->getEventsAfterRun();
+                foreach ($callbacks as $callback) {
+                    $callback();
+                }
+            }
+        });
         $listenerProvider->registerListener(
             Events\TestCaseStarted::class,
             function (Events\TestCaseStarted $event) {
@@ -86,7 +104,7 @@ final class Tester
                 $this->resultsFormatter->reportTestCaseFinished($event->testCase);
             }
         );
-        $this->eventDispatcher = new TesterEventDispatcher($listenerProvider);
+        $this->eventDispatcher = new EventDispatcher($listenerProvider);
     }
 
     protected function isUseColors(): bool
