@@ -13,4 +13,3 @@ parameters:
             identifier: missingType.iterableValue
         -
             identifier: missingType.generics
-        - '#Access to an uninitialized readonly property MyTester\\Tester::\$folder#'

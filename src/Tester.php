@@ -24,24 +24,20 @@ final class Tester
 
     private const string PACKAGE_NAME = "konecnyjakub/mytester";
 
-    public ITestSuiteFactory $testSuiteFactory;
     public ITestSuitesFinder $testSuitesFinder;
     private IResultsFormatter $resultsFormatter;
     private Console $console;
-    private readonly string $folder;
     private bool $useColors = false;
-    /** @var ITesterExtension[] */
-    private array $extensions = [];
     private EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param ITesterExtension[] $extensions
      */
     public function __construct(
-        string $folder,
+        private readonly string $folder,
         ITestSuitesFinder $testSuitesFinder = null,
-        ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
-        array $extensions = [],
+        public ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
+        private readonly array $extensions = [],
         ?IResultsFormatter $resultsFormatter = null
     ) {
         if ($testSuitesFinder === null) {
@@ -50,14 +46,11 @@ final class Tester
             $testSuitesFinder->registerFinder(new TestSuitesFinder());
         }
         $this->testSuitesFinder = $testSuitesFinder;
-        $this->testSuiteFactory = $testSuiteFactory;
-        $this->folder = $folder;
         $this->console = new Console();
         $this->resultsFormatter = $resultsFormatter ?? new ResultsFormatters\Console();
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
         }
-        $this->extensions = $extensions;
 
         $listenerProvider = new TesterListenerProvider($this->extensions);
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
