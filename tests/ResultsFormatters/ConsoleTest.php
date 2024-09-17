@@ -19,7 +19,6 @@ final class ConsoleTest extends TestCase
         $console = new \Nette\CommandLine\Console();
         $console->useColors(false);
         $outputFormatter = new Console();
-        $outputFormatter->setTestsFolder(__DIR__);
         $outputFormatter->setConsole($console);
         $outputFormatter->reportTestsStarted([]);
         $testCase1 = new TestCaseOne();

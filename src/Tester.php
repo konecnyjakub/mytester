@@ -7,6 +7,9 @@ use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use Nette\CommandLine\Console;
+use Nette\IOException;
+use Nette\Utils\FileSystem;
+use Nette\Utils\Finder;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -51,9 +54,6 @@ final class Tester
         $this->folder = $folder;
         $this->console = new Console();
         $this->resultsFormatter = $resultsFormatter ?? new ResultsFormatters\Console();
-        if (is_subclass_of($this->resultsFormatter, ITestsFolderAwareResultsFormatter::class)) {
-            $this->resultsFormatter->setTestsFolder($this->folder);
-        }
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
         }
@@ -61,6 +61,7 @@ final class Tester
 
         $listenerProvider = new TesterListenerProvider($this->extensions);
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
+            $this->clearErrorsFiles();
             $this->printInfo();
         });
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, [$this->resultsFormatter, "setup"]);
@@ -88,6 +89,7 @@ final class Tester
         $listenerProvider->registerListener(
             Events\TestCaseFinished::class,
             function (Events\TestCaseFinished $event) {
+                $this->saveErrors($event);
                 $this->resultsFormatter->reportTestCaseFinished($event->testCase);
             }
         );
@@ -134,6 +136,17 @@ final class Tester
         exit((int) $failed);
     }
 
+    private function clearErrorsFiles(): void
+    {
+        $files = Finder::findFiles("*.errors")->in($this->folder);
+        foreach ($files as $name => $file) {
+            try {
+                FileSystem::delete($name);
+            } catch (IOException) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
+            }
+        }
+    }
+
     /**
      * Print version of My Tester and PHP
      */
@@ -144,6 +157,16 @@ final class Tester
         echo "\n";
         echo $this->console->color("silver", "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n");
         echo "\n";
+    }
+
+    private function saveErrors(Events\TestCaseFinished $event): void
+    {
+        $jobs = $event->testCase->jobs;
+        foreach ($jobs as $job) {
+            if ($job->result === JobResult::FAILED && strlen($job->output) > 0) {
+                file_put_contents("$this->folder/$job->name.errors", $job->output . "\n");
+            }
+        }
     }
 
     private function printResults(): void

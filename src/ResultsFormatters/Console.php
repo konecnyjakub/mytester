@@ -4,14 +4,10 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\IConsoleAwareResultsFormatter;
-use MyTester\ITestsFolderAwareResultsFormatter;
 use MyTester\JobResult;
 use MyTester\SkippedTest;
 use MyTester\TestCase;
 use MyTester\TestWarning;
-use Nette\IOException;
-use Nette\Utils\FileSystem;
-use Nette\Utils\Finder;
 
 /**
  * Console results formatter for Tester
@@ -19,14 +15,12 @@ use Nette\Utils\Finder;
  *
  * @author Jakub Konečný
  */
-final class Console extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter, ITestsFolderAwareResultsFormatter
+final class Console extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
 {
     /**
      * @internal
      */
     public \Nette\CommandLine\Console $console;
-
-    private string $folder;
 
     /** @var array<string, string> */
     private array $failures = [];
@@ -38,22 +32,6 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
     private array $warnings = [];
 
     private string $results = "";
-
-    public function setup(): void
-    {
-        $files = Finder::findFiles("*.errors")->in($this->folder);
-        foreach ($files as $name => $file) {
-            try {
-                FileSystem::delete($name);
-            } catch (IOException) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
-            }
-        }
-    }
-
-    public function setTestsFolder(string $folder): void
-    {
-        $this->folder = $folder;
-    }
 
     public function setConsole(\Nette\CommandLine\Console $console): void
     {
@@ -72,7 +50,6 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
                     $output = $job->output;
                     if (strlen($output) > 0) {
                         $this->failures[$job->name] = $output;
-                        file_put_contents("$this->folder/$job->name.errors", $output . "\n");
                     }
                     break;
                 case JobResult::WARNING:

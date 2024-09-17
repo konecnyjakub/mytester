@@ -17,7 +17,7 @@ final class TesterTest extends TestCase
 {
     public function testSetUp(): void
     {
-        $resultsFormatter = new class extends AbstractResultsFormatter implements ITestsFolderAwareResultsFormatter, IConsoleAwareResultsFormatter
+        $resultsFormatter = new class extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
         {
             public Console $console;
             public string $testsFolder = "";
@@ -25,11 +25,6 @@ final class TesterTest extends TestCase
             public function setConsole(Console $console): void
             {
                 $this->console = $console;
-            }
-
-            public function setTestsFolder(string $folder): void
-            {
-                $this->testsFolder = $folder;
             }
 
             public function render(): string
@@ -40,7 +35,6 @@ final class TesterTest extends TestCase
         $tester = new Tester(folder: __DIR__, resultsFormatter: $resultsFormatter);
 
         $this->assertType(Console::class, $resultsFormatter->console);
-        $this->assertSame(__DIR__, $resultsFormatter->testsFolder);
         $this->assertType(ChainTestSuitesFinder::class, $tester->testSuitesFinder);
         $rp = new \ReflectionProperty(ChainTestSuitesFinder::class, "finders");
         $rp->setAccessible(true);
