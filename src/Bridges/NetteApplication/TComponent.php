@@ -48,7 +48,9 @@ trait TComponent
             $this->attachToPresenter($control);
         }
         ob_start();
-        call_user_func_array([$control, $renderMethod], $params); // @phpstan-ignore argument.type
+        /** @var callable $callback */
+        $callback = [$control, $renderMethod];
+        call_user_func_array($callback, $params);
         return (string) ob_get_clean();
     }
 

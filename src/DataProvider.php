@@ -40,7 +40,9 @@ final class DataProvider implements IDataProvider
                 if (!$reflection->isPublic()) {
                     throw new InvalidDataProviderException("Method $className::$dataProvider is not public.");
                 }
-                $result = call_user_func([$class, $dataProvider]); // @phpstan-ignore argument.type
+                /** @var callable $callback */
+                $callback = [$class, $dataProvider];
+                $result = call_user_func($callback);
                 if (!is_array($result)) {
                     throw new InvalidDataProviderException("Method $className::$dataProvider has to return an array.");
                 }

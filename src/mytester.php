@@ -55,8 +55,10 @@ if (isset($options["--version"])) {
 }
 
 $codeCoverageCollector = new Collector();
-foreach (CodeCoverageHelper::$defaultEngines as $engine) {
-    $codeCoverageCollector->registerEngine(new $engine()); // @phpstan-ignore argument.type
+foreach (CodeCoverageHelper::$defaultEngines as $engineClassName) {
+    /** @var \MyTester\CodeCoverage\ICodeCoverageEngine $engine */
+    $engine = new $engineClassName();
+    $codeCoverageCollector->registerEngine($engine);
 }
 $codeCoverageCollector->registerFormatter(new PercentFormatter());
 $coverageFormat = $options["--coverageFormat"];
