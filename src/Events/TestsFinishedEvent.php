@@ -9,7 +9,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  * @internal
  */
-final class TestsFinishedEvent
+final readonly class TestsFinishedEvent
 {
     /**
      * @param TestCase[] $testCases

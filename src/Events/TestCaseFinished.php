@@ -9,7 +9,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  * @internal
  */
-final class TestCaseFinished
+final readonly class TestCaseFinished
 {
     public function __construct(public TestCase $testCase)
     {
