@@ -66,14 +66,17 @@ final class Tester
                 $this->resultsFormatter->reportTestsStarted($event->testCases);
             }
         );
-        $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
-            foreach ($this->extensions as $extension) {
-                $callbacks = $extension->getEventsPreRun();
-                foreach ($callbacks as $callback) {
-                    $callback();
+        $listenerProvider->registerListener(
+            Events\TestsStartedEvent::class,
+            function (Events\TestsStartedEvent $event) {
+                foreach ($this->extensions as $extension) {
+                    $callbacks = $extension->getEventsPreRun();
+                    foreach ($callbacks as $callback) {
+                        $callback($event);
+                    }
                 }
             }
-        });
+        );
         $listenerProvider->registerListener(Events\TestsFinishedEvent::class, function () {
             $this->printResults();
         });
@@ -83,14 +86,17 @@ final class Tester
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
             }
         );
-        $listenerProvider->registerListener(Events\TestsFinishedEvent::class, function () {
-            foreach ($this->extensions as $extension) {
-                $callbacks = $extension->getEventsAfterRun();
-                foreach ($callbacks as $callback) {
-                    $callback();
+        $listenerProvider->registerListener(
+            Events\TestsFinishedEvent::class,
+            function (Events\TestsFinishedEvent $event) {
+                foreach ($this->extensions as $extension) {
+                    $callbacks = $extension->getEventsAfterRun();
+                    foreach ($callbacks as $callback) {
+                        $callback($event);
+                    }
                 }
             }
-        });
+        );
         $listenerProvider->registerListener(
             Events\TestCaseStarted::class,
             function (Events\TestCaseStarted $event) {
