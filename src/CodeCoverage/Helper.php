@@ -16,11 +16,17 @@ final class Helper
 {
     use \Nette\StaticClass;
 
+    /**
+     * @var array<string, class-string<ICodeCoverageEngine>>
+     */
     public static array $defaultEngines = [
         "pcov" => PcovEngine::class,
         "xdebug" => XDebugEngine::class,
     ];
 
+    /**
+     * @var array<string, class-string<ICodeCoverageFormatter>>
+     */
     public static array $availableFormatters = [
         "cobertura" => CoberturaFormatter::class,
         "text" => TextFormatter::class,

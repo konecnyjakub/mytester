@@ -55,17 +55,13 @@ if (isset($options["--version"])) {
 }
 
 $codeCoverageCollector = new Collector();
-foreach (CodeCoverageHelper::$defaultEngines as $engineClassName) {
-    /** @var \MyTester\CodeCoverage\ICodeCoverageEngine $engine */
-    $engine = new $engineClassName();
-    $codeCoverageCollector->registerEngine($engine);
+foreach (CodeCoverageHelper::$defaultEngines as $engine) {
+    $codeCoverageCollector->registerEngine(new $engine());
 }
 $codeCoverageCollector->registerFormatter(new PercentFormatter());
 $coverageFormat = $options["--coverageFormat"];
 if ($coverageFormat !== null) {
-    $type = CodeCoverageHelper::$availableFormatters[$coverageFormat];
-    /** @var \MyTester\CodeCoverage\ICodeCoverageFormatter $codeCoverageFormatter */
-    $codeCoverageFormatter = new $type();
+    $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$coverageFormat]();
     if (
         $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
         isset($options["--coverageFile"])
