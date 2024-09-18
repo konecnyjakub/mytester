@@ -7,7 +7,6 @@ namespace MyTester\Annotations;
  * Annotations reader
  *
  * @author Jakub Konečný
- * @internal
  */
 final class Reader
 {

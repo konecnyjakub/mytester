@@ -9,7 +9,6 @@ use MyTester\ITesterExtension;
  * Code coverage extension for automated tests runner
  *
  * @author Jakub Konečný
- * @internal
  */
 final readonly class CodeCoverageExtension implements ITesterExtension
 {

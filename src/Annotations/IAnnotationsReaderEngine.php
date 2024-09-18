@@ -5,7 +5,6 @@ namespace MyTester\Annotations;
 
 /**
  * @author Jakub Konečný
- * @internal
  */
 interface IAnnotationsReaderEngine
 {

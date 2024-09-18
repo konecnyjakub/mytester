@@ -13,7 +13,6 @@ use ReflectionMethod;
  * Php attributes engine for annotations reader
  *
  * @author Jakub Konečný
- * @internal
  */
 final class PhpAttributesEngine implements IAnnotationsReaderEngine
 {

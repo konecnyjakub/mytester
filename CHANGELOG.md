@@ -1,3 +1,6 @@
+Version 6.1.0-dev
+- added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter() to public api
+
 Version 6.0.1
 - Cobertura code coverage report now shows coverage in traits
 - fixed invalid placement of lines for all functions in Cobertura code coverage report

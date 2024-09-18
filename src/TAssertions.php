@@ -42,9 +42,6 @@ trait TAssertions
         $this->taskCount = 0;
     }
 
-    /**
-     * @internal
-     */
     protected function getCounter(): int
     {
         return $this->taskCount;
