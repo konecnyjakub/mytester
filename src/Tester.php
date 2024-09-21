@@ -58,7 +58,6 @@ final class Tester
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
             $this->printInfo();
         });
-        $listenerProvider->registerListener(Events\TestsStartedEvent::class, [$this->resultsFormatter, "setup"]);
         $listenerProvider->registerListener(
             Events\TestsStartedEvent::class,
             function (Events\TestsStartedEvent $event) {

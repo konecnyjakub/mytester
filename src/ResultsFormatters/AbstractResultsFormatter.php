@@ -25,10 +25,6 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
     /** @var int Total elapsed time in milliseconds */
     protected int $totalTime = 0;
 
-    public function setup(): void
-    {
-    }
-
     public function reportTestsStarted(array $testCases): void
     {
         Timer::start(self::TIMER_NAME);
