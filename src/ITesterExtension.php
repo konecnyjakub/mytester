@@ -19,4 +19,14 @@ interface ITesterExtension
      * @return callable[]
      */
     public function getEventsAfterRun(): array;
+
+    /**
+     * @return callable[]
+     */
+    public function getEventsBeforeTestCase(): array;
+
+    /**
+     * @return callable[]
+     */
+    public function getEventsAfterTestCase(): array;
 }

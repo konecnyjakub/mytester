@@ -7,7 +7,6 @@ use MyTester\TestCase;
 
 /**
  * @author Jakub Konečný
- * @internal
  */
 final readonly class TestCaseFinished
 {

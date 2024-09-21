@@ -99,6 +99,12 @@ final class Tester
             Events\TestCaseStarted::class,
             function (Events\TestCaseStarted $event) {
                 $this->resultsFormatter->reportTestCaseStarted($event->testCase);
+                foreach ($this->extensions as $extension) {
+                    $callbacks = $extension->getEventsBeforeTestCase();
+                    foreach ($callbacks as $callback) {
+                        $callback($event);
+                    }
+                }
             }
         );
         $listenerProvider->registerListener(
@@ -106,6 +112,12 @@ final class Tester
             function (Events\TestCaseFinished $event) {
                 $this->saveErrors($event);
                 $this->resultsFormatter->reportTestCaseFinished($event->testCase);
+                foreach ($this->extensions as $extension) {
+                    $callbacks = $extension->getEventsAfterTestCase();
+                    foreach ($callbacks as $callback) {
+                        $callback($event);
+                    }
+                }
             }
         );
         $this->eventDispatcher = new EventDispatcher($listenerProvider);

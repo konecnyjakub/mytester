@@ -5,6 +5,8 @@ Version 7.0.0-dev
 - BC break: it is no longer possible to pass null for corresponding parameter to constructor
 - BC break: made Tester::$testSuitesFinder and $testSuitesFinder readonly
 - BC break: added method IResultsFormatter::setOutputFileName
+- BC break: added methods ITesterExtension::getEventsBeforeTestCase and getEventsAfterTestCase
+- added TestCaseStarted and TestCaseFinished to public api
 
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api

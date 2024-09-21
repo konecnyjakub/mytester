@@ -30,6 +30,16 @@ final readonly class CodeCoverageExtension implements ITesterExtension
         ];
     }
 
+    public function getEventsBeforeTestCase(): array
+    {
+        return [];
+    }
+
+    public function getEventsAfterTestCase(): array
+    {
+        return [];
+    }
+
     /**
      * @internal
      * @throws CodeCoverageException
