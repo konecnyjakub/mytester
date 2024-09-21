@@ -341,6 +341,8 @@ class Tests extends MyTester\TestCase
 }
 ```
 
+Using traits TCompiledContainer and TComponent requires setting up the container, see tests/NetteDI.php as an example.
+
 More examples
 -------------
 
