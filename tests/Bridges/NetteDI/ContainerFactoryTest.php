@@ -21,7 +21,7 @@ final class ContainerFactoryTest extends TestCase
     public function testCreate(): void
     {
         if (!isset($_ENV["MYTESTER_NETTE_DI"])) {
-            $this->markTestSkipped();
+            $this->markTestSkipped("This test needs Nette DI container.");
         }
         $oldCallback = ContainerFactory::$onCreate;
         $oldParameters = ContainerFactory::create()->getParameters();

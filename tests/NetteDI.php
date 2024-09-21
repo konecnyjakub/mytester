@@ -10,7 +10,7 @@ use MyTester\Tester;
 use Nette\Bootstrap\Configurator;
 use Nette\Utils\FileSystem;
 
-$_ENV["MYTESTER_NETTE_DI"] = true;
+$_ENV["MYTESTER_NETTE_DI"] = true; // used to skip tests that need the container when they are not run with this script
 ContainerFactory::$tempDir = __DIR__ . "/temp";
 FileSystem::createDir(ContainerFactory::$tempDir);
 ContainerFactory::$onCreate = function (Configurator $configurator): void {

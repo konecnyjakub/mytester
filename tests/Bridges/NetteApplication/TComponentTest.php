@@ -21,7 +21,7 @@ final class TComponentTest extends TestCase
     public function testAttachToPresenter(): void
     {
         if (!isset($_ENV["MYTESTER_NETTE_DI"])) {
-            $this->markTestSkipped();
+            $this->markTestSkipped("This test needs Nette DI container.");
         }
         $control = new Component();
         $this->assertThrowsException(
@@ -38,7 +38,7 @@ final class TComponentTest extends TestCase
     public function testAssertRenderOutput(): void
     {
         if (!isset($_ENV["MYTESTER_NETTE_DI"])) {
-            $this->markTestSkipped();
+            $this->markTestSkipped("This test needs Nette DI container.");
         }
         $control = new Component();
         $this->assertRenderOutput($control, "<div>abc</div>");
@@ -48,7 +48,7 @@ final class TComponentTest extends TestCase
     public function testAssertRenderOutputFile(): void
     {
         if (!isset($_ENV["MYTESTER_NETTE_DI"])) {
-            $this->markTestSkipped();
+            $this->markTestSkipped("This test needs Nette DI container.");
         }
         $control = new Component();
         $this->assertRenderOutputFile($control, __DIR__ . "/component.txt");
