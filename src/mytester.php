@@ -12,6 +12,7 @@ use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\ErrorsFilesExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use Nette\CommandLine\Parser;
@@ -83,6 +84,7 @@ if ($resultsFormat !== null) {
 
 $extensions = [
     new CodeCoverageExtension($codeCoverageCollector),
+    new ErrorsFilesExtension($options["path"]),
 ];
 
 $params = [

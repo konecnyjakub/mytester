@@ -54,7 +54,6 @@ final class Tester
 
         $listenerProvider = new ListenerProvider();
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
-            $this->clearErrorsFiles();
             $this->printInfo();
         });
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, [$this->resultsFormatter, "setup"]);
@@ -62,11 +61,6 @@ final class Tester
             Events\TestsStartedEvent::class,
             function (Events\TestsStartedEvent $event) {
                 $this->resultsFormatter->reportTestsStarted($event->testCases);
-            }
-        );
-        $listenerProvider->registerListener(
-            Events\TestsStartedEvent::class,
-            function (Events\TestsStartedEvent $event) {
                 foreach ($this->extensions as $extension) {
                     $callbacks = $extension->getEventsPreRun();
                     foreach ($callbacks as $callback) {
@@ -82,11 +76,6 @@ final class Tester
             Events\TestsFinishedEvent::class,
             function (Events\TestsFinishedEvent $event) {
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
-            }
-        );
-        $listenerProvider->registerListener(
-            Events\TestsFinishedEvent::class,
-            function (Events\TestsFinishedEvent $event) {
                 foreach ($this->extensions as $extension) {
                     $callbacks = $extension->getEventsAfterRun();
                     foreach ($callbacks as $callback) {
@@ -110,7 +99,6 @@ final class Tester
         $listenerProvider->registerListener(
             Events\TestCaseFinished::class,
             function (Events\TestCaseFinished $event) {
-                $this->saveErrors($event);
                 $this->resultsFormatter->reportTestCaseFinished($event->testCase);
                 foreach ($this->extensions as $extension) {
                     $callbacks = $extension->getEventsAfterTestCase();
@@ -163,17 +151,6 @@ final class Tester
         exit((int) $failed);
     }
 
-    private function clearErrorsFiles(): void
-    {
-        $files = Finder::findFiles("*.errors")->in($this->folder);
-        foreach ($files as $name => $file) {
-            try {
-                FileSystem::delete($name);
-            } catch (IOException) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
-            }
-        }
-    }
-
     /**
      * Print version of My Tester and PHP
      */
@@ -184,16 +161,6 @@ final class Tester
         echo "\n";
         echo $this->console->color("silver", "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n");
         echo "\n";
-    }
-
-    private function saveErrors(Events\TestCaseFinished $event): void
-    {
-        $jobs = $event->testCase->jobs;
-        foreach ($jobs as $job) {
-            if ($job->result === JobResult::FAILED && strlen($job->output) > 0) {
-                file_put_contents("$this->folder/$job->name.errors", $job->output . "\n");
-            }
-        }
     }
 
     private function printResults(): void
