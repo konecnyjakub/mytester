@@ -24,7 +24,7 @@ final class Tester
     private const string PACKAGE_NAME = "konecnyjakub/mytester";
 
     public readonly ITestSuitesFinder $testSuitesFinder;
-    private Console $console;
+    private readonly Console $console;
     private bool $useColors = false;
     private readonly EventDispatcherInterface $eventDispatcher;
 
