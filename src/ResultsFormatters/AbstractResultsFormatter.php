@@ -65,6 +65,6 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
 
     protected function isOutputConsole(): bool
     {
-        return in_array($this->baseFileName, ["php://output", "php://stdout", ], true);
+        return !Helper::isFileOutput($this->baseFileName);
     }
 }
