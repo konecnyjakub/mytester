@@ -27,9 +27,7 @@ final class Tap extends AbstractResultsFormatter implements IResultsFormatter
     {
         parent::reportTestsStarted($testCases);
         foreach ($testCases as $testCase) {
-            foreach ($testCase->jobs as $job) {
-                $this->totalTests++;
-            }
+            $this->totalTests += count($testCase->jobs);
         }
     }
 
