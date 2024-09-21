@@ -11,7 +11,6 @@ use ReflectionClass;
 
 /**
  * @author Jakub Konečný
- * @internal
  */
 trait TComponent
 {

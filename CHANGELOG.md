@@ -1,5 +1,6 @@
 Version 6.1.0-dev
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api
+- added TCompiledContainer, ContainerFactory and TComponent
 
 Version 6.0.1
 - Cobertura code coverage report now shows coverage in traits

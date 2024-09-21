@@ -7,13 +7,12 @@ use Nette\DI\Container;
 
 /**
  * @author Jakub Konečný
- * @internal
  */
 trait TCompiledContainer
 {
     protected function getContainer(): Container
     {
-        return ContainerFactory::create(false);
+        return ContainerFactory::create();
     }
 
     /**

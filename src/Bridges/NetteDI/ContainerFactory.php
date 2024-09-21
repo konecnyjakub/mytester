@@ -9,7 +9,6 @@ use Nette\DI\Container;
 
 /**
  * @author Jakub Konečný
- * @internal
  */
 final class ContainerFactory
 {

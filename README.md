@@ -288,6 +288,59 @@ mytester:
 
 If no format is set, only the total percent of code coverage will be reported.
 
+My Tester contains a few utilities that make testing Nette applications easier. You can get the DIC container or any service from it in your test cases with trait MyTester\Bridges\NetteDI\TCompiledContainer.
+
+```php
+<?php
+declare(strict_types=1);
+
+class Tests extends MyTester\TestCase
+{
+    use \MyTester\Bridges\NetteDI\TCompiledContainer;
+    public function testService(): void
+    {
+        $service = $this->getService(\App\Model\MyClass::class);
+        $this->assertTrue($service->someMethod());
+    }
+}
+```
+
+You can also recreate the container with new config.
+
+```php
+<?php
+declare(strict_types=1);
+
+class Tests extends MyTester\TestCase
+{
+    use \MyTester\Bridges\NetteDI\TCompiledContainer;
+    public function testService(): void
+    {
+        $config = [...];
+        $this->refreshContainer($config);
+    }
+}
+```
+
+You can also test output of your components (either against a string or contents of a file) or just verify that it can be attached to a container.
+
+```php
+<?php
+declare(strict_types=1);
+
+class Tests extends MyTester\TestCase
+{
+    use \MyTester\Bridges\NetteApplication\TComponent;
+    public function testService(): void
+    {
+        $component = new \Nette\Application\UI\Component();
+        $this->attachToPresenter($component);
+        $this->assertRenderOutput($component, "<div>test</div>");
+        $this->assertRenderOutputFile($component,  __DIR__ . "/component_output.txt");
+    }
+}
+```
+
 More examples
 -------------
 

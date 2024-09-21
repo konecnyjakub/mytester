@@ -24,7 +24,7 @@ final class ContainerFactoryTest extends TestCase
             $this->markTestSkipped();
         }
         $oldCallback = ContainerFactory::$onCreate;
-        $oldParameters = ContainerFactory::create(false)->getParameters();
+        $oldParameters = ContainerFactory::create()->getParameters();
 
         $var = 0;
         $callback = function () use (&$var) {
