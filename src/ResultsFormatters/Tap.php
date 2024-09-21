@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
-use MyTester\ICustomFileNameResultsFormatter;
+use MyTester\IResultsFormatter;
 use MyTester\JobResult;
 use MyTester\TestCase;
 
@@ -14,7 +14,7 @@ use MyTester\TestCase;
  *
  * @author Jakub Konečný
  */
-final class Tap extends AbstractResultsFormatter implements ICustomFileNameResultsFormatter
+final class Tap extends AbstractResultsFormatter implements IResultsFormatter
 {
     public const int TAP_VERSION = 14;
 

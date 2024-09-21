@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\IConsoleAwareResultsFormatter;
-use MyTester\ICustomFileNameResultsFormatter;
 use MyTester\JobResult;
 
 /**
@@ -13,7 +12,7 @@ use MyTester\JobResult;
  *
  * @author Jakub Konečný
  */
-final class TestDox extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter, ICustomFileNameResultsFormatter
+final class TestDox extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
 {
     /**
      * @internal

@@ -4,6 +4,7 @@ Version 7.0.0-dev
 - BC break: made some methods in TAssertions final
 - BC break: it is no longer possible to pass null for corresponding parameter to constructor
 - BC break: made Tester::$testSuitesFinder and $testSuitesFinder readonly
+- BC break: added method IResultsFormatter::setOutputFileName
 
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api

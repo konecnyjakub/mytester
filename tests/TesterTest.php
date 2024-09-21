@@ -20,7 +20,6 @@ final class TesterTest extends TestCase
         $resultsFormatter = new class extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
         {
             public Console $console;
-            public string $testsFolder = "";
 
             public function setConsole(Console $console): void
             {

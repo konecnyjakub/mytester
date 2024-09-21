@@ -49,4 +49,9 @@ interface IResultsFormatter
      * It can be an absolute path or standard output (or anything accepted by {@see fopen()})
      */
     public function getOutputFileName(string $folder): string;
+
+    /**
+     * Set file name for output that should be used instead of the default one
+     */
+    public function setOutputFileName(string $baseFileName): void;
 }

@@ -12,7 +12,6 @@ use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
-use MyTester\ICustomFileNameResultsFormatter;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use Nette\CommandLine\Parser;
@@ -77,7 +76,7 @@ if ($resultsFormat !== null) {
     $type = ResultsHelper::$availableFormatters[$resultsFormat];
     /** @var \MyTester\IResultsFormatter $resultsFormatter */
     $resultsFormatter = new $type();
-    if ($resultsFormatter instanceof ICustomFileNameResultsFormatter && isset($options["--resultsFile"])) {
+    if (isset($options["--resultsFile"])) {
         $resultsFormatter->setOutputFileName($options["--resultsFile"]);
     }
 }

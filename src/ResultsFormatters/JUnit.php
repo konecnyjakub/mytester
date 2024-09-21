@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use DOMDocument;
-use MyTester\ICustomFileNameResultsFormatter;
+use MyTester\IResultsFormatter;
 use MyTester\Job;
 use MyTester\JobResult;
 use ReflectionClass;
@@ -20,7 +20,7 @@ use ReflectionMethod;
  *
  * @author Jakub Konečný
  */
-final class JUnit extends AbstractResultsFormatter implements ICustomFileNameResultsFormatter
+final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
 {
     protected string $baseFileName = "junit.xml";
 
