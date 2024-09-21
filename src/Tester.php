@@ -9,9 +9,6 @@ use Konecnyjakub\EventDispatcher\ListenerProvider;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use Nette\CommandLine\Console;
-use Nette\IOException;
-use Nette\Utils\FileSystem;
-use Nette\Utils\Finder;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -51,8 +48,13 @@ final class Tester
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
         }
+        $this->eventDispatcher = $this->createEventDispatcher();
+    }
 
+    private function createEventDispatcher(): EventDispatcherInterface
+    {
         $listenerProvider = new ListenerProvider();
+
         $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
             $this->printInfo();
         });
@@ -69,6 +71,7 @@ final class Tester
                 }
             }
         );
+
         $listenerProvider->registerListener(Events\TestsFinishedEvent::class, function () {
             $this->printResults();
         });
@@ -84,6 +87,7 @@ final class Tester
                 }
             }
         );
+
         $listenerProvider->registerListener(
             Events\TestCaseStarted::class,
             function (Events\TestCaseStarted $event) {
@@ -96,6 +100,7 @@ final class Tester
                 }
             }
         );
+
         $listenerProvider->registerListener(
             Events\TestCaseFinished::class,
             function (Events\TestCaseFinished $event) {
@@ -108,7 +113,8 @@ final class Tester
                 }
             }
         );
-        $this->eventDispatcher = new EventDispatcher($listenerProvider);
+
+        return new EventDispatcher($listenerProvider);
     }
 
     protected function isUseColors(): bool
