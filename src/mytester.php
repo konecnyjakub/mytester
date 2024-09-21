@@ -51,7 +51,7 @@ $options = $cmd->parse();
 if (isset($options["--version"])) {
     $version = InstalledVersions::getPrettyVersion("konecnyjakub/mytester");
     echo "My Tester $version\n";
-    exit;
+    exit(0);
 }
 
 $codeCoverageCollector = new Collector();
