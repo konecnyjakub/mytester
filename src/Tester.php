@@ -26,10 +26,10 @@ final class Tester
 
     private const string PACKAGE_NAME = "konecnyjakub/mytester";
 
-    public ITestSuitesFinder $testSuitesFinder;
+    public readonly ITestSuitesFinder $testSuitesFinder;
     private Console $console;
     private bool $useColors = false;
-    private EventDispatcherInterface $eventDispatcher;
+    private readonly EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param ITesterExtension[] $extensions
@@ -37,7 +37,7 @@ final class Tester
     public function __construct(
         private readonly string $folder,
         ITestSuitesFinder $testSuitesFinder = null,
-        public ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
+        public readonly ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
         private readonly array $extensions = [],
         private readonly IResultsFormatter $resultsFormatter = new ResultsFormatters\Console()
     ) {
