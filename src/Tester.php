@@ -130,7 +130,7 @@ final class Tester
     /**
      * Execute all tests
      */
-    public function execute(): void
+    public function execute(): never
     {
         $failed = false;
 
