@@ -12,7 +12,7 @@ use ReflectionMethod;
  * @author Jakub Konečný
  * @internal
  */
-final class DataProvider implements IDataProvider
+final readonly class DataProvider implements IDataProvider
 {
     use \Nette\SmartObject;
 
