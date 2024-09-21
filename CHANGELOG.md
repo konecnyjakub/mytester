@@ -1,4 +1,4 @@
-Version 6.1.0-dev
+Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api
 - added TCompiledContainer, ContainerFactory and TComponent
 
