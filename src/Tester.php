@@ -15,7 +15,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  * Automated tests runner
  *
  * @author Jakub Konečný
- * @property bool $useColors
  */
 final class Tester
 {
@@ -24,8 +23,6 @@ final class Tester
     private const string PACKAGE_NAME = "konecnyjakub/mytester";
 
     public readonly ITestSuitesFinder $testSuitesFinder;
-    private readonly Console $console;
-    private bool $useColors = false;
     private readonly EventDispatcherInterface $eventDispatcher;
 
     /**
@@ -36,7 +33,8 @@ final class Tester
         ITestSuitesFinder $testSuitesFinder = null,
         public readonly ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
         private readonly array $extensions = [],
-        private readonly IResultsFormatter $resultsFormatter = new ResultsFormatters\Console()
+        private readonly IResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
+        private readonly Console $console = new Console()
     ) {
         if ($testSuitesFinder === null) {
             $testSuitesFinder = new ChainTestSuitesFinder();
@@ -44,7 +42,6 @@ final class Tester
             $testSuitesFinder->registerFinder(new TestSuitesFinder());
         }
         $this->testSuitesFinder = $testSuitesFinder;
-        $this->console = new Console();
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
         }
@@ -114,17 +111,6 @@ final class Tester
         );
 
         return new EventDispatcher($listenerProvider);
-    }
-
-    protected function isUseColors(): bool
-    {
-        return $this->useColors;
-    }
-
-    protected function setUseColors(bool $useColors): void
-    {
-        $this->useColors = $useColors;
-        $this->console->useColors($useColors);
     }
 
     /**

@@ -16,6 +16,7 @@ use MyTester\ErrorsFilesExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
+use Nette\CommandLine\Console;
 use Nette\CommandLine\Parser;
 
 $cmd = new Parser("", [
@@ -90,13 +91,16 @@ $extensions = [
     new ErrorsFilesExtension($folderProvider),
 ];
 
+$console = new Console();
+$console->useColors(isset($options["--colors"]));
+
 $params = [
     "folderProvider" => $folderProvider,
     "extensions" => $extensions,
+    "console" => $console,
 ];
 if ($resultsFormatter !== null) {
     $params["resultsFormatter"] = $resultsFormatter;
 }
 $tester = new Tester(...$params);
-$tester->useColors = isset($options["--colors"]);
 $tester->execute();

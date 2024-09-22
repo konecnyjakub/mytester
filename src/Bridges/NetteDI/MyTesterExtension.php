@@ -15,6 +15,7 @@ use MyTester\ITesterExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
+use Nette\CommandLine\Console;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
 
@@ -39,6 +40,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     private const string SERVICE_CC_FORMATTER_PREFIX = "coverage.formatter";
     private const string SERVICE_PRESENTER_MOCK = "presenterMock";
     private const string SERVICE_TESTS_FOLDER_PROVIDER = "testsFolderProvider";
+    private const string SERVICE_CONSOLE_WRITER = "consoleWriter";
 
     private array $codeCoverageFormatters = [
         "percent" => PercentFormatter::class,
@@ -126,13 +128,15 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER))
                 ->setType(ResultsHelper::$availableFormatters[$config["resultsFormat"]]);
         }
+
+        $builder->addDefinition($this->prefix(static::SERVICE_CONSOLE_WRITER))
+            ->setType(Console::class)
+            ->addSetup("useColors", [$config["colors"]]);
     }
 
     public function afterCompile(\Nette\PhpGenerator\ClassType $class): void
     {
-        $config = $this->getConfig();
         $this->initialization->addBody('$runner = $this->getService(?);', [$this->prefix(static::SERVICE_RUNNER)]);
-        $this->initialization->addBody('$runner->useColors = ?;', [$config["colors"]]);
         $this->initialization->addBody(
             '$coverageCollector = $this->getService(?);',
             [$this->prefix(static::SERVICE_CC_COLLECTOR)]

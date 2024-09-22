@@ -42,33 +42,4 @@ final class TesterTest extends TestCase
         $this->assertArrayOfClass(ITestSuitesFinder::class, $finders);
         $this->assertCount(2, $finders);
     }
-
-    public function testColors(): void
-    {
-        $resultsFormatter = new class extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
-        {
-            public Console $console;
-
-            public function setConsole(Console $console): void
-            {
-                $this->console = $console;
-            }
-
-            public function render(): string
-            {
-                return "";
-            }
-        };
-        $tester = new Tester(folderProvider: new TestsFolderProvider(__DIR__), resultsFormatter: $resultsFormatter);
-        $rp = new \ReflectionProperty(Console::class, "useColors");
-        $rp->setAccessible(true);
-
-        $tester->useColors = true;
-        $this->assertTrue($tester->useColors);
-        $this->assertSame(true, $rp->getValue($resultsFormatter->console));
-
-        $tester->useColors = false;
-        $this->assertFalse($tester->useColors);
-        $this->assertSame(false, $rp->getValue($resultsFormatter->console));
-    }
 }
