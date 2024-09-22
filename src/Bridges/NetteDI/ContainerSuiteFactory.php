@@ -10,17 +10,13 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  * @internal
  */
-final class ContainerSuiteFactory implements \MyTester\ITestSuiteFactory
+final readonly class ContainerSuiteFactory implements \MyTester\ITestSuiteFactory
 {
-    /** @var TestCase[] */
-    private array $suites;
-
     /**
      * @param TestCase[] $suites
      */
-    public function __construct(array $suites)
+    public function __construct(private array $suites)
     {
-        $this->suites = $suites;
     }
 
   /**
