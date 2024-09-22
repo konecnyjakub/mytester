@@ -4,8 +4,11 @@ declare(strict_types=1);
 namespace MyTester;
 
 /**
+ * Test suites finder for {@see Tester}
+ *
+ * Uses Composer's autoloader
+ *
  * @author Jakub Konečný
- * @internal
  */
 final class ComposerTestSuitesFinder extends BaseTestSuitesFinder
 {

@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace MyTester;
 
 /**
+ * Test suites finder for {@see Tester}
+ * Combines results from multiple finders
+ *
  * @author Jakub Konečný
- * @internal
  */
 final class ChainTestSuitesFinder implements ITestSuitesFinder
 {

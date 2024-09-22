@@ -4,8 +4,11 @@ declare(strict_types=1);
 namespace MyTester;
 
 /**
+ * Default test suite factory for {@see Tester}
+ *
+ * Just creates a new instance of given class without passing any parameters
+ *
  * @author Jakub Konečný
- * @internal
  */
 final class TestSuiteFactory implements ITestSuiteFactory
 {

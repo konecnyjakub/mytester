@@ -7,10 +7,9 @@ use MyTester\Annotations\Reader;
 use ReflectionMethod;
 
 /**
- * DataProvider
+ * Default data provider for {@see Tester}
  *
  * @author Jakub Konečný
- * @internal
  */
 final readonly class DataProvider implements IDataProvider
 {

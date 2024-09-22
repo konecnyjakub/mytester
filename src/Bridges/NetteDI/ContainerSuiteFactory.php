@@ -7,8 +7,11 @@ use MyTester\InvalidTestCaseException;
 use MyTester\TestCase;
 
 /**
+ * Test suites factory for {@see Tester}
+ *
+ * Tries to get instance of given class from Nette DI container
+ *
  * @author Jakub Konečný
- * @internal
  */
 final readonly class ContainerSuiteFactory implements \MyTester\ITestSuiteFactory
 {

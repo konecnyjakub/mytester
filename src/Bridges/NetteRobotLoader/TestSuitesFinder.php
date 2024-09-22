@@ -8,8 +8,10 @@ use Nette\Loaders\RobotLoader;
 use Nette\Utils\FileSystem;
 
 /**
+ * Test suites finder for {@see Tester}
+ * Uses Nette RobotLoader
+ *
  * @author Jakub Konečný
- * @internal
  */
 final class TestSuitesFinder extends BaseTestSuitesFinder
 {

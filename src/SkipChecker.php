@@ -7,10 +7,9 @@ use MyTester\Annotations\Reader;
 use Nette\Utils\Arrays;
 
 /**
- * SkipChecker
+ * Default skip checker for {@see Tester}
  *
  * @author Jakub Konečný
- * @internal
  */
 final class SkipChecker implements ISkipChecker
 {
