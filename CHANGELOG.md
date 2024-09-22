@@ -2,8 +2,8 @@ Version 7.0.0-dev
 - BC break: used interfaces for data provider and skip checker in TestCase
 - BC break: used typed class constants
 - BC break: made some methods in TAssertions final
-- BC break: it is no longer possible to pass null for corresponding parameter to constructor
-- BC break: made Tester::$testSuitesFinder and $testSuitesFinder readonly
+- BC break: it is no longer possible to pass null to parameter $resultsFormatter in Tester's constructor
+- BC break: made Tester::$testSuitesFinder readonly
 - BC break: added method IResultsFormatter::setOutputFileName
 - BC break: added methods ITesterExtension::getEventsBeforeTestCase and getEventsAfterTestCase
 - added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory and TestSuitesFinder to public api
