@@ -10,9 +10,11 @@ use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\ErrorsFilesExtension;
 use MyTester\ITesterExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
+use MyTester\TestsFolderProvider;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
 
@@ -36,6 +38,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     private const string SERVICE_CC_ENGINE_PREFIX = "coverage.engine.";
     private const string SERVICE_CC_FORMATTER_PREFIX = "coverage.formatter";
     private const string SERVICE_PRESENTER_MOCK = "presenterMock";
+    private const string SERVICE_TESTS_FOLDER_PROVIDER = "testsFolderProvider";
 
     private array $codeCoverageFormatters = [
         "percent" => PercentFormatter::class,
@@ -72,8 +75,11 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         $config = $this->getConfig();
         $builder = $this->getContainerBuilder();
 
+        $builder->addDefinition($this->prefix(static::SERVICE_TESTS_FOLDER_PROVIDER))
+            ->setFactory(TestsFolderProvider::class, [$config["folder"]]);
+
         $builder->addDefinition($this->prefix(static::SERVICE_RUNNER))
-            ->setFactory(Tester::class, [$config["folder"]]);
+            ->setType(Tester::class);
 
         $builder->addDefinition($this->prefix(static::SERVICE_SUITE_FACTORY))
             ->setType(ContainerSuiteFactory::class);
@@ -82,7 +88,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             ->setType(PresenterMock::class)
             ->setAutowired(PresenterMock::class);
 
-        $extensions = array_merge([CodeCoverageExtension::class, ], $config["extensions"]);
+        $extensions = array_merge(
+            [CodeCoverageExtension::class, ErrorsFilesExtension::class, ],
+            $config["extensions"]
+        );
         foreach ($extensions as $index => $extension) {
             $builder->addDefinition($this->prefix(static::SERVICE_EXTENSION_PREFIX . ($index + 1)))
                 ->setType($extension)

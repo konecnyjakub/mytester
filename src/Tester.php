@@ -32,7 +32,7 @@ final class Tester
      * @param ITesterExtension[] $extensions
      */
     public function __construct(
-        private readonly string $folder,
+        private readonly TestsFolderProvider $folderProvider,
         ITestSuitesFinder $testSuitesFinder = null,
         public readonly ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
         private readonly array $extensions = [],
@@ -136,7 +136,7 @@ final class Tester
 
         /** @var TestCase[] $testCases */
         $testCases = [];
-        $suites = $this->testSuitesFinder->getSuites($this->folder);
+        $suites = $this->testSuitesFinder->getSuites($this->folderProvider->folder);
         foreach ($suites as $suite) {
             $testCases[] = $this->testSuiteFactory->create($suite);
         }

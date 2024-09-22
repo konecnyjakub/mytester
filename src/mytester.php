@@ -15,6 +15,7 @@ use MyTester\CodeCoverage\Formatters\PercentFormatter;
 use MyTester\ErrorsFilesExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
+use MyTester\TestsFolderProvider;
 use Nette\CommandLine\Parser;
 
 $cmd = new Parser("", [
@@ -82,13 +83,15 @@ if ($resultsFormat !== null) {
     }
 }
 
+$folderProvider = new TestsFolderProvider($options["path"]);
+
 $extensions = [
     new CodeCoverageExtension($codeCoverageCollector),
-    new ErrorsFilesExtension($options["path"]),
+    new ErrorsFilesExtension($folderProvider),
 ];
 
 $params = [
-    "folder" => $options["path"],
+    "folderProvider" => $folderProvider,
     "extensions" => $extensions,
 ];
 if ($resultsFormatter !== null) {

@@ -14,7 +14,7 @@ use Nette\Utils\Finder;
  */
 final readonly class ErrorsFilesExtension implements ITesterExtension
 {
-    public function __construct(private string $folder)
+    public function __construct(private TestsFolderProvider $folderProvider)
     {
     }
 
@@ -47,7 +47,7 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
      */
     public function clearErrorsFiles(): void
     {
-        $files = Finder::findFiles("*.errors")->in($this->folder);
+        $files = Finder::findFiles("*.errors")->in($this->folderProvider->folder);
         foreach ($files as $name => $file) {
             try {
                 FileSystem::delete($name);
@@ -64,7 +64,7 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
         $jobs = $event->testCase->jobs;
         foreach ($jobs as $job) {
             if ($job->result === JobResult::FAILED && strlen($job->output) > 0) {
-                file_put_contents("$this->folder/$job->name.errors", $job->output . "\n");
+                file_put_contents("{$this->folderProvider->folder}/$job->name.errors", $job->output . "\n");
             }
         }
     }

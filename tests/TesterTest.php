@@ -31,7 +31,7 @@ final class TesterTest extends TestCase
                 return "";
             }
         };
-        $tester = new Tester(folder: __DIR__, resultsFormatter: $resultsFormatter);
+        $tester = new Tester(folderProvider: new TestsFolderProvider(__DIR__), resultsFormatter: $resultsFormatter);
 
         $this->assertType(Console::class, $resultsFormatter->console);
         $this->assertType(ChainTestSuitesFinder::class, $tester->testSuitesFinder);
@@ -59,7 +59,7 @@ final class TesterTest extends TestCase
                 return "";
             }
         };
-        $tester = new Tester(folder: __DIR__, resultsFormatter: $resultsFormatter);
+        $tester = new Tester(folderProvider: new TestsFolderProvider(__DIR__), resultsFormatter: $resultsFormatter);
         $rp = new \ReflectionProperty(Console::class, "useColors");
         $rp->setAccessible(true);
 

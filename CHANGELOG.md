@@ -8,6 +8,7 @@ Version 7.0.0-dev
 - BC break: added methods ITesterExtension::getEventsBeforeTestCase and getEventsAfterTestCase
 - added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory and TestSuitesFinder to public api
 - BC break: removed method IResultsFormatter::setup
+- BC break: Tester's constructor now takes TestsFolderProvider as its first parameter
 
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api
