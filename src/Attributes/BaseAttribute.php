@@ -9,5 +9,4 @@ namespace MyTester\Attributes;
  */
 abstract class BaseAttribute
 {
-    use \Nette\SmartObject;
 }

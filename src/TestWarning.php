@@ -10,8 +10,6 @@ namespace MyTester;
  */
 final readonly class TestWarning
 {
-    use \Nette\SmartObject;
-
     public function __construct(public string $name, public string $text)
     {
     }

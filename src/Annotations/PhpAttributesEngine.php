@@ -37,7 +37,7 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
         }
         /** @var BaseAttribute $attribute */
         $attribute = $attributes[0]->newInstance();
-        return $attribute->value;
+        return $attribute->value; // @phpstan-ignore property.notFound
     }
 
     private function getClassName(string $baseName): string

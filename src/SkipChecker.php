@@ -13,8 +13,6 @@ use Nette\Utils\Arrays;
  */
 final class SkipChecker implements ISkipChecker
 {
-    use \Nette\SmartObject;
-
     public const string ANNOTATION_NAME = "skip";
 
     /** @var callable[] */

@@ -16,8 +16,6 @@ use ReflectionFunction;
  */
 final readonly class Report
 {
-    use \Nette\SmartObject;
-
     public int $linesTotal;
     public int $linesCovered;
     public int $coveragePercent;

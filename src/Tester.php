@@ -18,8 +18,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  */
 final class Tester
 {
-    use \Nette\SmartObject;
-
     private const string PACKAGE_NAME = "konecnyjakub/mytester";
 
     public readonly ITestSuitesFinder $testSuitesFinder;

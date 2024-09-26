@@ -13,8 +13,6 @@ use ReflectionMethod;
  */
 final readonly class DataProvider implements IDataProvider
 {
-    use \Nette\SmartObject;
-
     public const string ANNOTATION_NAME = "dataProvider";
 
     public function __construct(private Reader $annotationsReader)

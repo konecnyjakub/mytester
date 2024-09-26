@@ -11,8 +11,6 @@ namespace MyTester\CodeCoverage;
  */
 final readonly class ReportFile
 {
-    use \Nette\SmartObject;
-
     public string $name;
     /** @var \ReflectionClass[] */
     public array $classes;
