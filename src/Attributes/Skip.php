@@ -11,7 +11,7 @@ use Attribute;
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-final class Skip extends BaseAttribute
+final class Skip
 {
     public function __construct(public mixed $value = true)
     {

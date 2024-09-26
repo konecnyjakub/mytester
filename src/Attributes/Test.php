@@ -11,7 +11,7 @@ use Attribute;
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-final class Test extends BaseAttribute
+final class Test
 {
     public function __construct(public string $value)
     {

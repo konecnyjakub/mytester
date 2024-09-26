@@ -11,7 +11,7 @@ use Attribute;
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-final class DataProvider extends BaseAttribute
+final class DataProvider
 {
     public function __construct(public string $value)
     {
