@@ -14,7 +14,6 @@ use Ayesh\PHP_Timer\Timer;
  * @property-read JobResult $result
  * @property-read string $output @internal
  * @property-read int $totalTime Total elapsed time in milliseconds
- * @method void onAfterExecute()
  */
 final class Job
 {
@@ -67,6 +66,13 @@ final class Job
     protected function getTotalTime(): int
     {
         return $this->totalTime;
+    }
+
+    private function onAfterExecute(): void
+    {
+        foreach ($this->onAfterExecute as $callback) {
+            $callback();
+        }
     }
 
     /**

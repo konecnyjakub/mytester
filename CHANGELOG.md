@@ -10,6 +10,7 @@ Version 7.0.0-dev
 - BC break: removed method IResultsFormatter::setup
 - BC break: Tester's constructor now takes TestsFolderProvider as its first parameter
 - BC break: removed Tester::$useColors
+- BC break: removed (virtual) method Job::onAfterExecute
 
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api
