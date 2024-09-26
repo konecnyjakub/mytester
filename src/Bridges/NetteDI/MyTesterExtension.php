@@ -136,7 +136,6 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 
     public function afterCompile(\Nette\PhpGenerator\ClassType $class): void
     {
-        $this->initialization->addBody('$runner = $this->getService(?);', [$this->prefix(static::SERVICE_RUNNER)]);
         $this->initialization->addBody(
             '$coverageCollector = $this->getService(?);',
             [$this->prefix(static::SERVICE_CC_COLLECTOR)]
