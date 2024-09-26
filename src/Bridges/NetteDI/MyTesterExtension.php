@@ -16,6 +16,7 @@ use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
 use Nette\CommandLine\Console;
+use Nette\DI\Definitions\ServiceDefinition;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
 
@@ -134,23 +135,18 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             ->addSetup("useColors", [$config["colors"]]);
     }
 
-    public function afterCompile(\Nette\PhpGenerator\ClassType $class): void
+    public function beforeCompile(): void
     {
-        $this->initialization->addBody(
-            '$coverageCollector = $this->getService(?);',
-            [$this->prefix(static::SERVICE_CC_COLLECTOR)]
-        );
-        foreach (array_keys(CodeCoverageHelper::$defaultEngines) as $name) {
-            $this->initialization->addBody(
-                '$coverageCollector->registerEngine($this->getService(?));',
-                [$this->prefix(static::SERVICE_CC_ENGINE_PREFIX . $name)]
-            );
+        $builder = $this->getContainerBuilder();
+        /** @var ServiceDefinition $coverageCollector */
+        $coverageCollector = $builder->getDefinition($this->prefix(static::SERVICE_CC_COLLECTOR));
+
+        foreach ($builder->findByTag(static::TAG_COVERAGE_ENGINE) as $serviceName => $tagValue) {
+            $coverageCollector->addSetup("registerEngine", ["@$serviceName", ]);
         }
-        foreach (array_keys($this->codeCoverageFormatters) as $name) {
-            $this->initialization->addBody(
-                '$coverageCollector->registerFormatter($this->getService(?));',
-                [$this->prefix(static::SERVICE_CC_FORMATTER_PREFIX . $name)]
-            );
+
+        foreach ($builder->findByTag(static::TAG_COVERAGE_FORMATTER) as $serviceName => $tagValue) {
+            $coverageCollector->addSetup("registerFormatter", ["@$serviceName", ]);
         }
     }
 }
