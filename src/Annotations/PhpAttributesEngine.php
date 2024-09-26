@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations;
 
-use MyTester\Attributes\BaseAttribute;
 use Nette\Utils\Strings;
 use ReflectionClass;
 use ReflectionException;
@@ -35,9 +34,11 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
         if (count($attributes) === 0) {
             return null;
         }
-        /** @var BaseAttribute $attribute */
         $attribute = $attributes[0]->newInstance();
-        return $attribute->value; // @phpstan-ignore property.notFound
+        if (!property_exists($attribute, "value")) {
+            return null;
+        }
+        return $attribute->value;
     }
 
     private function getClassName(string $baseName): string
