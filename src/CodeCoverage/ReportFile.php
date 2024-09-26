@@ -11,12 +11,6 @@ namespace MyTester\CodeCoverage;
  */
 final readonly class ReportFile
 {
-    public string $name;
-    /** @var \ReflectionClass[] */
-    public array $classes;
-    /** @var \ReflectionFunction[] */
-    public array $functions;
-    public array $data;
     public int $linesTotal;
     public int $linesCovered;
     public int $coveragePercent;
@@ -25,7 +19,7 @@ final readonly class ReportFile
      * @param \ReflectionClass[] $classes
      * @param \ReflectionFunction[] $functions
      */
-    public function __construct(string $name, array $classes, array $functions, array $data)
+    public function __construct(public string $name, public array $classes, public array $functions, public array $data)
     {
         $totalLines = 0;
         $coveredLines = 0;
@@ -37,10 +31,6 @@ final readonly class ReportFile
         }
         $coveragePercent = ($totalLines === 0) ? 0 : (int) (($coveredLines / $totalLines) * 100);
 
-        $this->name = $name;
-        $this->classes = $classes;
-        $this->functions = $functions;
-        $this->data = $data;
         $this->coveragePercent = $coveragePercent;
         $this->linesTotal = $totalLines;
         $this->linesCovered = $coveredLines;
