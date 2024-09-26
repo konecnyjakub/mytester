@@ -5,6 +5,7 @@ namespace MyTester\CodeCoverage\Formatters;
 
 use MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter;
 use MyTester\CodeCoverage\Report;
+use MyTester\CodeCoverage\ReportFile;
 
 /**
  * Text formatter for code coverage
@@ -28,7 +29,9 @@ final class TextFormatter implements ICodeCoverageCustomFileNameFormatter
         $result .= "Code coverage per file:\n";
 
         $files = $report->files;
-        sort($files);
+        usort($files, function (ReportFile $a, ReportFile $b): int {
+            return $a->name <=> $b->name;
+        });
         foreach ($files as $reportFile) {
             $result .= sprintf(
                 "%s: %d%% (%d out of %d lines)\n",
