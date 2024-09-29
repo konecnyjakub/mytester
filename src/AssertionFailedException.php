@@ -12,13 +12,11 @@ use Throwable;
  */
 class AssertionFailedException extends InterruptedTestException
 {
-    public readonly string $assertionMessage;
-    public readonly int $assertionNumber;
-
-    public function __construct(string $assertionMessage = "", int $assertionNumber = 0, ?Throwable $previous = null)
-    {
-        $this->assertionMessage = $assertionMessage;
-        $this->assertionNumber = $assertionNumber;
+    public function __construct(
+        public readonly string $assertionMessage = "",
+        public readonly int $assertionNumber = 0,
+        ?Throwable $previous = null
+    ) {
         $message = sprintf("Test %d failed. %s", $assertionNumber, $assertionMessage);
         parent::__construct($message, 0, $previous);
     }
