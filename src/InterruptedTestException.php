@@ -8,6 +8,6 @@ namespace MyTester;
  *
  * @internal
  */
-class InterruptedTestException extends \RuntimeException
+abstract class InterruptedTestException extends \RuntimeException
 {
 }
