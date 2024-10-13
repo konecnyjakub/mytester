@@ -191,21 +191,21 @@ It is possible to display results of tests in a different format and for some fo
 JUnit prints the results into file junit.xml, TAP and TestBox by default show the results in console/terminal. TestDox uses custom names set by attributes TestSuite/Test if they are set, otherwise just class name and method name.
 
 ```bash
-./vendor/bin/mytester tests/unit ----resultsFormat junit
+./vendor/bin/mytester tests/unit --resultsFormat junit
 ```
 
 ```bash
-./vendor/bin/mytester tests/unit ----resultsFormat tap
+./vendor/bin/mytester tests/unit --resultsFormat tap
 ```
 
 ```bash
-./vendor/bin/mytester tests/unit ----resultsFormat testdox
+./vendor/bin/mytester tests/unit --resultsFormat testdox
 ```
 
 If you want to change the file for output with format JUnit or want to print the results into a file with formats TAP and TestBox, use also argument *--resultsFile*.
 
 ```bash
-./vendor/bin/mytester tests/unit ----resultsFormat junit --resultsFile custom_name.xml
+./vendor/bin/mytester tests/unit --resultsFormat junit --resultsFile custom_name.xml
 ```
 
 ### Code coverage
