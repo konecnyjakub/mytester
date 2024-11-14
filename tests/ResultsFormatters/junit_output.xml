@@ -12,7 +12,7 @@
     <testcase name="MyTester\ResultsFormatters\TestCaseTwo::testTwo" class="MyTester\ResultsFormatters\TestCaseTwo" classname="MyTester.ResultsFormatters.TestCaseTwo" file="/var/project/tests/ResultsFormatters/TestCaseTwo.php" line="18" time="0" assertions="1">
       <failure type="assert" message="Test 1 failed. The value is not true.">Test 1 failed. The value is not true.
 
-/var/project/tests/ResultsFormatters/TestCaseTwo.php:18</failure>
+/var/project/tests/ResultsFormatters/TestCaseTwo.php:20</failure>
     </testcase>
     <testcase name="MyTester\ResultsFormatters\TestCaseTwo::testThree" class="MyTester\ResultsFormatters\TestCaseTwo" classname="MyTester.ResultsFormatters.TestCaseTwo" file="/var/project/tests/ResultsFormatters/TestCaseTwo.php" line="23" time="0" assertions="0"/>
   </testsuite>

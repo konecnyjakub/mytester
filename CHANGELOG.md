@@ -6,12 +6,13 @@ Version 7.0.0-dev
 - BC break: made Tester::$testSuitesFinder readonly
 - BC break: added method IResultsFormatter::setOutputFileName
 - BC break: added methods ITesterExtension::getEventsBeforeTestCase and getEventsAfterTestCase
-- added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory and TestSuitesFinder to public api
+- added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory, TestSuitesFinder and AssertionFailedException to public api
 - BC break: removed method IResultsFormatter::setup
 - BC break: Tester's constructor now takes TestsFolderProvider as its first parameter
 - BC break: removed Tester::$useColors
 - BC break: removed (virtual) method Job::onAfterExecute
 - BC break: removed BaseAttribute
+- fixed failure line in JUnit reports
 
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api

@@ -7,8 +7,6 @@ use Throwable;
 
 /**
  * Assertion failure in test
- *
- * @internal
  */
 class AssertionFailedException extends InterruptedTestException
 {

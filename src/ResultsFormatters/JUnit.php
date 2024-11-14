@@ -4,9 +4,11 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use DOMDocument;
+use MyTester\AssertionFailedException;
 use MyTester\IResultsFormatter;
 use MyTester\Job;
 use MyTester\JobResult;
+use MyTester\TAssertions;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
@@ -96,7 +98,8 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
                         break;
                     case JobResult::FAILED:
                         $message = $job->output . "\n\n" .
-                            (string) $rc->getFileName() . ":" . $reflectionCallback->getStartLine();
+                            (string) $rc->getFileName() . ":" .
+                            $this->getFailureLine($job->exception, $reflectionCallback);
                         $failure = $document->createElement("failure", $message);
                         $failure->setAttribute("type", "assert");
                         $failure->setAttribute("message", $job->output);
@@ -138,5 +141,21 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
         } else {
             return new ReflectionFunction($callback);
         }
+    }
+
+    private function getFailureLine(\Throwable|null $exception, ReflectionFunctionAbstract $reflection): int
+    {
+        if ($exception instanceof AssertionFailedException) {
+            /**
+             * the exception is thrown in {@see TAssertions::testResult()} so we check where it was called from
+             */
+            if (isset($exception->getTrace()[1])) {
+                $trace = $exception->getTrace()[1];
+                if (isset($trace["line"])) {
+                    return $trace["line"];
+                }
+            }
+        }
+        return (int) $reflection->getStartLine();
     }
 }

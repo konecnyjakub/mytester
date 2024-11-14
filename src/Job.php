@@ -14,6 +14,7 @@ use Ayesh\PHP_Timer\Timer;
  * @property-read JobResult $result
  * @property-read string $output @internal
  * @property-read int $totalTime Total elapsed time in milliseconds
+ * @property-read \Throwable|null $exception
  */
 final class Job
 {
@@ -29,6 +30,7 @@ final class Job
      * @internal
      */
     public int $totalAssertions = 0;
+    private \Throwable|null $exception = null;
 
     /**
      * @param callable[] $onAfterExecute
@@ -68,6 +70,11 @@ final class Job
         return $this->totalTime;
     }
 
+    protected function getException(): ?\Throwable
+    {
+        return $this->exception;
+    }
+
     private function onAfterExecute(): void
     {
         foreach ($this->onAfterExecute as $callback) {
@@ -93,6 +100,7 @@ final class Job
                 echo "Warning: $message\n";
             } catch (AssertionFailedException $e) {
                 echo $e->getMessage();
+                $this->exception = $e;
             }
             $this->onAfterExecute();
             /** @var string $output */
