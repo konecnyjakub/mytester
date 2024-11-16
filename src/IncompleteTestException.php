@@ -5,8 +5,6 @@ namespace MyTester;
 
 /**
  * Test that is not complete
- *
- * @internal
  */
 class IncompleteTestException extends InterruptedTestException
 {

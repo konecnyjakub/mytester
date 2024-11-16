@@ -5,8 +5,6 @@ namespace MyTester;
 
 /**
  * Test that was skipped after it started
- *
- * @internal
  */
 class SkippedTestException extends InterruptedTestException
 {

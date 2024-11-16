@@ -6,7 +6,7 @@ Version 7.0.0-dev
 - BC break: made Tester::$testSuitesFinder readonly
 - BC break: added method IResultsFormatter::setOutputFileName
 - BC break: added methods ITesterExtension::getEventsBeforeTestCase and getEventsAfterTestCase
-- added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory, TestSuitesFinder and AssertionFailedException to public api
+- added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory, TestSuitesFinder, AssertionFailedException, InterruptedTestException, IncompleteTestException and SkippedTestException to public api
 - BC break: removed method IResultsFormatter::setup
 - BC break: Tester's constructor now takes TestsFolderProvider as its first parameter
 - BC break: removed Tester::$useColors
