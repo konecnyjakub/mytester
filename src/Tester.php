@@ -28,7 +28,7 @@ final class Tester
      */
     public function __construct(
         private readonly TestsFolderProvider $folderProvider,
-        ITestSuitesFinder $testSuitesFinder = null,
+        ?ITestSuitesFinder $testSuitesFinder = null,
         public readonly ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
         private readonly array $extensions = [],
         private readonly IResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),

@@ -247,8 +247,8 @@ trait TAssertions
     protected function assertThrowsException(
         callable $callback,
         string $className,
-        string $message = null,
-        int $code = null
+        ?string $message = null,
+        ?int $code = null
     ): void {
         $success = false;
         $errorMessage = "";

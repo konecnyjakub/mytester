@@ -19,7 +19,7 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
      * @param class-string|object $class
      * @throws ReflectionException
      */
-    public function hasAnnotation(string $name, string|object $class, string $method = null): bool
+    public function hasAnnotation(string $name, string|object $class, ?string $method = null): bool
     {
         return count($this->getReflection($class, $method)->getAttributes($this->getClassName($name))) > 0;
     }
@@ -28,7 +28,7 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
      * @param class-string|object $class
      * @throws ReflectionException
      */
-    public function getAnnotation(string $name, string|object $class, string $method = null): mixed
+    public function getAnnotation(string $name, string|object $class, ?string $method = null): mixed
     {
         $attributes = $this->getReflection($class, $method)->getAttributes($this->getClassName($name));
         if (count($attributes) === 0) {
@@ -50,7 +50,7 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
      * @param class-string|object $class
      * @throws ReflectionException
      */
-    private function getReflection(string|object $class, string $method = null): ReflectionClass|ReflectionMethod
+    private function getReflection(string|object $class, ?string $method = null): ReflectionClass|ReflectionMethod
     {
         if ($method !== null) {
             $reflection = new ReflectionMethod(is_object($class) ? get_class($class) : $class, $method);
