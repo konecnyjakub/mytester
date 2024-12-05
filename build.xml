@@ -11,6 +11,7 @@
      <arg value="--prefer-dist"/>
      <arg value="--no-progress"/>
      <arg value="--no-interaction"/>
+     <arg value="--ignore-platform-reqs"/>
    </exec>
    <if>
      <not>
