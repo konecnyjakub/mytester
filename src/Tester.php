@@ -59,13 +59,11 @@ final class Tester
             }
         );
 
-        $listenerProvider->registerListener(Events\TestsFinishedEvent::class, function () {
-            $this->printResults();
-        });
         $listenerProvider->registerListener(
             Events\TestsFinishedEvent::class,
             function (Events\TestsFinishedEvent $event) {
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
+                $this->printResults();
                 foreach ($this->extensions as $extension) {
                     $callbacks = $extension->getEventsAfterRun();
                     foreach ($callbacks as $callback) {
