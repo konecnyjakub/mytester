@@ -8,7 +8,6 @@ use Konecnyjakub\EventDispatcher\EventDispatcher;
 use Konecnyjakub\EventDispatcher\ListenerProvider;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
-use Nette\CommandLine\Console;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -32,7 +31,7 @@ final class Tester
         public readonly ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
         private readonly array $extensions = [],
         private readonly IResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
-        private readonly Console $console = new Console()
+        private readonly ConsoleColors $console = new ConsoleColors()
     ) {
         if ($testSuitesFinder === null) {
             $testSuitesFinder = new ChainTestSuitesFinder();
@@ -146,9 +145,9 @@ final class Tester
     private function printInfo(): void
     {
         $version = InstalledVersions::getPrettyVersion(static::PACKAGE_NAME);
-        echo $this->console->color("silver", "My Tester $version\n");
+        echo $this->console->color("My Tester $version\n", "silver");
         echo "\n";
-        echo $this->console->color("silver", "PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n");
+        echo $this->console->color("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n", "silver");
         echo "\n";
     }
 

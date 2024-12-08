@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use MyTester\ConsoleColors;
 use MyTester\IConsoleAwareResultsFormatter;
 use MyTester\JobResult;
 
@@ -17,9 +18,9 @@ final class TestDox extends AbstractResultsFormatter implements IConsoleAwareRes
     /**
      * @internal
      */
-    public \Nette\CommandLine\Console $console;
+    public ConsoleColors $console;
 
-    public function setConsole(\Nette\CommandLine\Console $console): void
+    public function setConsole(ConsoleColors $console): void
     {
         $this->console = $console;
     }
@@ -50,10 +51,10 @@ final class TestDox extends AbstractResultsFormatter implements IConsoleAwareRes
     private function getOutput(JobResult $jobResult): string
     {
         return match ($jobResult) {
-            JobResult::PASSED => $this->isOutputConsole() ? $this->console->color("green", "✔") : "[ ]",
-            JobResult::SKIPPED => $this->isOutputConsole() ? $this->console->color("blue", "↩") : "[x]",
-            JobResult::WARNING => $this->isOutputConsole() ? $this->console->color("yellow", "⚠") : "[x]",
-            JobResult::FAILED => $this->isOutputConsole() ? $this->console->color("red", "✘") : "[x]",
+            JobResult::PASSED => $this->isOutputConsole() ? $this->console->color("✔", "green") : "[ ]",
+            JobResult::SKIPPED => $this->isOutputConsole() ? $this->console->color("↩", "blue") : "[x]",
+            JobResult::WARNING => $this->isOutputConsole() ? $this->console->color("⚠", "yellow") : "[x]",
+            JobResult::FAILED => $this->isOutputConsole() ? $this->console->color("✘", "red") : "[x]",
         };
     }
 

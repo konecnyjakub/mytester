@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Nette\CommandLine\Console;
-
 /**
  * Results formatter for {@see Tester}
  *
@@ -13,5 +11,5 @@ use Nette\CommandLine\Console;
  */
 interface IConsoleAwareResultsFormatter extends IResultsFormatter
 {
-    public function setConsole(Console $console): void;
+    public function setConsole(ConsoleColors $console): void;
 }

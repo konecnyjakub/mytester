@@ -10,12 +10,12 @@ use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\ITesterExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
-use Nette\CommandLine\Console;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
@@ -131,8 +131,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         }
 
         $builder->addDefinition($this->prefix(static::SERVICE_CONSOLE_WRITER))
-            ->setType(Console::class)
-            ->addSetup("useColors", [$config["colors"]]);
+            ->setType(ConsoleColors::class)
+            ->addSetup('$service->useColors = ?', [$config["colors"]]);
     }
 
     public function beforeCompile(): void

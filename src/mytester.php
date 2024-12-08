@@ -12,11 +12,11 @@ use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
-use Nette\CommandLine\Console;
 use Nette\CommandLine\Parser;
 
 $cmd = new Parser("", [
@@ -91,8 +91,8 @@ $extensions = [
     new ErrorsFilesExtension($folderProvider),
 ];
 
-$console = new Console();
-$console->useColors(isset($options["--colors"]));
+$console = new ConsoleColors();
+$console->useColors = isset($options["--colors"]);
 
 $params = [
     "folderProvider" => $folderProvider,

@@ -5,7 +5,6 @@ namespace MyTester;
 
 use MyTester\Attributes\TestSuite;
 use MyTester\ResultsFormatters\AbstractResultsFormatter;
-use Nette\CommandLine\Console;
 
 /**
  * Test suite for class Tester
@@ -19,9 +18,9 @@ final class TesterTest extends TestCase
     {
         $resultsFormatter = new class extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
         {
-            public Console $console;
+            public ConsoleColors $console;
 
-            public function setConsole(Console $console): void
+            public function setConsole(ConsoleColors $console): void
             {
                 $this->console = $console;
             }
@@ -33,7 +32,7 @@ final class TesterTest extends TestCase
         };
         $tester = new Tester(folderProvider: new TestsFolderProvider(__DIR__), resultsFormatter: $resultsFormatter);
 
-        $this->assertType(Console::class, $resultsFormatter->console);
+        $this->assertType(ConsoleColors::class, $resultsFormatter->console);
         $this->assertType(ChainTestSuitesFinder::class, $tester->testSuitesFinder);
         $rp = new \ReflectionProperty(ChainTestSuitesFinder::class, "finders");
         $rp->setAccessible(true);

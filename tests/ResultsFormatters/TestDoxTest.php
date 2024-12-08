@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\Attributes\TestSuite;
+use MyTester\ConsoleColors;
 use MyTester\TestCase;
 
 /**
@@ -16,8 +17,7 @@ final class TestDoxTest extends TestCase
 {
     public function testRender(): void
     {
-        $console = new \Nette\CommandLine\Console();
-        $console->useColors(false);
+        $console = new ConsoleColors();
         $outputFormatter = new TestDox();
         $outputFormatter->setConsole($console);
         $outputFormatter->reportTestsStarted([]);
@@ -37,8 +37,7 @@ final class TestDoxTest extends TestCase
 
     public function testGetOutputFileName(): void
     {
-        $console = new \Nette\CommandLine\Console();
-        $console->useColors(false);
+        $console = new ConsoleColors();
         $outputFormatter = new TestDox();
         $outputFormatter->setConsole($console);
         $this->assertSame("php://output", $outputFormatter->getOutputFileName("/var/project"));

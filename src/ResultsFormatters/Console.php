@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use MyTester\ConsoleColors;
 use MyTester\IConsoleAwareResultsFormatter;
 use MyTester\JobResult;
 use MyTester\SkippedTest;
@@ -20,7 +21,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
     /**
      * @internal
      */
-    public \Nette\CommandLine\Console $console;
+    public ConsoleColors $console;
 
     /** @var array<string, string> */
     private array $failures = [];
@@ -33,7 +34,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
 
     private string $results = "";
 
-    public function setConsole(\Nette\CommandLine\Console $console): void
+    public function setConsole(ConsoleColors $console): void
     {
         $this->console = $console;
     }
@@ -70,9 +71,9 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
         $rf = JobResult::FAILED->output();
         $rs = JobResult::SKIPPED->output();
         $rw = JobResult::WARNING->output();
-        $results = str_replace($rf, $this->console->color("red", $rf), $results);
-        $results = str_replace($rs, $this->console->color("yellow", $rs), $results);
-        $results = str_replace($rw, $this->console->color("yellow", $rw), $results);
+        $results = str_replace($rf, $this->console->color($rf, "red"), $results);
+        $results = str_replace($rs, $this->console->color($rs, "yellow"), $results);
+        $results = str_replace($rw, $this->console->color($rw, "yellow"), $results);
         echo $results . "\n";
         $results = $this->results;
         $this->printWarnings();
@@ -101,7 +102,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
         }
         $time = \Ayesh\PHP_Timer\Formatter::formatTime($this->totalTime);
         $resultsLine .= ", $time)";
-        $resultsLine = $this->console->color((!$failed) ? "green" : "red", $resultsLine);
+        $resultsLine = $this->console->color($resultsLine, (!$failed) ? "green" : "red");
         echo $resultsLine . "\n";
         /** @var string $result */
         $result = ob_get_clean();
