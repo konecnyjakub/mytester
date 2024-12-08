@@ -12,6 +12,7 @@ use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
 use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
+use MyTester\InfoExtension;
 use MyTester\ITesterExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
@@ -92,7 +93,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             ->setAutowired(PresenterMock::class);
 
         $extensions = array_merge(
-            [CodeCoverageExtension::class, ErrorsFilesExtension::class, ],
+            [CodeCoverageExtension::class, ErrorsFilesExtension::class, InfoExtension::class, ],
             $config["extensions"]
         );
         foreach ($extensions as $index => $extension) {

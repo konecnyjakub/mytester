@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Composer\InstalledVersions;
 use Konecnyjakub\EventDispatcher\EventDispatcher;
 use Konecnyjakub\EventDispatcher\ListenerProvider;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
@@ -17,8 +16,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  */
 final class Tester
 {
-    private const string PACKAGE_NAME = "konecnyjakub/mytester";
-
     public readonly ITestSuitesFinder $testSuitesFinder;
     private readonly EventDispatcherInterface $eventDispatcher;
 
@@ -49,9 +46,6 @@ final class Tester
     {
         $listenerProvider = new ListenerProvider();
 
-        $listenerProvider->registerListener(Events\TestsStartedEvent::class, function () {
-            $this->printInfo();
-        });
         $listenerProvider->registerListener(
             Events\TestsStartedEvent::class,
             function (Events\TestsStartedEvent $event) {
@@ -137,18 +131,6 @@ final class Tester
         $this->eventDispatcher->dispatch(new Events\TestsFinishedEvent($testCases));
 
         exit((int) $failed);
-    }
-
-    /**
-     * Print version of My Tester and PHP
-     */
-    private function printInfo(): void
-    {
-        $version = InstalledVersions::getPrettyVersion(static::PACKAGE_NAME);
-        echo $this->console->color("My Tester $version\n", "silver");
-        echo "\n";
-        echo $this->console->color("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n", "silver");
-        echo "\n";
     }
 
     private function printResults(): void

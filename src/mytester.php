@@ -14,6 +14,7 @@ use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
 use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
+use MyTester\InfoExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
@@ -86,13 +87,14 @@ if ($resultsFormat !== null) {
 
 $folderProvider = new TestsFolderProvider($options["path"]);
 
+$console = new ConsoleColors();
+$console->useColors = isset($options["--colors"]);
+
 $extensions = [
     new CodeCoverageExtension($codeCoverageCollector),
     new ErrorsFilesExtension($folderProvider),
+    new InfoExtension($console),
 ];
-
-$console = new ConsoleColors();
-$console->useColors = isset($options["--colors"]);
 
 $params = [
     "folderProvider" => $folderProvider,
