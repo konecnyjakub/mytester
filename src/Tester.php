@@ -14,20 +14,20 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  *
  * @author Jakub Konečný
  */
-final class Tester
+final readonly class Tester
 {
-    private readonly EventDispatcherInterface $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param ITesterExtension[] $extensions
      */
     public function __construct(
-        private readonly TestsFolderProvider $folderProvider,
-        public readonly ITestSuitesFinder $testSuitesFinder,
-        public readonly ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
-        private readonly array $extensions = [],
-        private readonly IResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
-        private readonly ConsoleColors $console = new ConsoleColors()
+        private TestsFolderProvider $folderProvider,
+        public ITestSuitesFinder $testSuitesFinder,
+        public ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
+        private array $extensions = [],
+        private IResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
+        private ConsoleColors $console = new ConsoleColors()
     ) {
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
