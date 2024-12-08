@@ -16,7 +16,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  */
 final class Tester
 {
-    public readonly ITestSuitesFinder $testSuitesFinder;
     private readonly EventDispatcherInterface $eventDispatcher;
 
     /**
@@ -24,18 +23,12 @@ final class Tester
      */
     public function __construct(
         private readonly TestsFolderProvider $folderProvider,
-        ?ITestSuitesFinder $testSuitesFinder = null,
+        public readonly ITestSuitesFinder $testSuitesFinder,
         public readonly ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
         private readonly array $extensions = [],
         private readonly IResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
         private readonly ConsoleColors $console = new ConsoleColors()
     ) {
-        if ($testSuitesFinder === null) {
-            $testSuitesFinder = new ChainTestSuitesFinder();
-            $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder());
-            $testSuitesFinder->registerFinder(new TestSuitesFinder());
-        }
-        $this->testSuitesFinder = $testSuitesFinder;
         if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
         }

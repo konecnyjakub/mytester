@@ -30,15 +30,12 @@ final class TesterTest extends TestCase
                 return "";
             }
         };
-        $tester = new Tester(folderProvider: new TestsFolderProvider(__DIR__), resultsFormatter: $resultsFormatter);
+        $tester = new Tester(
+            folderProvider: new TestsFolderProvider(__DIR__),
+            testSuitesFinder: new ChainTestSuitesFinder(),
+            resultsFormatter: $resultsFormatter
+        );
 
         $this->assertType(ConsoleColors::class, $resultsFormatter->console);
-        $this->assertType(ChainTestSuitesFinder::class, $tester->testSuitesFinder);
-        $rp = new \ReflectionProperty(ChainTestSuitesFinder::class, "finders");
-        $rp->setAccessible(true);
-        /** @var ITestSuitesFinder[] $finders */
-        $finders = $rp->getValue($tester->testSuitesFinder);
-        $this->assertArrayOfClass(ITestSuitesFinder::class, $finders);
-        $this->assertCount(2, $finders);
     }
 }

@@ -8,10 +8,13 @@ $vendorDirectory = findVendorDirectory();
 require $vendorDirectory . "/autoload.php";
 
 use Composer\InstalledVersions;
+use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\ChainTestSuitesFinder;
 use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\ComposerTestSuitesFinder;
 use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\InfoExtension;
@@ -87,6 +90,10 @@ if ($resultsFormat !== null) {
 
 $folderProvider = new TestsFolderProvider($options["path"]);
 
+$testSuitesFinder = new ChainTestSuitesFinder();
+$testSuitesFinder->registerFinder(new ComposerTestSuitesFinder());
+$testSuitesFinder->registerFinder(new TestSuitesFinder());
+
 $console = new ConsoleColors();
 $console->useColors = isset($options["--colors"]);
 
@@ -98,6 +105,7 @@ $extensions = [
 
 $params = [
     "folderProvider" => $folderProvider,
+    "testSuitesFinder" => $testSuitesFinder,
     "extensions" => $extensions,
     "console" => $console,
 ];

@@ -34,6 +34,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     public const string TAG_COVERAGE_ENGINE = "mytester.coverage.engine";
     public const string TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
     private const string SERVICE_RUNNER = "runner";
+    private const string SERVICE_TEST_SUITES_FINDER = "testSuitesFinder";
     private const string SERVICE_SUITE_FACTORY = "suiteFactory";
     private const string SERVICE_RESULTS_FORMATTER = "resultsFormatter";
     private const string SERVICE_EXTENSION_PREFIX = "extension.";
@@ -102,6 +103,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->addTag(static::TAG_EXTENSION);
         }
 
+        $builder->addDefinition($this->prefix(static::SERVICE_TEST_SUITES_FINDER))
+            ->setType(TestSuitesFinder::class);
         $suites = (new TestSuitesFinder())->getSuites($config["folder"]);
         foreach ($suites as $index => $suite) {
             $builder->addDefinition($this->prefix("test." . ($index + 1)))
