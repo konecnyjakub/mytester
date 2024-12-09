@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\ResultsFormatters\AbstractResultsFormatter;
+use MyTester\ResultsFormatters\Helper as ResultsHelper;
+
 /**
  * Results formatter for {@see Tester}
  *
@@ -35,12 +38,14 @@ interface IResultsFormatter
     public function reportTestCaseFinished(TestCase $testCase): void;
 
     /**
-     * Generates and returns results of Tester run as string
+     * Generates results of Tester run and outputs it to set file/console
+     *
+     * @param string $outputFolder Where file with output should be created (if writing to a file)
      */
-    public function render(): string;
+    public function outputResults(string $outputFolder): void;
 
     /**
-     * Returns file name to which result of {@see self::render()} should written. The file does not have to exist yet
+     * Returns file name to which result should written. The file does not have to exist yet
      * It can be an absolute path or standard output (or anything accepted by {@see fopen()})
      */
     public function getOutputFileName(string $folder): string;

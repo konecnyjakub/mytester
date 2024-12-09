@@ -56,7 +56,7 @@ final readonly class Tester
             Events\TestsFinishedEvent::class,
             function (Events\TestsFinishedEvent $event) {
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
-                $this->printResults();
+                $this->resultsFormatter->outputResults((string) getcwd());
                 foreach ($this->extensions as $extension) {
                     $callbacks = $extension->getEventsAfterRun();
                     foreach ($callbacks as $callback) {
@@ -122,18 +122,5 @@ final readonly class Tester
         $this->eventDispatcher->dispatch(new Events\TestsFinishedEvent($testCases));
 
         exit((int) $failed);
-    }
-
-    private function printResults(): void
-    {
-        $filename = $this->resultsFormatter->getOutputFileName((string) getcwd());
-        if (ResultsHelper::isFileOutput($filename)) {
-            echo "Results are redirected into file $filename\n";
-        }
-
-        /** @var resource $outputFile */
-        $outputFile = fopen($filename, "w");
-        fwrite($outputFile, $this->resultsFormatter->render());
-        fclose($outputFile);
     }
 }

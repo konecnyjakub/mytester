@@ -5,6 +5,7 @@ namespace MyTester\ResultsFormatters;
 
 use Ayesh\PHP_Timer\Timer;
 use MyTester\IResultsFormatter;
+use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\TestCase;
 
 /**
@@ -47,6 +48,19 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
         $this->testCases[] = $testCase;
     }
 
+    public function outputResults(string $outputFolder): void
+    {
+        $filename = $this->getOutputFileName($outputFolder);
+        if (ResultsHelper::isFileOutput($filename)) {
+            echo "Results are redirected into file $filename\n";
+        }
+
+        /** @var resource $outputFile */
+        $outputFile = fopen($filename, "w");
+        fwrite($outputFile, $this->render());
+        fclose($outputFile);
+    }
+
     public function getOutputFileName(string $folder): string
     {
         if ($this->isOutputConsole()) {
@@ -58,6 +72,11 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
     public function setOutputFileName(string $baseFileName): void
     {
     }
+
+    /**
+     * Generates and returns results of Tester run as string
+     */
+    abstract public function render(): string;
 
     protected function isOutputConsole(): bool
     {
