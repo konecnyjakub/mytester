@@ -236,9 +236,9 @@ Method getEventsPreRun returns callbacks that are called before all tests are ru
 
 Method getEventsAfterRun returns callbacks that are called after all tests were run, it receives MyTester\Events\TestsFinishedEvent as its first parameter.
 
-Method getEventsBeforeTestCase returns callbacks that are called before a test case is run , it receives MyTester\Events\TestCaseStarted as its first parameter.
+Method getEventsBeforeTestCase returns callbacks that are called before a test case is run, it receives MyTester\Events\TestCaseStarted as its first parameter.
 
-Method getEventsAfterTestCase returns callbacks that are called after all test cases were run , it receives MyTester\Events\TestCaseFinished as its first parameter.
+Method getEventsAfterTestCase returns callbacks that are called after all test cases were run, it receives MyTester\Events\TestCaseFinished as its first parameter.
 
 Nette applications
 ------------------
@@ -250,14 +250,13 @@ extensions:
     mytester: MyTester\Bridges\NetteDI\MyTesterExtension
 ```
 
-Then you get service named **mytester.runner** (of type MyTester\Tester) from the container and run its method execute. It automatically ends the script with 0/1 depending on whether all tests passed.
+Then you get service of type MyTester\Tester from the container and run its method execute. It automatically ends the script with 0/1 depending on whether all tests passed.
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-$result = $container->getService("mytester.runner")->execute(); //or
 $container->getByType(MyTester\Tester::class)->execute();
 ```
 
