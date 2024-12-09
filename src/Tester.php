@@ -5,8 +5,6 @@ namespace MyTester;
 
 use Konecnyjakub\EventDispatcher\EventDispatcher;
 use Konecnyjakub\EventDispatcher\ListenerProvider;
-use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
-use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
