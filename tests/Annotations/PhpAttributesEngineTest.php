@@ -46,14 +46,14 @@ final class PhpAttributesEngineTest extends TestCase
             static::class
         ));
         $this->assertNull((new Reader())->getAnnotation(SkipChecker::ANNOTATION_NAME, static::class, "method"));
-        $this->assertSame(1, $this->getAnnotationsReader()->getAnnotation(
+        $this->assertSame([], $this->getAnnotationsReader()->getAnnotation(
             SkipChecker::ANNOTATION_NAME,
             static::class,
             "method"
         ));
     }
 
-    #[Skip(1)]
+    #[Skip()]
     private function method(): void
     {
     }

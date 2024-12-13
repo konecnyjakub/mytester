@@ -35,7 +35,7 @@ final class SkipChecker implements ISkipChecker
         $this->checkers[$name] = $callback;
     }
 
-    public function getSkipValue(string $class, string $method): mixed
+    public function getSkipValue(string $class, string $method): ?array
     {
         return $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
     }
@@ -43,16 +43,20 @@ final class SkipChecker implements ISkipChecker
     public function shouldSkip(string $class, string $method): bool|string
     {
         $value = $this->getSkipValue($class, $method);
-        if (is_scalar($value)) {
-            return (bool) $value;
-        } elseif (is_iterable($value)) {
-            foreach ($value as $k => $v) {
-                $checker = Arrays::get($this->checkers, $k, null);
-                if ($checker === null) {
-                    return false;
-                }
-                $value = $checker($v);
-                return $value ?? false;
+        if ($value === null) {
+            return false;
+        }
+        if ($value === []) {
+            return true;
+        }
+        foreach ($value as $k => $v) {
+            $checker = Arrays::get($this->checkers, $k, null);
+            if ($checker === null) {
+                return false;
+            }
+            $value = $checker($v);
+            if (is_string($value)) {
+                return $value;
             }
         }
         return false;

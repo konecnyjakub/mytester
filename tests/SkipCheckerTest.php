@@ -40,23 +40,14 @@ final class SkipCheckerTest extends TestCase
     public function testGetSkipValue(): void
     {
         $this->assertNull($this->getSkipChecker()->getSkipValue(static::class, "skipNull"));
-        $this->assertTrue($this->getSkipChecker()->getSkipValue(static::class, "skip"));
-        $this->assertSame(false, $this->getSkipChecker()->getSkipValue(static::class, "skipFalse"));
-        $this->assertSame(1.5, $this->getSkipChecker()->getSkipValue(static::class, "skipFloat"));
-        $this->assertSame("abc", $this->getSkipChecker()->getSkipValue(static::class, "skipString"));
-        $array = $this->getSkipChecker()->getSkipValue(static::class, "skipArray");
-        $this->assertType("iterable", $array);
-        $this->assertCount(1, $array);
+        $this->assertSame([], $this->getSkipChecker()->getSkipValue(static::class, "skip"));
+        $this->assertSame(["php" => 666, ], $this->getSkipChecker()->getSkipValue(static::class, "skipArray"));
     }
 
     public function testShouldSkip(): void
     {
-        $this->assertFalsey($this->getSkipChecker()->shouldSkip(static::class, "skipNull"));
+        $this->assertSame(false, $this->getSkipChecker()->shouldSkip(static::class, "skipNull"));
         $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skip"));
-        $this->assertFalsey($this->getSkipChecker()->shouldSkip(static::class, "skipFalse"));
-        $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipInteger"));
-        $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipFloat"));
-        $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipString"));
         $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipArray"));
         $this->assertFalsey($this->getSkipChecker()->shouldSkip(static::class, "skipArrayUnknown"));
     }
@@ -67,26 +58,6 @@ final class SkipCheckerTest extends TestCase
 
     #[Skip()]
     private function skip(): void
-    {
-    }
-
-    #[Skip(false)]
-    private function skipFalse(): void
-    {
-    }
-
-    #[Skip(1)]
-    private function skipInteger(): void
-    {
-    }
-
-    #[Skip(1.5)]
-    private function skipFloat(): void
-    {
-    }
-
-    #[Skip("abc")]
-    private function skipString(): void
     {
     }
 

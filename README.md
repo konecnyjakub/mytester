@@ -102,7 +102,7 @@ class Tests extends MyTester\TestCase
 }
 ```
 
-. You can also add conditions where the test should be skipped. Simple values like numbers, strings and boolean are evaluated directly. If you provide an array, all keys and their values are checked. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. Skipped tests are shown in output. Examples:
+. You can also add conditions where the test should be skipped. They can be provided as an array, keys and their values are checked until one matches. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. Skipped tests are shown in output. Examples:
 
 ```php
 <?php
@@ -112,9 +112,6 @@ use MyTester\Attributes\Skip;
 
 class Tests extends MyTester\TestCase
 {
-    #[Skip(1)]
-    #[Skip(true)]
-    #[Skip("abc")]
     #[Skip(["php" => "5.4.1"])]
     #[Skip(["extension" => "abc"])]
     #[Skip(["sapi" => "cgi"])]

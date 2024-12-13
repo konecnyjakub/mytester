@@ -53,7 +53,7 @@ final class ReaderTest extends TestCase
         ));
     }
 
-    #[Skip(1)]
+    #[Skip()]
     private function method(): void
     {
     }

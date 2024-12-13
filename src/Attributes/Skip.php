@@ -13,7 +13,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 final class Skip
 {
-    public function __construct(public mixed $value = true)
+    public function __construct(public array $value = [])
     {
     }
 }
