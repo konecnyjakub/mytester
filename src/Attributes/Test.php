@@ -7,6 +7,7 @@ use Attribute;
 
 /**
  * Test attribute
+ * Provides custom name for a test
  *
  * @author Jakub Konečný
  */

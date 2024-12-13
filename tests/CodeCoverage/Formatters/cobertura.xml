@@ -35,13 +35,15 @@
     </package>
     <package name="Attributes/Skip.php" line-rate="100" branch-rate="0" complexity="">
       <classes>
-        <class name="MyTester\Attributes\Skip" filename="Attributes/Skip.php" line-rate="0" branch-rate="0" complexity="0">
+        <class name="MyTester\Attributes\Skip" filename="Attributes/Skip.php" line-rate="100" branch-rate="0" complexity="0">
           <methods>
             <method name="__construct" signature="" line-rate="0" branch-rate="0">
               <lines/>
             </method>
           </methods>
-          <lines/>
+          <lines>
+            <line number="20" hits="1"/>
+          </lines>
         </class>
       </classes>
     </package>

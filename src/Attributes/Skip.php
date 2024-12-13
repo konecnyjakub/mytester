@@ -7,6 +7,7 @@ use Attribute;
 
 /**
  * Skip attribute
+ * Defines conditions when a test should be skipped
  *
  * @author Jakub Konečný
  */

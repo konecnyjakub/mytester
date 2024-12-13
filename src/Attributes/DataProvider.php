@@ -7,6 +7,7 @@ use Attribute;
 
 /**
  * Data provider attribute
+ * Defines a data source for parameters of a test
  *
  * @author Jakub Konečný
  */

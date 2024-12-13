@@ -7,6 +7,7 @@ use Attribute;
 
 /**
  * TestSuite attribute
+ * Provides custom name for a test suite
  *
  * @author Jakub Konečný
  */
