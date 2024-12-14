@@ -219,4 +219,15 @@ final class AssertTest extends TestCase
         $this->assertSame("'$text'", $this->showStringOrArray($text));
         $this->assertSame("array (\n)", $this->showStringOrArray([]));
     }
+
+    public function testShowValue(): void
+    {
+        $text = "abc";
+        $this->assertSame("'$text'", $this->showValue($text));
+        $this->assertSame("array (\n)", $this->showValue([]));
+        $this->assertSame("array (\n  0 => 1,\n  1 => 2,\n  2 => 3,\n)", $this->showValue([1, 2, 3, ]));
+        $this->assertSame("true", $this->showValue(true));
+        $this->assertSame("1.2", $this->showValue(1.2));
+        $this->assertSame("10", $this->showValue(10));
+    }
 }

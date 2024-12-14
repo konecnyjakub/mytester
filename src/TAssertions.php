@@ -40,6 +40,18 @@ trait TAssertions
         return $this->taskCount;
     }
 
+    protected function showValue(mixed $variable): string
+    {
+        if (is_string($variable)) {
+            return "'$variable'";
+        }
+        return var_export($variable, true);
+    }
+
+    #[\Deprecated("Use method showValue instead")]
+    /**
+     * @deprecated Use method {@see self::showValue()} instead
+     */
     protected function showStringOrArray(string|array $variable): string
     {
         return (is_string($variable) ? "'$variable'" : var_export($variable, true));
@@ -64,7 +76,10 @@ trait TAssertions
     protected function assertSame(mixed $expected, mixed $actual): void
     {
         $success = ($expected == $actual);
-        $message = ($success) ? "" : "The value is not '$expected' but '$actual'.";
+        $message = "";
+        if (!$success) {
+            $message = sprintf("The value is not %s but %s.", $this->showValue($expected), $this->showValue($actual));
+        }
         $this->testResult($message, $success);
     }
 
@@ -74,7 +89,10 @@ trait TAssertions
     protected function assertNotSame(mixed $expected, mixed $actual): void
     {
         $success = ($expected !== $actual);
-        $message = ($success) ? "" : "The value is '$expected'.";
+        $message = "";
+        if (!$success) {
+            $message = sprintf("The value is %s.", $this->showValue($expected));
+        }
         $this->testResult($message, $success);
     }
 
@@ -169,10 +187,10 @@ trait TAssertions
             $this->testResult($message, $success);
         } elseif (is_array($actual)) {
             $success = (in_array($needle, $actual));
-            $message = ($success) ? "" : $this->showStringOrArray($needle) . " is not in the variable.";
+            $message = ($success) ? "" : $this->showValue($needle) . " is not in the variable.";
             $this->testResult($message, $success);
         } else {
-            $this->testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
+            $this->testResult($this->showValue($needle) . " is not in the variable.", false);
         }
     }
 
@@ -187,10 +205,10 @@ trait TAssertions
             $this->testResult($message, $success);
         } elseif (is_array($actual)) {
             $success = (!in_array($needle, $actual));
-            $message = ($success) ? "" : $this->showStringOrArray($needle) . " is in the variable.";
+            $message = ($success) ? "" : $this->showValue($needle) . " is in the variable.";
             $this->testResult($message, $success);
         } else {
-            $this->testResult($this->showStringOrArray($needle) . " is not in the variable.", false);
+            $this->testResult($this->showValue($needle) . " is not in the variable.", false);
         }
     }
 
