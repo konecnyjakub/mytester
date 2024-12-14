@@ -10,8 +10,6 @@ namespace MyTester;
  */
 final class ConsoleColors
 {
-    use \Nette\SmartObject;
-
     private const array COLORS = [
         "black" => "0;30",
         "maroon" => "0;31",
