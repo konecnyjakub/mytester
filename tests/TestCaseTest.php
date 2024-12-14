@@ -112,6 +112,16 @@ final class TestCaseTest extends TestCase
         $this->assertTrue(false);
     }
 
+    /**
+     * Test skipping based on os family
+     */
+    #[Test("OS family")]
+    #[Skip(["osFamily" => "Solaris"])]
+    public function testSkipOsFamily(): void
+    {
+        $this->assertTrue(false);
+    }
+
     #[Test("No assertions")]
     public function testNoAssertions(): void
     {
@@ -143,6 +153,7 @@ final class TestCaseTest extends TestCase
                 "testSkipPhpVersion",
                 "testCgiSapi",
                 "testSkipExtension",
+                "testSkipOsFamily",
                 "testNoAssertions",
                 "testGetSuiteName",
                 "testGetJobName",
@@ -159,7 +170,7 @@ final class TestCaseTest extends TestCase
     public function testGetJobs(): void
     {
         $jobs = $this->getJobs();
-        $this->assertCount(17, $jobs);
+        $this->assertCount(18, $jobs);
 
         $job = $jobs[0];
         $this->assertSame("TestCase::testState", $job->name);
@@ -225,55 +236,62 @@ final class TestCaseTest extends TestCase
         $this->assertCount(1, $job->onAfterExecute);
 
         $job = $jobs[9];
+        $this->assertSame("OS family", $job->name);
+        $this->assertSame([$this, "testSkipOsFamily", ], $job->callback);
+        $this->assertSame([], $job->params);
+        $this->assertTrue((bool) $job->skip);
+        $this->assertCount(1, $job->onAfterExecute);
+
+        $job = $jobs[10];
         $this->assertSame("No assertions", $job->name);
         $this->assertSame([$this, "testNoAssertions", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
 
-        $job = $jobs[10];
+        $job = $jobs[11];
         $this->assertSame("TestCase::testGetSuiteName", $job->name);
         $this->assertSame([$this, "testGetSuiteName", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
 
-        $job = $jobs[11];
+        $job = $jobs[12];
         $this->assertSame("TestCase::testGetJobName", $job->name);
         $this->assertSame([$this, "testGetJobName", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
 
-        $job = $jobs[12];
+        $job = $jobs[13];
         $this->assertSame("TestCase::testGetTestMethodsNames", $job->name);
         $this->assertSame([$this, "testGetTestMethodsNames", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
 
-        $job = $jobs[13];
+        $job = $jobs[14];
         $this->assertSame("TestCase::testGetJobs", $job->name);
         $this->assertSame([$this, "testGetJobs", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
 
-        $job = $jobs[14];
+        $job = $jobs[15];
         $this->assertSame("TestCase::testIncomplete", $job->name);
         $this->assertSame([$this, "testIncomplete", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
 
-        $job = $jobs[15];
+        $job = $jobs[16];
         $this->assertSame("TestCase::testSkipInside", $job->name);
         $this->assertSame([$this, "testSkipInside", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
 
-        $job = $jobs[16];
+        $job = $jobs[17];
         $this->assertSame("TestCase::testWhatever", $job->name);
         $this->assertSame([$this, "testWhatever", ], $job->callback);
         $this->assertSame([], $job->params);

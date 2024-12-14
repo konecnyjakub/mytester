@@ -37,6 +37,12 @@ final class SkipCheckerTest extends TestCase
         $this->assertType("string", $this->getSkipChecker()->checkPhpSapi("abc"));
     }
 
+    public function testCheckOsFamily(): void
+    {
+        $this->assertNull($this->getSkipChecker()->checkOsFamily(PHP_OS_FAMILY));
+        $this->assertType("string", $this->getSkipChecker()->checkOsFamily("Solaris"));
+    }
+
     public function testGetSkipValue(): void
     {
         $this->assertNull($this->getSkipChecker()->getSkipValue(static::class, "skipNull"));
@@ -47,9 +53,16 @@ final class SkipCheckerTest extends TestCase
     public function testShouldSkip(): void
     {
         $this->assertSame(false, $this->getSkipChecker()->shouldSkip(static::class, "skipNull"));
-        $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skip"));
-        $this->assertTruthy($this->getSkipChecker()->shouldSkip(static::class, "skipArray"));
-        $this->assertFalsey($this->getSkipChecker()->shouldSkip(static::class, "skipArrayUnknown"));
+        $this->assertSame(true, $this->getSkipChecker()->shouldSkip(static::class, "skip"));
+        $this->assertSame(
+            "PHP version is lesser than 666",
+            $this->getSkipChecker()->shouldSkip(static::class, "skipArray")
+        );
+        $this->assertSame(false, $this->getSkipChecker()->shouldSkip(static::class, "skipArrayUnknown"));
+        $this->assertSame(
+            "os family is not Solaris",
+            $this->getSkipChecker()->shouldSkip(static::class, "skipOsFamily")
+        );
     }
 
     private function skipNull(): void
@@ -68,6 +81,11 @@ final class SkipCheckerTest extends TestCase
 
     #[Skip(["abc" => "def"])]
     private function skipArrayUnknown(): void
+    {
+    }
+
+    #[Skip(["osFamily" => "Solaris"])]
+    private function skipOsFamily(): void
     {
     }
 }

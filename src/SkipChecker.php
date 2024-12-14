@@ -28,6 +28,7 @@ final class SkipChecker implements ISkipChecker
         $this->addChecker("php", [$this, "checkPhpVersion"]);
         $this->addChecker("extension", [$this, "checkLoadedExtension"]);
         $this->addChecker("sapi", [$this, "checkPhpSapi"]);
+        $this->addChecker("osFamily", [$this, "checkOsFamily"]);
     }
 
     public function addChecker(string $name, callable $callback): void
@@ -82,6 +83,17 @@ final class SkipChecker implements ISkipChecker
     {
         if (PHP_SAPI != $value) {
             return "the sapi is not $value";
+        }
+        return null;
+    }
+
+    /**
+     * @see PHP_OS_FAMILY
+     */
+    public function checkOsFamily(mixed $value): ?string
+    {
+        if (PHP_OS_FAMILY != $value) {
+            return "os family is not $value";
         }
         return null;
     }
