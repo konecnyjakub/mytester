@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations;
 
-use Nette\Utils\Strings;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
@@ -43,7 +42,7 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
 
     private function getClassName(string $baseName): string
     {
-        return "MyTester\\Attributes\\" . Strings::firstUpper($baseName);
+        return "MyTester\\Attributes\\" . ucfirst($baseName);
     }
 
     /**
