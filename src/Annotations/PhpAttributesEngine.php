@@ -52,10 +52,8 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
     private function getReflection(string|object $class, ?string $method = null): ReflectionClass|ReflectionMethod
     {
         if ($method !== null) {
-            $reflection = new ReflectionMethod(is_object($class) ? get_class($class) : $class, $method);
-        } else {
-            $reflection = new ReflectionClass(is_object($class) ? get_class($class) : $class);
+            return new ReflectionMethod(is_object($class) ? get_class($class) : $class, $method);
         }
-        return $reflection;
+        return new ReflectionClass(is_object($class) ? get_class($class) : $class);
     }
 }
