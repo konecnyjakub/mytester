@@ -213,13 +213,6 @@ final class AssertTest extends TestCase
         $this->assert("abc != def", "abc is def.");
     }
 
-    public function testShowStringOrArray(): void
-    {
-        $text = "abc";
-        $this->assertSame("'$text'", $this->showStringOrArray($text));
-        $this->assertSame("array (\n)", $this->showStringOrArray([]));
-    }
-
     public function testShowValue(): void
     {
         $text = "abc";

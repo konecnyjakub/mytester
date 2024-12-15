@@ -54,7 +54,7 @@ trait TAssertions
      */
     protected function showStringOrArray(string|array $variable): string
     {
-        return (is_string($variable) ? "'$variable'" : var_export($variable, true));
+        return $this->showValue($variable);
     }
 
     /**
