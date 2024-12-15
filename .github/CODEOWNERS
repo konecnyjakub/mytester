@@ -4,6 +4,7 @@
 /LICENSE.md         @konecnyjakub
 .gitignore          @konecnyjakub
 /composer.json      @konecnyjakub
+.editorconfig       @konecnyjakub
 
 # Release Management
 /CHANGELOG.md       @konecnyjakub
