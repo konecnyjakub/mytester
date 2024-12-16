@@ -1,4 +1,4 @@
-Version 7.0.0-dev
+Version 7.0.0
 - BC break: used interfaces for data provider and skip checker in TestCase
 - BC break: used typed class constants
 - BC break: made some methods in TAssertions final
