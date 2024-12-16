@@ -15,10 +15,7 @@ use MyTester\JobResult;
  */
 final class TestDox extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
 {
-    /**
-     * @internal
-     */
-    public ConsoleColors $console;
+    private ConsoleColors $console;
 
     public function setConsole(ConsoleColors $console): void
     {

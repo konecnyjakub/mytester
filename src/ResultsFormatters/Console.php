@@ -18,10 +18,7 @@ use MyTester\TestWarning;
  */
 final class Console extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
 {
-    /**
-     * @internal
-     */
-    public ConsoleColors $console;
+    private ConsoleColors $console;
 
     /** @var array<string, string> */
     private array $failures = [];
