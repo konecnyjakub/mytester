@@ -230,9 +230,9 @@ It is possible to change the name for output for formats Cobertura and text, jus
 
 Automated tests runner's functionality can be extended by extensions. They can add callbacks for certain events. Extensions have to implement the *MyTester\ITesterExtension* interface. For now, custom extensions cannot be registered when using the script *vendor/bin/mytester*,
 
-Method getEventsPreRun returns callbacks that are called before all tests are run (when we know which test cases should be run), it receives MyTester\Events\TestsStartedEvent as its first parameter.
+Method getEventsPreRun returns callbacks that are called before all tests are run (when we know which test cases should be run), it receives MyTester\Events\TestsStarted as its first parameter.
 
-Method getEventsAfterRun returns callbacks that are called after all tests were run, it receives MyTester\Events\TestsFinishedEvent as its first parameter.
+Method getEventsAfterRun returns callbacks that are called after all tests were run, it receives MyTester\Events\TestsFinished as its first parameter.
 
 Method getEventsBeforeTestCase returns callbacks that are called before a test case is run, it receives MyTester\Events\TestCaseStarted as its first parameter.
 

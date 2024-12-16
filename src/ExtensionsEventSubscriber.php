@@ -23,10 +23,10 @@ final readonly class ExtensionsEventSubscriber implements IEventSubscriber
     public static function getSubscribedEvents(): iterable
     {
         return [
-            Events\TestsStartedEvent::class => [
+            Events\TestsStarted::class => [
                 ["onTestsStarted", ],
             ],
-            Events\TestsFinishedEvent::class => [
+            Events\TestsFinished::class => [
                 ["onTestsFinished", ],
             ],
             Events\TestCaseStarted::class => [
@@ -38,7 +38,7 @@ final readonly class ExtensionsEventSubscriber implements IEventSubscriber
         ];
     }
 
-    public function onTestsStarted(Events\TestsStartedEvent $event): void
+    public function onTestsStarted(Events\TestsStarted $event): void
     {
         foreach ($this->extensions as $extension) {
             $callbacks = $extension->getEventsPreRun();
@@ -48,7 +48,7 @@ final readonly class ExtensionsEventSubscriber implements IEventSubscriber
         }
     }
 
-    public function onTestsFinished(Events\TestsFinishedEvent $event): void
+    public function onTestsFinished(Events\TestsFinished $event): void
     {
         foreach ($this->extensions as $extension) {
             $callbacks = $extension->getEventsAfterRun();

@@ -8,7 +8,7 @@ use MyTester\TestCase;
 /**
  * @author Jakub Konečný
  */
-final readonly class TestsStartedEvent
+final readonly class TestsFinished
 {
     /**
      * @param TestCase[] $testCases

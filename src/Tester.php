@@ -40,23 +40,23 @@ final readonly class Tester
         $listenerProvider->addSubscriber(new ExtensionsEventSubscriber($this->extensions));
 
         $listenerProvider->addListener(
-            Events\TestsStartedEvent::class,
-            function (Events\TestsStartedEvent $event) {
+            Events\TestsStarted::class,
+            function (Events\TestsStarted $event) {
                 $this->resultsFormatter->reportTestsStarted($event->testCases);
             },
             100
         );
 
         $listenerProvider->addListener(
-            Events\TestsFinishedEvent::class,
-            function (Events\TestsFinishedEvent $event) {
+            Events\TestsFinished::class,
+            function (Events\TestsFinished $event) {
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
             },
             100
         );
         $listenerProvider->addListener(
-            Events\TestsFinishedEvent::class,
-            function (Events\TestsFinishedEvent $event) {
+            Events\TestsFinished::class,
+            function (Events\TestsFinished $event) {
                 $this->resultsFormatter->outputResults((string) getcwd());
             },
             99
@@ -95,7 +95,7 @@ final readonly class Tester
             $testCases[] = $this->testSuiteFactory->create($suite);
         }
 
-        $this->eventDispatcher->dispatch(new Events\TestsStartedEvent($testCases));
+        $this->eventDispatcher->dispatch(new Events\TestsStarted($testCases));
 
         foreach ($testCases as $testCase) {
             $this->eventDispatcher->dispatch(new Events\TestCaseStarted($testCase));
@@ -105,7 +105,7 @@ final readonly class Tester
             $this->eventDispatcher->dispatch(new Events\TestCaseFinished($testCase));
         }
 
-        $this->eventDispatcher->dispatch(new Events\TestsFinishedEvent($testCases));
+        $this->eventDispatcher->dispatch(new Events\TestsFinished($testCases));
 
         exit((int) $failed);
     }
