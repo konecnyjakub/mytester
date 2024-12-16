@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\ResultsFormatters\AbstractResultsFormatter;
-use MyTester\ResultsFormatters\Helper as ResultsHelper;
-
 /**
  * Results formatter for {@see Tester}
  *
