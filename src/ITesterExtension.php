@@ -10,23 +10,11 @@ namespace MyTester;
  */
 interface ITesterExtension
 {
-    /**
-     * @return callable[]
-     */
-    public function getEventsPreRun(): array;
+    public function onTestsStarted(Events\TestsStarted $event): void;
 
-    /**
-     * @return callable[]
-     */
-    public function getEventsAfterRun(): array;
+    public function onTestsFinished(Events\TestsFinished $event): void;
 
-    /**
-     * @return callable[]
-     */
-    public function getEventsBeforeTestCase(): array;
+    public function onTestCaseStarted(Events\TestCaseStarted $event): void;
 
-    /**
-     * @return callable[]
-     */
-    public function getEventsAfterTestCase(): array;
+    public function onTestCaseFinished(Events\TestCaseFinished $event): void;
 }

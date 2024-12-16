@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage;
 
+use MyTester\Events;
 use MyTester\ITesterExtension;
 
 /**
@@ -16,35 +17,10 @@ final readonly class CodeCoverageExtension implements ITesterExtension
     {
     }
 
-    public function getEventsPreRun(): array
-    {
-        return [
-            [$this, "setupCodeCoverage"],
-        ];
-    }
-
-    public function getEventsAfterRun(): array
-    {
-        return [
-            [$this, "reportCodeCoverage"],
-        ];
-    }
-
-    public function getEventsBeforeTestCase(): array
-    {
-        return [];
-    }
-
-    public function getEventsAfterTestCase(): array
-    {
-        return [];
-    }
-
     /**
-     * @internal
      * @throws CodeCoverageException
      */
-    public function setupCodeCoverage(): void
+    public function onTestsStarted(Events\TestsStarted $event): void
     {
         try {
             $this->collector->start();
@@ -56,10 +32,9 @@ final readonly class CodeCoverageExtension implements ITesterExtension
     }
 
     /**
-     * @internal
      * @throws CodeCoverageException
      */
-    public function reportCodeCoverage(): void
+    public function onTestsFinished(Events\TestsFinished $event): void
     {
         try {
             $engineName = $this->collector->getEngineName();
@@ -77,5 +52,13 @@ final readonly class CodeCoverageExtension implements ITesterExtension
             }
             throw $e;
         }
+    }
+
+    public function onTestCaseStarted(Events\TestCaseStarted $event): void
+    {
+    }
+
+    public function onTestCaseFinished(Events\TestCaseFinished $event): void
+    {
     }
 }

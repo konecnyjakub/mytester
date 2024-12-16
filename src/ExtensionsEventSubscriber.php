@@ -41,40 +41,28 @@ final readonly class ExtensionsEventSubscriber implements IEventSubscriber
     public function onTestsStarted(Events\TestsStarted $event): void
     {
         foreach ($this->extensions as $extension) {
-            $callbacks = $extension->getEventsPreRun();
-            foreach ($callbacks as $callback) {
-                $callback($event);
-            }
+            $extension->onTestsStarted($event);
         }
     }
 
     public function onTestsFinished(Events\TestsFinished $event): void
     {
         foreach ($this->extensions as $extension) {
-            $callbacks = $extension->getEventsAfterRun();
-            foreach ($callbacks as $callback) {
-                $callback($event);
-            }
+            $extension->onTestsFinished($event);
         }
     }
 
     public function onTestCaseStarted(Events\TestCaseStarted $event): void
     {
         foreach ($this->extensions as $extension) {
-            $callbacks = $extension->getEventsBeforeTestCase();
-            foreach ($callbacks as $callback) {
-                $callback($event);
-            }
+            $extension->onTestCaseStarted($event);
         }
     }
 
     public function onTestCaseFinished(Events\TestCaseFinished $event): void
     {
         foreach ($this->extensions as $extension) {
-            $callbacks = $extension->getEventsAfterTestCase();
-            foreach ($callbacks as $callback) {
-                $callback($event);
-            }
+            $extension->onTestCaseFinished($event);
         }
     }
 }

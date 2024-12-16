@@ -5,7 +5,6 @@ Version 7.0.0-dev
 - BC break: it is no longer possible to pass null to parameters $resultsFormatter and $testSuitesFinder in Tester's constructor
 - BC break: made Tester::$testSuitesFinder readonly
 - BC break: added method IResultsFormatter::setOutputFileName
-- BC break: added methods ITesterExtension::getEventsBeforeTestCase and getEventsAfterTestCase
 - added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory, TestSuitesFinder, AssertionFailedException, InterruptedTestException, IncompleteTestException and SkippedTestException to public api
 - BC break: removed method IResultsFormatter::setup
 - BC break: Tester's constructor now takes TestsFolderProvider as its first parameter
@@ -20,6 +19,7 @@ Version 7.0.0-dev
 - allowing skipping tests based on OS family with default skip checker
 - BC break: renamed TestsStartedEvent to TestsStarted and TestsFinishedEvent to TestsFinished
 - BC break: made Job::getSkip() protected
+- BC break: tester extensions now define methods that are called directly instead of providing a list of callbacks, added methods for test case started/finished events
 
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api

@@ -13,39 +13,24 @@ final class InfoExtension implements ITesterExtension
     {
     }
 
-    public function getEventsPreRun(): array
-    {
-        return [
-            [$this, "printInfo"],
-        ];
-    }
-
-    public function getEventsAfterRun(): array
-    {
-        return [];
-    }
-
-    public function getEventsBeforeTestCase(): array
-    {
-        return [];
-    }
-
-    public function getEventsAfterTestCase(): array
-    {
-        return [];
-    }
-
-    /**
-     * Print version of My Tester and PHP
-     *
-     * @internal
-     */
-    public function printInfo(): void
+    public function onTestsStarted(Events\TestsStarted $event): void
     {
         $version = InstalledVersions::getPrettyVersion(static::PACKAGE_NAME);
         echo $this->console->color("My Tester $version\n", "silver");
         echo "\n";
-        echo $this->console->color("PHP " . PHP_VERSION . "(" . PHP_SAPI . ")\n", "silver");
+        echo $this->console->color("PHP " . PHP_VERSION . " (" . PHP_SAPI . ")\n", "silver");
         echo "\n";
+    }
+
+    public function onTestsFinished(Events\TestsFinished $event): void
+    {
+    }
+
+    public function onTestCaseStarted(Events\TestCaseStarted $event): void
+    {
+    }
+
+    public function onTestCaseFinished(Events\TestCaseFinished $event): void
+    {
     }
 }

@@ -18,34 +18,7 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
     {
     }
 
-    public function getEventsPreRun(): array
-    {
-        return [
-            [$this, "clearErrorsFiles"],
-        ];
-    }
-
-    public function getEventsAfterRun(): array
-    {
-        return [];
-    }
-
-    public function getEventsBeforeTestCase(): array
-    {
-        return [];
-    }
-
-    public function getEventsAfterTestCase(): array
-    {
-        return [
-            [$this, "saveErrors"],
-        ];
-    }
-
-    /**
-     * @internal
-     */
-    public function clearErrorsFiles(): void
+    public function onTestsStarted(Events\TestsStarted $event): void
     {
         $files = Finder::findFiles("*.errors")->in($this->folderProvider->folder);
         foreach ($files as $name => $file) {
@@ -56,10 +29,15 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
         }
     }
 
-    /**
-     * @internal
-     */
-    public function saveErrors(Events\TestCaseFinished $event): void
+    public function onTestsFinished(Events\TestsFinished $event): void
+    {
+    }
+
+    public function onTestCaseStarted(Events\TestCaseStarted $event): void
+    {
+    }
+
+    public function onTestCaseFinished(Events\TestCaseFinished $event): void
     {
         $jobs = $event->testCase->jobs;
         foreach ($jobs as $job) {

@@ -5,6 +5,8 @@ namespace MyTester\CodeCoverage;
 
 use MyTester\Attributes\TestSuite;
 use MyTester\CodeCoverage\Engines\DummyEngine;
+use MyTester\Events\TestsFinished;
+use MyTester\Events\TestsStarted;
 use MyTester\TestCase;
 
 /**
@@ -19,7 +21,7 @@ final class CodeCoverageExtensionTest extends TestCase
     {
         $this->assertNoException(function () {
             $extension = new CodeCoverageExtension(new Collector());
-            $extension->setupCodeCoverage();
+            $extension->onTestsStarted(new TestsStarted());
         });
     }
 
@@ -27,13 +29,13 @@ final class CodeCoverageExtensionTest extends TestCase
     {
         $this->assertNoException(function () {
             $extension = new CodeCoverageExtension(new Collector());
-            $extension->reportCodeCoverage();
+            $extension->onTestsFinished(new TestsFinished());
         });
         $this->assertNoException(function () {
             $collector = new Collector();
             $collector->registerEngine(new DummyEngine());
             $extension = new CodeCoverageExtension($collector);
-            $extension->reportCodeCoverage();
+            $extension->onTestsFinished(new TestsFinished());
         });
     }
 }
