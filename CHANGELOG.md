@@ -19,6 +19,7 @@ Version 7.0.0-dev
 - deprecated method TAssertions::showStringOrArray in favor of new showValue (the latter accepts value of any type)
 - allowing skipping tests based on OS family with default skip checker
 - BC break: renamed TestsStartedEvent to TestsStarted and TestsFinishedEvent to TestsFinished
+- BC break: made Job::getSkip() protected
 
 Version 6.1.0
 - added CodeCoverageExtension, Reader, IAnnotationsReaderEngine, PhpAttributesEngine, TAssertions::getCounter(), TestsStartedEvent, TestsFinishedEvent to public api

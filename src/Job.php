@@ -50,7 +50,7 @@ final class Job
         return $this->callback;
     }
 
-    public function getSkip(): bool|string
+    protected function getSkip(): bool|string
     {
         return $this->skip;
     }
