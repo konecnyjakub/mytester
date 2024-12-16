@@ -48,15 +48,6 @@ trait TAssertions
         return var_export($variable, true);
     }
 
-    #[\Deprecated("Use method showValue instead")]
-    /**
-     * @deprecated Use method {@see self::showValue()} instead
-     */
-    protected function showStringOrArray(string|array $variable): string
-    {
-        return $this->showValue($variable);
-    }
-
     /**
      * Tries an assertion
      */

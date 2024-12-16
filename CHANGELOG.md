@@ -15,7 +15,7 @@ Version 7.0.0-dev
 - BC break: replaced method IResultsFormatter::render with outputResults
 - BC break: only array can be passed to attribute Skip (if any value is passed)
 - improved error message for assertions assertSame and assertNotSame when any passed value is boolean
-- deprecated method TAssertions::showStringOrArray in favor of new showValue (the latter accepts value of any type)
+- BC break: replaced method TAssertions::showStringOrArray with showValue (the latter accepts value of any type)
 - allowing skipping tests based on OS family with default skip checker
 - BC break: renamed TestsStartedEvent to TestsStarted and TestsFinishedEvent to TestsFinished
 - BC break: made Job::getSkip() protected
