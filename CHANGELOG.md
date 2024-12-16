@@ -5,7 +5,7 @@ Version 7.0.0-dev
 - BC break: it is no longer possible to pass null to parameters $resultsFormatter and $testSuitesFinder in Tester's constructor
 - BC break: made Tester::$testSuitesFinder readonly
 - BC break: added method IResultsFormatter::setOutputFileName
-- added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory, TestSuitesFinder, AssertionFailedException, InterruptedTestException, IncompleteTestException and SkippedTestException to public api
+- added TestCaseStarted, TestCaseFinished, DataProvider, SkipChecker, TestSuiteFactory, ComposerTestSuitesFinder, ChainTestSuitesFinder ContainerSuiteFactory, TestSuitesFinder, AssertionFailedException, InterruptedTestException, IncompleteTestException, SkippedTestException and IConsoleAwareResultsFormatter to public api
 - BC break: removed method IResultsFormatter::setup
 - BC break: Tester's constructor now takes TestsFolderProvider as its first parameter
 - BC break: removed Tester::$useColors
