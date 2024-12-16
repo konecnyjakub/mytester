@@ -103,9 +103,7 @@ final class Job
                 $this->exception = $e;
             }
             $this->onAfterExecute();
-            /** @var string $output */
-            $output = ob_get_clean();
-            $this->output = $output;
+            $this->output = (string) ob_get_clean();
             Timer::stop($timerName);
             // @phpstan-ignore argument.type
             $this->totalTime = (int) Timer::read($timerName, Timer::FORMAT_PRECISE);
