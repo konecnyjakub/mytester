@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Konecnyjakub\EventDispatcher\EventDispatcher;
-use Konecnyjakub\EventDispatcher\ListenerProvider;
+use Konecnyjakub\EventDispatcher\PriorityListenerProvider;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -35,59 +35,47 @@ final readonly class Tester
 
     private function createEventDispatcher(): EventDispatcherInterface
     {
-        $listenerProvider = new ListenerProvider();
+        $listenerProvider = new PriorityListenerProvider();
 
-        $listenerProvider->registerListener(
+        $listenerProvider->addSubscriber(new ExtensionsEventSubscriber($this->extensions));
+
+        $listenerProvider->addListener(
             Events\TestsStartedEvent::class,
             function (Events\TestsStartedEvent $event) {
                 $this->resultsFormatter->reportTestsStarted($event->testCases);
-                foreach ($this->extensions as $extension) {
-                    $callbacks = $extension->getEventsPreRun();
-                    foreach ($callbacks as $callback) {
-                        $callback($event);
-                    }
-                }
-            }
+            },
+            100
         );
 
-        $listenerProvider->registerListener(
+        $listenerProvider->addListener(
             Events\TestsFinishedEvent::class,
             function (Events\TestsFinishedEvent $event) {
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
+            },
+            100
+        );
+        $listenerProvider->addListener(
+            Events\TestsFinishedEvent::class,
+            function (Events\TestsFinishedEvent $event) {
                 $this->resultsFormatter->outputResults((string) getcwd());
-                foreach ($this->extensions as $extension) {
-                    $callbacks = $extension->getEventsAfterRun();
-                    foreach ($callbacks as $callback) {
-                        $callback($event);
-                    }
-                }
-            }
+            },
+            99
         );
 
-        $listenerProvider->registerListener(
+        $listenerProvider->addListener(
             Events\TestCaseStarted::class,
             function (Events\TestCaseStarted $event) {
                 $this->resultsFormatter->reportTestCaseStarted($event->testCase);
-                foreach ($this->extensions as $extension) {
-                    $callbacks = $extension->getEventsBeforeTestCase();
-                    foreach ($callbacks as $callback) {
-                        $callback($event);
-                    }
-                }
-            }
+            },
+            100
         );
 
-        $listenerProvider->registerListener(
+        $listenerProvider->addListener(
             Events\TestCaseFinished::class,
             function (Events\TestCaseFinished $event) {
                 $this->resultsFormatter->reportTestCaseFinished($event->testCase);
-                foreach ($this->extensions as $extension) {
-                    $callbacks = $extension->getEventsAfterTestCase();
-                    foreach ($callbacks as $callback) {
-                        $callback($event);
-                    }
-                }
-            }
+            },
+            100
         );
 
         return new EventDispatcher($listenerProvider);
