@@ -80,10 +80,14 @@ final class Collector
         /** @var Report $report */
         $report = $this->report;
         foreach ($this->formatters as $formatter) {
+            $outputFileName = $formatter->getOutputFileName($outputFolder);
             /** @var resource $outputFile */
-            $outputFile = fopen($formatter->getOutputFileName($outputFolder), "w");
+            $outputFile = fopen($outputFileName, "w");
             fwrite($outputFile, $formatter->render($report));
             fclose($outputFile);
+            if (\MyTester\ResultsFormatters\Helper::isFileOutput($outputFileName)) {
+                echo "Generated code coverage report $outputFileName\n";
+            }
         }
     }
 
