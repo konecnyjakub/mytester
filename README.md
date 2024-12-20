@@ -35,7 +35,7 @@ class Tests extends MyTester\TestCase
 
 #### Parameters for test methods
 
-Test methods of TestCase descendants can take one parameter. You can provide a name of a public method from the class which returns an array with DataProvider attribute. It can be a list of value, in that case the method will be run multiple time, every time with one value from the list. Example:
+Test methods of TestCase descendants can take one or more parameters. You can provide a name of a public method from the class which returns an array with DataProvider attribute. It should be an array of arrays. Example:
 
 ```php
 <?php
@@ -46,17 +46,23 @@ use MyTester\Attributes\DataProvider;
 class Tests extends MyTester\TestCase
 {
     #[DataProvider("dataProvider")]
-    public function testParams(string $text): void
+    public function testParams(string $text, int $number): void
     {
         $this->assertContains("a", $text);
+        $this->assertGreaterThan(0, $number);
     }
 
     public function dataProvider(): array
     {
-        return ["abc", "def", ];
+        return [
+            ["abc", 1, ],
+            ["abcd", 2, ],
+        ];
     }
 }
 ```
+
+In the example the test method will be run 2 times, first time with parameters "abc" a 1, second time with "abcd" and 2.
 
 #### Custom names for tests
 

@@ -88,19 +88,37 @@ abstract class TestCase
                         },
                     ],
                 ];
+
+                $requiredParameters = (new ReflectionMethod($this, $method))->getNumberOfParameters();
+                if ($requiredParameters === 0) {
+                    $this->jobs[] = new Job(... $job);
+                    continue;
+                }
+
                 $data = $this->dataProvider->getData($this, $method);
-                if (count($data) > 0) {
-                    foreach ($data as $value) {
+                if (count($data) === 0) {
+                    $job["skip"] = "Method requires at least 1 parameter but data provider does not provide any.";
+                    $this->jobs[] = new Job(... $job);
+                    continue;
+                }
+
+                foreach ($data as $value) {
+                    if ($requiredParameters === 1 && !is_array($value)) {
                         $job["params"][0] = $value;
+                    } elseif (!is_array($value) || count($value) < $requiredParameters) {
+                        $job["skip"] = sprintf(
+                            "Method requires at least %d parameter(s) but data provider provides only %d.",
+                            $requiredParameters,
+                            is_array($value) ? count($value) : 0
+                        );
                         $this->jobs[] = new Job(... $job);
                         $job["params"] = [];
-                    }
-                } else {
-                    $rm = new ReflectionMethod($this, $method);
-                    if ($rm->getNumberOfParameters() > 0) {
-                        $job["skip"] = "Method requires at least 1 parameter but data provider does not provide any.";
+                        break;
+                    } else {
+                        $job["params"] = $value;
                     }
                     $this->jobs[] = new Job(... $job);
+                    $job["params"] = [];
                 }
             }
         }
