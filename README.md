@@ -53,9 +53,7 @@ class Tests extends MyTester\TestCase
 
     public function dataProvider(): array
     {
-        return [
-            ["abc", "def"],
-        ];
+        return ["abc", "def", ];
     }
 }
 ```
