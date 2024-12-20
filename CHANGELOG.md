@@ -1,4 +1,4 @@
-Version 7.0.0+dev
+Version 7.1.0-dev
 - filename of generated code coverage report is now shown in console (if a report is generated and is saved into a file)
 - callbacks in Job::$onAfterExecute receive Job as first parameter
 - improved error message for assertion assertCount
