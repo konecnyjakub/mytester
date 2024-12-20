@@ -17,7 +17,7 @@ final class InfoExtension implements ITesterExtension
     {
         echo $this->console->color(static::getTesterVersion() . "\n", "silver");
         echo "\n";
-        echo $this->console->color(static::getPhpVersion() . ")\n", "silver");
+        echo $this->console->color(static::getPhpVersion() . "\n", "silver");
         echo "\n";
     }
 
