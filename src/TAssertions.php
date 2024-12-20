@@ -210,7 +210,7 @@ trait TAssertions
     {
         $actual = count($value);
         $success = ($actual === $count);
-        $message = ($success) ? "" : "Count of the variable is $actual.";
+        $message = ($success) ? "" : "Count of the variable is not $count but $actual.";
         $this->testResult($message, $success);
     }
 

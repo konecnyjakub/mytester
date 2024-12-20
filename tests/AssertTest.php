@@ -140,7 +140,7 @@ final class AssertTest extends TestCase
             "Test 37 failed. array (\n  0 => 'abc',\n  1 => 'def',\n) is not in the variable.");
         $this->assertThrowsException(function () {
             $this->assertCount(1, ["abc", "def", ]);
-        }, AssertionFailedException::class, "Test 39 failed. Count of the variable is 2.");
+        }, AssertionFailedException::class, "Test 39 failed. Count of the variable is not 1 but 2.");
         $this->assertThrowsException(function () {
             $this->assertNotCount(2, ["abc", "def", ]);
         }, AssertionFailedException::class, "Test 41 failed. Count of the variable is 2.");
