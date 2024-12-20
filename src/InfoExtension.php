@@ -15,10 +15,9 @@ final class InfoExtension implements ITesterExtension
 
     public function onTestsStarted(Events\TestsStarted $event): void
     {
-        $version = InstalledVersions::getPrettyVersion(static::PACKAGE_NAME);
-        echo $this->console->color("My Tester $version\n", "silver");
+        echo $this->console->color(static::getTesterVersion() . "\n", "silver");
         echo "\n";
-        echo $this->console->color("PHP " . PHP_VERSION . " (" . PHP_SAPI . ")\n", "silver");
+        echo $this->console->color(static::getPhpVersion() . ")\n", "silver");
         echo "\n";
     }
 
@@ -32,5 +31,16 @@ final class InfoExtension implements ITesterExtension
 
     public function onTestCaseFinished(Events\TestCaseFinished $event): void
     {
+    }
+
+    public static function getTesterVersion(): string
+    {
+        $version = InstalledVersions::getPrettyVersion(static::PACKAGE_NAME);
+        return "My Tester $version";
+    }
+
+    public static function getPhpVersion(): string
+    {
+        return "PHP " . PHP_VERSION . " (" . PHP_SAPI . ")";
     }
 }

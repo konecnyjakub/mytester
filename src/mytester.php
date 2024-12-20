@@ -55,8 +55,7 @@ $cmd = new Parser("", [
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
-    $version = InstalledVersions::getPrettyVersion("konecnyjakub/mytester");
-    echo "My Tester $version\n";
+    echo InfoExtension::getTesterVersion() . "\n";
     exit(0);
 }
 
