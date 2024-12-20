@@ -78,7 +78,7 @@ final class Job
     private function onAfterExecute(): void
     {
         foreach ($this->onAfterExecute as $callback) {
-            $callback();
+            $callback($this);
         }
     }
 

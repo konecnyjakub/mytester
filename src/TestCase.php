@@ -80,8 +80,9 @@ abstract class TestCase
                     "params" => [],
                     "skip" => $this->skipChecker->shouldSkip(static::class, $method),
                     "onAfterExecute" => [
-                        function (): void {
-                            if ($this->getCounter() === 0) {
+                        function (Job $job): void {
+                            $job->totalAssertions = $this->getCounter();
+                            if ($job->totalAssertions === 0) {
                                 echo "Warning: No assertions were performed.\n";
                             }
                         },
@@ -184,7 +185,6 @@ abstract class TestCase
             $this->setUp();
         }
         $job->execute();
-        $job->totalAssertions = $this->getCounter();
         if (!$job->skip) {
             $this->tearDown();
         }
