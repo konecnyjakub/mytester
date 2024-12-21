@@ -79,7 +79,7 @@ final class TestCaseTest extends TestCase
     public function dataProviderMulti(): array
     {
         return [
-            ["abc", 1, ],
+            "first" => ["abc", 1, ],
             ["abcd", 2, ],
         ];
     }
@@ -201,6 +201,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[1];
         $this->assertSame("TestCase::testParams", $job->name);
@@ -208,6 +209,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame(["abc", ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[2];
         $this->assertSame("TestCase::testParams", $job->name);
@@ -215,6 +217,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame(["adef", ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[3];
         $this->assertSame("TestCase::testParamsNoneProvided", $job->name);
@@ -222,6 +225,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertSame("Method requires at least 1 parameter but data provider does not provide any.", $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[4];
         $this->assertSame("TestCase::testParamsNotEnough", $job->name);
@@ -229,6 +233,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertSame("Method requires at least 2 parameter(s) but data provider provides only 0.", $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[5];
         $this->assertSame("TestCase::testParamsMulti", $job->name);
@@ -236,6 +241,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame(["abc", 1, ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("first", $job->dataSetName);
 
         $job = $jobs[6];
         $this->assertSame("TestCase::testParamsMulti", $job->name);
@@ -243,6 +249,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame(["abcd", 2, ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[7];
         $this->assertSame("Custom name", $job->name);
@@ -250,6 +257,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[8];
         $this->assertSame("Skip", $job->name);
@@ -257,6 +265,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[9];
         $this->assertSame("PHP version", $job->name);
@@ -264,6 +273,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[10];
         $this->assertSame("CGI sapi", $job->name);
@@ -271,6 +281,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[11];
         $this->assertSame("Extension", $job->name);
@@ -278,6 +289,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[12];
         $this->assertSame("OS family", $job->name);
@@ -285,6 +297,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[13];
         $this->assertSame("No assertions", $job->name);
@@ -292,6 +305,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[14];
         $this->assertSame("TestCase::testGetSuiteName", $job->name);
@@ -299,6 +313,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[15];
         $this->assertSame("TestCase::testGetJobName", $job->name);
@@ -306,6 +321,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[16];
         $this->assertSame("TestCase::testGetTestMethodsNames", $job->name);
@@ -313,6 +329,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[17];
         $this->assertSame("TestCase::testGetJobs", $job->name);
@@ -320,6 +337,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[18];
         $this->assertSame("TestCase::testIncomplete", $job->name);
@@ -327,6 +345,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[19];
         $this->assertSame("TestCase::testSkipInside", $job->name);
@@ -334,6 +353,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
 
         $job = $jobs[20];
         $this->assertSame("TestCase::testWhatever", $job->name);
@@ -341,6 +361,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
     }
 
     public function testIncomplete(): void

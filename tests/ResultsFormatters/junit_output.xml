@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Project test suite by My Tester" time="0.001" tests="8" failures="1" skipped="2" warnings="2" assertions="5">
+<testsuites name="Project test suite by My Tester" time="0.001" tests="10" failures="3" skipped="2" warnings="2" assertions="7">
   <testsuite id="MyTester\ResultsFormatters\TestCaseOne" name="MyTester\ResultsFormatters\TestCaseOne" file="/var/project/tests/ResultsFormatters/TestCaseOne.php" tests="3" failures="0" skipped="1" warnings="0" time="0" assertions="2">
     <testcase name="MyTester\ResultsFormatters\TestCaseOne::testOne" class="MyTester\ResultsFormatters\TestCaseOne" classname="MyTester.ResultsFormatters.TestCaseOne" file="/var/project/tests/ResultsFormatters/TestCaseOne.php" line="14" time="0" assertions="1"/>
     <testcase name="MyTester\ResultsFormatters\TestCaseOne::testTwo" class="MyTester\ResultsFormatters\TestCaseOne" classname="MyTester.ResultsFormatters.TestCaseOne" file="/var/project/tests/ResultsFormatters/TestCaseOne.php" line="19" time="0" assertions="1"/>
@@ -16,10 +16,20 @@
     </testcase>
     <testcase name="MyTester\ResultsFormatters\TestCaseTwo::testThree" class="MyTester\ResultsFormatters\TestCaseTwo" classname="MyTester.ResultsFormatters.TestCaseTwo" file="/var/project/tests/ResultsFormatters/TestCaseTwo.php" line="23" time="0" assertions="0"/>
   </testsuite>
-  <testsuite id="MyTester\ResultsFormatters\TestCaseThree" name="MyTester\ResultsFormatters\TestCaseThree" file="/var/project/tests/ResultsFormatters/TestCaseThree.php" tests="2" failures="0" skipped="1" warnings="1" time="0" assertions="1">
-    <testcase name="MyTester\ResultsFormatters\TestCaseThree::testOne" class="MyTester\ResultsFormatters\TestCaseThree" classname="MyTester.ResultsFormatters.TestCaseThree" file="/var/project/tests/ResultsFormatters/TestCaseThree.php" line="10" time="0" assertions="0">
+  <testsuite id="MyTester\ResultsFormatters\TestCaseThree" name="MyTester\ResultsFormatters\TestCaseThree" file="/var/project/tests/ResultsFormatters/TestCaseThree.php" tests="4" failures="2" skipped="1" warnings="1" time="0" assertions="3">
+    <testcase name="MyTester\ResultsFormatters\TestCaseThree::testOne" class="MyTester\ResultsFormatters\TestCaseThree" classname="MyTester.ResultsFormatters.TestCaseThree" file="/var/project/tests/ResultsFormatters/TestCaseThree.php" line="14" time="0" assertions="0">
       <skipped message="abc"/>
     </testcase>
-    <testcase name="MyTester\ResultsFormatters\TestCaseThree::testTwo" class="MyTester\ResultsFormatters\TestCaseThree" classname="MyTester.ResultsFormatters.TestCaseThree" file="/var/project/tests/ResultsFormatters/TestCaseThree.php" line="18" time="0" assertions="1"/>
+    <testcase name="MyTester\ResultsFormatters\TestCaseThree::testTwo" class="MyTester\ResultsFormatters\TestCaseThree" classname="MyTester.ResultsFormatters.TestCaseThree" file="/var/project/tests/ResultsFormatters/TestCaseThree.php" line="19" time="0" assertions="1"/>
+    <testcase name="MyTester\ResultsFormatters\TestCaseThree::testDataProvider" class="MyTester\ResultsFormatters\TestCaseThree" classname="MyTester.ResultsFormatters.TestCaseThree" file="/var/project/tests/ResultsFormatters/TestCaseThree.php" line="26" time="0" assertions="1">
+      <failure type="assert" message="Test 1 failed. 1 is not greater than 2.">Test 1 failed. 1 is not greater than 2.
+
+/var/project/tests/ResultsFormatters/TestCaseThree.php:28</failure>
+    </testcase>
+    <testcase name="MyTester\ResultsFormatters\TestCaseThree::testDataProvider" class="MyTester\ResultsFormatters\TestCaseThree" classname="MyTester.ResultsFormatters.TestCaseThree" file="/var/project/tests/ResultsFormatters/TestCaseThree.php" line="26" time="0" assertions="1">
+      <failure type="assert" message="Test 1 failed. 2 is not greater than 2.">Test 1 failed. 2 is not greater than 2.
+
+/var/project/tests/ResultsFormatters/TestCaseThree.php:28</failure>
+    </testcase>
   </testsuite>
 </testsuites>

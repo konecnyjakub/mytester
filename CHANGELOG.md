@@ -3,6 +3,7 @@ Version 7.1.0-dev
 - callbacks in Job::$onAfterExecute receive Job as first parameter
 - improved error message for assertion assertCount
 - allowed passing multiple parameters to test methods via data provider
+- show faulty data set (or custom name if set) if a test method with data provider fails
 
 Version 7.0.0
 - BC break: used interfaces for data provider and skip checker in TestCase

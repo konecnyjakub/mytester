@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use MyTester\Attributes\DataProvider;
 use MyTester\TestCase;
 
+/**
+ * @author Jakub Konečný
+ */
 final class TestCaseThree extends TestCase
 {
     public function testOne(): void
@@ -12,12 +16,23 @@ final class TestCaseThree extends TestCase
         $this->markTestSkipped("abc");
     }
 
-    /**
-     * @author Jakub Konečný
-     */
     public function testTwo(): void
     {
         $this->assertTrue(true);
         $this->markTestIncomplete();
+    }
+
+    #[DataProvider("dataProvider")]
+    public function testDataProvider(int $number, string $text): void
+    {
+        $this->assertGreaterThan(2, $number);
+    }
+
+    public function dataProvider(): array
+    {
+        return [
+            "first" => [1, "abc", ],
+            [2, "def", ],
+        ];
     }
 }

@@ -64,6 +64,33 @@ class Tests extends MyTester\TestCase
 
 In the example the test method will be run 2 times, first time with parameters "abc" a 1, second time with "abcd" and 2.
 
+If a test method with data set fails, the faulty data set is shown along the test method name. It is possible to name a data set so the name is shown instead of the whole data, it is done by providing a string index to the element.
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\DataProvider;
+
+class Tests extends MyTester\TestCase
+{
+    #[DataProvider("dataProvider")]
+    public function testParams(string $text, int $number): void
+    {
+        $this->assertContains("a", $text);
+        $this->assertGreaterThan(0, $number);
+    }
+
+    public function dataProvider(): array
+    {
+        return [
+            "first" => ["abc", 1, ],
+            "second" => ["abcd", 2, ],
+        ];
+    }
+}
+```
+
 #### Custom names for tests
 
 You can give test methods and whole test suites custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via attribute Test/TestSuite. Example:

@@ -11,3 +11,5 @@ MyTester\ResultsFormatters\TestCaseTwo
 MyTester\ResultsFormatters\TestCaseThree
  ↩ MyTester\ResultsFormatters\TestCaseThree::testOne
  ⚠ MyTester\ResultsFormatters\TestCaseThree::testTwo
+ ✘ MyTester\ResultsFormatters\TestCaseThree::testDataProvider with data set first
+ ✘ MyTester\ResultsFormatters\TestCaseThree::testDataProvider with data set (2, def)

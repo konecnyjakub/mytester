@@ -47,7 +47,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
                 case JobResult::FAILED:
                     $output = $job->output;
                     if (strlen($output) > 0) {
-                        $this->failures[$job->name] = $output;
+                        $this->failures[$job->nameWithDataSet] = $output;
                     }
                     break;
                 case JobResult::WARNING:

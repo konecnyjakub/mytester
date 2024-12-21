@@ -15,6 +15,7 @@ use Ayesh\PHP_Timer\Timer;
  * @property-read string $output @internal
  * @property-read int $totalTime Total elapsed time in milliseconds
  * @property-read \Throwable|null $exception
+ * @property-read string $nameWithDataSet Job's name + data set (or its custom name)
  */
 final class Job
 {
@@ -40,7 +41,8 @@ final class Job
         callable $callback,
         public readonly array $params = [],
         private bool|string $skip = false,
-        public array $onAfterExecute = []
+        public array $onAfterExecute = [],
+        public readonly string $dataSetName = ""
     ) {
         $this->callback = $callback;
     }
@@ -73,6 +75,20 @@ final class Job
     protected function getException(): ?\Throwable
     {
         return $this->exception;
+    }
+
+    protected function getNameWithDataSet(): string
+    {
+        $jobName = $this->name;
+        if (count($this->params)) {
+            $jobName .= " with data set ";
+            if ($this->dataSetName !== "") {
+                $jobName .= $this->dataSetName;
+            } else {
+                $jobName .= "(" . implode(", ", $this->params) . ")";
+            }
+        }
+        return $jobName;
     }
 
     private function onAfterExecute(): void

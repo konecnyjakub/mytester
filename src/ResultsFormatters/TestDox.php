@@ -35,7 +35,7 @@ final class TestDox extends AbstractResultsFormatter implements IConsoleAwareRes
                 printf(
                     " %s %s\n",
                     $this->getOutput($job->result),
-                    $job->name
+                    $job->nameWithDataSet
                 );
             }
         }

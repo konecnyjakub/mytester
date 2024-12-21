@@ -87,6 +87,7 @@ abstract class TestCase
                             }
                         },
                     ],
+                    "dataSetName" => "",
                 ];
 
                 $requiredParameters = (new ReflectionMethod($this, $method))->getNumberOfParameters();
@@ -102,7 +103,7 @@ abstract class TestCase
                     continue;
                 }
 
-                foreach ($data as $value) {
+                foreach ($data as $dataSetName => $value) {
                     if ($requiredParameters === 1 && !is_array($value)) {
                         $job["params"][0] = $value;
                     } elseif (!is_array($value) || count($value) < $requiredParameters) {
@@ -117,8 +118,12 @@ abstract class TestCase
                     } else {
                         $job["params"] = $value;
                     }
+                    if (is_string($dataSetName)) {
+                        $job["dataSetName"] = $dataSetName;
+                    }
                     $this->jobs[] = new Job(... $job);
                     $job["params"] = [];
+                    $job["dataSetName"] = "";
                 }
             }
         }
