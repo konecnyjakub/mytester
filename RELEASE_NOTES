@@ -1,3 +1,5 @@
-A new version of My Tester is out. Test methods can now get multiple parameters from data provider. If a test method with data provider fails, the faulty data set (or custom name if provided) is now shown along the test method name.
+A new version of My Tester is out. It brings a few improvements to data providers and some other small improvements.
+
+Test methods can now get multiple parameters from data provider. If a test method with data provider fails, the faulty data set (or custom name if provided) is now shown along the test method name.
 
 For complete list of changes since previous version, see CHANGELOG.md.
