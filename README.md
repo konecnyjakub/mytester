@@ -21,7 +21,7 @@ My Tester uses object-oriented style to define tests. Your classes with tests ha
 <?php
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     public function testA(): void
     {
@@ -43,7 +43,7 @@ declare(strict_types=1);
 
 use MyTester\Attributes\DataProvider;
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     #[DataProvider("dataProvider")]
     public function testParams(string $text, int $number): void
@@ -72,7 +72,7 @@ declare(strict_types=1);
 
 use MyTester\Attributes\DataProvider;
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     #[DataProvider("dataProvider")]
     public function testParams(string $text, int $number): void
@@ -103,7 +103,7 @@ use MyTester\Attributes\Test;
 use MyTester\Attributes\TestSuite;
 
 #[TestSuite("MyTests")]
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     #[Test("Custom name")]
     public function testTestName(): void
@@ -123,7 +123,7 @@ declare(strict_types=1);
 
 use MyTester\Attributes\Skip;
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     #[Skip()]
     public function testTestName(): void
@@ -141,7 +141,7 @@ declare(strict_types=1);
 
 use MyTester\Attributes\Skip;
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     #[Skip(["php" => "5.4.1"])]
     #[Skip(["extension" => "abc"])]
@@ -162,7 +162,7 @@ declare(strict_types=1);
 
 use MyTester\Attributes\Skip;
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     public function testTestName(): void
     {
@@ -180,7 +180,7 @@ If a test is not completely written yet, you can mark it as incomplete and it wi
 <?php
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     public function testIncomplete(): void
     {
@@ -261,6 +261,8 @@ It is possible to change the name for output for formats Cobertura and text, jus
 
 Automated tests runner's functionality can be extended by extensions. Extensions have to implement the *MyTester\ITesterExtension* interface, every method corresponds to an event that is fired during automated tests runner's life cycle. For now, custom extensions cannot be registered when using the script *vendor/bin/mytester*,
 
+Some automated tests runner's functionality (printing My Tester and PHP version, generating code coverage reports, saving errors into files) is actually implemented via extensions. They have to be added manually which means that custom scripts do not have use that functionality (and do not by default). The script *vendor/bin/mytester* and Nette DI container (see below) extension have all of them enabled.
+
 Nette applications
 ------------------
 
@@ -275,7 +277,6 @@ Then you get service of type MyTester\Tester from the container and run its meth
 
 ```php
 <?php
-
 declare(strict_types=1);
 
 $container->getByType(MyTester\Tester::class)->execute();
@@ -318,7 +319,7 @@ My Tester contains a few utilities that make testing Nette applications easier. 
 <?php
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;
     public function testService(): void
@@ -335,7 +336,7 @@ You can also recreate the container with new config.
 <?php
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;
     public function testService(): void
@@ -352,7 +353,7 @@ You can also test output of your components (either against a string or contents
 <?php
 declare(strict_types=1);
 
-class Tests extends MyTester\TestCase
+final class Tests extends MyTester\TestCase
 {
     use \MyTester\Bridges\NetteApplication\TComponent;
     public function testService(): void
