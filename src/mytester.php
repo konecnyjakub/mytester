@@ -7,7 +7,6 @@ $vendorDirectory = findVendorDirectory();
 
 require $vendorDirectory . "/autoload.php";
 
-use Composer\InstalledVersions;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ChainTestSuitesFinder;
 use MyTester\CodeCoverage\CodeCoverageExtension;
