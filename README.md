@@ -3,7 +3,7 @@ My Tester
 
 [![Total Downloads](https://poser.pugx.org/konecnyjakub/mytester/downloads)](https://packagist.org/packages/konecnyjakub/mytester) [![Latest Stable Version](https://poser.pugx.org/konecnyjakub/mytester/v/stable)](https://gitlab.com/konecnyjakub/mytester/-/releases) [![build status](https://gitlab.com/konecnyjakub/mytester/badges/master/pipeline.svg?ignore_skipped=true)](https://gitlab.com/konecnyjakub/mytester/-/commits/master) [![coverage report](https://gitlab.com/konecnyjakub/mytester/badges/master/coverage.svg)](https://gitlab.com/konecnyjakub/mytester/-/commits/master) [![License](https://poser.pugx.org/konecnyjakub/mytester/license)](https://gitlab.com/konecnyjakub/mytester/-/blob/master/LICENSE.md)
 
-My Tester is an adaptable and extensible testing framework for (and in) PHP. It requires PHP 8.3 or later and Composer 2.
+My Tester is an adaptable and extensible testing framework for (and in) PHP. It requires PHP 8.3 or later and Composer 2, Composer 2.2 or later is recommended.
 
 Installation
 ------------
