@@ -44,7 +44,7 @@ final readonly class Tester
             function (Events\TestsStarted $event) {
                 $this->resultsFormatter->reportTestsStarted($event->testCases);
             },
-            100
+            PriorityListenerProvider::PRIORITY_HIGH
         );
 
         $listenerProvider->addListener(
@@ -52,14 +52,14 @@ final readonly class Tester
             function (Events\TestsFinished $event) {
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
             },
-            100
+            PriorityListenerProvider::PRIORITY_HIGH
         );
         $listenerProvider->addListener(
             Events\TestsFinished::class,
             function (Events\TestsFinished $event) {
                 $this->resultsFormatter->outputResults((string) getcwd());
             },
-            99
+            PriorityListenerProvider::PRIORITY_HIGH - 1
         );
 
         $listenerProvider->addListener(
@@ -67,7 +67,7 @@ final readonly class Tester
             function (Events\TestCaseStarted $event) {
                 $this->resultsFormatter->reportTestCaseStarted($event->testCase);
             },
-            100
+            PriorityListenerProvider::PRIORITY_HIGH
         );
 
         $listenerProvider->addListener(
@@ -75,7 +75,7 @@ final readonly class Tester
             function (Events\TestCaseFinished $event) {
                 $this->resultsFormatter->reportTestCaseFinished($event->testCase);
             },
-            100
+            PriorityListenerProvider::PRIORITY_HIGH
         );
 
         return new EventDispatcher($listenerProvider);
