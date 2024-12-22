@@ -190,6 +190,10 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
+#### Deprecations
+
+If a test method triggers deprecation, it is reported as a warning for the test method. It can be caused by calling function **trigger_error** with level _E_USER_DEPRECATED_ or on PHP 8.4 and later by using anything that is marked with attribute **Deprecated**, e. g. calling a method/function or using a class constant.
+
 #### Setup and clean up
 
 If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suite.

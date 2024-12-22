@@ -1,3 +1,6 @@
+Version 7.2.0-dev
+- deprecations triggered in a test method are now reported as warnings
+
 Version 7.1.0
 - filename of generated code coverage report is now shown in console (if a report is generated and is saved into a file)
 - callbacks in Job::$onAfterExecute receive Job as first parameter

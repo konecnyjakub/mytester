@@ -107,6 +107,13 @@ final class Job
             $timerName = $this->name . time();
             Timer::start($timerName);
             ob_start();
+            set_error_handler(
+                function (int $errno, string $errstr, string $errfile, int $errline): bool {
+                    echo "Warning: deprecated \"$errstr\" on $errfile:$errline\n";
+                    return true;
+                },
+                E_USER_DEPRECATED
+            );
             try {
                 call_user_func_array($this->callback, $this->params);
             } catch (SkippedTestException $e) {
@@ -119,6 +126,7 @@ final class Job
                 $this->exception = $e;
             }
             $this->onAfterExecute();
+            restore_error_handler();
             $this->output = (string) ob_get_clean();
             Timer::stop($timerName);
             // @phpstan-ignore argument.type
