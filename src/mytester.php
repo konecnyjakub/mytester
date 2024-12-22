@@ -24,7 +24,7 @@ use Nette\CommandLine\Parser;
 
 $cmd = new Parser("", [
     "path" => [
-        Parser::Default => $vendorDirectory . "/../tests",
+        Parser::Default => getcwd() . "/tests",
     ],
     "--colors" => [
         Parser::Optional => true,
