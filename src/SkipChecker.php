@@ -36,11 +36,17 @@ final class SkipChecker implements ISkipChecker
         $this->checkers[$name] = $callback;
     }
 
+    /**
+     * @param class-string $class
+     */
     public function getSkipValue(string $class, string $method): ?array
     {
         return $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
     }
 
+    /**
+     * @param class-string $class
+     */
     public function shouldSkip(string $class, string $method): bool|string
     {
         $value = $this->getSkipValue($class, $method);
@@ -81,7 +87,7 @@ final class SkipChecker implements ISkipChecker
 
     public function checkPhpSapi(mixed $value): ?string
     {
-        if (PHP_SAPI != $value) {
+        if (PHP_SAPI !== $value) {
             return "the sapi is not $value";
         }
         return null;
@@ -92,7 +98,7 @@ final class SkipChecker implements ISkipChecker
      */
     public function checkOsFamily(mixed $value): ?string
     {
-        if (PHP_OS_FAMILY != $value) {
+        if (PHP_OS_FAMILY !== $value) {
             return "os family is not $value";
         }
         return null;

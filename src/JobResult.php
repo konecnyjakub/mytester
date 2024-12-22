@@ -22,7 +22,7 @@ enum JobResult
 
     public static function fromJob(Job $job): self
     {
-        if ($job->skip) {
+        if ($job->skip !== false) {
             return self::SKIPPED;
         } elseif (str_contains($job->output, " failed. ")) {
             return self::FAILED;

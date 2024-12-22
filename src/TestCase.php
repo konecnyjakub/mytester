@@ -133,6 +133,7 @@ abstract class TestCase
     /**
      * Get name of a test suite
      *
+     * @param class-string|object $class
      * @internal
      */
     public function getSuiteName(string|object|null $class = null): string
@@ -147,6 +148,8 @@ abstract class TestCase
 
     /**
      * Get name for a job
+     *
+     * @param class-string|object $class
      */
     protected function getJobName(string|object $class, string $method): string
     {
@@ -204,11 +207,11 @@ abstract class TestCase
     protected function runJob(Job $job): string
     {
         $this->resetCounter();
-        if (!$job->skip) {
+        if ($job->skip === false) {
             $this->setUp();
         }
         $job->execute();
-        if (!$job->skip) {
+        if ($job->skip === false) {
             $this->tearDown();
         }
         $this->resetCounter();

@@ -18,6 +18,9 @@ final class Reader
         $this->engines[] = $engine;
     }
 
+    /**
+     * @param class-string|object $class
+     */
     public function hasAnnotation(string $name, string|object $class, ?string $method = null): bool
     {
         foreach ($this->engines as $engine) {
@@ -28,6 +31,9 @@ final class Reader
         return false;
     }
 
+    /**
+     * @param class-string|object $class
+     */
     public function getAnnotation(string $name, string|object $class, ?string $method = null): mixed
     {
         foreach ($this->engines as $engine) {

@@ -21,7 +21,7 @@ final class ChainTestSuitesFinderTest extends TestCase
             public function getSuites(string $folder): array
             {
                 return [
-                    "aaa", "bbb", "ccc",
+                    \stdClass::class, \Closure::class, \Generator::class,
                 ];
             }
         });
@@ -30,10 +30,13 @@ final class ChainTestSuitesFinderTest extends TestCase
             public function getSuites(string $folder): array
             {
                 return [
-                    "aaa", "ddd",
+                    \stdClass::class, \Fiber::class,
                 ];
             }
         });
-        $this->assertSame(["aaa", "bbb", "ccc", "ddd", ], $testSuitesFinder->getSuites(""));
+        $this->assertSame(
+            [\stdClass::class, \Closure::class, \Generator::class, \Fiber::class, ],
+            $testSuitesFinder->getSuites("")
+        );
     }
 }

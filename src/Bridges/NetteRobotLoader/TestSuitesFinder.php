@@ -30,6 +30,9 @@ final class TestSuitesFinder extends BaseTestSuitesFinder
         $robot->rebuild();
         $robot->register();
         $classes = $robot->getIndexedClasses();
+        /**
+         * @var class-string $class
+         */
         foreach ($classes as $class => $file) {
             if ($this->isTestSuite($class)) {
                 $suites[] = $class;

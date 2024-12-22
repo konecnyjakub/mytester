@@ -17,7 +17,7 @@ final readonly class SkippedTest
     public function __toString(): string
     {
         $reason = "";
-        if ($this->reason) {
+        if ($this->reason !== "") {
             $reason = ": $this->reason";
         }
         return "Skipped $this->name$reason\n";

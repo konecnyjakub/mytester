@@ -53,9 +53,9 @@ trait TAssertions
      */
     protected function assert(mixed $code, string $failureText = ""): void
     {
-        $success = ($code == true);
+        $success = ($code == true); // @phpstan-ignore equal.notAllowed
         $message = "";
-        if (!$code) {
+        if (!$success) {
             $message = ($failureText === "") ? "The assertion is not true." : $failureText;
         }
         $this->testResult($message, $success);
@@ -66,7 +66,7 @@ trait TAssertions
      */
     protected function assertSame(mixed $expected, mixed $actual): void
     {
-        $success = ($expected == $actual);
+        $success = ($expected == $actual); // @phpstan-ignore equal.notAllowed
         $message = "";
         if (!$success) {
             $message = sprintf("The value is not %s but %s.", $this->showValue($expected), $this->showValue($actual));
@@ -122,7 +122,7 @@ trait TAssertions
      */
     protected function assertTruthy(mixed $actual): void
     {
-        $success = ($actual == true);
+        $success = ($actual == true); // @phpstan-ignore equal.notAllowed
         $message = ($success) ? "" : "The expression is not true.";
         $this->testResult($message, $success);
     }
@@ -142,7 +142,7 @@ trait TAssertions
      */
     protected function assertFalsey(mixed $actual): void
     {
-        $success = ($actual == false);
+        $success = ($actual == false); // @phpstan-ignore equal.notAllowed
         $message = ($success) ? "" : "The expression is not false.";
         $this->testResult($message, $success);
     }
@@ -152,7 +152,7 @@ trait TAssertions
      */
     protected function assertNull(mixed $actual): void
     {
-        $success = ($actual == null);
+        $success = ($actual === null);
         $message = ($success) ? "" : "The value is not null.";
         $this->testResult($message, $success);
     }
@@ -177,7 +177,7 @@ trait TAssertions
             $message = ($success) ? "" : "$needle is not in the variable.";
             $this->testResult($message, $success);
         } elseif (is_array($actual)) {
-            $success = (in_array($needle, $actual));
+            $success = (in_array($needle, $actual, true));
             $message = ($success) ? "" : $this->showValue($needle) . " is not in the variable.";
             $this->testResult($message, $success);
         } else {
@@ -195,7 +195,7 @@ trait TAssertions
             $message = ($success) ? "" : "$needle is in the variable.";
             $this->testResult($message, $success);
         } elseif (is_array($actual)) {
-            $success = (!in_array($needle, $actual));
+            $success = (!in_array($needle, $actual, true));
             $message = ($success) ? "" : $this->showValue($needle) . " is in the variable.";
             $this->testResult($message, $success);
         } else {
@@ -307,9 +307,8 @@ trait TAssertions
     {
         ob_start();
         $callback();
-        /** @var string $output */
-        $output = ob_get_clean();
-        $success = ($expected == $output);
+        $output = (string) ob_get_clean();
+        $success = ($expected === $output);
         $message = ($success) ? "" : "Output of code  is not '$expected' but '$output'.";
         $this->testResult($message, $success);
     }

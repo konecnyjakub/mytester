@@ -51,7 +51,7 @@
       <classes>
         <class name="MyTester\Bridges\NetteRobotLoader\TestSuitesFinder" filename="Bridges/NetteRobotLoader/TestSuitesFinder.php" line-rate="94" branch-rate="0" complexity="0">
           <methods>
-            <method name="getSuites" signature="" line-rate="93" branch-rate="0">
+            <method name="getSuites" signature="" line-rate="94" branch-rate="0">
               <lines>
                 <line number="18" hits="1"/>
                 <line number="19" hits="0"/>
@@ -69,12 +69,11 @@
                 <line number="32" hits="1"/>
                 <line number="33" hits="1"/>
                 <line number="36" hits="1"/>
-              </lines>
-            </method>
-            <method name="isAvailable" signature="" line-rate="100" branch-rate="0">
-              <lines>
                 <line number="41" hits="1"/>
               </lines>
+            </method>
+            <method name="isAvailable" signature="" line-rate="0" branch-rate="0">
+              <lines/>
             </method>
           </methods>
           <lines>

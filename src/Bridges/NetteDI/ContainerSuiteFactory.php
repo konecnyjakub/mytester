@@ -22,9 +22,9 @@ final readonly class ContainerSuiteFactory implements \MyTester\ITestSuiteFactor
     {
     }
 
-  /**
-   * @param class-string $className
-   */
+    /**
+     * @param class-string $className
+     */
     public function create(string $className): TestCase
     {
         foreach ($this->suites as $suite) {

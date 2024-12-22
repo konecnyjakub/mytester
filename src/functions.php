@@ -8,7 +8,8 @@ function findVendorDirectory(): string
 {
     $recursionLimit = 10;
     $findVendor = function ($dirName = "vendor/bin", $dir = __DIR__) use (&$findVendor, &$recursionLimit) {
-        if (!$recursionLimit--) {
+        $recursionLimit--;
+        if ($recursionLimit === 0) {
             throw new Exception("Cannot find vendor directory.");
         }
         $found = $dir . "/$dirName";

@@ -11,7 +11,7 @@ interface ITestSuitesFinder
     public const string FILENAME_SUFFIX = "Test.php";
 
     /**
-     * @return string[]
+     * @return class-string[]
      */
     public function getSuites(string $folder): array;
 }

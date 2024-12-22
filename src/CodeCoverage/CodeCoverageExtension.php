@@ -45,7 +45,8 @@ final readonly class CodeCoverageExtension implements ITesterExtension
             if (
                 in_array(
                     $e->getCode(),
-                    [CodeCoverageException::NO_ENGINE_AVAILABLE, CodeCoverageException::COLLECTOR_NOT_STARTED, ]
+                    [CodeCoverageException::NO_ENGINE_AVAILABLE, CodeCoverageException::COLLECTOR_NOT_STARTED, ],
+                    true
                 )
             ) {
                 return;

@@ -8,7 +8,13 @@ namespace MyTester\Annotations;
  */
 interface IAnnotationsReaderEngine
 {
+    /**
+     * @param class-string|object $class
+     */
     public function hasAnnotation(string $name, string|object $class, ?string $method = null): bool;
 
+    /**
+     * @param class-string|object $class
+     */
     public function getAnnotation(string $name, string|object $class, ?string $method = null): mixed;
 }

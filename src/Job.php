@@ -80,7 +80,7 @@ final class Job
     protected function getNameWithDataSet(): string
     {
         $jobName = $this->name;
-        if (count($this->params)) {
+        if (count($this->params) > 0) {
             $jobName .= " with data set ";
             if ($this->dataSetName !== "") {
                 $jobName .= $this->dataSetName;
@@ -103,7 +103,7 @@ final class Job
      */
     public function execute(): void
     {
-        if (!$this->skip) {
+        if ($this->skip === false) {
             $timerName = $this->name . time();
             Timer::start($timerName);
             ob_start();
