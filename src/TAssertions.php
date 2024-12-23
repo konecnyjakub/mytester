@@ -53,7 +53,7 @@ trait TAssertions
      */
     protected function assert(mixed $code, string $failureText = ""): void
     {
-        $success = ($code == true); // @phpstan-ignore equal.notAllowed
+        $success = ((bool) $code === true);
         $message = "";
         if (!$success) {
             $message = ($failureText === "") ? "The assertion is not true." : $failureText;
@@ -122,7 +122,7 @@ trait TAssertions
      */
     protected function assertTruthy(mixed $actual): void
     {
-        $success = ($actual == true); // @phpstan-ignore equal.notAllowed
+        $success = ((bool) $actual === true);
         $message = ($success) ? "" : "The expression is not true.";
         $this->testResult($message, $success);
     }
@@ -142,7 +142,7 @@ trait TAssertions
      */
     protected function assertFalsey(mixed $actual): void
     {
-        $success = ($actual == false); // @phpstan-ignore equal.notAllowed
+        $success = ((bool) $actual === false);
         $message = ($success) ? "" : "The expression is not false.";
         $this->testResult($message, $success);
     }
