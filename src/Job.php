@@ -129,7 +129,7 @@ final class Job
             restore_error_handler();
             $this->output = (string) ob_get_clean();
             Timer::stop($timerName);
-            // @phpstan-ignore argument.type
+            // @phpstan-ignore argument.type, cast.int
             $this->totalTime = (int) Timer::read($timerName, Timer::FORMAT_PRECISE);
         }
         $this->result = JobResult::fromJob($this);

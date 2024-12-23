@@ -18,11 +18,8 @@ final class ReaderTest extends TestCase
 {
     private function getAnnotationsReader(): Reader
     {
-        static $annotationsReader = null;
-        if ($annotationsReader === null) {
-            $annotationsReader = new Reader();
-            $annotationsReader->registerEngine(new DummyEngine());
-        }
+        $annotationsReader = new Reader();
+        $annotationsReader->registerEngine(new DummyEngine());
         return $annotationsReader;
     }
 

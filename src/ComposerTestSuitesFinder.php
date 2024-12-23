@@ -16,6 +16,7 @@ final class ComposerTestSuitesFinder extends BaseTestSuitesFinder
     {
         $suites = [];
         $folder = (string) realpath($folder);
+        /** @var array<class-string, string> $classMap */
         $classMap = require \findVendorDirectory() . "/composer/autoload_classmap.php";
         foreach ($classMap as $class => $file) {
             $file = (string) realpath($file);

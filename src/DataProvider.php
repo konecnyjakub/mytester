@@ -43,6 +43,7 @@ final readonly class DataProvider implements IDataProvider
                 if (!is_array($result)) {
                     throw new InvalidDataProviderException("Method $className::$dataProvider has to return an array.");
                 }
+                /** @var array[] $result */
                 return $result;
             } catch (\ReflectionException $e) {
                 throw new InvalidDataProviderException("Method $className::$dataProvider does not exist.", 0, $e);

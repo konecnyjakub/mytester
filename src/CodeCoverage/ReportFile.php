@@ -18,6 +18,7 @@ final readonly class ReportFile
     /**
      * @param \ReflectionClass[] $classes
      * @param \ReflectionFunction[] $functions
+     * @param array<int, int> $data
      */
     public function __construct(public string $name, public array $classes, public array $functions, public array $data)
     {

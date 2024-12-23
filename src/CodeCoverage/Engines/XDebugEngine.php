@@ -32,6 +32,10 @@ final class XDebugEngine implements ICodeCoverageEngine
     {
         $positive = $negative = [];
 
+        /**
+         * @var string $file
+         * @var array<int, int> $lines
+         */
         foreach (xdebug_get_code_coverage() as $file => $lines) {
             if (!file_exists($file)) {
                 continue;
@@ -46,6 +50,6 @@ final class XDebugEngine implements ICodeCoverageEngine
             }
         }
 
-        return array_replace_recursive($negative, $positive);
+        return array_replace_recursive($negative, $positive); // @phpstan-ignore return.type
     }
 }

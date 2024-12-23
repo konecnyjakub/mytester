@@ -34,6 +34,10 @@ final class PcovEngine implements ICodeCoverageEngine
 
         \pcov\stop();
 
+        /**
+         * @var string $file
+         * @var array<int, int> $lines
+         */
         foreach (\pcov\collect() as $file => $lines) {
             if (!file_exists($file)) {
                 continue;
@@ -48,6 +52,6 @@ final class PcovEngine implements ICodeCoverageEngine
             }
         }
 
-        return array_replace_recursive($negative, $positive);
+        return array_replace_recursive($negative, $positive); // @phpstan-ignore return.type
     }
 }

@@ -18,11 +18,8 @@ final class PhpAttributesEngineTest extends TestCase
 {
     private function getAnnotationsReader(): Reader
     {
-        static $annotationsReader = null;
-        if ($annotationsReader === null) {
-            $annotationsReader = new Reader();
-            $annotationsReader->registerEngine(new PhpAttributesEngine());
-        }
+        $annotationsReader = new Reader();
+        $annotationsReader->registerEngine(new PhpAttributesEngine());
         return $annotationsReader;
     }
 

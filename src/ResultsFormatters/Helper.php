@@ -13,6 +13,7 @@ final class Helper
 {
     use \Nette\StaticClass;
 
+    /** @var array<string, class-string<IResultsFormatter>>  */
     public static array $availableFormatters = [
         "junit" => JUnit::class,
         "tap" => Tap::class,

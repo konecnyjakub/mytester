@@ -49,6 +49,7 @@ $cmd = new Parser("", [
         Parser::Optional => true,
     ],
 ]);
+/** @var array{path: string, "--colors"?: bool, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--version"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
@@ -61,9 +62,8 @@ foreach (CodeCoverageHelper::$defaultEngines as $engine) {
     $codeCoverageCollector->registerEngine(new $engine());
 }
 $codeCoverageCollector->registerFormatter(new PercentFormatter());
-$coverageFormat = $options["--coverageFormat"];
-if ($coverageFormat !== null) {
-    $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$coverageFormat]();
+if (isset($options["--coverageFormat"])) {
+    $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$options["--coverageFormat"]]();
     if (
         $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
         isset($options["--coverageFile"])
@@ -74,9 +74,8 @@ if ($coverageFormat !== null) {
 }
 
 $resultsFormatter = null;
-$resultsFormat = $options["--resultsFormat"];
-if ($resultsFormat !== null) {
-    $type = ResultsHelper::$availableFormatters[$resultsFormat];
+if (isset($options["--resultsFormat"])) {
+    $type = ResultsHelper::$availableFormatters[$options["--resultsFormat"]];
     /** @var \MyTester\IResultsFormatter $resultsFormatter */
     $resultsFormatter = new $type();
     if (isset($options["--resultsFile"])) {

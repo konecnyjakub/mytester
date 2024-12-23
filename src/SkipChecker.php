@@ -41,7 +41,9 @@ final class SkipChecker implements ISkipChecker
      */
     public function getSkipValue(string $class, string $method): ?array
     {
-        return $this->annotationsReader->getAnnotation(self::ANNOTATION_NAME, $class, $method);
+        /** @var array|null $value */
+        $value = $this->annotationsReader->getAnnotation(self::ANNOTATION_NAME, $class, $method);
+        return $value;
     }
 
     /**
@@ -71,6 +73,9 @@ final class SkipChecker implements ISkipChecker
 
     public function checkPhpVersion(mixed $value): ?string
     {
+        if (!is_string($value) && !is_numeric($value)) {
+            return null;
+        }
         if (version_compare(PHP_VERSION, (string) $value, "<")) {
             return "PHP version is lesser than $value";
         }
@@ -79,6 +84,9 @@ final class SkipChecker implements ISkipChecker
 
     public function checkLoadedExtension(mixed $value): ?string
     {
+        if (!is_string($value)) {
+            return null;
+        }
         if (!extension_loaded($value)) {
             return "extension $value is not loaded";
         }
@@ -87,6 +95,9 @@ final class SkipChecker implements ISkipChecker
 
     public function checkPhpSapi(mixed $value): ?string
     {
+        if (!is_string($value)) {
+            return null;
+        }
         if (PHP_SAPI !== $value) {
             return "the sapi is not $value";
         }
@@ -98,6 +109,9 @@ final class SkipChecker implements ISkipChecker
      */
     public function checkOsFamily(mixed $value): ?string
     {
+        if (!is_string($value)) {
+            return null;
+        }
         if (PHP_OS_FAMILY !== $value) {
             return "os family is not $value";
         }

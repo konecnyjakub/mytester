@@ -49,7 +49,8 @@ abstract class TestCase
     protected function getTestMethodsNames(): array
     {
         $r = new ReflectionClass(static::class);
-        return array_values(
+        /** @var string[] $result */
+        $result = array_values(
             (array) preg_grep(
                 static::METHOD_PATTERN,
                 array_map(
@@ -60,6 +61,7 @@ abstract class TestCase
                 )
             )
         );
+        return $result;
     }
 
     /**
@@ -139,6 +141,7 @@ abstract class TestCase
     public function getSuiteName(string|object|null $class = null): string
     {
         $class = $class ?? static::class;
+        /** @var string|null $annotation */
         $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST_SUITE, $class);
         if ($annotation !== null) {
             return $annotation;
@@ -154,6 +157,7 @@ abstract class TestCase
     protected function getJobName(string|object $class, string $method): string
     {
         $annotation = $this->annotationsReader->getAnnotation(static::ANNOTATION_TEST, $class, $method);
+        /** @var string|null $annotation */
         if ($annotation !== null) {
             return $annotation;
         }

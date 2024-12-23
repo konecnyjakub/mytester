@@ -133,7 +133,7 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
     private function createReflectionFromCallback(callable $callback): ReflectionFunctionAbstract
     {
         if (is_array($callback)) {
-            return new ReflectionMethod($callback[0], $callback[1]);
+            return new ReflectionMethod($callback[0], $callback[1]); // @phpstan-ignore argument.type, argument.type
         }
         /** @var string $callback */
         if (str_contains($callback, "::")) {

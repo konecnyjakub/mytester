@@ -45,6 +45,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     private const string SERVICE_TESTS_FOLDER_PROVIDER = "testsFolderProvider";
     private const string SERVICE_CONSOLE_WRITER = "consoleWriter";
 
+    /** @var array<string, class-string>  */
     private array $codeCoverageFormatters = [
         "percent" => PercentFormatter::class,
     ];
@@ -77,6 +78,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
      */
     public function loadConfiguration(): void
     {
+        /** @var array{extensions: class-string<ITesterExtension>[], folder: string, coverageFormat: string, resultsFormat: string, colors: bool} $config */
         $config = $this->getConfig();
         $builder = $this->getContainerBuilder();
 

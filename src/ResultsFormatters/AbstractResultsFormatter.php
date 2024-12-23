@@ -34,7 +34,7 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
     public function reportTestsFinished(array $testCases): void
     {
         Timer::stop(self::TIMER_NAME);
-        // @phpstan-ignore argument.type
+        // @phpstan-ignore argument.type, cast.int
         $totalTime = (int) Timer::read(self::TIMER_NAME, Timer::FORMAT_PRECISE);
         $this->totalTime = $totalTime;
     }

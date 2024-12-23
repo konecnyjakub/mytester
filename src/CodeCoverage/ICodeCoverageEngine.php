@@ -23,6 +23,8 @@ interface ICodeCoverageEngine
 
     /**
      * Finishes collection of code coverage data and return raw data about code coverage
+     *
+     * @return array<string, array<int, int>>
      */
     public function collect(): array;
 }
