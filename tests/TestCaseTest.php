@@ -153,7 +153,7 @@ final class TestCaseTest extends TestCase
     public function testDeprecation(): void
     {
         $job = new Job("Test deprecation", function () {
-            $this->deprecatedMethod();
+            $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
         });
         $job->execute();
         $this->assertSame(JobResult::WARNING, $job->result);
