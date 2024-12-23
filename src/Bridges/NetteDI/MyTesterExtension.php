@@ -80,16 +80,16 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         $config = $this->getConfig();
         $builder = $this->getContainerBuilder();
 
-        $builder->addDefinition($this->prefix(static::SERVICE_TESTS_FOLDER_PROVIDER))
+        $builder->addDefinition($this->prefix(self::SERVICE_TESTS_FOLDER_PROVIDER))
             ->setFactory(TestsFolderProvider::class, [$config["folder"]]);
 
-        $builder->addDefinition($this->prefix(static::SERVICE_RUNNER))
+        $builder->addDefinition($this->prefix(self::SERVICE_RUNNER))
             ->setType(Tester::class);
 
-        $builder->addDefinition($this->prefix(static::SERVICE_SUITE_FACTORY))
+        $builder->addDefinition($this->prefix(self::SERVICE_SUITE_FACTORY))
             ->setType(ContainerSuiteFactory::class);
 
-        $builder->addDefinition($this->prefix(static::SERVICE_PRESENTER_MOCK))
+        $builder->addDefinition($this->prefix(self::SERVICE_PRESENTER_MOCK))
             ->setType(PresenterMock::class)
             ->setAutowired(PresenterMock::class);
 
@@ -98,12 +98,12 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             $config["extensions"]
         );
         foreach ($extensions as $index => $extension) {
-            $builder->addDefinition($this->prefix(static::SERVICE_EXTENSION_PREFIX . ($index + 1)))
+            $builder->addDefinition($this->prefix(self::SERVICE_EXTENSION_PREFIX . ($index + 1)))
                 ->setType($extension)
-                ->addTag(static::TAG_EXTENSION);
+                ->addTag(self::TAG_EXTENSION);
         }
 
-        $builder->addDefinition($this->prefix(static::SERVICE_TEST_SUITES_FINDER))
+        $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_FINDER))
             ->setType(TestSuitesFinder::class);
         $suites = (new TestSuitesFinder())->getSuites($config["folder"]);
         foreach ($suites as $index => $suite) {
@@ -112,21 +112,21 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->addTag(self::TAG_TEST);
         }
 
-        $builder->addDefinition($this->prefix(static::SERVICE_CC_COLLECTOR))
+        $builder->addDefinition($this->prefix(self::SERVICE_CC_COLLECTOR))
             ->setType(Collector::class);
         foreach (CodeCoverageHelper::$defaultEngines as $name => $className) {
-            $builder->addDefinition($this->prefix(static::SERVICE_CC_ENGINE_PREFIX . $name))
+            $builder->addDefinition($this->prefix(self::SERVICE_CC_ENGINE_PREFIX . $name))
                 ->setType($className)
-                ->addTag(static::TAG_COVERAGE_ENGINE);
+                ->addTag(self::TAG_COVERAGE_ENGINE);
         }
         $coverageFormat = $config["coverageFormat"];
         if ($coverageFormat !== null) {
             $this->codeCoverageFormatters[$coverageFormat] = CodeCoverageHelper::$availableFormatters[$coverageFormat];
         }
         foreach ($this->codeCoverageFormatters as $name => $className) {
-            $builder->addDefinition($this->prefix(static::SERVICE_CC_FORMATTER_PREFIX . $name))
+            $builder->addDefinition($this->prefix(self::SERVICE_CC_FORMATTER_PREFIX . $name))
                 ->setType($className)
-                ->addTag(static::TAG_COVERAGE_FORMATTER);
+                ->addTag(self::TAG_COVERAGE_FORMATTER);
         }
 
         if ($config["resultsFormat"] !== null) {
@@ -134,7 +134,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->setType(ResultsHelper::$availableFormatters[$config["resultsFormat"]]);
         }
 
-        $builder->addDefinition($this->prefix(static::SERVICE_CONSOLE_WRITER))
+        $builder->addDefinition($this->prefix(self::SERVICE_CONSOLE_WRITER))
             ->setType(ConsoleColors::class)
             ->addSetup('$service->useColors = ?', [$config["colors"]]);
     }
@@ -143,13 +143,13 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     {
         $builder = $this->getContainerBuilder();
         /** @var ServiceDefinition $coverageCollector */
-        $coverageCollector = $builder->getDefinition($this->prefix(static::SERVICE_CC_COLLECTOR));
+        $coverageCollector = $builder->getDefinition($this->prefix(self::SERVICE_CC_COLLECTOR));
 
-        foreach ($builder->findByTag(static::TAG_COVERAGE_ENGINE) as $serviceName => $tagValue) {
+        foreach ($builder->findByTag(self::TAG_COVERAGE_ENGINE) as $serviceName => $tagValue) {
             $coverageCollector->addSetup("registerEngine", ["@$serviceName", ]);
         }
 
-        foreach ($builder->findByTag(static::TAG_COVERAGE_FORMATTER) as $serviceName => $tagValue) {
+        foreach ($builder->findByTag(self::TAG_COVERAGE_FORMATTER) as $serviceName => $tagValue) {
             $coverageCollector->addSetup("registerFormatter", ["@$serviceName", ]);
         }
     }

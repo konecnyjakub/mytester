@@ -41,7 +41,7 @@ final class SkipChecker implements ISkipChecker
      */
     public function getSkipValue(string $class, string $method): ?array
     {
-        return $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
+        return $this->annotationsReader->getAnnotation(self::ANNOTATION_NAME, $class, $method);
     }
 
     /**

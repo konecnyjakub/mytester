@@ -26,7 +26,7 @@ final class TestSuitesFinder extends BaseTestSuitesFinder
         FileSystem::createDir($tempDir);
         $robot->setTempDirectory($tempDir);
         $robot->addDirectory($folder);
-        $robot->acceptFiles = ["*" . static::FILENAME_SUFFIX, ];
+        $robot->acceptFiles = ["*" . self::FILENAME_SUFFIX, ];
         $robot->rebuild();
         $robot->register();
         $classes = $robot->getIndexedClasses();

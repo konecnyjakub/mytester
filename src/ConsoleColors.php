@@ -33,9 +33,9 @@ final class ConsoleColors
 
     public function color(string $text, ?string $color = null): string
     {
-        if (!$this->useColors || $color === null || !array_key_exists($color, static::COLORS)) {
+        if (!$this->useColors || $color === null || !array_key_exists($color, self::COLORS)) {
             return $text;
         }
-        return "\033[" . static::COLORS[$color] . "m" . $text . "\033[0m";
+        return "\033[" . self::COLORS[$color] . "m" . $text . "\033[0m";
     }
 }

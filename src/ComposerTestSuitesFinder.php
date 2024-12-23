@@ -19,7 +19,7 @@ final class ComposerTestSuitesFinder extends BaseTestSuitesFinder
         $classMap = require \findVendorDirectory() . "/composer/autoload_classmap.php";
         foreach ($classMap as $class => $file) {
             $file = (string) realpath($file);
-            if (!str_starts_with($file, $folder) || !str_ends_with($file, static::FILENAME_SUFFIX)) {
+            if (!str_starts_with($file, $folder) || !str_ends_with($file, self::FILENAME_SUFFIX)) {
                 continue;
             }
             if ($this->isTestSuite($class)) {

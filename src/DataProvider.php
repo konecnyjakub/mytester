@@ -29,7 +29,7 @@ final readonly class DataProvider implements IDataProvider
         if ($reflection->getNumberOfParameters() < 1) {
             return [];
         }
-        $dataProvider = $this->annotationsReader->getAnnotation(static::ANNOTATION_NAME, $class, $method);
+        $dataProvider = $this->annotationsReader->getAnnotation(self::ANNOTATION_NAME, $class, $method);
         if (is_string($dataProvider)) {
             $className = $reflection->getDeclaringClass()->getName();
             try {

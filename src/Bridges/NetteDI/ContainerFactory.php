@@ -23,21 +23,21 @@ final class ContainerFactory
 
     public static function create(bool $new = false, array $config = []): Container
     {
-        if (static::$container === null || $new) {
+        if (self::$container === null || $new) {
             $configurator = new Configurator();
             $configurator->addStaticParameters($config);
             $configurator->setDebugMode(true);
-            if (static::$tempDir !== "") {
-                $configurator->setTempDirectory(static::$tempDir);
+            if (self::$tempDir !== "") {
+                $configurator->setTempDirectory(self::$tempDir);
             }
             $configurator->onCompile[] = function (Configurator $configurator, Compiler $compiler): void {
                 $compiler->addExtension("mytester", new MyTesterExtension());
             };
-            if (is_callable(static::$onCreate)) {
-                call_user_func_array(static::$onCreate, [$configurator, ]);
+            if (is_callable(self::$onCreate)) {
+                call_user_func_array(self::$onCreate, [$configurator, ]);
             }
-            static::$container = $configurator->createContainer();
+            self::$container = $configurator->createContainer();
         }
-        return static::$container;
+        return self::$container;
     }
 }

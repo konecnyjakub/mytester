@@ -35,7 +35,7 @@ final class Tap extends AbstractResultsFormatter implements IResultsFormatter
     {
         ob_start();
 
-        echo "TAP version " . static::TAP_VERSION . "\n";
+        echo "TAP version " . self::TAP_VERSION . "\n";
         echo "1..{$this->totalTests}\n";
 
         $currentTest = 0;
