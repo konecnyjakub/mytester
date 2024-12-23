@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . "/functions.php";
 
-$vendorDirectory = findVendorDirectory();
-
-require $vendorDirectory . "/autoload.php";
+require findVendorDirectory() . "/autoload.php";
 
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ChainTestSuitesFinder;
