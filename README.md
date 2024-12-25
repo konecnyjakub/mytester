@@ -243,7 +243,7 @@ If you want to change the file for output with format JUnit or want to print the
 
 ### Code coverage
 
-My Tester automatically generates report % of code coverage when possible. It is done in class MyTester\Tester, so it is available in the provided script *vendor/bin/mytester* and our extension for Nette DI container (see below). You just need to run the script with pcov or xdebug extension enabled.
+My Tester automatically generates report % of code coverage when possible. It is done in class MyTester\Tester, so it is available in the provided script *vendor/bin/mytester* and our extension for Nette DI container (see below). You just need to run the script with pcov or (alternatively) xdebug extension enabled. pcov is highly recommended as it was created specifically for this purpose and does not have the overhead of a debugger. 
 
 It is also able to generate full code coverage reports. Supported formats are Cobertura and text. Just pass argument *--coverageFormat* to the script, the value is generally the name of the format in lower case. Both of them put the report into a file, for Cobertura it is coverage.xml, for text coverage.txt.
 
