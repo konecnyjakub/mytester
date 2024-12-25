@@ -351,4 +351,26 @@ trait TAssertions
         $message = ($success) ? "" : "The array does not contain only instances of $className.";
         $this->testResult($message, $success);
     }
+
+    protected function assertTriggersDeprecation(callable $callback, string $expected = ""): void
+    {
+        $deprecation = "";
+        set_error_handler(
+            function (int $errno, string $errstr, string $errfile, int $errline) use (&$deprecation) {
+                $deprecation = $errstr;
+                return true;
+            },
+            E_USER_DEPRECATED
+        );
+        $callback();
+        restore_error_handler();
+        if ($deprecation === "") {
+            $success = false;
+            $message = "Expected a deprecation but none was triggered.";
+        } else {
+            $success = ($expected === "" || $deprecation === $expected);
+            $message = ($success) ? "" : "Expected deprecation '$expected' but '$deprecation' was triggered.";
+        }
+        $this->testResult($message, $success);
+    }
 }

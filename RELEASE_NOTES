@@ -1,4 +1,4 @@
-A new version of My Tester is out. Deprecations triggered in a test method are now reported as warnings.
+A new version of My Tester is out. Deprecations triggered in a test method are now reported as warnings. It is possible to check that a deprecation was triggered in a test case (optionally with a specific message).
 
 Method ConsoleColors::color can now also set background color.
 

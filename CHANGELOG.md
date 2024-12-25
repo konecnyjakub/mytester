@@ -1,6 +1,7 @@
 Version 7.2.0-dev
 - deprecations triggered in a test method are now reported as warnings
 - it is now possible to also set background color with ConsoleColors::color()
+- added assertion assertTriggersDeprecation
 
 Version 7.1.0
 - filename of generated code coverage report is now shown in console (if a report is generated and is saved into a file)

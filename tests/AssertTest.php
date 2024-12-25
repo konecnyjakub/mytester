@@ -73,6 +73,20 @@ final class AssertTest extends TestCase
             \stdClass::class,
             [new stdClass(), new stdClass(), ]
         );
+        $this->assertTriggersDeprecation(function () {
+            trigger_error("test", E_USER_DEPRECATED);
+        });
+        $this->assertTriggersDeprecation(function () {
+            trigger_error("test", E_USER_DEPRECATED);
+        }, "test");
+        if (version_compare(PHP_VERSION, "8.4.0") >= 0) {
+            $this->assertTriggersDeprecation(function () {
+                $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
+            });
+            $this->assertTriggersDeprecation(function () {
+                $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
+            }, "Method MyTester\AssertTest::deprecatedMethod() is deprecated, test");
+        }
     }
 
     /**
@@ -199,6 +213,15 @@ final class AssertTest extends TestCase
                 []
             );
         }, AssertionFailedException::class, "Test 65 failed. The array is empty.");
+        $this->assertThrowsException(function () {
+            $this->assertTriggersDeprecation(function () {
+            });
+        }, AssertionFailedException::class, "Test 67 failed. Expected a deprecation but none was triggered.");
+        $this->assertThrowsException(function () {
+            $this->assertTriggersDeprecation(function () {
+                trigger_error("test", E_USER_DEPRECATED);
+            }, "abc");
+        }, AssertionFailedException::class, "Test 69 failed. Expected deprecation 'abc' but 'test' was triggered.");
     }
 
     /**
@@ -222,5 +245,10 @@ final class AssertTest extends TestCase
         $this->assertSame("true", $this->showValue(true));
         $this->assertSame("1.2", $this->showValue(1.2));
         $this->assertSame("10", $this->showValue(10));
+    }
+
+    #[\Deprecated("test")]
+    private function deprecatedMethod(): void
+    {
     }
 }
