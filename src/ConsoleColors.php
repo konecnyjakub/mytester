@@ -31,11 +31,16 @@ final class ConsoleColors
 
     public bool $useColors = false;
 
-    public function color(string $text, ?string $color = null): string
+    public function color(string $text, ?string $color = null, ?string $backgroundColor = null): string
     {
         if (!$this->useColors || $color === null || !array_key_exists($color, self::COLORS)) {
             return $text;
         }
-        return "\033[" . self::COLORS[$color] . "m" . $text . "\033[0m";
+        return "\033[" .
+            self::COLORS[$color] .
+            (isset(self::COLORS[$backgroundColor]) ? ";4" . substr(self::COLORS[$backgroundColor], -1) : "") .
+            "m" .
+            $text .
+            "\033[0m";
     }
 }

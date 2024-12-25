@@ -17,17 +17,23 @@ final class ConsoleColorsTest extends TestCase
     {
         $consoleColors = new ConsoleColors();
         $this->assertSame("abc", $consoleColors->color("abc", "white"));
+        $this->assertSame("abc", $consoleColors->color("abc", "white", "green"));
         $this->assertSame("abc", $consoleColors->color("abc"));
         $this->assertSame("abc", $consoleColors->color("abc", "non-existing"));
+        $this->assertSame("abc", $consoleColors->color("abc", "non-existing", "green"));
 
         $consoleColors->useColors = true;
         $this->assertSame("\x1b[1;37mabc\x1b[0m", $consoleColors->color("abc", "white"));
+        $this->assertSame("\x1b[1;37;42mabc\x1b[0m", $consoleColors->color("abc", "white", "green"));
         $this->assertSame("abc", $consoleColors->color("abc"));
         $this->assertSame("abc", $consoleColors->color("abc", "non-existing"));
+        $this->assertSame("abc", $consoleColors->color("abc", "non-existing", "green"));
 
         $consoleColors->useColors = false;
         $this->assertSame("abc", $consoleColors->color("abc", "white"));
+        $this->assertSame("abc", $consoleColors->color("abc", "white", "green"));
         $this->assertSame("abc", $consoleColors->color("abc"));
         $this->assertSame("abc", $consoleColors->color("abc", "non-existing"));
+        $this->assertSame("abc", $consoleColors->color("abc", "non-existing", "green"));
     }
 }
