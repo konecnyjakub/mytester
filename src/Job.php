@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Ayesh\PHP_Timer\Timer;
+use TypeError;
 
 /**
  * One job of the test suite
@@ -115,7 +116,24 @@ final class Job
                 E_USER_DEPRECATED
             );
             try {
-                call_user_func_array($this->callback, $this->params);
+                try {
+                    call_user_func_array($this->callback, $this->params);
+                } catch (TypeError $e) {
+                    if (
+                        isset($e->getTrace()[0]) &&
+                        isset($e->getTrace()[0]["class"]) && $e->getTrace()[0]["class"] === TestCase::class &&
+                        isset($e->getTrace()[0]["function"]) && str_starts_with($e->getTrace()[0]["function"], "assert")
+                    ) {
+                        /** @var array{0: TestCase, 1: string}&callable $callback */
+                        $callback = $this->callback;
+                        throw new AssertionFailedException(
+                            "Invalid value passed to an assertion.",
+                            $callback[0]->getCounter() + 1,
+                            $e
+                        );
+                    }
+                    throw $e;
+                }
             } catch (SkippedTestException $e) {
                 $this->skip = ($e->getMessage() !== "") ? $e->getMessage() : true;
             } catch (IncompleteTestException $e) {
