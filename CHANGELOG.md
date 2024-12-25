@@ -1,4 +1,4 @@
-Version 7.2.0+dev
+Version 7.2.1
 - passing invalid argument to assertion methods is now reported as an assertion failure instead of crashing the script
 
 Version 7.2.0
