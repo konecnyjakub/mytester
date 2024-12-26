@@ -145,6 +145,7 @@ final class Job
                 $this->exception = $e;
             } catch (Throwable $e) {
                 echo "Error: " . ($e->getMessage() !== "" ? $e->getMessage() : $e::class) . "\n";
+                echo "Trace:\n" . $e->getTraceAsString() . "\n";
                 $this->exception = $e;
             }
             $this->onAfterExecute();
