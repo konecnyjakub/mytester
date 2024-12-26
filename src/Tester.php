@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use Konecnyjakub\EventDispatcher\AutoListenerProvider;
 use Konecnyjakub\EventDispatcher\EventDispatcher;
-use Konecnyjakub\EventDispatcher\PriorityListenerProvider;
+use Konecnyjakub\EventDispatcher\Listener;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -35,47 +36,42 @@ final readonly class Tester
 
     private function createEventDispatcher(): EventDispatcherInterface
     {
-        $listenerProvider = new PriorityListenerProvider();
+        $listenerProvider = new AutoListenerProvider();
 
         $listenerProvider->addSubscriber(new ExtensionsEventSubscriber($this->extensions));
 
         $listenerProvider->addListener(
-            Events\TestsStarted::class,
-            function (Events\TestsStarted $event) {
+            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
+            function (Events\TestsStarted $event): void {
                 $this->resultsFormatter->reportTestsStarted($event->testCases);
-            },
-            PriorityListenerProvider::PRIORITY_HIGH
+            }
         );
 
         $listenerProvider->addListener(
-            Events\TestsFinished::class,
-            function (Events\TestsFinished $event) {
+            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
+            function (Events\TestsFinished $event): void {
                 $this->resultsFormatter->reportTestsFinished($event->testCases);
-            },
-            PriorityListenerProvider::PRIORITY_HIGH
+            }
         );
         $listenerProvider->addListener(
-            Events\TestsFinished::class,
-            function (Events\TestsFinished $event) {
+            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH - 1)]
+            function (Events\TestsFinished $event): void {
                 $this->resultsFormatter->outputResults((string) getcwd());
-            },
-            PriorityListenerProvider::PRIORITY_HIGH - 1
+            }
         );
 
         $listenerProvider->addListener(
-            Events\TestCaseStarted::class,
-            function (Events\TestCaseStarted $event) {
+            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
+            function (Events\TestCaseStarted $event): void {
                 $this->resultsFormatter->reportTestCaseStarted($event->testCase);
-            },
-            PriorityListenerProvider::PRIORITY_HIGH
+            }
         );
 
         $listenerProvider->addListener(
-            Events\TestCaseFinished::class,
-            function (Events\TestCaseFinished $event) {
+            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
+            function (Events\TestCaseFinished $event): void {
                 $this->resultsFormatter->reportTestCaseFinished($event->testCase);
-            },
-            PriorityListenerProvider::PRIORITY_HIGH
+            }
         );
 
         return new EventDispatcher($listenerProvider);
