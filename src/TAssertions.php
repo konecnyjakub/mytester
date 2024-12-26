@@ -380,6 +380,25 @@ trait TAssertions
         $this->testResult($message, $success);
     }
 
+    protected function assertTriggersNoDeprecation(callable $callback): void
+    {
+        $deprecation = "";
+        set_error_handler(
+            function (int $errno, string $errstr, string $errfile, int $errline) use (&$deprecation) {
+                $deprecation = $errstr;
+                return true;
+            },
+            E_USER_DEPRECATED
+        );
+        $callback();
+        restore_error_handler();
+        $success = ($deprecation === "");
+        $message = ($success) ?
+            "" :
+            "Expected no deprecation but " . $this->showValue($deprecation) . " was triggered.";
+        $this->testResult($message, $success);
+    }
+
     protected function assertArrayHasKey(string|int $key, array|ArrayAccess $array): void
     {
         $success = ($array instanceof ArrayAccess ? $array->offsetExists($key) : array_key_exists($key, $array));

@@ -88,6 +88,8 @@ final class AssertTest extends TestCase
                 $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
             }, "Method MyTester\AssertTest::deprecatedMethod() is deprecated, test");
         }
+        $this->assertTriggersNoDeprecation(function () {
+        });
         $this->assertArrayHasKey("abc", ["abc" => 1, "def" => 2, ]);
         $this->assertArrayHasKey(2, [0, 5, 10, ]);
         $arrayObject = new ArrayObject();
@@ -240,36 +242,41 @@ final class AssertTest extends TestCase
             }, "abc");
         }, AssertionFailedException::class, "Test 69 failed. Expected deprecation 'abc' but 'test' was triggered.");
         $this->assertThrowsException(function () {
+            $this->assertTriggersNoDeprecation(function () {
+                trigger_error("test", E_USER_DEPRECATED);
+            });
+        }, AssertionFailedException::class, "Test 71 failed. Expected no deprecation but 'test' was triggered.");
+        $this->assertThrowsException(function () {
             $this->assertArrayHasKey("test", ["abc" => 1, "def" => 2, ]);
-        }, AssertionFailedException::class, "Test 71 failed. The array does not contain key 'test'.");
+        }, AssertionFailedException::class, "Test 73 failed. The array does not contain key 'test'.");
         $this->assertThrowsException(function () {
             $this->assertArrayHasKey(5, [0, 5, 10, ]);
-        }, AssertionFailedException::class, "Test 73 failed. The array does not contain key 5.");
+        }, AssertionFailedException::class, "Test 75 failed. The array does not contain key 5.");
         $this->assertThrowsException(function () {
             $this->assertArrayHasKey("test", new ArrayObject());
-        }, AssertionFailedException::class, "Test 75 failed. The array does not contain key 'test'.");
+        }, AssertionFailedException::class, "Test 77 failed. The array does not contain key 'test'.");
         $this->assertThrowsException(function () {
             $this->assertArrayNotHasKey("abc", ["abc" => 1, "def" => 2, ]);
-        }, AssertionFailedException::class, "Test 77 failed. The array contains key 'abc'.");
+        }, AssertionFailedException::class, "Test 79 failed. The array contains key 'abc'.");
         $this->assertThrowsException(function () {
             $this->assertArrayNotHasKey(1, [0, 5, 10, ]);
-        }, AssertionFailedException::class, "Test 79 failed. The array contains key 1.");
+        }, AssertionFailedException::class, "Test 81 failed. The array contains key 1.");
         $this->assertThrowsException(function () {
             $arrayObject = new ArrayObject();
             $arrayObject->offsetSet("test", "abc");
             $this->assertArrayNotHasKey("test", $arrayObject);
-        }, AssertionFailedException::class, "Test 81 failed. The array contains key 'test'.");
+        }, AssertionFailedException::class, "Test 83 failed. The array contains key 'test'.");
         $this->assertThrowsException(function () {
             $this->assertSameSize([], [0, ]);
-        }, AssertionFailedException::class, "Test 83 failed. Actual count is 1 not 0.");
+        }, AssertionFailedException::class, "Test 85 failed. Actual count is 1 not 0.");
         $this->assertThrowsException(function () {
             $arrayObject = new ArrayObject();
             $arrayObject->offsetSet("test", "abc");
             $this->assertSameSize($arrayObject, []);
-        }, AssertionFailedException::class, "Test 85 failed. Actual count is 0 not 1.");
+        }, AssertionFailedException::class, "Test 87 failed. Actual count is 0 not 1.");
         $this->assertThrowsException(function () {
             $this->assertSameSize(new ArrayObject(), [0, ]);
-        }, AssertionFailedException::class, "Test 87 failed. Actual count is 1 not 0.");
+        }, AssertionFailedException::class, "Test 89 failed. Actual count is 1 not 0.");
     }
 
     /**
