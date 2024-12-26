@@ -90,6 +90,8 @@ abstract class TestCase
                         },
                     ],
                     "dataSetName" => "",
+                    "reportDeprecations" =>
+                        !$this->annotationsReader->hasAnnotation("ignoreDeprecations", static::class, $method),
                 ];
 
                 $requiredParameters = (new ReflectionMethod($this, $method))->getNumberOfParameters();

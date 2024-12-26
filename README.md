@@ -198,6 +198,8 @@ If an unexpected Error or Exception is thrown, it is reported as a failure for t
 
 If a test method triggers deprecation, it is reported as a warning for the test method. It can be caused by calling function **trigger_error** with level _E_USER_DEPRECATED_ or on PHP 8.4 and later by using anything that is marked with attribute **Deprecated**, e. g. calling a method/function or using a class constant. It is possible to check that code in a test method triggers a deprecation with method assertTriggersDeprecation, you can even check for a specific message; in that case it is not reported by My Tester (but still might be by other tools that check your code, e. g. PHPStan with deprecation rules).
 
+If you do not want to have deprecations reported in a test method (because you are e. g. deliberately testing deprecated code), you can suppress those warnings if you add attribute MyTester\Attributes\IgnoreDeprecations to the method. Then if the test method successfully completes without any other warnings/errors/assertion failures, it is reported as passed.
+
 #### Setup and clean up
 
 If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suite.

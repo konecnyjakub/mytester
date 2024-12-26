@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
+use MyTester\Attributes\IgnoreDeprecations;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\Test;
 use MyTester\Attributes\TestSuite;
@@ -150,6 +151,7 @@ final class TestCaseTest extends TestCase
 
     #[Test("Deprecation")]
     #[Skip(["php" => "8.4"])]
+    #[IgnoreDeprecations]
     public function testDeprecation(): void
     {
         $job = new Job("Test deprecation", function () {
@@ -158,6 +160,7 @@ final class TestCaseTest extends TestCase
         $job->execute();
         $this->assertSame(JobResult::WARNING, $job->result);
         $this->assertContains("deprecated", $job->output);
+        $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
     }
 
     #[\Deprecated("test")]

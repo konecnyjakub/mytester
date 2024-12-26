@@ -46,6 +46,13 @@ final class JobResultTest extends TestCase
         $this->assertContains("deprecated \"test\"", $job->output);
 
         $job = new Job("Test Job", function () {
+            trigger_error("test", E_USER_DEPRECATED);
+        }, reportDeprecations: false);
+        $job->execute();
+        $this->assertSame(JobResult::PASSED, JobResult::fromJob($job));
+        $this->assertNotContains("deprecated \"test\"", $job->output);
+
+        $job = new Job("Test Job", function () {
         }, [], true);
         $job->execute();
         $this->assertSame(JobResult::SKIPPED, JobResult::fromJob($job));

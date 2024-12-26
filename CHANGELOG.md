@@ -1,6 +1,7 @@
 Version 7.3.0-dev
 - errors/exception thrown in a test method are reported as failure instead of crashing the script
 - added assertions assertArrayHasKey and assertArrayNotHasKey
+- added option to not have deprecations reported as warnings in a test method
 
 Version 7.2.1
 - passing invalid argument to assertion methods is now reported as an assertion failure instead of crashing the script

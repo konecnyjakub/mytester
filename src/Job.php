@@ -44,7 +44,8 @@ final class Job
         public readonly array $params = [],
         private bool|string $skip = false,
         public array $onAfterExecute = [],
-        public readonly string $dataSetName = ""
+        public readonly string $dataSetName = "",
+        public readonly bool $reportDeprecations = true
     ) {
         $this->callback = $callback;
     }
@@ -111,7 +112,9 @@ final class Job
             ob_start();
             set_error_handler(
                 function (int $errno, string $errstr, string $errfile, int $errline): bool {
-                    echo "Warning: deprecated \"$errstr\" on $errfile:$errline\n";
+                    if ($this->reportDeprecations) {
+                        echo "Warning: deprecated \"$errstr\" on $errfile:$errline\n";
+                    }
                     return true;
                 },
                 E_USER_DEPRECATED
