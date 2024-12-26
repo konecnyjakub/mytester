@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Ayesh\PHP_Timer\Timer;
+use Throwable;
 use TypeError;
 
 /**
@@ -141,6 +142,9 @@ final class Job
                 echo "Warning: $message\n";
             } catch (AssertionFailedException $e) {
                 echo $e->getMessage();
+                $this->exception = $e;
+            } catch (Throwable $e) {
+                echo "Error: " . ($e->getMessage() !== "" ? $e->getMessage() : $e::class) . "\n";
                 $this->exception = $e;
             }
             $this->onAfterExecute();

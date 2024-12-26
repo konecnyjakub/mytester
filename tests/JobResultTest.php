@@ -27,6 +27,12 @@ final class JobResultTest extends TestCase
         $this->assertSame(JobResult::FAILED, JobResult::fromJob($job));
 
         $job = new Job("Test Job", function () {
+            throw new \Exception();
+        });
+        $job->execute();
+        $this->assertSame(JobResult::FAILED, JobResult::fromJob($job));
+
+        $job = new Job("Test Job", function () {
             echo "Warning: Text";
         });
         $job->execute();

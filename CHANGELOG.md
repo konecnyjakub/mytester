@@ -1,3 +1,6 @@
+Version 7.3.0-dev
+- errors/exception thrown in a test method are reported as failure instead of crashing the script
+
 Version 7.2.1
 - passing invalid argument to assertion methods is now reported as an assertion failure instead of crashing the script
 

@@ -24,7 +24,7 @@ enum JobResult
     {
         if ($job->skip !== false) {
             return self::SKIPPED;
-        } elseif (str_contains($job->output, " failed. ")) {
+        } elseif (str_contains($job->output, " failed. ") || str_starts_with($job->output, "Error: ")) {
             return self::FAILED;
         } elseif (str_starts_with($job->output, "Warning: ")) {
             return self::WARNING;
