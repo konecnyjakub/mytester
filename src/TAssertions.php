@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use ArrayAccess;
+
 trait TAssertions
 {
     private int $taskCount = 0;
@@ -374,6 +376,20 @@ trait TAssertions
             $success = ($expected === "" || $deprecation === $expected);
             $message = ($success) ? "" : "Expected deprecation '$expected' but '$deprecation' was triggered.";
         }
+        $this->testResult($message, $success);
+    }
+
+    protected function assertArrayHasKey(string|int $key, array|ArrayAccess $array): void
+    {
+        $success = ($array instanceof ArrayAccess ? $array->offsetExists($key) : array_key_exists($key, $array));
+        $message = ($success) ? "" : "The array does not contain key " . $this->showValue($key) . ".";
+        $this->testResult($message, $success);
+    }
+
+    protected function assertArrayNotHasKey(string|int $key, array|ArrayAccess $array): void
+    {
+        $success = ($array instanceof ArrayAccess ? !$array->offsetExists($key) : !array_key_exists($key, $array));
+        $message = ($success) ? "" : "The array contains key " . $this->showValue($key) . ".";
         $this->testResult($message, $success);
     }
 }

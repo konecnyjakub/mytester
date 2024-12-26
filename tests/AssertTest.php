@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use ArrayObject;
 use MyTester\Annotations\DummyEngine;
 use MyTester\Attributes\TestSuite;
 use stdClass;
@@ -87,6 +88,14 @@ final class AssertTest extends TestCase
                 $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
             }, "Method MyTester\AssertTest::deprecatedMethod() is deprecated, test");
         }
+        $this->assertArrayHasKey("abc", ["abc" => 1, "def" => 2, ]);
+        $this->assertArrayHasKey(2, [0, 5, 10, ]);
+        $arrayObject = new ArrayObject();
+        $arrayObject->offsetSet("test", "abc");
+        $this->assertArrayHasKey("test", $arrayObject);
+        $this->assertArrayNotHasKey("xyz", ["abc" => 1, "def" => 2, ]);
+        $this->assertArrayNotHasKey(5, [0, 5, 10, ]);
+        $this->assertArrayNotHasKey("abc", $arrayObject);
     }
 
     /**
@@ -222,6 +231,26 @@ final class AssertTest extends TestCase
                 trigger_error("test", E_USER_DEPRECATED);
             }, "abc");
         }, AssertionFailedException::class, "Test 69 failed. Expected deprecation 'abc' but 'test' was triggered.");
+        $this->assertThrowsException(function () {
+            $this->assertArrayHasKey("test", ["abc" => 1, "def" => 2, ]);
+        }, AssertionFailedException::class, "Test 71 failed. The array does not contain key 'test'.");
+        $this->assertThrowsException(function () {
+            $this->assertArrayHasKey(5, [0, 5, 10, ]);
+        }, AssertionFailedException::class, "Test 73 failed. The array does not contain key 5.");
+        $this->assertThrowsException(function () {
+            $this->assertArrayHasKey("test", new ArrayObject());
+        }, AssertionFailedException::class, "Test 75 failed. The array does not contain key 'test'.");
+        $this->assertThrowsException(function () {
+            $this->assertArrayNotHasKey("abc", ["abc" => 1, "def" => 2, ]);
+        }, AssertionFailedException::class, "Test 77 failed. The array contains key 'abc'.");
+        $this->assertThrowsException(function () {
+            $this->assertArrayNotHasKey(1, [0, 5, 10, ]);
+        }, AssertionFailedException::class, "Test 79 failed. The array contains key 1.");
+        $this->assertThrowsException(function () {
+            $arrayObject = new ArrayObject();
+            $arrayObject->offsetSet("test", "abc");
+            $this->assertArrayNotHasKey("test", $arrayObject);
+        }, AssertionFailedException::class, "Test 81 failed. The array contains key 'test'.");
     }
 
     /**
