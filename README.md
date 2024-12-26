@@ -133,20 +133,24 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
-. You can also add conditions where the test should be skipped. They can be provided as an array, keys and their values are checked until one matches. One supported key is "php". If your version of PHP is lesser than its value, the test is skipped. You can also use key "extension" where the test will be skipped when that extension is not loaded. If you use sapi key, the test will not be executed if the current sapi is different. With key osFamily, you can skip a test if tests are run on a different OS family (taken from constant PHP_OS_FAMILY). Skipped tests are shown in output. Examples:
+. You can also add conditions when the test should be skipped. For that you need to use a specific attribute. One supported is RequiresPhpVersion. If your version of PHP is lesser than its value, the test is skipped. You can also use attribute RequiresPhpExtension where the test will be skipped when that extension is not loaded. If you use attribute RequiresSapi, the test will not be executed if the current sapi is different. With attribute RequiresOsFamily, you can skip a test if tests are run on a different OS family (taken from constant PHP_OS_FAMILY). Skipped tests are shown in output. Examples:
 
 ```php
 <?php
 declare(strict_types=1);
 
 use MyTester\Attributes\Skip;
+use MyTester\Attributes\RequiresPhpVersion;
+use MyTester\Attributes\RequiresPhpExtension;
+use MyTester\Attributes\RequiresSapi;
+use MyTester\Attributes\RequiresOsFamily;
 
 final class Tests extends MyTester\TestCase
 {
-    #[Skip(["php" => "5.4.1"])]
-    #[Skip(["extension" => "abc"])]
-    #[Skip(["sapi" => "cgi"])]
-    #[Skip(["osFamily" => "Solaris"])]
+    #[RequiresPhpVersion("5.4.1")]
+    #[RequiresPhpExtension("abc")]
+    #[RequiresSapi("cgi")]
+    #[RequiresOsFamily("Solaris")]
     public function testTestName(): void
     {
         $this->assertTrue(false);

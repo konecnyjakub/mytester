@@ -5,6 +5,10 @@ namespace MyTester;
 
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Attributes\IgnoreDeprecations;
+use MyTester\Attributes\RequiresOsFamily;
+use MyTester\Attributes\RequiresPhpExtension;
+use MyTester\Attributes\RequiresPhpVersion;
+use MyTester\Attributes\RequiresSapi;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\Test;
 use MyTester\Attributes\TestSuite;
@@ -108,7 +112,7 @@ final class TestCaseTest extends TestCase
      * Test skipping based on PHP version
      */
     #[Test("PHP version")]
-    #[Skip(["php" => 666])]
+    #[RequiresPhpVersion("666")]
     public function testSkipPhpVersion(): void
     {
         $this->assertTrue(false);
@@ -118,7 +122,7 @@ final class TestCaseTest extends TestCase
      * Test skipping based on sapi
      */
     #[Test("CGI sapi")]
-    #[Skip(["sapi" => "abc"])]
+    #[RequiresSapi("cgi")]
     public function testCgiSapi(): void
     {
         $this->assertNotSame(PHP_SAPI, "abc");
@@ -128,7 +132,7 @@ final class TestCaseTest extends TestCase
      * Test skipping based on loaded extension
      */
     #[Test("Extension")]
-    #[Skip(["extension" => "abc"])]
+    #[RequiresPhpExtension("abc")]
     public function testSkipExtension(): void
     {
         $this->assertTrue(false);
@@ -138,7 +142,7 @@ final class TestCaseTest extends TestCase
      * Test skipping based on os family
      */
     #[Test("OS family")]
-    #[Skip(["osFamily" => "Solaris"])]
+    #[RequiresOsFamily("Solaris")]
     public function testSkipOsFamily(): void
     {
         $this->assertTrue(false);
@@ -150,7 +154,7 @@ final class TestCaseTest extends TestCase
     }
 
     #[Test("Deprecation")]
-    #[Skip(["php" => "8.4"])]
+    #[RequiresPhpVersion("8.4")]
     #[IgnoreDeprecations]
     public function testDeprecation(): void
     {

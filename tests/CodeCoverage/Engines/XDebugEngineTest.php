@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage\Engines;
 
-use MyTester\Attributes\Skip;
+use MyTester\Attributes\RequiresPhpExtension;
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
 
@@ -21,7 +21,7 @@ final class XDebugEngineTest extends TestCase
         $this->assertSame("XDebug", $engine->getName());
     }
 
-    #[Skip(["extension" => "xdebug"])]
+    #[RequiresPhpExtension("xdebug")]
     public function testIsAvailable(): void
     {
         $engine = new XDebugEngine();

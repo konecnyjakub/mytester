@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage\Engines;
 
-use MyTester\Attributes\Skip;
+use MyTester\Attributes\RequiresPhpExtension;
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
 
@@ -21,7 +21,7 @@ final class PcovEngineTest extends TestCase
         $this->assertSame("pcov", $engine->getName());
     }
 
-    #[Skip(["extension" => "pcov"])]
+    #[RequiresPhpExtension("pcov")]
     public function testIsAvailable(): void
     {
         $engine = new PcovEngine();
