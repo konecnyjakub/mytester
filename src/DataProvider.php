@@ -20,8 +20,8 @@ final readonly class DataProvider implements IDataProvider
     }
 
     /**
-     * @throws InvalidDataProviderException If the provided source does not exist, is not accessible or does not return array
-     * @throws \ReflectionException If the specified test method does not exist
+     * @throws InvalidDataProviderException
+     * @throws \ReflectionException
      */
     public function getData(object $class, string $method): array
     {
