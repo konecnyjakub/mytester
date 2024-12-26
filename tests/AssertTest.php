@@ -96,6 +96,14 @@ final class AssertTest extends TestCase
         $this->assertArrayNotHasKey("xyz", ["abc" => 1, "def" => 2, ]);
         $this->assertArrayNotHasKey(5, [0, 5, 10, ]);
         $this->assertArrayNotHasKey("abc", $arrayObject);
+        $this->assertSameSize([], []);
+        $this->assertSameSize([0, 1, 2, ], [3, 4, 5, ]);
+        $this->assertSameSize(new ArrayObject(), new ArrayObject());
+        $this->assertSameSize($arrayObject, $arrayObject);
+        $this->assertSameSize($arrayObject, [0, ]);
+        $this->assertSameSize([0, ], $arrayObject);
+        $this->assertSameSize(new ArrayObject(), []);
+        $this->assertSameSize([], new ArrayObject());
     }
 
     /**
@@ -251,6 +259,17 @@ final class AssertTest extends TestCase
             $arrayObject->offsetSet("test", "abc");
             $this->assertArrayNotHasKey("test", $arrayObject);
         }, AssertionFailedException::class, "Test 81 failed. The array contains key 'test'.");
+        $this->assertThrowsException(function () {
+            $this->assertSameSize([], [0, ]);
+        }, AssertionFailedException::class, "Test 83 failed. Actual count is 1 not 0.");
+        $this->assertThrowsException(function () {
+            $arrayObject = new ArrayObject();
+            $arrayObject->offsetSet("test", "abc");
+            $this->assertSameSize($arrayObject, []);
+        }, AssertionFailedException::class, "Test 85 failed. Actual count is 0 not 1.");
+        $this->assertThrowsException(function () {
+            $this->assertSameSize(new ArrayObject(), [0, ]);
+        }, AssertionFailedException::class, "Test 87 failed. Actual count is 1 not 0.");
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use ArrayAccess;
+use Countable;
 
 trait TAssertions
 {
@@ -211,7 +212,7 @@ trait TAssertions
     /**
      * Does $value contain $count items?
      */
-    protected function assertCount(int $count, array|\Countable $value): void
+    protected function assertCount(int $count, array|Countable $value): void
     {
         $actual = count($value);
         $success = ($actual === $count);
@@ -222,7 +223,7 @@ trait TAssertions
     /**
      * Does $value not contain $count items?
      */
-    protected function assertNotCount(int $count, array|\Countable $value): void
+    protected function assertNotCount(int $count, array|Countable $value): void
     {
         $actual = count($value);
         $success = ($actual !== $count);
@@ -390,6 +391,13 @@ trait TAssertions
     {
         $success = ($array instanceof ArrayAccess ? !$array->offsetExists($key) : !array_key_exists($key, $array));
         $message = ($success) ? "" : "The array contains key " . $this->showValue($key) . ".";
+        $this->testResult($message, $success);
+    }
+
+    protected function assertSameSize(Countable|array $expected, Countable|array $actual): void
+    {
+        $success = (count($expected) === count($actual));
+        $message = ($success) ? "" : sprintf("Actual count is %d not %d.", count($actual), count($expected));
         $this->testResult($message, $success);
     }
 }
