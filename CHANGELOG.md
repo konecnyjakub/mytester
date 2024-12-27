@@ -2,6 +2,9 @@ Version 8.0.0-dev
 - dropped support for Composer 2.0 and 2.1
 - BC break: removed support for old way of providing 1 parameter to a test method via data provided
 - BC break: removed support for using conditions with attribute Skip
+- added event ExtensionsLoaded
+- BC break: added methods getName amd onExtensionsLoaded to interface ITesterExtension
+- InfoExtension (when added to automated tests runner) prints active extensions
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

@@ -17,6 +17,10 @@ final readonly class CodeCoverageExtension implements ITesterExtension
     {
     }
 
+    public function onExtensionsLoaded(Events\ExtensionsLoaded $event): void
+    {
+    }
+
     /**
      * @throws CodeCoverageException
      */
@@ -61,5 +65,10 @@ final readonly class CodeCoverageExtension implements ITesterExtension
 
     public function onTestCaseFinished(Events\TestCaseFinished $event): void
     {
+    }
+
+    public function getName(): string
+    {
+        return "code coverage";
     }
 }

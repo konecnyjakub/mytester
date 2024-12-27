@@ -18,6 +18,10 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
     {
     }
 
+    public function onExtensionsLoaded(Events\ExtensionsLoaded $event): void
+    {
+    }
+
     public function onTestsStarted(Events\TestsStarted $event): void
     {
         $files = Finder::findFiles("*.errors")->in($this->folderProvider->folder);
@@ -45,5 +49,10 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
                 file_put_contents("{$this->folderProvider->folder}/$job->name.errors", $job->output . "\n");
             }
         }
+    }
+
+    public function getName(): string
+    {
+        return "error files";
     }
 }

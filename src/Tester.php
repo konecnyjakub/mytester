@@ -32,6 +32,7 @@ final readonly class Tester
             $this->resultsFormatter->setConsole($this->console);
         }
         $this->eventDispatcher = $this->createEventDispatcher();
+        $this->eventDispatcher->dispatch(new Events\ExtensionsLoaded($this->extensions));
     }
 
     private function createEventDispatcher(): EventDispatcherInterface
