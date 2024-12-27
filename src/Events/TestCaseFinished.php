@@ -6,6 +6,8 @@ namespace MyTester\Events;
 use MyTester\TestCase;
 
 /**
+ * Triggers when execution of a test case finished
+ *
  * @author Jakub Konečný
  */
 final readonly class TestCaseFinished

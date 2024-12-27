@@ -5,6 +5,11 @@ namespace MyTester\Events;
 
 use MyTester\ITesterExtension;
 
+/**
+ * Triggers when extensions for automated tests runner are loaded
+ *
+ * @author Jakub Konečný
+ */
 final readonly class ExtensionsLoaded
 {
     /**

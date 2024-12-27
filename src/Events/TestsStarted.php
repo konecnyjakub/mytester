@@ -6,6 +6,8 @@ namespace MyTester\Events;
 use MyTester\TestCase;
 
 /**
+ * Triggers when execution of tests started
+ *
  * @author Jakub Konečný
  */
 final readonly class TestsStarted
