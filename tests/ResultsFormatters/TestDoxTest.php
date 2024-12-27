@@ -5,6 +5,9 @@ namespace MyTester\ResultsFormatters;
 
 use MyTester\Attributes\TestSuite;
 use MyTester\ConsoleColors;
+use MyTester\Events\TestCaseFinished;
+use MyTester\Events\TestsFinished;
+use MyTester\Events\TestsStarted;
 use MyTester\TestCase;
 
 /**
@@ -20,17 +23,17 @@ final class TestDoxTest extends TestCase
         $console = new ConsoleColors();
         $outputFormatter = new TestDox();
         $outputFormatter->setConsole($console);
-        $outputFormatter->reportTestsStarted([]);
+        $outputFormatter->reportTestsStarted(new TestsStarted([]));
         $testCase1 = new TestCaseOne();
         $testCase1->run();
-        $outputFormatter->reportTestCaseFinished($testCase1);
+        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase1));
         $testCase2 = new TestCaseTwo();
         $testCase2->run();
-        $outputFormatter->reportTestCaseFinished($testCase2);
+        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase2));
         $testCase3 = new TestCaseThree();
         $testCase3->run();
-        $outputFormatter->reportTestCaseFinished($testCase3);
-        $outputFormatter->reportTestsFinished([]);
+        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase3));
+        $outputFormatter->reportTestsFinished(new TestsFinished([]));
         $result = $outputFormatter->render();
         $this->assertMatchesFile(__DIR__ . "/testdox_output.txt", $result);
     }

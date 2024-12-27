@@ -43,7 +43,7 @@ final readonly class Tester
             $listenerProvider->addSubscriber($extension);
         }
 
-        $listenerProvider->addSubscriber(new ResultsFormatterEventSubscriber($this->resultsFormatter));
+        $listenerProvider->addSubscriber($this->resultsFormatter);
 
         $listenerProvider->addListener(
             #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH - 1)]

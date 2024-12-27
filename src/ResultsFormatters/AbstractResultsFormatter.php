@@ -4,6 +4,11 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use Ayesh\PHP_Timer\Timer;
+use Konecnyjakub\EventDispatcher\AutoListenerProvider;
+use MyTester\Events\TestCaseFinished;
+use MyTester\Events\TestCaseStarted;
+use MyTester\Events\TestsFinished;
+use MyTester\Events\TestsStarted;
 use MyTester\IResultsFormatter;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\TestCase;
@@ -26,12 +31,30 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
     /** @var int Total elapsed time in milliseconds */
     protected int $totalTime = 0;
 
-    public function reportTestsStarted(array $testCases): void
+    public static function getSubscribedEvents(): iterable
+    {
+        return [
+            TestsStarted::class => [
+                ["reportTestsStarted", AutoListenerProvider::PRIORITY_HIGH, ],
+            ],
+            TestsFinished::class => [
+                ["reportTestsFinished", AutoListenerProvider::PRIORITY_HIGH, ],
+            ],
+            TestCaseStarted::class => [
+                ["reportTestCaseStarted", AutoListenerProvider::PRIORITY_HIGH, ],
+            ],
+            TestCaseFinished::class => [
+                ["reportTestCaseFinished", AutoListenerProvider::PRIORITY_HIGH, ],
+            ],
+        ];
+    }
+
+    public function reportTestsStarted(TestsStarted $event): void
     {
         Timer::start(self::TIMER_NAME);
     }
 
-    public function reportTestsFinished(array $testCases): void
+    public function reportTestsFinished(TestsFinished $event): void
     {
         Timer::stop(self::TIMER_NAME);
         // @phpstan-ignore argument.type, cast.int
@@ -39,13 +62,13 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
         $this->totalTime = $totalTime;
     }
 
-    public function reportTestCaseStarted(TestCase $testCase): void
+    public function reportTestCaseStarted(TestCaseStarted $event): void
     {
     }
 
-    public function reportTestCaseFinished(TestCase $testCase): void
+    public function reportTestCaseFinished(TestCaseFinished $event): void
     {
-        $this->testCases[] = $testCase;
+        $this->testCases[] = $event->testCase;
     }
 
     public function outputResults(string $outputFolder): void

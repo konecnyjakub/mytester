@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\Attributes\TestSuite;
+use MyTester\Events\TestCaseFinished;
+use MyTester\Events\TestsFinished;
+use MyTester\Events\TestsStarted;
 use MyTester\TestCase;
 
 /**
@@ -17,17 +20,17 @@ final class JUnitTest extends TestCase
     public function testRender(): void
     {
         $outputFormatter = new JUnit();
-        $outputFormatter->reportTestsStarted([]);
+        $outputFormatter->reportTestsStarted(new TestsStarted([]));
         $testCase1 = new TestCaseOne();
         $testCase1->run();
-        $outputFormatter->reportTestCaseFinished($testCase1);
+        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase1));
         $testCase2 = new TestCaseTwo();
         $testCase2->run();
-        $outputFormatter->reportTestCaseFinished($testCase2);
+        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase2));
         $testCase3 = new TestCaseThree();
         $testCase3->run();
-        $outputFormatter->reportTestCaseFinished($testCase3);
-        $outputFormatter->reportTestsFinished([]);
+        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase3));
+        $outputFormatter->reportTestsFinished(new TestsFinished([]));
         $result = $outputFormatter->render();
         $result = str_replace(__DIR__, "/var/project/tests/ResultsFormatters", $result);
         $result = (string) preg_replace('/time="0\.[0-9]+"/', 'time="0.001"', $result);

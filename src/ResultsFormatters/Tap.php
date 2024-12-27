@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use MyTester\Events\TestsStarted;
 use MyTester\IResultsFormatter;
 use MyTester\JobResult;
-use MyTester\TestCase;
 
 /**
  * TAP results formatter for Tester
@@ -20,13 +20,10 @@ final class Tap extends AbstractResultsFormatter implements IResultsFormatter
 
     private int $totalTests = 0;
 
-    /**
-     * @param TestCase[] $testCases
-     */
-    public function reportTestsStarted(array $testCases): void
+    public function reportTestsStarted(TestsStarted $event): void
     {
-        parent::reportTestsStarted($testCases);
-        foreach ($testCases as $testCase) {
+        parent::reportTestsStarted($event);
+        foreach ($event->testCases as $testCase) {
             $this->totalTests += count($testCase->jobs);
         }
     }

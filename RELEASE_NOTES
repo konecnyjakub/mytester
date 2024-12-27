@@ -2,7 +2,9 @@ A new version of My Tester is out. It is only for Composer 2.2 or later. It remo
 
 Interface ITesterExtension was changed - it has new method getName and was changed into an event subscriber.
 
-There are new event ExtensionsLoaded, RunnerStarted and RunnerFinished which event subscribers (extensions) can now add listeners for.
+Interface IResultsFormatter was changed into an event subscriber. You can extend from class MyTester\ResultsFormatters\AbstractResultsFormatter to make updating a bit easier.
+
+There are new event ExtensionsLoaded, RunnerStarted and RunnerFinished which event subscribers (extensions and result formatters) can now add listeners for.
 
 Automated tests runner can now print list of active extensions along My Tester and PHP version (all of that is handled by InfoExtension).
 
