@@ -110,9 +110,7 @@ abstract class TestCase
                 }
 
                 foreach ($data as $dataSetName => $value) {
-                    if ($requiredParameters === 1 && !is_array($value)) {
-                        $job["params"][0] = $value;
-                    } elseif (!is_array($value) || count($value) < $requiredParameters) {
+                    if (!is_array($value) || count($value) < $requiredParameters) {
                         $job["skip"] = sprintf(
                             "Method requires at least %d parameter(s) but data provider provides only %d.",
                             $requiredParameters,

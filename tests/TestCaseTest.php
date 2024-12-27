@@ -78,7 +78,7 @@ final class TestCaseTest extends TestCase
 
     public function dataProvider(): array
     {
-        return ["abc", "adef", ];
+        return [["abc"], ["adef"], ];
     }
 
     public function dataProviderMulti(): array
@@ -256,7 +256,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame("TestCase::testParamsNotEnough", $job->name);
         $this->assertSame([$this, "testParamsNotEnough", ], $job->callback);
         $this->assertSame([], $job->params);
-        $this->assertSame("Method requires at least 2 parameter(s) but data provider provides only 0.", $job->skip);
+        $this->assertSame("Method requires at least 2 parameter(s) but data provider provides only 1.", $job->skip);
         $this->assertCount(1, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
 
