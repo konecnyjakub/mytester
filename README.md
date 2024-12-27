@@ -275,7 +275,7 @@ It is possible to change the name for output for formats Cobertura and text, jus
 
 ### Automated tests runner extensions
 
-Automated tests runner's functionality can be extended by extensions. Extensions have to implement the *MyTester\ITesterExtension* interface, every method corresponds to an event that is fired during automated tests runner's life cycle. For now, custom extensions cannot be registered when using the script *vendor/bin/mytester*.
+Automated tests runner's functionality can be extended by extensions. Extensions have to implement the *MyTester\ITesterExtension* interface, they can add listeners to events that are fired during automated tests runner's life cycle. Listeners are set in method getSubscribedEvents, it is possible to add them only for events that are necessary. Every event has a class in namespace MyTester\Events. For now, custom extensions cannot be registered when using the script *vendor/bin/mytester*.
 
 Some automated tests runner's functionality (printing My Tester and PHP version, generating code coverage reports, saving errors into files) is actually implemented via extensions. They have to be added manually which means that custom scripts do not have use that functionality (and do not by default). The script *vendor/bin/mytester* and Nette DI container (see below) extension have all of them enabled.
 

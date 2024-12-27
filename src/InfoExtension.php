@@ -16,6 +16,18 @@ final class InfoExtension implements ITesterExtension
     {
     }
 
+    public static function getSubscribedEvents(): iterable
+    {
+        return [
+            Events\ExtensionsLoaded::class => [
+                ["onExtensionsLoaded", ],
+            ],
+            Events\TestsStarted::class => [
+                ["onTestsStarted", ],
+            ],
+        ];
+    }
+
     public function onExtensionsLoaded(Events\ExtensionsLoaded $event): void
     {
         $this->extensionNames = array_map(function (ITesterExtension $extension) {
@@ -30,18 +42,6 @@ final class InfoExtension implements ITesterExtension
         echo "\n";
         echo $this->console->color(self::getPhpVersion() . "\n", "silver");
         echo "\n";
-    }
-
-    public function onTestsFinished(Events\TestsFinished $event): void
-    {
-    }
-
-    public function onTestCaseStarted(Events\TestCaseStarted $event): void
-    {
-    }
-
-    public function onTestCaseFinished(Events\TestCaseFinished $event): void
-    {
     }
 
     public function getName(): string

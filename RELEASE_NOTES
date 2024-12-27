@@ -1,6 +1,8 @@
 A new version of My Tester is out. It is only for Composer 2.2 or later. It removes previously deprecated stuff.
 
-Interface ITesterExtension was changed - it has new method getName and supports new event ExtensionsLoaded.
+Interface ITesterExtension was changed - it has new method getName and was changed into an event subscriber.
+
+There is a new event ExtensionsLoaded which event subscribers (extensions) can now add listeners for.
 
 Automated tests runner can now print list of active extensions along My Tester and PHP version (all of that is handled by InfoExtension).
 

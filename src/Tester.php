@@ -39,7 +39,9 @@ final readonly class Tester
     {
         $listenerProvider = new AutoListenerProvider();
 
-        $listenerProvider->addSubscriber(new ExtensionsEventSubscriber($this->extensions));
+        foreach ($this->extensions as $extension) {
+            $listenerProvider->addSubscriber($extension);
+        }
 
         $listenerProvider->addListener(
             #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]

@@ -18,8 +18,16 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
     {
     }
 
-    public function onExtensionsLoaded(Events\ExtensionsLoaded $event): void
+    public static function getSubscribedEvents(): iterable
     {
+        return [
+            Events\TestsStarted::class => [
+                ["onTestsStarted", ],
+            ],
+            Events\TestCaseFinished::class => [
+                ["onTestCaseFinished", ],
+            ],
+        ];
     }
 
     public function onTestsStarted(Events\TestsStarted $event): void
@@ -31,14 +39,6 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
             } catch (IOException) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement
             }
         }
-    }
-
-    public function onTestsFinished(Events\TestsFinished $event): void
-    {
-    }
-
-    public function onTestCaseStarted(Events\TestCaseStarted $event): void
-    {
     }
 
     public function onTestCaseFinished(Events\TestCaseFinished $event): void

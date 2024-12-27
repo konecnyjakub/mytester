@@ -17,8 +17,16 @@ final readonly class CodeCoverageExtension implements ITesterExtension
     {
     }
 
-    public function onExtensionsLoaded(Events\ExtensionsLoaded $event): void
+    public static function getSubscribedEvents(): iterable
     {
+        return [
+            Events\TestsStarted::class => [
+                ["onTestsStarted", ],
+            ],
+            Events\TestsFinished::class => [
+                ["onTestsFinished", ],
+            ],
+        ];
     }
 
     /**
@@ -57,14 +65,6 @@ final readonly class CodeCoverageExtension implements ITesterExtension
             }
             throw $e;
         }
-    }
-
-    public function onTestCaseStarted(Events\TestCaseStarted $event): void
-    {
-    }
-
-    public function onTestCaseFinished(Events\TestCaseFinished $event): void
-    {
     }
 
     public function getName(): string
