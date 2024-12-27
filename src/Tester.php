@@ -43,37 +43,12 @@ final readonly class Tester
             $listenerProvider->addSubscriber($extension);
         }
 
-        $listenerProvider->addListener(
-            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
-            function (Events\TestsStarted $event): void {
-                $this->resultsFormatter->reportTestsStarted($event->testCases);
-            }
-        );
+        $listenerProvider->addSubscriber(new ResultsFormatterEventSubscriber($this->resultsFormatter));
 
-        $listenerProvider->addListener(
-            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
-            function (Events\TestsFinished $event): void {
-                $this->resultsFormatter->reportTestsFinished($event->testCases);
-            }
-        );
         $listenerProvider->addListener(
             #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH - 1)]
             function (Events\TestsFinished $event): void {
                 $this->resultsFormatter->outputResults((string) getcwd());
-            }
-        );
-
-        $listenerProvider->addListener(
-            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
-            function (Events\TestCaseStarted $event): void {
-                $this->resultsFormatter->reportTestCaseStarted($event->testCase);
-            }
-        );
-
-        $listenerProvider->addListener(
-            #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
-            function (Events\TestCaseFinished $event): void {
-                $this->resultsFormatter->reportTestCaseFinished($event->testCase);
             }
         );
 
