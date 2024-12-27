@@ -85,6 +85,7 @@ final readonly class Tester
      */
     public function execute(): never
     {
+        $this->eventDispatcher->dispatch(new Events\RunnerStarted());
         $failed = false;
 
         /** @var TestCase[] $testCases */
@@ -106,6 +107,7 @@ final readonly class Tester
 
         $this->eventDispatcher->dispatch(new Events\TestsFinished($testCases));
 
+        $this->eventDispatcher->dispatch(new Events\RunnerFinished());
         exit((int) $failed);
     }
 }
