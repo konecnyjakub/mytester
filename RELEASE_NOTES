@@ -1,3 +1,9 @@
-A new version of My Tester is out. Errors/exception thrown in a test method are reported as failure instead of crashing the script. It adds assertions assertArrayHasKey, assertArrayNotHasKey, assertSameSize and assertTriggersNoDeprecation. It is now possible to ignore deprecations in a test method/test case. There are now dedicated attributes for skipping tests based on a condition, they should be used instead of attribute Skip.
+A new version of My Tester is out. One of its big improvements is that errors/exceptions thrown in a test method are reported as failure instead of crashing the script.
+
+There are also improvements around deprecations. It is now possible to ignore deprecations in a test method/test case. It is possible to check that code triggers not deprecation with assertion assertTriggersNoDeprecation.
+
+There are new assertions for arrays (and some array like objects) assertArrayHasKey, assertArrayNotHasKey and assertSameSize.
+
+There are now dedicated attributes for skipping tests based on a condition, they should be used instead of attribute Skip. In the next major version attribute Skip will only work without any conditions.
 
 For complete list of changes since previous version, see CHANGELOG.md.
