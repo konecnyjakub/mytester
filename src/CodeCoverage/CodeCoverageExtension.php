@@ -20,8 +20,8 @@ final readonly class CodeCoverageExtension implements ITesterExtension
     public static function getSubscribedEvents(): iterable
     {
         return [
-            Events\TestsStarted::class => [
-                ["onTestsStarted", ],
+            Events\RunnerStarted::class => [
+                ["onRunnerStarted", ],
             ],
             Events\TestsFinished::class => [
                 ["onTestsFinished", ],
@@ -32,7 +32,7 @@ final readonly class CodeCoverageExtension implements ITesterExtension
     /**
      * @throws CodeCoverageException
      */
-    public function onTestsStarted(Events\TestsStarted $event): void
+    public function onRunnerStarted(Events\RunnerStarted $event): void
     {
         try {
             $this->collector->start();
