@@ -13,6 +13,7 @@ use MyTester\Attributes\TestSuite;
  * @author Jakub Konečný
  */
 #[TestSuite("SkipChecker")]
+#[IgnoreDeprecations]
 final class SkipCheckerTest extends TestCase
 {
     private function getSkipChecker(): SkipChecker
@@ -20,7 +21,6 @@ final class SkipCheckerTest extends TestCase
         return (new SkipChecker($this->annotationsReader));
     }
 
-    #[IgnoreDeprecations]
     public function testCheckPhpVersion(): void
     {
         $this->assertNull($this->getSkipChecker()->checkPhpVersion(1)); // @phpstan-ignore method.deprecated
@@ -28,7 +28,6 @@ final class SkipCheckerTest extends TestCase
         $this->assertType("string", $this->getSkipChecker()->checkPhpVersion(PHP_INT_MAX));
     }
 
-    #[IgnoreDeprecations]
     public function testCheckLoadedExtension(): void
     {
         $this->assertNull($this->getSkipChecker()->checkLoadedExtension("ctype")); // @phpstan-ignore method.deprecated
@@ -36,14 +35,12 @@ final class SkipCheckerTest extends TestCase
         $this->assertType("string", $this->getSkipChecker()->checkLoadedExtension("abc"));
     }
 
-    #[IgnoreDeprecations]
     public function testCheckPhpSapi(): void
     {
         $this->assertNull($this->getSkipChecker()->checkPhpSapi(PHP_SAPI)); // @phpstan-ignore method.deprecated
         $this->assertType("string", $this->getSkipChecker()->checkPhpSapi("abc")); // @phpstan-ignore method.deprecated
     }
 
-    #[IgnoreDeprecations]
     public function testCheckOsFamily(): void
     {
         $this->assertNull($this->getSkipChecker()->checkOsFamily(PHP_OS_FAMILY)); // @phpstan-ignore method.deprecated
@@ -51,7 +48,6 @@ final class SkipCheckerTest extends TestCase
         $this->assertType("string", $this->getSkipChecker()->checkOsFamily("Solaris"));
     }
 
-    #[IgnoreDeprecations]
     public function testGetSkipValue(): void
     {
         // @phpstan-ignore method.deprecated
@@ -62,7 +58,6 @@ final class SkipCheckerTest extends TestCase
         $this->assertSame(["php" => 666, ], $this->getSkipChecker()->getSkipValue(static::class, "skipArray"));
     }
 
-    #[IgnoreDeprecations]
     public function testShouldSkip(): void
     {
         $this->assertSame(false, $this->getSkipChecker()->shouldSkip(static::class, "skipNull"));

@@ -73,6 +73,7 @@ abstract class TestCase
     {
         if (count($this->jobs) === 0) {
             $methods = $this->getTestMethodsNames();
+            $reportDeprecationsClass = !$this->annotationsReader->hasAnnotation("ignoreDeprecations", static::class);
             foreach ($methods as $method) {
                 /** @var callable $callback */
                 $callback = [$this, $method];
@@ -91,6 +92,7 @@ abstract class TestCase
                     ],
                     "dataSetName" => "",
                     "reportDeprecations" =>
+                        $reportDeprecationsClass &&
                         !$this->annotationsReader->hasAnnotation("ignoreDeprecations", static::class, $method),
                 ];
 

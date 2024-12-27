@@ -12,7 +12,7 @@ use Attribute;
  *
  * @author Jakub Konečný
  */
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 final class IgnoreDeprecations
 {
 }

@@ -1,7 +1,7 @@
 Version 7.3.0-dev
 - errors/exception thrown in a test method are reported as failure instead of crashing the script
 - added assertions assertArrayHasKey, assertArrayNotHasKey, assertSameSize and assertTriggersNoDeprecation
-- added option to not have deprecations reported as warnings in a test method
+- added option to not have deprecations reported as warnings in a test method/test case
 - deprecated using attribute Skip with conditions, use new attributes RequiresPhpVersion, RequiresPhpExtension, RequiresSapi or RequiresOsFamily instead
 
 Version 7.2.1

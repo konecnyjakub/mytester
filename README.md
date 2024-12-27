@@ -204,7 +204,7 @@ If a test method triggers deprecation, it is reported as a warning for the test 
 
 It is possible to check that code in a test method triggers a deprecation with method assertTriggersDeprecation, you can even check for a specific message; in that case it is not reported by My Tester (but still might be by other tools that check your code, e. g. PHPStan with deprecation rules). Conversely with method assertTriggersNoDeprecation you can check that code triggers no deprecation.
 
-If you do not want to have deprecations reported in a test method (because you are e. g. deliberately testing deprecated code), you can suppress those warnings if you add attribute MyTester\Attributes\IgnoreDeprecations to the method. Then if the test method successfully completes without any other warnings/errors/assertion failures, it is reported as passed.
+If you do not want to have deprecations reported in a test method or a whole TestCase (because you are e. g. deliberately testing deprecated code), you can suppress those warnings if you add attribute MyTester\Attributes\IgnoreDeprecations to the method/class. Then if the test method successfully completes without any other warnings/errors/assertion failures, it is reported as passed.
 
 #### Setup and clean up
 
