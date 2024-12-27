@@ -18,7 +18,7 @@
    },
     "require": {
         "php": ">=8.3.0",
-        "composer-runtime-api": "^2.0",
+        "composer-runtime-api": "^2.2",
         "ayesh/php-timer": "^2.2",
         "konecnyjakub/event-dispatcher": "^1.4 || ^2.0",
         "nette/utils": "^4.0.5",
