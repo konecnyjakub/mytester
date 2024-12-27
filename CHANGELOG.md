@@ -1,4 +1,4 @@
-Version 7.3.0-dev
+Version 7.3.0
 - errors/exception thrown in a test method are reported as failure instead of crashing the script
 - added assertions assertArrayHasKey, assertArrayNotHasKey, assertSameSize and assertTriggersNoDeprecation
 - added option to not have deprecations reported as warnings in a test method/test case
