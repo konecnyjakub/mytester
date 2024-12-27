@@ -179,10 +179,14 @@ final class AssertTest extends TestCase
         }, AssertionFailedException::class, "Test 41 failed. Count of the variable is 2.");
         $this->assertThrowsException(function () {
             $this->assertType("string", ["abc", "def", ]);
-        }, AssertionFailedException::class, "Test 43 failed. The variable is array.");
-        $this->assertThrowsException(function () {
-            $this->assertType(static::class, new stdClass());
-        }, AssertionFailedException::class, "Test 45 failed. The variable is instance of stdClass.");
+        }, AssertionFailedException::class, "Test 43 failed. The variable is of type array not string.");
+        $this->assertThrowsException(
+            function () {
+                $this->assertType(static::class, new stdClass());
+            },
+            AssertionFailedException::class,
+            "Test 45 failed. The variable is instance of stdClass not " . static::class . "."
+        );
         $this->assertThrowsException(function () {
             $this->assertThrowsException(function () {
             }, \Exception::class);

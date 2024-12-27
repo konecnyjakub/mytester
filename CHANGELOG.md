@@ -3,6 +3,7 @@ Version 7.3.0-dev
 - added assertions assertArrayHasKey, assertArrayNotHasKey, assertSameSize and assertTriggersNoDeprecation
 - added option to not have deprecations reported as warnings in a test method/test case
 - deprecated using attribute Skip with conditions, use new attributes RequiresPhpVersion, RequiresPhpExtension, RequiresSapi or RequiresOsFamily instead
+- improved error message for assertion assertType
 
 Version 7.2.1
 - passing invalid argument to assertion methods is now reported as an assertion failure instead of crashing the script

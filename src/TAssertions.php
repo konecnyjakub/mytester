@@ -234,23 +234,25 @@ trait TAssertions
     /**
      * Is $value of type $type?
      */
-    protected function assertType(string|object $type, mixed $value): void
+    protected function assertType(string|object $expected, mixed $value): void
     {
         if (
-            in_array($type, [
+            in_array($expected, [
             "array", "bool", "float", "int", "string", "null", "object", "resource",
             "scalar", "iterable", "callable",
             ], true)
         ) {
-            $success = (call_user_func("is_$type", $value));
+            $success = (call_user_func("is_$expected", $value));
             $actual = gettype($value);
-            $message = ($success) ? "" : "The variable is $actual.";
+            $message = ($success) ? "" : "The variable is of type $actual not $expected.";
             $this->testResult($message, $success);
             return;
         }
-        $success = ($value instanceof $type);
+        $success = ($value instanceof $expected);
         $actual = get_debug_type($value);
-        $message = ($success) ? "" : "The variable is instance of $actual.";
+        $message = ($success) ?
+            "" :
+            "The variable is instance of $actual not " . (is_string($expected) ? $expected : $expected::class) . ".";
         $this->testResult($message, $success);
     }
 
