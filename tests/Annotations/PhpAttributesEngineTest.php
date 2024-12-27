@@ -25,27 +25,27 @@ final class PhpAttributesEngineTest extends TestCase
 
     public function testHasAnnotation(): void
     {
-        $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
-        $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
-        $this->assertFalse((new Reader())->hasAnnotation(SkipChecker::ANNOTATION_NAME, static::class, "method"));
+        $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
+        $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
+        $this->assertFalse((new Reader())->hasAnnotation("skip", self::class, "method"));
         $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(
             SkipChecker::ANNOTATION_NAME,
-            static::class,
+            self::class,
             "method"
         ));
     }
 
     public function testGetAnnotation(): void
     {
-        $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
+        $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
         $this->assertSame("NetteReflectionEngine", $this->getAnnotationsReader()->hasAnnotation(
             TestCase::ANNOTATION_TEST_SUITE,
-            static::class
+            self::class
         ));
-        $this->assertNull((new Reader())->getAnnotation(SkipChecker::ANNOTATION_NAME, static::class, "method"));
-        $this->assertSame([], $this->getAnnotationsReader()->getAnnotation(
-            SkipChecker::ANNOTATION_NAME,
-            static::class,
+        $this->assertNull((new Reader())->getAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
+        $this->assertSame("", $this->getAnnotationsReader()->getAnnotation(
+            "skip",
+            self::class,
             "method"
         ));
     }
