@@ -20,7 +20,7 @@
         "php": ">=8.3.0",
         "composer-runtime-api": "^2.0",
         "ayesh/php-timer": "^2.2",
-        "konecnyjakub/event-dispatcher": "^1.4",
+        "konecnyjakub/event-dispatcher": "^1.4 || ^2.0",
         "nette/utils": "^4.0.5",
         "nette/command-line": "^1.7",
         "symfony/polyfill-php84": "^1.30"
