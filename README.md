@@ -206,6 +206,9 @@ final class Tests extends MyTester\TestCase
     }
 }
 ```
+#### Tests without assertions
+
+By default, if a test method performs no assertions, it is reported as passed with warnings. If you do not set a different results formatter (see below), it will print a warning `Method name passed with warning: No assertions were performed.`.
 
 #### Unexpected errors/exceptions
 
