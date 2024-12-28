@@ -71,7 +71,6 @@ final class Tests extends MyTester\TestCase
     {
         yield ["abc", 1, ];
         yield ["abcd", 2, ];
-        ];
     }
 }
 ```
