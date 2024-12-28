@@ -25,6 +25,8 @@ abstract class TestCase
     public const string ANNOTATION_TEST = "test";
     /** @internal */
     public const string ANNOTATION_TEST_SUITE = "testSuite";
+    /** @internal */
+    public const string ANNOTATION_IGNORE_DEPRECATIONS = "ignoreDeprecations";
 
     protected ISkipChecker $skipChecker;
     protected IDataProvider $dataProvider;
@@ -65,6 +67,38 @@ abstract class TestCase
     }
 
     /**
+     * Get list of callbacks that should be called after a job finishes
+     * Has to be the same for every job
+     *
+     * @return callable[]
+     */
+    protected function getJobAfterExecuteCallbacks(): array
+    {
+        return [
+            function (Job $job): void {
+                $job->totalAssertions = $this->getCounter();
+                if ($job->totalAssertions === 0) {
+                    echo "Warning: No assertions were performed.\n";
+                }
+            },
+        ];
+    }
+
+    protected function shouldReportDeprecations(string $methodName): bool
+    {
+        $reportDeprecationsClass = !$this->annotationsReader->hasAnnotation(
+            static::ANNOTATION_IGNORE_DEPRECATIONS,
+            static::class
+        );
+        $reportDeprecationsMethod = !$this->annotationsReader->hasAnnotation(
+            static::ANNOTATION_IGNORE_DEPRECATIONS,
+            static::class,
+            $methodName
+        );
+        return $reportDeprecationsClass && $reportDeprecationsMethod;
+    }
+
+    /**
      * Get list of jobs with parameters for current test suite
      *
      * @return Job[]
@@ -73,7 +107,6 @@ abstract class TestCase
     {
         if (count($this->jobs) === 0) {
             $methods = $this->getTestMethodsNames();
-            $reportDeprecationsClass = !$this->annotationsReader->hasAnnotation("ignoreDeprecations", static::class);
             foreach ($methods as $method) {
                 /** @var callable $callback */
                 $callback = [$this, $method];
@@ -82,18 +115,9 @@ abstract class TestCase
                     "callback" => $callback,
                     "params" => [],
                     "skip" => $this->skipChecker->shouldSkip(static::class, $method),
-                    "onAfterExecute" => [
-                        function (Job $job): void {
-                            $job->totalAssertions = $this->getCounter();
-                            if ($job->totalAssertions === 0) {
-                                echo "Warning: No assertions were performed.\n";
-                            }
-                        },
-                    ],
+                    "onAfterExecute" => $this->getJobAfterExecuteCallbacks(),
                     "dataSetName" => "",
-                    "reportDeprecations" =>
-                        $reportDeprecationsClass &&
-                        !$this->annotationsReader->hasAnnotation("ignoreDeprecations", static::class, $method),
+                    "reportDeprecations" => $this->shouldReportDeprecations($method),
                 ];
 
                 $requiredParameters = (new ReflectionMethod($this, $method))->getNumberOfParameters();
