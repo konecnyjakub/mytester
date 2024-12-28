@@ -5,6 +5,7 @@ namespace MyTester;
 
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Attributes\IgnoreDeprecations;
+use MyTester\Attributes\NoAssertions;
 use MyTester\Attributes\RequiresOsFamily;
 use MyTester\Attributes\RequiresPhpExtension;
 use MyTester\Attributes\RequiresPhpVersion;
@@ -161,6 +162,7 @@ final class TestCaseTest extends TestCase
     }
 
     #[Test("No assertions")]
+    #[NoAssertions]
     public function testNoAssertions(): void
     {
     }

@@ -208,7 +208,22 @@ final class Tests extends MyTester\TestCase
 ```
 #### Tests without assertions
 
-By default, if a test method performs no assertions, it is reported as passed with warnings. If you do not set a different results formatter (see below), it will print a warning `Method name passed with warning: No assertions were performed.`.
+By default, if a test method performs no assertions, it is reported as passed with warnings. If you do not set a different results formatter (see below), it will print a warning `Method name passed with warning: No assertions were performed.`. It is possible to suppress that warning by adding attribute NoAssertions on a test method or the whole class, then it is reported as passed (assuming there are no other issues). Example:
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\NoAssertions;
+
+final class Tests extends MyTester\TestCase
+{
+    #[NoAssertions]
+    public function testNoAssertions(): void
+    {
+    }
+}
+```
 
 #### Unexpected errors/exceptions
 

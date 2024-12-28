@@ -7,6 +7,7 @@ Version 8.0.0-dev
 - InfoExtension (when added to automated tests runner) prints active extensions
 - BC break: added method getSubscribedEvents to interface IResultsFormatter, removed methods report* (it is now an event subscriber)
 - data providers can now also return iterable objects not just arrays
+- added option to suppress warning about no performed assertions in a test method/test case
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

@@ -27,6 +27,8 @@ abstract class TestCase
     public const string ANNOTATION_TEST_SUITE = "testSuite";
     /** @internal */
     public const string ANNOTATION_IGNORE_DEPRECATIONS = "ignoreDeprecations";
+    /** @internal */
+    public const string ANNOTATION_NO_ASSERTIONS = "noAssertions";
 
     protected ISkipChecker $skipChecker;
     protected IDataProvider $dataProvider;
@@ -68,16 +70,22 @@ abstract class TestCase
 
     /**
      * Get list of callbacks that should be called after a job finishes
-     * Has to be the same for every job
      *
      * @return callable[]
      */
-    protected function getJobAfterExecuteCallbacks(): array
+    protected function getJobAfterExecuteCallbacks(string $methodName): array
     {
         return [
-            function (Job $job): void {
+            function (Job $job) use ($methodName): void {
                 $job->totalAssertions = $this->getCounter();
-                if ($job->totalAssertions === 0) {
+                $checkAssertions =
+                    !$this->annotationsReader->hasAnnotation(static::ANNOTATION_NO_ASSERTIONS, static::class) &&
+                    !$this->annotationsReader->hasAnnotation(
+                        static::ANNOTATION_NO_ASSERTIONS,
+                        static::class,
+                        $methodName
+                    );
+                if ($checkAssertions && $job->totalAssertions === 0) {
                     echo "Warning: No assertions were performed.\n";
                 }
             },
@@ -115,7 +123,7 @@ abstract class TestCase
                     "callback" => $callback,
                     "params" => [],
                     "skip" => $this->skipChecker->shouldSkip(static::class, $method),
-                    "onAfterExecute" => $this->getJobAfterExecuteCallbacks(),
+                    "onAfterExecute" => $this->getJobAfterExecuteCallbacks($method),
                     "dataSetName" => "",
                     "reportDeprecations" => $this->shouldReportDeprecations($method),
                 ];
