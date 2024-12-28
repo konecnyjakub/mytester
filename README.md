@@ -35,7 +35,7 @@ final class Tests extends MyTester\TestCase
 
 #### Parameters for test methods
 
-Test methods of TestCase descendants can take one or more parameters. You can provide a name of a public method from the class which returns an array with DataProvider attribute. It should be an array of arrays. Example:
+Test methods of TestCase descendants can take one or more parameters. You can provide a name of a public method from the class which returns an array or an iterable object with DataProvider attribute. Example:
 
 ```php
 <?php
@@ -51,6 +51,13 @@ final class Tests extends MyTester\TestCase
         $this->assertContains("a", $text);
         $this->assertGreaterThan(0, $number);
     }
+    
+    #[DataProvider("dataProviderIterator")]
+    public function testParamsIterator(string $text, int $number):void
+    {
+        $this->assertContains("a", $text);
+        $this->assertGreaterThan(0, $number);
+    }
 
     public function dataProvider(): array
     {
@@ -59,10 +66,17 @@ final class Tests extends MyTester\TestCase
             ["abcd", 2, ],
         ];
     }
+
+    public function dataProviderIterator(): iterable
+    {
+        yield ["abc", 1, ];
+        yield ["abcd", 2, ];
+        ];
+    }
 }
 ```
 
-In the example the test method will be run 2 times, first time with parameters "abc" a 1, second time with "abcd" and 2.
+In the example both test methods will be run 2 times, first time with parameters "abc" a 1, second time with "abcd" and 2.
 
 If a test method with data set fails, the faulty data set is shown along the test method name. It is possible to name a data set so the name is shown instead of the whole data, it is done by providing a string index to the element.
 

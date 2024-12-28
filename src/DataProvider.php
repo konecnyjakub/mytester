@@ -23,7 +23,7 @@ final readonly class DataProvider implements IDataProvider
      * @throws InvalidDataProviderException
      * @throws \ReflectionException
      */
-    public function getData(object $class, string $method): array
+    public function getData(object $class, string $method): iterable
     {
         $reflection = new ReflectionMethod($class, $method);
         if ($reflection->getNumberOfParameters() < 1) {
@@ -40,10 +40,12 @@ final readonly class DataProvider implements IDataProvider
                 /** @var callable $callback */
                 $callback = [$class, $dataProvider];
                 $result = call_user_func($callback);
-                if (!is_array($result)) {
-                    throw new InvalidDataProviderException("Method $className::$dataProvider has to return an array.");
+                if (!is_iterable($result)) {
+                    throw new InvalidDataProviderException(
+                        "Method $className::$dataProvider has to return an array or an iterable object."
+                    );
                 }
-                /** @var array[] $result */
+                /** @var iterable[] $result */
                 return $result;
             } catch (\ReflectionException $e) {
                 throw new InvalidDataProviderException("Method $className::$dataProvider does not exist.", 0, $e);

@@ -6,6 +6,7 @@ Version 8.0.0-dev
 - BC break: added methods getName and getSubscribedEvents to interface ITesterExtension, removed methods on* (it is now an event subscriber)
 - InfoExtension (when added to automated tests runner) prints active extensions
 - BC break: added method getSubscribedEvents to interface IResultsFormatter, removed methods report* (it is now an event subscriber)
+- BC break: data providers can now also return iterable objects not just arrays
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

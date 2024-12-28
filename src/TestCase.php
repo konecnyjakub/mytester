@@ -103,6 +103,9 @@ abstract class TestCase
                 }
 
                 $data = $this->dataProvider->getData($this, $method);
+                if (!is_array($data)) {
+                    $data = iterator_to_array($data);
+                }
                 if (count($data) === 0) {
                     $job["skip"] = "Method requires at least 1 parameter but data provider does not provide any.";
                     $this->jobs[] = new Job(... $job);

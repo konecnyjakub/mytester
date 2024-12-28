@@ -13,7 +13,7 @@ interface IDataProvider
     /**
      * Get data for a test method
      *
-     * @return array[] Values for consecutive calls of the the method
+     * @return iterable[] Values for consecutive calls of the the method
      */
-    public function getData(object $class, string $method): array;
+    public function getData(object $class, string $method): iterable;
 }

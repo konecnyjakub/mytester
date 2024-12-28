@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use Generator;
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Attributes\TestSuite;
 
@@ -18,17 +19,24 @@ final class DataProviderTest extends TestCase
     {
         $dataProvider = new DataProvider($this->annotationsReader);
 
+        /** @var array[] $data */
         $data = $dataProvider->getData($this, "noData");
         $this->assertType("array", $data);
         $this->assertCount(0, $data);
 
+        /** @var array[] $data */
         $data = $dataProvider->getData($this, "noParameters");
         $this->assertType("array", $data);
         $this->assertCount(0, $data);
 
+        /** @var array[] $data */
         $data = $dataProvider->getData($this, "dataProvider");
         $this->assertType("array", $data);
         $this->assertCount(2, $data);
+
+        $data = $dataProvider->getData($this, "dataProviderIterable");
+        $this->assertType(Generator::class, $data);
+        $this->assertCount(2, iterator_to_array($data));
 
         $this->assertThrowsException(function () use ($dataProvider) {
             $dataProvider->getData($this, "dataProviderNonExisting");
@@ -43,7 +51,7 @@ final class DataProviderTest extends TestCase
                 $dataProvider->getData($this, "dataProviderNonArray");
             },
             InvalidDataProviderException::class,
-            "Method MyTester\DataProviderTest::dataSourceNonArray has to return an array."
+            "Method MyTester\DataProviderTest::dataSourceNonArray has to return an array or an iterable object."
         );
     }
 
@@ -76,6 +84,11 @@ final class DataProviderTest extends TestCase
     {
     }
 
+    #[DataProviderAttribute("dataSourceIterable")]
+    private function dataProviderIterable(int $number): void
+    {
+    }
+
     public function dataSource(): array
     {
         return [
@@ -87,5 +100,11 @@ final class DataProviderTest extends TestCase
     public function dataSourceNonArray(): string
     {
         return "abc";
+    }
+
+    public function dataSourceIterable(): iterable
+    {
+        yield [1, ];
+        yield [4, ];
     }
 }
