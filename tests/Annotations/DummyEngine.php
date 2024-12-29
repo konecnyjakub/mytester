@@ -19,4 +19,9 @@ final class DummyEngine implements IAnnotationsReaderEngine
     {
         return "abc";
     }
+
+    public function getAnnotationMulti(string $name, object|string $class, ?string $method = null): array
+    {
+        return ["abc", "def", ];
+    }
 }

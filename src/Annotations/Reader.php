@@ -44,4 +44,21 @@ final class Reader
         }
         return null;
     }
+
+    /**
+     * Get values from annotation that can be used multiple times
+     * Each value in the array is from one annotation
+     *
+     * @param class-string|object $class
+     */
+    public function getAnnotationMulti(string $name, string|object $class, ?string $method = null): array
+    {
+        foreach ($this->engines as $engine) {
+            $value = $engine->getAnnotationMulti($name, $class, $method);
+            if (count($value) > 0) {
+                return $value;
+            }
+        }
+        return [];
+    }
 }

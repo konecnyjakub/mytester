@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations;
 
+use MyTester\Attributes\Data;
 use MyTester\Attributes\DataProviderExternal;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\TestSuite;
@@ -41,6 +42,19 @@ final class PhpAttributesEngineTest extends TestCase
         );
     }
 
+    public function testGetAnnotationMulti(): void
+    {
+        $engine = new PhpAttributesEngine();
+        $this->assertSame([], $engine->getAnnotationMulti(DataProvider::ANNOTATION_SIMPLE_NAME, self::class));
+        $this->assertSame(
+            [
+                ["abc", "def", ],
+                ["ghi", "jkl", ],
+            ],
+            $engine->getAnnotationMulti(DataProvider::ANNOTATION_SIMPLE_NAME, self::class, "data")
+        );
+    }
+
     #[Skip()]
     private function method(): void
     {
@@ -48,6 +62,12 @@ final class PhpAttributesEngineTest extends TestCase
 
     #[DataProviderExternal(ExternalDataProvider::class, "dataProviderArray")]
     private function dataProviderExternal(): void
+    {
+    }
+
+    #[Data(["abc", "def", ])]
+    #[Data(["ghi", "jkl", ])]
+    private function data(): void
     {
     }
 }

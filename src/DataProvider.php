@@ -17,6 +17,8 @@ final readonly class DataProvider implements IDataProvider
 
     public const string ANNOTATION_EXTERNAL_NAME = "dataProviderExternal";
 
+    public const string ANNOTATION_SIMPLE_NAME = "data";
+
     public function __construct(private Reader $annotationsReader)
     {
     }
@@ -30,6 +32,12 @@ final readonly class DataProvider implements IDataProvider
         $reflection = new ReflectionMethod($class, $method);
         if ($reflection->getNumberOfParameters() < 1) {
             return [];
+        }
+
+        if ($this->annotationsReader->hasAnnotation(self::ANNOTATION_SIMPLE_NAME, $class, $method)) {
+            /** @var array[] $result */
+            $result = $this->annotationsReader->getAnnotationMulti(self::ANNOTATION_SIMPLE_NAME, $class, $method);
+            return $result;
         }
 
         $dataProvider = $this->annotationsReader->getAnnotation(self::ANNOTATION_NAME, $class, $method);

@@ -34,6 +34,22 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
             return null;
         }
         $attribute = $attributes[0]->newInstance();
+        return $this->getAnnotationValue($attribute);
+    }
+
+    public function getAnnotationMulti(string $name, object|string $class, ?string $method = null): array
+    {
+        $attributes = $this->getReflection($class, $method)->getAttributes($this->getClassName($name));
+        $values = [];
+        foreach ($attributes as $reflectionAttribute) {
+            $attribute = $reflectionAttribute->newInstance();
+            $values[] = $this->getAnnotationValue($attribute);
+        }
+        return $values;
+    }
+
+    public function getAnnotationValue(object $attribute): mixed
+    {
         if (property_exists($attribute, "value")) {
             return $attribute->value;
         }

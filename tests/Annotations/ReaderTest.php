@@ -25,9 +25,9 @@ final class ReaderTest extends TestCase
 
     public function testHasAnnotation(): void
     {
-        $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
-        $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
-        $this->assertFalse((new Reader())->hasAnnotation(SkipChecker::ANNOTATION_NAME, static::class, "method"));
+        $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
+        $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
+        $this->assertFalse((new Reader())->hasAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
         $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(
             SkipChecker::ANNOTATION_NAME,
             static::class,
@@ -37,17 +37,34 @@ final class ReaderTest extends TestCase
 
     public function testGetAnnotation(): void
     {
-        $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, static::class));
+        $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
         $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(
             TestCase::ANNOTATION_TEST_SUITE,
             static::class
         ));
-        $this->assertNull((new Reader())->getAnnotation(SkipChecker::ANNOTATION_NAME, static::class, "method"));
+        $this->assertNull((new Reader())->getAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
         $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(
             SkipChecker::ANNOTATION_NAME,
             static::class,
             "method"
         ));
+    }
+
+    public function testGetAnnotationMulti(): void
+    {
+        $this->assertSame([], (new Reader())->getAnnotationMulti(TestCase::ANNOTATION_TEST_SUITE, self::class));
+        $this->assertSame(
+            ["abc", "def", ],
+            $this->getAnnotationsReader()->getAnnotationMulti(TestCase::ANNOTATION_TEST_SUITE, self::class)
+        );
+        $this->assertSame(
+            [],
+            (new Reader())->getAnnotationMulti(TestCase::ANNOTATION_TEST_SUITE, self::class, "method")
+        );
+        $this->assertSame(
+            ["abc", "def", ],
+            $this->getAnnotationsReader()->getAnnotationMulti(TestCase::ANNOTATION_TEST_SUITE, self::class, "method")
+        );
     }
 
     #[Skip()]

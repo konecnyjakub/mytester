@@ -112,7 +112,6 @@ declare(strict_types=1);
 
 use MyTester\Attributes\DataProviderExternal;
 
-
 final class ExternalDataProvider
 {
     public static function dataProviderArray(): array
@@ -135,7 +134,27 @@ final class Tests extends \MyTester\TestCase {
 }
 ```
 
-It is not possible to use different attribute for specifying a data provider together, only one type is used. Their priority is DataProvider first, DataProviderExternal second.
+If you do not want to define a method which returns the data sets, you can just use attribute Data. Unlike other similar attributes it can be used multiple times on a method and each instance define 1 data set. But it is not possible to name data sets this way. Example:
+
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\Data;
+
+final class Tests extends \MyTester\TestCase {
+    #[Data(["abc", 1, ]]
+    #[Data(["abcd", 2, ])]
+    public function testParams(string $text, int $number): void
+    {
+        $this->assertContains("a", $text);
+        $this->assertGreaterThan(0, $number);
+    }
+}
+```
+
+It is not possible to use different attribute for specifying a data provider together, only one type is used. Their priority is Data first, DataProvider second and DataProviderExternal third.
 
 #### Custom names for tests
 

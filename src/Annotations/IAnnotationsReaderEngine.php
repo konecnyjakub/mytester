@@ -17,4 +17,12 @@ interface IAnnotationsReaderEngine
      * @param class-string|object $class
      */
     public function getAnnotation(string $name, string|object $class, ?string $method = null): mixed;
+
+    /**
+     * Get values from annotation that can be used multiple times
+     * Each value in the array is from one annotation
+     *
+     * @param class-string|object $class
+     */
+    public function getAnnotationMulti(string $name, string|object $class, ?string $method = null): array;
 }

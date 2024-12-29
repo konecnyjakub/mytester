@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Generator;
+use MyTester\Attributes\Data;
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Attributes\DataProviderExternal;
 use MyTester\Attributes\TestSuite;
@@ -41,6 +42,11 @@ final class DataProviderTest extends TestCase
 
         /** @var array[] $data */
         $data = $dataProvider->getData($this, "dataProviderExternal");
+        $this->assertType("array", $data);
+        $this->assertCount(2, $data);
+
+        /** @var array[] $data */
+        $data = $dataProvider->getData($this, "dataProviderSimple");
         $this->assertType("array", $data);
         $this->assertCount(2, $data);
 
@@ -110,6 +116,12 @@ final class DataProviderTest extends TestCase
 
     #[DataProviderExternal(ExternalDataProvider::class, "dataProviderNonStatic")]
     private function dataProviderExternalNonStatic(string $input): void
+    {
+    }
+
+    #[Data(["abc", "def", ])]
+    #[Data(["ghi", "jkl", ])]
+    private function dataProviderSimple(string $text1, string $text2): void
     {
     }
 
