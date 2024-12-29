@@ -34,10 +34,13 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
             return null;
         }
         $attribute = $attributes[0]->newInstance();
-        if (!property_exists($attribute, "value")) {
-            return null;
+        if (property_exists($attribute, "value")) {
+            return $attribute->value;
         }
-        return $attribute->value;
+        if (method_exists($attribute, "getValue")) {
+            return $attribute->getValue();
+        }
+        return null;
     }
 
     private function getClassName(string $baseName): string

@@ -1,4 +1,6 @@
-A new version of My Tester is out. It is only for Composer 2.2 or later. It removes previously deprecated stuff. Data providers can now also return iterable objects not just arrays. It is possible to suppress warnings about no performed assertion on a test method/test case with attribute NoAssertions.
+A new version of My Tester is out. It is only for Composer 2.2 or later. It removes previously deprecated stuff. It is possible to suppress warnings about no performed assertion on a test method/test case with attribute NoAssertions.
+
+Data providers can now also return iterable objects not just arrays. Data providers can now also be static methods from other classes, just use attribute DataProviderExternal.
 
 Interface ITesterExtension was changed - it has new method getName and was changed into an event subscriber.
 

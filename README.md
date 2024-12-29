@@ -104,6 +104,39 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
+If you want to use a static method from a different class as data provider, use attribute DataProviderExternal instead. It takes 2 parameters: class name and method name, otherwise it works just like DataProvider.
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\DataProviderExternal;
+
+
+final class ExternalDataProvider
+{
+    public static function dataProviderArray(): array
+    {
+        return [
+            "first" => ["abc", 1, ],
+            ["abcd", 2, ],
+        ];
+    }
+}
+
+
+final class Tests extends \MyTester\TestCase {
+    #[DataProviderExternal(ExternalDataProvider::class, "dataProviderArray")]
+    public function testParams(string $text, int $number): void
+    {
+        $this->assertContains("a", $text);
+        $this->assertGreaterThan(0, $number);
+    }
+}
+```
+
+It is not possible to use different attribute for specifying a data provider together, only one type is used. Their priority is DataProvider first, DataProviderExternal second.
+
 #### Custom names for tests
 
 You can give test methods and whole test suites custom names that will be displayed in the output instead of standard NameOfClass::nameOfMethod. It is done via attribute Test/TestSuite. Example:

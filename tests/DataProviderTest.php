@@ -5,6 +5,7 @@ namespace MyTester;
 
 use Generator;
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
+use MyTester\Attributes\DataProviderExternal;
 use MyTester\Attributes\TestSuite;
 
 /**
@@ -38,20 +39,33 @@ final class DataProviderTest extends TestCase
         $this->assertType(Generator::class, $data);
         $this->assertCount(2, iterator_to_array($data));
 
+        /** @var array[] $data */
+        $data = $dataProvider->getData($this, "dataProviderExternal");
+        $this->assertType("array", $data);
+        $this->assertCount(2, $data);
+
         $this->assertThrowsException(function () use ($dataProvider) {
             $dataProvider->getData($this, "dataProviderNonExisting");
-        }, InvalidDataProviderException::class, "Method MyTester\DataProviderTest::nonExisting does not exist.");
+        }, InvalidDataProviderException::class, "Method " . self::class . "::nonExisting does not exist.");
 
         $this->assertThrowsException(function () use ($dataProvider) {
             $dataProvider->getData($this, "dataProviderPrivate");
-        }, InvalidDataProviderException::class, "Method MyTester\DataProviderTest::noData is not public.");
+        }, InvalidDataProviderException::class, "Method " . self::class . "::noData is not public.");
 
         $this->assertThrowsException(
             function () use ($dataProvider) {
                 $dataProvider->getData($this, "dataProviderNonArray");
             },
             InvalidDataProviderException::class,
-            "Method MyTester\DataProviderTest::dataSourceNonArray has to return an array or an iterable object."
+            "Method " . self::class . "::dataSourceNonArray has to return an array or an iterable object."
+        );
+
+        $this->assertThrowsException(
+            function () use ($dataProvider) {
+                $dataProvider->getData($this, "dataProviderExternalNonStatic");
+            },
+            InvalidDataProviderException::class,
+            "Method " . ExternalDataProvider::class . "::dataProviderNonStatic is not static."
         );
     }
 
@@ -86,6 +100,16 @@ final class DataProviderTest extends TestCase
 
     #[DataProviderAttribute("dataSourceIterable")]
     private function dataProviderIterable(int $number): void
+    {
+    }
+
+    #[DataProviderExternal(ExternalDataProvider::class, "dataProviderArray")]
+    private function dataProviderExternal(string $input): void
+    {
+    }
+
+    #[DataProviderExternal(ExternalDataProvider::class, "dataProviderNonStatic")]
+    private function dataProviderExternalNonStatic(string $input): void
     {
     }
 
