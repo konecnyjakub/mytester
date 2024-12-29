@@ -12,7 +12,7 @@ use Attribute;
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-final class Test
+final readonly class Test
 {
     public function __construct(public string $value)
     {
