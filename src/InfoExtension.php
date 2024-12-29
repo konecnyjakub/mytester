@@ -22,8 +22,8 @@ final class InfoExtension implements ITesterExtension
             Events\ExtensionsLoaded::class => [
                 ["onExtensionsLoaded", ],
             ],
-            Events\TestsStarted::class => [
-                ["onTestsStarted", ],
+            Events\RunnerStarted::class => [
+                ["printInfo", ],
             ],
         ];
     }
@@ -35,7 +35,7 @@ final class InfoExtension implements ITesterExtension
         }, $event->extensions);
     }
 
-    public function onTestsStarted(Events\TestsStarted $event): void
+    public function printInfo(Events\RunnerStarted $event): void
     {
         echo $this->console->color(self::getTesterVersion() . "\n", "silver");
         echo $this->console->color("Loaded extensions: " . implode(", ", $this->extensionNames) . "\n", "silver");
