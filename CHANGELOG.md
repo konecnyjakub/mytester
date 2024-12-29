@@ -8,7 +8,7 @@ Version 8.0.0-dev
 - BC break: added method getSubscribedEvents to interface IResultsFormatter, removed methods report* (it is now an event subscriber)
 - data providers can now also return iterable objects not just arrays
 - added option to suppress warning about no performed assertions in a test method/test case
-- possible BC break: attribute Test, TestSuite and DataProvider are now readonly
+- possible BC break: attributes Test, TestSuite and DataProvider are now readonly
 - added support for external data providers
 - BC break: added method getAnnotationMulti to interface IAnnotationsReaderEngine
 - added support for simple data sets with attribute Data
