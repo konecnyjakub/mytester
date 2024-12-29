@@ -16,38 +16,22 @@ use MyTester\TestCase;
 #[TestSuite("PhpAttributesEngine")]
 final class PhpAttributesEngineTest extends TestCase
 {
-    private function getAnnotationsReader(): Reader
-    {
-        $annotationsReader = new Reader();
-        $annotationsReader->registerEngine(new PhpAttributesEngine());
-        return $annotationsReader;
-    }
-
     public function testHasAnnotation(): void
     {
-        $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
-        $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
-        $this->assertFalse((new Reader())->hasAnnotation("skip", self::class, "method"));
-        $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(
-            SkipChecker::ANNOTATION_NAME,
-            self::class,
-            "method"
-        ));
+        $engine = new PhpAttributesEngine();
+        $this->assertTrue($engine->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
+        $this->assertFalse($engine->hasAnnotation(SkipChecker::ANNOTATION_NAME, self::class));
+        $this->assertTrue($engine->hasAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
+        $this->assertFalse($engine->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class, "method"));
     }
 
     public function testGetAnnotation(): void
     {
-        $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
-        $this->assertSame("NetteReflectionEngine", $this->getAnnotationsReader()->hasAnnotation(
-            TestCase::ANNOTATION_TEST_SUITE,
-            self::class
-        ));
-        $this->assertNull((new Reader())->getAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
-        $this->assertSame("", $this->getAnnotationsReader()->getAnnotation(
-            "skip",
-            self::class,
-            "method"
-        ));
+        $engine = new PhpAttributesEngine();
+        $this->assertNull($engine->getAnnotation(SkipChecker::ANNOTATION_NAME, self::class));
+        $this->assertSame("PhpAttributesEngine", $engine->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
+        $this->assertNull($engine->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class, "method"));
+        $this->assertSame("", $engine->getAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
     }
 
     #[Skip()]
