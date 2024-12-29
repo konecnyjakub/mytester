@@ -24,7 +24,8 @@ final readonly class Report
     public array $files;
 
     /**
-     * @param array<string, array<int, int>> $data Raw code coverage data created by {@see ICodeCoverageEngine::collect()}
+     * @see ICodeCoverageEngine::collect()
+     * @param array<string, array<int, int>> $data Raw code coverage data
      */
     public function __construct(array $data)
     {
