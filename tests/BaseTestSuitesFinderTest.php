@@ -30,6 +30,6 @@ final class BaseTestSuitesFinderTest extends TestCase
         };
         $this->assertFalse($testSuitesFinder->isTestSuite("abcdefg"));
         $this->assertFalse($testSuitesFinder->isTestSuite(TestSuite::class));
-        $this->assertTrue($testSuitesFinder->isTestSuite(static::class));
+        $this->assertTrue($testSuitesFinder->isTestSuite(self::class));
     }
 }

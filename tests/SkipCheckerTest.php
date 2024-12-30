@@ -32,7 +32,7 @@ final class SkipCheckerTest extends TestCase
         $this->assertSame(false, $this->getSkipChecker()->shouldSkip(self::class, "notSkipPhpVersion"));
         $this->assertSame(
             "os family is not Solaris",
-            $this->getSkipChecker()->shouldSkip(static::class, "skipOsFamily")
+            $this->getSkipChecker()->shouldSkip(self::class, "skipOsFamily")
         );
     }
 

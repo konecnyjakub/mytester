@@ -31,7 +31,7 @@ final class ReaderTest extends TestCase
         );
         $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(
             "skip",
-            static::class,
+            self::class,
             "method"
         ));
     }
@@ -41,14 +41,14 @@ final class ReaderTest extends TestCase
         $this->assertNull((new Reader())->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
         $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(
             TestCase::ANNOTATION_TEST_SUITE,
-            static::class
+            self::class
         ));
         $this->assertNull(
             (new Reader())->getAnnotation("skip", self::class, "method")
         );
         $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(
             "skip",
-            static::class,
+            self::class,
             "method"
         ));
     }
