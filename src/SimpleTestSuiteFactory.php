@@ -10,7 +10,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-final class TestSuiteFactory implements ITestSuiteFactory
+final class SimpleTestSuiteFactory implements ITestSuiteFactory
 {
     public function create(string $className): TestCase
     {

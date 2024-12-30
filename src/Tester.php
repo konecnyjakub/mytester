@@ -23,7 +23,7 @@ final readonly class Tester
     public function __construct(
         private TestsFolderProvider $folderProvider,
         public ITestSuitesFinder $testSuitesFinder,
-        public ITestSuiteFactory $testSuiteFactory = new TestSuiteFactory(),
+        public ITestSuiteFactory $testSuiteFactory = new SimpleTestSuiteFactory(),
         private array $extensions = [],
         private IResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
         private ConsoleColors $console = new ConsoleColors()

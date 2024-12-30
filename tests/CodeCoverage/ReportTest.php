@@ -48,7 +48,7 @@ final class ReportTest extends TestCase
         $data = [
             $basePath . "TestCase.php" => [],
             $basePath . "Tester.php" => [],
-            $basePath . "SkipChecker.php" => [],
+            $basePath . "AnnotationsSkipChecker.php" => [],
         ];
         $report = new Report($data);
 
@@ -56,14 +56,14 @@ final class ReportTest extends TestCase
         $file = $report->files[0];
         $this->assertSame("TestCase.php", $file->name);
         $this->assertCount(1, $file->classes);
-        $this->assertSame(\MyTester\TestCase::class, $file->classes[0]->getName());
+        $this->assertSame(TestCase::class, $file->classes[0]->getName());
         $file = $report->files[1];
         $this->assertSame("Tester.php", $file->name);
         $this->assertCount(1, $file->classes);
         $this->assertSame(\MyTester\Tester::class, $file->classes[0]->getName());
         $file = $report->files[2];
-        $this->assertSame("SkipChecker.php", $file->name);
+        $this->assertSame("AnnotationsSkipChecker.php", $file->name);
         $this->assertCount(1, $file->classes);
-        $this->assertSame(\MyTester\SkipChecker::class, $file->classes[0]->getName());
+        $this->assertSame(\MyTester\AnnotationsSkipChecker::class, $file->classes[0]->getName());
     }
 }

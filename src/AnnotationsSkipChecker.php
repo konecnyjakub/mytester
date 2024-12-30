@@ -4,18 +4,13 @@ declare(strict_types=1);
 namespace MyTester;
 
 use MyTester\Annotations\Reader;
-use MyTester\Attributes\RequiresOsFamily;
-use MyTester\Attributes\RequiresPhpExtension;
-use MyTester\Attributes\RequiresPhpVersion;
-use MyTester\Attributes\RequiresSapi;
-use Nette\Utils\Arrays;
 
 /**
  * Default skip checker for {@see Tester}
  *
  * @author Jakub Konečný
  */
-final class SkipChecker implements ISkipChecker
+final class AnnotationsSkipChecker implements ISkipChecker
 {
     public const string ANNOTATION_NAME = "skip";
 

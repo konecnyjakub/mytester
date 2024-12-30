@@ -12,6 +12,7 @@ Version 8.0.0-dev
 - added support for external data providers
 - BC break: added method getAnnotationMulti to interface IAnnotationsReaderEngine
 - added support for simple data sets with attribute Data
+- BC break: renamed classes DataProvider to AnnotationsDataProvider, SkipChecker to AnnotationsSkipChecker and TestSuiteFactory to SimpleTestSuiteFactory
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

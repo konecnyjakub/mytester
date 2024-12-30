@@ -5,7 +5,7 @@ namespace MyTester\Annotations;
 
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\TestSuite;
-use MyTester\SkipChecker;
+use MyTester\AnnotationsSkipChecker;
 use MyTester\TestCase;
 
 /**
@@ -27,9 +27,11 @@ final class ReaderTest extends TestCase
     {
         $this->assertFalse((new Reader())->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
         $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
-        $this->assertFalse((new Reader())->hasAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
+        $this->assertFalse(
+            (new Reader())->hasAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class, "method")
+        );
         $this->assertTrue($this->getAnnotationsReader()->hasAnnotation(
-            SkipChecker::ANNOTATION_NAME,
+            AnnotationsSkipChecker::ANNOTATION_NAME,
             static::class,
             "method"
         ));
@@ -42,9 +44,11 @@ final class ReaderTest extends TestCase
             TestCase::ANNOTATION_TEST_SUITE,
             static::class
         ));
-        $this->assertNull((new Reader())->getAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
+        $this->assertNull(
+            (new Reader())->getAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class, "method")
+        );
         $this->assertSame("abc", $this->getAnnotationsReader()->getAnnotation(
-            SkipChecker::ANNOTATION_NAME,
+            AnnotationsSkipChecker::ANNOTATION_NAME,
             static::class,
             "method"
         ));

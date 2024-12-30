@@ -16,9 +16,9 @@ use MyTester\Attributes\TestSuite;
 #[TestSuite("SkipChecker")]
 final class SkipCheckerTest extends TestCase
 {
-    private function getSkipChecker(): SkipChecker
+    private function getSkipChecker(): AnnotationsSkipChecker
     {
-        return (new SkipChecker($this->annotationsReader));
+        return (new AnnotationsSkipChecker($this->annotationsReader));
     }
 
     public function testShouldSkip(): void

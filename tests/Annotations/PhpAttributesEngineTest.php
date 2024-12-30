@@ -7,9 +7,9 @@ use MyTester\Attributes\Data;
 use MyTester\Attributes\DataProviderExternal;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\TestSuite;
-use MyTester\DataProvider;
+use MyTester\AnnotationsDataProvider;
 use MyTester\ExternalDataProvider;
-use MyTester\SkipChecker;
+use MyTester\AnnotationsSkipChecker;
 use MyTester\TestCase;
 
 /**
@@ -24,34 +24,41 @@ final class PhpAttributesEngineTest extends TestCase
     {
         $engine = new PhpAttributesEngine();
         $this->assertTrue($engine->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
-        $this->assertFalse($engine->hasAnnotation(SkipChecker::ANNOTATION_NAME, self::class));
-        $this->assertTrue($engine->hasAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
+        $this->assertFalse($engine->hasAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class));
+        $this->assertTrue($engine->hasAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class, "method"));
         $this->assertFalse($engine->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class, "method"));
     }
 
     public function testGetAnnotation(): void
     {
         $engine = new PhpAttributesEngine();
-        $this->assertNull($engine->getAnnotation(SkipChecker::ANNOTATION_NAME, self::class));
+        $this->assertNull($engine->getAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class));
         $this->assertSame("PhpAttributesEngine", $engine->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
         $this->assertNull($engine->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class, "method"));
-        $this->assertSame("", $engine->getAnnotation(SkipChecker::ANNOTATION_NAME, self::class, "method"));
+        $this->assertSame("", $engine->getAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class, "method"));
         $this->assertSame(
             ExternalDataProvider::class . "::dataProviderArray",
-            $engine->getAnnotation(DataProvider::ANNOTATION_EXTERNAL_NAME, self::class, "dataProviderExternal")
+            $engine->getAnnotation(
+                AnnotationsDataProvider::ANNOTATION_EXTERNAL_NAME,
+                self::class,
+                "dataProviderExternal"
+            )
         );
     }
 
     public function testGetAnnotationMulti(): void
     {
         $engine = new PhpAttributesEngine();
-        $this->assertSame([], $engine->getAnnotationMulti(DataProvider::ANNOTATION_SIMPLE_NAME, self::class));
+        $this->assertSame(
+            [],
+            $engine->getAnnotationMulti(AnnotationsDataProvider::ANNOTATION_SIMPLE_NAME, self::class)
+        );
         $this->assertSame(
             [
                 ["abc", "def", ],
                 ["ghi", "jkl", ],
             ],
-            $engine->getAnnotationMulti(DataProvider::ANNOTATION_SIMPLE_NAME, self::class, "data")
+            $engine->getAnnotationMulti(AnnotationsDataProvider::ANNOTATION_SIMPLE_NAME, self::class, "data")
         );
     }
 

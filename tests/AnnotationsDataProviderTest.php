@@ -10,16 +10,16 @@ use MyTester\Attributes\DataProviderExternal;
 use MyTester\Attributes\TestSuite;
 
 /**
- * Test suite for class DataProvider
+ * Test suite for class AnnotationsDataProvider
  *
  * @author Jakub Konečný
  */
-#[TestSuite("DataProvider")]
-final class DataProviderTest extends TestCase
+#[TestSuite("AnnotationsDataProvider")]
+final class AnnotationsDataProviderTest extends TestCase
 {
     public function testGetData(): void
     {
-        $dataProvider = new DataProvider($this->annotationsReader);
+        $dataProvider = new AnnotationsDataProvider($this->annotationsReader);
 
         /** @var array[] $data */
         $data = $dataProvider->getData($this, "noData");

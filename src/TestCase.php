@@ -41,8 +41,8 @@ abstract class TestCase
     {
         $this->annotationsReader = new Reader();
         $this->annotationsReader->registerEngine(new PhpAttributesEngine());
-        $this->skipChecker = new SkipChecker($this->annotationsReader);
-        $this->dataProvider = new DataProvider($this->annotationsReader);
+        $this->skipChecker = new AnnotationsSkipChecker($this->annotationsReader);
+        $this->dataProvider = new AnnotationsDataProvider($this->annotationsReader);
     }
 
     /**
