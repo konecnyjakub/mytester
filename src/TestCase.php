@@ -5,6 +5,7 @@ namespace MyTester;
 
 use MyTester\Annotations\PhpAttributesEngine;
 use MyTester\Annotations\Reader;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -37,12 +38,22 @@ abstract class TestCase
     /** @var Job[] */
     private array $jobs = [];
 
+    private EventDispatcherInterface $eventDispatcher;
+
     public function __construct()
     {
         $this->annotationsReader = new Reader();
         $this->annotationsReader->registerEngine(new PhpAttributesEngine());
         $this->skipChecker = new AnnotationsSkipChecker($this->annotationsReader);
         $this->dataProvider = new AnnotationsDataProvider($this->annotationsReader);
+    }
+
+    /**
+     * @internal
+     */
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
+    {
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -250,10 +261,26 @@ abstract class TestCase
         $this->resetCounter();
         if ($job->skip === false) {
             $this->setUp();
+            $this->eventDispatcher->dispatch(new Events\TestStarted($job));
         }
         $job->execute();
         if ($job->skip === false) {
+            $this->eventDispatcher->dispatch(new Events\TestFinished($job));
             $this->tearDown();
+        }
+        switch ($job->result) {
+            case JobResult::PASSED:
+                $this->eventDispatcher->dispatch(new Events\TestPassed($job));
+                break;
+            case JobResult::WARNING:
+                $this->eventDispatcher->dispatch(new Events\TestPassedWithWarning($job));
+                break;
+            case JobResult::FAILED:
+                $this->eventDispatcher->dispatch(new Events\TestFailed($job));
+                break;
+            case JobResult::SKIPPED:
+                $this->eventDispatcher->dispatch(new Events\TestSkipped($job));
+                break;
         }
         $this->resetCounter();
         return $job->result->output();

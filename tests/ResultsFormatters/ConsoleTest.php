@@ -5,6 +5,7 @@ namespace MyTester\ResultsFormatters;
 
 use MyTester\Attributes\TestSuite;
 use MyTester\ConsoleColors;
+use MyTester\DummyEventDispatcher;
 use MyTester\Events\TestCaseFinished;
 use MyTester\Events\TestsFinished;
 use MyTester\Events\TestsStarted;
@@ -25,12 +26,15 @@ final class ConsoleTest extends TestCase
         $outputFormatter->setConsole($console);
         $outputFormatter->reportTestsStarted(new TestsStarted([]));
         $testCase1 = new TestCaseOne();
+        $testCase1->setEventDispatcher(new DummyEventDispatcher());
         $testCase1->run();
         $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase1));
         $testCase2 = new TestCaseTwo();
+        $testCase2->setEventDispatcher(new DummyEventDispatcher());
         $testCase2->run();
         $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase2));
         $testCase3 = new TestCaseThree();
+        $testCase3->setEventDispatcher(new DummyEventDispatcher());
         $testCase3->run();
         $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase3));
         $outputFormatter->reportTestsFinished(new TestsFinished([]));

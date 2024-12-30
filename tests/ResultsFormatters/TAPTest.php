@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\Attributes\TestSuite;
+use MyTester\DummyEventDispatcher;
 use MyTester\Events\TestCaseFinished;
 use MyTester\Events\TestsFinished;
 use MyTester\Events\TestsStarted;
@@ -20,8 +21,11 @@ final class TAPTest extends TestCase
     public function testRender(): void
     {
         $testCase1 = new TestCaseOne();
+        $testCase1->setEventDispatcher(new DummyEventDispatcher());
         $testCase2 = new TestCaseTwo();
+        $testCase2->setEventDispatcher(new DummyEventDispatcher());
         $testCase3 = new TestCaseThree();
+        $testCase3->setEventDispatcher(new DummyEventDispatcher());
         $outputFormatter = new Tap();
         $outputFormatter->reportTestsStarted(new TestsStarted([$testCase1, $testCase2, $testCase3, ]));
         $testCase1->run();

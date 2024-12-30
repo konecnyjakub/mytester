@@ -67,7 +67,9 @@ final readonly class Tester
         $testCases = [];
         $suites = $this->testSuitesFinder->getSuites($this->folderProvider->folder);
         foreach ($suites as $suite) {
-            $testCases[] = $this->testSuiteFactory->create($suite);
+            $testCase = $this->testSuiteFactory->create($suite);
+            $testCase->setEventDispatcher($this->eventDispatcher);
+            $testCases[] = $testCase;
         }
 
         $this->eventDispatcher->dispatch(new Events\TestsStarted($testCases));
