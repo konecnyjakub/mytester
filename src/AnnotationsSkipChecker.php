@@ -12,8 +12,6 @@ use MyTester\Annotations\Reader;
  */
 final class AnnotationsSkipChecker implements ISkipChecker
 {
-    public const string ANNOTATION_NAME = "skip";
-
     private array $skipAnnotations = [
         "skip" => Attributes\Skip::class,
         "requiresPhpVersion" => Attributes\RequiresPhpVersion::class,

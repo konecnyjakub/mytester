@@ -9,7 +9,6 @@ use MyTester\Attributes\Skip;
 use MyTester\Attributes\TestSuite;
 use MyTester\AnnotationsDataProvider;
 use MyTester\ExternalDataProvider;
-use MyTester\AnnotationsSkipChecker;
 use MyTester\TestCase;
 
 /**
@@ -24,18 +23,18 @@ final class PhpAttributesEngineTest extends TestCase
     {
         $engine = new PhpAttributesEngine();
         $this->assertTrue($engine->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
-        $this->assertFalse($engine->hasAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class));
-        $this->assertTrue($engine->hasAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class, "method"));
+        $this->assertFalse($engine->hasAnnotation("skip", self::class));
+        $this->assertTrue($engine->hasAnnotation("skip", self::class, "method"));
         $this->assertFalse($engine->hasAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class, "method"));
     }
 
     public function testGetAnnotation(): void
     {
         $engine = new PhpAttributesEngine();
-        $this->assertNull($engine->getAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class));
+        $this->assertNull($engine->getAnnotation("skip", self::class));
         $this->assertSame("PhpAttributesEngine", $engine->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class));
         $this->assertNull($engine->getAnnotation(TestCase::ANNOTATION_TEST_SUITE, self::class, "method"));
-        $this->assertSame("", $engine->getAnnotation(AnnotationsSkipChecker::ANNOTATION_NAME, self::class, "method"));
+        $this->assertSame("", $engine->getAnnotation("skip", self::class, "method"));
         $this->assertSame(
             ExternalDataProvider::class . "::dataProviderArray",
             $engine->getAnnotation(
