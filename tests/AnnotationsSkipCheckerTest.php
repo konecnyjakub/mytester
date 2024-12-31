@@ -9,12 +9,12 @@ use MyTester\Attributes\Skip;
 use MyTester\Attributes\TestSuite;
 
 /**
- * Test suite for class SkipChecker
+ * Test suite for class AnnotationsSkipChecker
  *
  * @author Jakub Konečný
  */
-#[TestSuite("SkipChecker")]
-final class SkipCheckerTest extends TestCase
+#[TestSuite("AnnotationsSkipChecker")]
+final class AnnotationsSkipCheckerTest extends TestCase
 {
     private function getSkipChecker(): AnnotationsSkipChecker
     {
