@@ -5,8 +5,8 @@ namespace MyTester\ResultsFormatters;
 
 use Ayesh\PHP_Timer\Timer;
 use Konecnyjakub\EventDispatcher\AutoListenerProvider;
-use MyTester\Events\TestCaseFinished;
-use MyTester\Events\TestCaseStarted;
+use MyTester\Events\TestSuiteFinished;
+use MyTester\Events\TestSuiteStarted;
 use MyTester\Events\TestsFinished;
 use MyTester\Events\TestsStarted;
 use MyTester\IResultsFormatter;
@@ -23,8 +23,8 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
 {
     private const string TIMER_NAME = "My Tester";
 
-    /** @var TestCase[] All test cases that have finished (no matter their result) */
-    protected array $testCases = [];
+    /** @var TestCase[] All test suites that have finished (no matter their result) */
+    protected array $testSuites = [];
 
     protected string $baseFileName = "php://output";
 
@@ -40,10 +40,10 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
             TestsFinished::class => [
                 ["reportTestsFinished", AutoListenerProvider::PRIORITY_HIGH, ],
             ],
-            TestCaseStarted::class => [
+            TestSuiteStarted::class => [
                 ["reportTestCaseStarted", AutoListenerProvider::PRIORITY_HIGH, ],
             ],
-            TestCaseFinished::class => [
+            TestSuiteFinished::class => [
                 ["reportTestCaseFinished", AutoListenerProvider::PRIORITY_HIGH, ],
             ],
         ];
@@ -62,13 +62,13 @@ abstract class AbstractResultsFormatter implements IResultsFormatter
         $this->totalTime = $totalTime;
     }
 
-    public function reportTestCaseStarted(TestCaseStarted $event): void
+    public function reportTestCaseStarted(TestSuiteStarted $event): void
     {
     }
 
-    public function reportTestCaseFinished(TestCaseFinished $event): void
+    public function reportTestCaseFinished(TestSuiteFinished $event): void
     {
-        $this->testCases[] = $event->testCase;
+        $this->testSuites[] = $event->testSuite;
     }
 
     public function outputResults(string $outputFolder): void

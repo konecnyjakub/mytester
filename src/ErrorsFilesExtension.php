@@ -24,8 +24,8 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
             Events\TestsStarted::class => [
                 ["onTestsStarted", ],
             ],
-            Events\TestCaseFinished::class => [
-                ["onTestCaseFinished", ],
+            Events\TestSuiteFinished::class => [
+                ["onTestSuiteFinished", ],
             ],
         ];
     }
@@ -41,9 +41,9 @@ final readonly class ErrorsFilesExtension implements ITesterExtension
         }
     }
 
-    public function onTestCaseFinished(Events\TestCaseFinished $event): void
+    public function onTestSuiteFinished(Events\TestSuiteFinished $event): void
     {
-        $jobs = $event->testCase->jobs;
+        $jobs = $event->testSuite->jobs;
         foreach ($jobs as $job) {
             if ($job->result === JobResult::FAILED && strlen($job->output) > 0) {
                 file_put_contents("{$this->folderProvider->folder}/$job->name.errors", $job->output . "\n");

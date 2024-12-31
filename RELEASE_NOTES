@@ -14,4 +14,6 @@ It adds new assertions assertFileExists, assertFileNotExists, assertDirectoryExi
 
 Attribute RequiresPhpExtension can be used multiple times on one method.
 
+Term test suite is now used at a lot of places instead of test case, this causes quite a few BC breaks.
+
 For complete list of changes since previous version, see CHANGELOG.md.

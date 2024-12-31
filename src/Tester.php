@@ -63,26 +63,26 @@ final readonly class Tester
         $this->eventDispatcher->dispatch(new Events\RunnerStarted());
         $failed = false;
 
-        /** @var TestCase[] $testCases */
-        $testCases = [];
+        /** @var TestCase[] $testSuites */
+        $testSuites = [];
         $suites = $this->testSuitesFinder->getSuites($this->folderProvider->folder);
         foreach ($suites as $suite) {
-            $testCase = $this->testSuiteFactory->create($suite);
-            $testCase->setEventDispatcher($this->eventDispatcher);
-            $testCases[] = $testCase;
+            $testSuite = $this->testSuiteFactory->create($suite);
+            $testSuite->setEventDispatcher($this->eventDispatcher);
+            $testSuites[] = $testSuite;
         }
 
-        $this->eventDispatcher->dispatch(new Events\TestsStarted($testCases));
+        $this->eventDispatcher->dispatch(new Events\TestsStarted($testSuites));
 
-        foreach ($testCases as $testCase) {
-            $this->eventDispatcher->dispatch(new Events\TestCaseStarted($testCase));
-            if (!$testCase->run()) {
+        foreach ($testSuites as $testSuite) {
+            $this->eventDispatcher->dispatch(new Events\TestSuiteStarted($testSuite));
+            if (!$testSuite->run()) {
                 $failed = true;
             }
-            $this->eventDispatcher->dispatch(new Events\TestCaseFinished($testCase));
+            $this->eventDispatcher->dispatch(new Events\TestSuiteFinished($testSuite));
         }
 
-        $this->eventDispatcher->dispatch(new Events\TestsFinished($testCases));
+        $this->eventDispatcher->dispatch(new Events\TestsFinished($testSuites));
 
         $this->eventDispatcher->dispatch(new Events\RunnerFinished());
         exit((int) $failed);

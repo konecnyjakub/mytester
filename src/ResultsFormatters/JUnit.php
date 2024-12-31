@@ -45,35 +45,35 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
         $testSuites->setAttribute("name", "Project test suite by My Tester");
         $testSuites->setAttribute("time", (string) round($this->totalTime / 1000, 6));
 
-        foreach ($this->testCases as $testCase) {
-            $testSuiteTests = count($testCase->jobs);
+        foreach ($this->testSuites as $testSuite) {
+            $testSuiteTests = count($testSuite->jobs);
             $totalTests += $testSuiteTests;
-            $testSuiteFailures = count(array_filter($testCase->jobs, function (Job $job) {
+            $testSuiteFailures = count(array_filter($testSuite->jobs, function (Job $job) {
                 return $job->result === JobResult::FAILED;
             }));
             $totalFailures += $testSuiteFailures;
-            $testSuiteSkipped = count(array_filter($testCase->jobs, function (Job $job) {
+            $testSuiteSkipped = count(array_filter($testSuite->jobs, function (Job $job) {
                 return $job->result === JobResult::SKIPPED;
             }));
             $totalSkipped += $testSuiteSkipped;
-            $testSuiteWarnings = count(array_filter($testCase->jobs, function (Job $job) {
+            $testSuiteWarnings = count(array_filter($testSuite->jobs, function (Job $job) {
                 return $job->result === JobResult::WARNING;
             }));
             $totalWarnings += $testSuiteWarnings;
-            $rc = new ReflectionClass($testCase::class);
+            $rc = new ReflectionClass($testSuite::class);
             $testSuiteTime = 0;
             $testSuiteAssertions = 0;
 
-            $testSuite = $document->createElement("testsuite");
-            $testSuite->setAttribute("id", $rc->getName());
-            $testSuite->setAttribute("name", $testCase->getSuiteName());
-            $testSuite->setAttribute("file", (string) $rc->getFileName());
-            $testSuite->setAttribute("tests", (string) $testSuiteTests);
-            $testSuite->setAttribute("failures", (string) $testSuiteFailures);
-            $testSuite->setAttribute("skipped", (string) $testSuiteSkipped);
-            $testSuite->setAttribute("warnings", (string) $testSuiteWarnings);
+            $testSuiteElement = $document->createElement("testsuite");
+            $testSuiteElement->setAttribute("id", $rc->getName());
+            $testSuiteElement->setAttribute("name", $testSuite->getSuiteName());
+            $testSuiteElement->setAttribute("file", (string) $rc->getFileName());
+            $testSuiteElement->setAttribute("tests", (string) $testSuiteTests);
+            $testSuiteElement->setAttribute("failures", (string) $testSuiteFailures);
+            $testSuiteElement->setAttribute("skipped", (string) $testSuiteSkipped);
+            $testSuiteElement->setAttribute("warnings", (string) $testSuiteWarnings);
 
-            foreach ($testCase->jobs as $job) {
+            foreach ($testSuite->jobs as $job) {
                 $testSuiteTime += $job->totalTime;
                 $testSuiteAssertions += $job->totalAssertions;
                 $totalAssertions += $job->totalAssertions;
@@ -81,8 +81,8 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
 
                 $testCaseElement = $document->createElement("testcase");
                 $testCaseElement->setAttribute("name", $job->name);
-                $testCaseElement->setAttribute("class", $testCase::class);
-                $testCaseElement->setAttribute("classname", (string) str_replace("\\", ".", $testCase::class));
+                $testCaseElement->setAttribute("class", $testSuite::class);
+                $testCaseElement->setAttribute("classname", (string) str_replace("\\", ".", $testSuite::class));
                 $testCaseElement->setAttribute("file", (string) $rc->getFileName());
                 $testCaseElement->setAttribute("line", (string) $reflectionCallback->getStartLine());
                 $testCaseElement->setAttribute("time", (string) round($job->totalTime / 1000, 6));
@@ -107,12 +107,12 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
                         break;
                 }
 
-                $testSuite->appendChild($testCaseElement);
+                $testSuiteElement->appendChild($testCaseElement);
             }
 
-            $testSuite->setAttribute("time", (string) round($testSuiteTime / 1000, 6));
-            $testSuite->setAttribute("assertions", (string) $testSuiteAssertions);
-            $testSuites->appendChild($testSuite);
+            $testSuiteElement->setAttribute("time", (string) round($testSuiteTime / 1000, 6));
+            $testSuiteElement->setAttribute("assertions", (string) $testSuiteAssertions);
+            $testSuites->appendChild($testSuiteElement);
         }
 
         $testSuites->setAttribute("tests", (string) $totalTests);

@@ -5,6 +5,6 @@ namespace MyTester;
 
 use RuntimeException;
 
-class InvalidTestCaseException extends RuntimeException
+class InvalidTestSuiteException extends RuntimeException
 {
 }

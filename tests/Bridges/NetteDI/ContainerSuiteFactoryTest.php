@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Bridges\NetteDI;
 
 use MyTester\Attributes\TestSuite;
-use MyTester\InvalidTestCaseException;
+use MyTester\InvalidTestSuiteException;
 use MyTester\TestCase;
 
 /**
@@ -25,10 +25,10 @@ final class ContainerSuiteFactoryTest extends TestCase
         $this->assertType(self::class, $factory->create(self::class));
         $this->assertThrowsException(function () use ($factory) {
             $factory->create(\stdClass::class);
-        }, InvalidTestCaseException::class, "stdClass is not a descendant of MyTester\\TestCase.");
+        }, InvalidTestSuiteException::class, "stdClass is not a descendant of MyTester\\TestCase.");
         $this->assertThrowsException(function () use ($factory) {
             // @phpstan-ignore argument.type
             $factory->create("abcd");
-        }, InvalidTestCaseException::class, "abcd is not a descendant of MyTester\\TestCase.");
+        }, InvalidTestSuiteException::class, "abcd is not a descendant of MyTester\\TestCase.");
     }
 }

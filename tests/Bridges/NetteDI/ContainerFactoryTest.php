@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Bridges\NetteDI;
 
 use MyTester\Attributes\TestSuite;
-use MyTester\InvalidTestCaseException;
+use MyTester\InvalidTestSuiteException;
 use MyTester\TestCase;
 use MyTester\Tester;
 

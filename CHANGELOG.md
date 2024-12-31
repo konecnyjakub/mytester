@@ -16,6 +16,7 @@ Version 8.0.0-dev
 - BC break: removed constant AnnotationsSkipChecker::ANNOTATION_NAME
 - added assertions assertFileExists, assertFileNotExists, assertDirectoryExists and assertDirectoryNotExists
 - allowed using attribute RequiresPhpExtension multiple times on one test method
+- BC break: used term test suite instead of test case whenever possible (events TestCaseStarted and TestCaseFinished renamed to TestSuiteStarted and TestSuiteFinished respectively, exception InvalidTestCaseException to InvalidTestSuiteException, some class properties too)
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

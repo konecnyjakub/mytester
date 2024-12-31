@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\ConsoleColors;
-use MyTester\Events\TestCaseFinished;
+use MyTester\Events\TestSuiteFinished;
 use MyTester\IConsoleAwareResultsFormatter;
 use MyTester\JobResult;
 use MyTester\SkippedTest;
@@ -36,9 +36,9 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
         $this->console = $console;
     }
 
-    public function reportTestCaseFinished(TestCaseFinished $event): void
+    public function reportTestCaseFinished(TestSuiteFinished $event): void
     {
-        foreach ($event->testCase->jobs as $job) {
+        foreach ($event->testSuite->jobs as $job) {
             switch ($job->result) {
                 case JobResult::SKIPPED:
                     $this->skipped[] = new SkippedTest($job->name, (is_string($job->skip) ? $job->skip : ""));

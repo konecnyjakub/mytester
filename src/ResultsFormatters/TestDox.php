@@ -26,12 +26,12 @@ final class TestDox extends AbstractResultsFormatter implements IConsoleAwareRes
     {
         ob_start();
 
-        foreach ($this->testCases as $index => $testCase) {
+        foreach ($this->testSuites as $index => $testSuite) {
             if ($index > 0) {
                 echo "\n";
             }
-            echo $testCase->getSuiteName() . "\n";
-            foreach ($testCase->jobs as $job) {
+            echo $testSuite->getSuiteName() . "\n";
+            foreach ($testSuite->jobs as $job) {
                 printf(
                     " %s %s\n",
                     $this->getOutput($job->result),

@@ -13,9 +13,9 @@ use MyTester\TestCase;
 final readonly class TestsStarted
 {
     /**
-     * @param TestCase[] $testCases
+     * @param TestCase[] $testSuites
      */
-    public function __construct(public array $testCases = [])
+    public function __construct(public array $testSuites = [])
     {
     }
 }

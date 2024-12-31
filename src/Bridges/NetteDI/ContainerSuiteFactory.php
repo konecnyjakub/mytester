@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
-use MyTester\InvalidTestCaseException;
+use MyTester\InvalidTestSuiteException;
 use MyTester\TestCase;
 
 /**
@@ -32,6 +32,6 @@ final readonly class ContainerSuiteFactory implements \MyTester\ITestSuiteFactor
                 return $suite;
             }
         }
-        throw new InvalidTestCaseException("$className is not a descendant of " . TestCase::class . ".");
+        throw new InvalidTestSuiteException("$className is not a descendant of " . TestCase::class . ".");
     }
 }

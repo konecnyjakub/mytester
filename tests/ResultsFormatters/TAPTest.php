@@ -5,7 +5,7 @@ namespace MyTester\ResultsFormatters;
 
 use MyTester\Attributes\TestSuite;
 use MyTester\DummyEventDispatcher;
-use MyTester\Events\TestCaseFinished;
+use MyTester\Events\TestSuiteFinished;
 use MyTester\Events\TestsFinished;
 use MyTester\Events\TestsStarted;
 use MyTester\TestCase;
@@ -29,11 +29,11 @@ final class TAPTest extends TestCase
         $outputFormatter = new Tap();
         $outputFormatter->reportTestsStarted(new TestsStarted([$testCase1, $testCase2, $testCase3, ]));
         $testCase1->run();
-        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase1));
+        $outputFormatter->reportTestCaseFinished(new TestSuiteFinished($testCase1));
         $testCase2->run();
-        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase2));
+        $outputFormatter->reportTestCaseFinished(new TestSuiteFinished($testCase2));
         $testCase3->run();
-        $outputFormatter->reportTestCaseFinished(new TestCaseFinished($testCase3));
+        $outputFormatter->reportTestCaseFinished(new TestSuiteFinished($testCase3));
         $outputFormatter->reportTestsFinished(new TestsFinished([]));
         $result = $outputFormatter->render();
         $this->assertMatchesFile(__DIR__ . "/tap_output.txt", $result);

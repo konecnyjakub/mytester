@@ -23,8 +23,8 @@ final class Tap extends AbstractResultsFormatter implements IResultsFormatter
     public function reportTestsStarted(TestsStarted $event): void
     {
         parent::reportTestsStarted($event);
-        foreach ($event->testCases as $testCase) {
-            $this->totalTests += count($testCase->jobs);
+        foreach ($event->testSuites as $testSuite) {
+            $this->totalTests += count($testSuite->jobs);
         }
     }
 
@@ -37,8 +37,8 @@ final class Tap extends AbstractResultsFormatter implements IResultsFormatter
 
         $currentTest = 0;
 
-        foreach ($this->testCases as $testCase) {
-            foreach ($testCase->jobs as $job) {
+        foreach ($this->testSuites as $testSuite) {
+            foreach ($testSuite->jobs as $job) {
                 $currentTest++;
                 $result = match ($job->result) {
                     JobResult::FAILED => "not ok",
