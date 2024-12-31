@@ -12,7 +12,7 @@ use MyTester\ISkipAttribute;
  *
  * @author Jakub Konečný
  */
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 final readonly class RequiresPhpExtension implements ISkipAttribute
 {
     public function __construct(public string $value)

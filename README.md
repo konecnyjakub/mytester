@@ -223,6 +223,8 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
+Attribute RequiresPhpExtension can be used multiple times on one method, in that case if any of those extensions is not loaded, the test is skipped.
+
 If the condition is too complicated (or you don't want to use an attribute for any reason), use can call method markTestSkipped from the test method. It optionally accepts a message explaining why it is skipped.
 
 ```php

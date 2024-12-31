@@ -161,6 +161,7 @@ final class TestCaseTest extends TestCase
      * Test skipping based on loaded extension
      */
     #[Test("Extension")]
+    #[RequiresPhpExtension("xml")]
     #[RequiresPhpExtension("abc")]
     public function testSkipExtension(): void
     {

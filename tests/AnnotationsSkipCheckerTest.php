@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use MyTester\Attributes\RequiresOsFamily;
+use MyTester\Attributes\RequiresPhpExtension;
 use MyTester\Attributes\RequiresPhpVersion;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\TestSuite;
@@ -31,6 +32,11 @@ final class AnnotationsSkipCheckerTest extends TestCase
         );
         $this->assertSame(false, $this->getSkipChecker()->shouldSkip(self::class, "notSkipPhpVersion"));
         $this->assertSame(
+            "extension abc is not loaded",
+            $this->getSkipChecker()->shouldSkip(self::class, "sSkipPhpExtension")
+        );
+        $this->assertSame(false, $this->getSkipChecker()->shouldSkip(self::class, "notSkipPhpExtension"));
+        $this->assertSame(
             "os family is not Solaris",
             $this->getSkipChecker()->shouldSkip(self::class, "skipOsFamily")
         );
@@ -52,6 +58,17 @@ final class AnnotationsSkipCheckerTest extends TestCase
 
     #[RequiresPhpVersion("8.3")]
     private function notSkipPhpVersion(): void
+    {
+    }
+
+    #[RequiresPhpExtension("xml")]
+    #[RequiresPhpExtension("abc")]
+    private function sSkipPhpExtension(): void
+    {
+    }
+
+    #[RequiresPhpExtension("xml")]
+    private function notSkipPhpExtension(): void
     {
     }
 

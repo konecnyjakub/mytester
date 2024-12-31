@@ -12,4 +12,6 @@ Automated tests runner can now print list of active extensions along My Tester a
 
 It adds new assertions assertFileExists, assertFileNotExists, assertDirectoryExists and assertDirectoryNotExists.
 
+Attribute RequiresPhpExtension can be used multiple times on one method.
+
 For complete list of changes since previous version, see CHANGELOG.md.

@@ -15,6 +15,7 @@ Version 8.0.0-dev
 - BC break: renamed classes DataProvider to AnnotationsDataProvider, SkipChecker to AnnotationsSkipChecker and TestSuiteFactory to SimpleTestSuiteFactory
 - BC break: removed constant AnnotationsSkipChecker::ANNOTATION_NAME
 - added assertions assertFileExists, assertFileNotExists, assertDirectoryExists and assertDirectoryNotExists
+- allowed using attribute RequiresPhpExtension multiple times on one test method
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2
