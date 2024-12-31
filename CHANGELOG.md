@@ -14,6 +14,7 @@ Version 8.0.0-dev
 - added support for simple data sets with attribute Data
 - BC break: renamed classes DataProvider to AnnotationsDataProvider, SkipChecker to AnnotationsSkipChecker and TestSuiteFactory to SimpleTestSuiteFactory
 - BC break: removed constant AnnotationsSkipChecker::ANNOTATION_NAME
+- added assertions assertFileExists, assertFileNotExists, assertDirectoryExists and assertDirectoryNotExists
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

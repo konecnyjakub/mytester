@@ -421,4 +421,32 @@ trait TAssertions
         $message = ($success) ? "" : sprintf("Actual count is %d not %d.", count($actual), count($expected));
         $this->testResult($message, $success);
     }
+
+    protected function assertFileExists(string $fileName): void
+    {
+        $success = (is_file($fileName));
+        $message = ($success) ? "" : "File $fileName does not exist.";
+        $this->testResult($message, $success);
+    }
+
+    protected function assertFileNotExists(string $fileName): void
+    {
+        $success = (!is_file($fileName));
+        $message = ($success) ? "" : "File $fileName exists.";
+        $this->testResult($message, $success);
+    }
+
+    protected function assertDirectoryExists(string $directoryName): void
+    {
+        $success = (is_dir($directoryName));
+        $message = ($success) ? "" : "Directory $directoryName does not exist.";
+        $this->testResult($message, $success);
+    }
+
+    protected function assertDirectoryNotExists(string $directoryName): void
+    {
+        $success = (!is_dir($directoryName));
+        $message = ($success) ? "" : "Directory $directoryName exists.";
+        $this->testResult($message, $success);
+    }
 }

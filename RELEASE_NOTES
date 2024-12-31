@@ -10,4 +10,6 @@ There are new events ExtensionsLoaded, RunnerStarted, RunnerFinished, TestStarte
 
 Automated tests runner can now print list of active extensions along My Tester and PHP version (all of that is handled by InfoExtension).
 
+It adds new assertions assertFileExists, assertFileNotExists, assertDirectoryExists and assertDirectoryNotExists.
+
 For complete list of changes since previous version, see CHANGELOG.md.

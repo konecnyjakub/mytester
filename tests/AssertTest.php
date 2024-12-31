@@ -106,6 +106,10 @@ final class AssertTest extends TestCase
         $this->assertSameSize([0, ], $arrayObject);
         $this->assertSameSize(new ArrayObject(), []);
         $this->assertSameSize([], new ArrayObject());
+        $this->assertFileExists(__FILE__);
+        $this->assertFileNotExists("/file/path");
+        $this->assertDirectoryExists(__DIR__);
+        $this->assertDirectoryNotExists("/file/path");
     }
 
     /**
@@ -281,6 +285,18 @@ final class AssertTest extends TestCase
         $this->assertThrowsException(function () {
             $this->assertSameSize(new ArrayObject(), [0, ]);
         }, AssertionFailedException::class, "Test 89 failed. Actual count is 1 not 0.");
+        $this->assertThrowsException(function () {
+            $this->assertFileExists("/path/to/non/existing/file");
+        }, AssertionFailedException::class, "Test 91 failed. File /path/to/non/existing/file does not exist.");
+        $this->assertThrowsException(function () {
+            $this->assertFileNotExists(__FILE__);
+        }, AssertionFailedException::class, "Test 93 failed. File " . __FILE__ . " exists.");
+        $this->assertThrowsException(function () {
+            $this->assertDirectoryExists("/path/to/non/existing/dir");
+        }, AssertionFailedException::class, "Test 95 failed. Directory /path/to/non/existing/dir does not exist.");
+        $this->assertThrowsException(function () {
+            $this->assertDirectoryNotExists(__DIR__);
+        }, AssertionFailedException::class, "Test 97 failed. Directory " . __DIR__ . " exists.");
     }
 
     /**
