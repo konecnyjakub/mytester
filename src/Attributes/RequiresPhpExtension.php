@@ -8,7 +8,7 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires PHP extension attribute
- * Defines a PHP extension required required for a test
+ * Defines a PHP extension required  for a test
  *
  * @author Jakub Konečný
  */

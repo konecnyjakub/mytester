@@ -8,7 +8,7 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires os family attribute
- * Defines os family required required for a test
+ * Defines os family required for a test
  *
  * @author Jakub Konečný
  * @see PHP_OS_FAMILY

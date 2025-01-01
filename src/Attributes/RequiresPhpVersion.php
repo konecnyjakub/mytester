@@ -8,7 +8,7 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires PHP version attribute
- * Defines minimal PHP version required required for a test
+ * Defines minimal PHP version required for a test
  *
  * @author Jakub Konečný
  */

@@ -8,7 +8,7 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires sapi attribute
- * Defines PHP sapi required required for a test
+ * Defines PHP sapi required for a test
  *
  * @author Jakub Konečný
  * @see PHP_SAPI
