@@ -17,6 +17,6 @@ final class ComposerTestSuitesFinderTest extends TestCase
     {
         $testSuitesFinder = new ComposerTestSuitesFinder();
         $suites = $testSuitesFinder->getSuites(__DIR__);
-        $this->assertCount(33, $suites);
+        $this->assertCount(37, $suites);
     }
 }
