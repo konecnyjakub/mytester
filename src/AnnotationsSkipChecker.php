@@ -18,6 +18,7 @@ final class AnnotationsSkipChecker implements ISkipChecker
         "requiresPhpExtension" => Attributes\RequiresPhpExtension::class,
         "requiresSapi" => Attributes\RequiresSapi::class,
         "requiresOsFamily" => Attributes\RequiresOsFamily::class,
+        "requiresPackage" => Attributes\RequiresPackage::class,
     ];
 
     public function __construct(private readonly Reader $annotationsReader)

@@ -18,6 +18,6 @@ final class TestSuitesFinderTest extends TestCase
     {
         $testSuitesFinder = new TestSuitesFinder();
         $suites = $testSuitesFinder->getSuites(__DIR__ . "/../../");
-        $this->assertCount(37, $suites);
+        $this->assertCount(38, $suites);
     }
 }

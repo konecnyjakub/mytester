@@ -12,7 +12,7 @@ Automated tests runner can now print list of active extensions along My Tester a
 
 It adds new assertions assertFileExists, assertFileNotExists, assertDirectoryExists and assertDirectoryNotExists.
 
-Attribute RequiresPhpExtension can be used multiple times on one method.
+Attribute RequiresPhpExtension can be used multiple times on one method. It is possible to skip a test if a Composer package is not installed (in a version)
 
 Term test suite is now used at a lot of places instead of test case, this causes quite a few BC breaks.
 

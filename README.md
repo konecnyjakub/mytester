@@ -198,17 +198,18 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
-. You can also add conditions when the test should be skipped. For that you need to use a specific attribute. One supported is RequiresPhpVersion. If your version of PHP is lesser than its value, the test is skipped. You can also use attribute RequiresPhpExtension where the test will be skipped when that extension is not loaded. If you use attribute RequiresSapi, the test will not be executed if the current sapi is different. With attribute RequiresOsFamily, you can skip a test if tests are run on a different OS family (taken from constant PHP_OS_FAMILY). Skipped tests are shown in output. Examples:
+. You can also add conditions when the test should be skipped. For that you need to use a specific attribute. One supported is RequiresPhpVersion, if your version of PHP is lesser than its value, the test is skipped. You can also use attribute RequiresPhpExtension where the test will be skipped when that extension is not loaded. If you use attribute RequiresSapi, the test will not be executed if the current sapi is different. With attribute RequiresOsFamily, you can skip a test if tests are run on a different OS family (taken from constant PHP_OS_FAMILY). With attribute RequiresPackage you can skip a test if a Composer package is not installed; if you have installed package composer/semver, you can also pass a version constraint as second parameter. Skipped tests are shown in output. Examples:
 
 ```php
 <?php
 declare(strict_types=1);
 
 use MyTester\Attributes\Skip;
+use MyTester\Attributes\RequiresOsFamily;
+use MyTester\Attributes\RequiresPackage;
 use MyTester\Attributes\RequiresPhpVersion;
 use MyTester\Attributes\RequiresPhpExtension;
 use MyTester\Attributes\RequiresSapi;
-use MyTester\Attributes\RequiresOsFamily;
 
 final class Tests extends MyTester\TestCase
 {
@@ -216,6 +217,7 @@ final class Tests extends MyTester\TestCase
     #[RequiresPhpExtension("abc")]
     #[RequiresSapi("cgi")]
     #[RequiresOsFamily("Solaris")]
+    #[RequiresPackage("phpstan/phpstan")]
     public function testTestName(): void
     {
         $this->assertTrue(false);
