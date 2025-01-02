@@ -100,11 +100,17 @@ final class TestCaseTest extends TestCase
         $this->assertContains("a", $text);
     }
 
+    /**
+     * @return array<int, string>[]
+     */
     public function dataProvider(): array
     {
         return [["abc"], ["adef"], ];
     }
 
+    /**
+     * @return array<int|string, array{0: string, 1: int}>
+     */
     public function dataProviderMulti(): array
     {
         return [
@@ -113,6 +119,9 @@ final class TestCaseTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<int|string, int[]>
+     */
     public function dataProviderIterator(): iterable
     {
         yield "first" => [1, ];

@@ -28,6 +28,9 @@ final class TestCaseThree extends TestCase
         $this->assertGreaterThan(2, $number);
     }
 
+    /**
+     * @return array<int|string, array{0: int, 1: string}>
+     */
     public function dataProvider(): array
     {
         return [

@@ -224,7 +224,7 @@ final class AssertTest extends TestCase
         $this->assertThrowsException(function () {
             $this->assertArrayOfClass(
                 \stdClass::class,
-                [new stdClass(), new DummyEngine(), "abc", ]
+                [new stdClass(), new DummyEngine(), "abc", ] // @phpstan-ignore argument.type
             );
         }, AssertionFailedException::class, "Test 59 failed. The array does not contain only instances of stdClass.");
         $this->assertThrowsException(function () {

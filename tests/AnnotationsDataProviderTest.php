@@ -21,17 +21,17 @@ final class AnnotationsDataProviderTest extends TestCase
     {
         $dataProvider = new AnnotationsDataProvider($this->annotationsReader);
 
-        /** @var array[] $data */
+        /** @var array{} $data */
         $data = $dataProvider->getData($this, "noData");
         $this->assertType("array", $data);
         $this->assertCount(0, $data);
 
-        /** @var array[] $data */
+        /** @var array{} $data */
         $data = $dataProvider->getData($this, "noParameters");
         $this->assertType("array", $data);
         $this->assertCount(0, $data);
 
-        /** @var array[] $data */
+        /** @var array<int, string>[] $data */
         $data = $dataProvider->getData($this, "dataProvider");
         $this->assertType("array", $data);
         $this->assertCount(2, $data);
@@ -40,12 +40,12 @@ final class AnnotationsDataProviderTest extends TestCase
         $this->assertType(Generator::class, $data);
         $this->assertCount(2, iterator_to_array($data));
 
-        /** @var array[] $data */
+        /** @var array<int|string, array{0: string, 1: int}> $data */
         $data = $dataProvider->getData($this, "dataProviderExternal");
         $this->assertType("array", $data);
         $this->assertCount(2, $data);
 
-        /** @var array[] $data */
+        /** @var string[][] $data */
         $data = $dataProvider->getData($this, "dataProviderSimple");
         $this->assertType("array", $data);
         $this->assertCount(2, $data);
@@ -125,6 +125,9 @@ final class AnnotationsDataProviderTest extends TestCase
     {
     }
 
+    /**
+     * @return array<int, string[]>
+     */
     public function dataSource(): array
     {
         return [
@@ -138,6 +141,9 @@ final class AnnotationsDataProviderTest extends TestCase
         return "abc";
     }
 
+    /**
+     * @return iterable<int, int[]>
+     */
     public function dataSourceIterable(): iterable
     {
         yield [1, ];

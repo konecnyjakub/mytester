@@ -12,6 +12,7 @@ use MyTester\Annotations\Reader;
  */
 final class AnnotationsSkipChecker implements ISkipChecker
 {
+    /** @var array<string, class-string<ISkipAttribute>>  */
     private array $skipAnnotations = [
         "skip" => Attributes\Skip::class,
         "requiresPhpVersion" => Attributes\RequiresPhpVersion::class,
@@ -34,7 +35,6 @@ final class AnnotationsSkipChecker implements ISkipChecker
             $values = $this->annotationsReader->getAnnotationMulti($annotationName, $class, $method);
             foreach ($values as $value) {
                 if (is_string($value)) {
-                    /** @var ISkipAttribute $attribute */
                     $attribute = new $classname($value);
                     $skipValue = $attribute->getSkipValue();
                     if (is_string($skipValue)) {

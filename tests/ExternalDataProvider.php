@@ -7,6 +7,9 @@ final class ExternalDataProvider
 {
     use \Nette\StaticClass;
 
+    /**
+     * @return array<int|string, array{0: string, 1: int}>
+     */
     public static function dataProviderArray(): array
     {
         return [
@@ -15,6 +18,9 @@ final class ExternalDataProvider
         ];
     }
 
+    /**
+     * @return array{0: string, 1: int}[]
+     */
     public function dataProviderNonStatic(): array
     {
         return [

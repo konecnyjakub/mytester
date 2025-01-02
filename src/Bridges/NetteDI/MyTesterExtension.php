@@ -25,7 +25,7 @@ use Nette\Schema\Expect;
  * MyTester Extension for Nette DIC
  *
  * @author Jakub Konečný
- * @method array getConfig()
+ * @method array<string, mixed> getConfig()
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension
 {

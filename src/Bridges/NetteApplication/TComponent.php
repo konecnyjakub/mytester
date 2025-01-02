@@ -41,6 +41,9 @@ trait TComponent
         $this->presenterMock->run(new Request('Foo'));
     }
 
+    /**
+     * @param mixed[] $params
+     */
     private function getRenderOutput(Component $control, array $params = [], string $renderMethod = "render"): string
     {
         if ($control->getParent() === null) {
@@ -53,6 +56,9 @@ trait TComponent
         return (string) ob_get_clean();
     }
 
+    /**
+     * @param mixed[] $params
+     */
     protected function assertRenderOutput(
         Component $control,
         string $expected,
@@ -62,6 +68,9 @@ trait TComponent
         $this->assertSame($expected, $this->getRenderOutput($control, $params, $renderMethod));
     }
 
+    /**
+     * @param mixed[] $params
+     */
     protected function assertRenderOutputFile(
         Component $control,
         string $filename,

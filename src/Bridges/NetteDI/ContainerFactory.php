@@ -21,6 +21,9 @@ final class ContainerFactory
 
     private static ?Container $container = null;
 
+    /**
+     * @param mixed[] $config
+     */
     public static function create(bool $new = false, array $config = []): Container
     {
         if (self::$container === null || $new) {

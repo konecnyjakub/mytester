@@ -171,20 +171,22 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
     }
 
     /**
+     * @param array<int, int> $data
      * @return array<int, int>
      */
     private function getElementLines(\ReflectionClass|\ReflectionFunctionAbstract $reflection, array $data): array
     {
-        // @phpstan-ignore return.type
-        return array_filter($data, function (int $line) use ($reflection) {
+        return array_filter($data, function (int $line) use ($reflection): bool {
             return ($line >= $reflection->getStartLine() && $line <= $reflection->getEndLine());
         }, ARRAY_FILTER_USE_KEY);
     }
 
+    /**
+     * @param array<int, int> $lines
+     */
     private function getCoveredLineCount(array $lines): int
     {
-        // @phpstan-ignore argument.type
-        return count(array_filter($lines, function (int $value) {
+        return count(array_filter($lines, function (int $value): bool {
             return $value > 0;
         }));
     }

@@ -28,7 +28,7 @@ final class BaseTestSuitesFinderTest extends TestCase
                 return parent::isTestSuite($class);
             }
         };
-        $this->assertFalse($testSuitesFinder->isTestSuite("abcdefg"));
+        $this->assertFalse($testSuitesFinder->isTestSuite("abcdefg")); // @phpstan-ignore argument.type
         $this->assertFalse($testSuitesFinder->isTestSuite(TestSuite::class));
         $this->assertTrue($testSuitesFinder->isTestSuite(self::class));
     }

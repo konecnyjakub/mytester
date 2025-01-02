@@ -14,6 +14,9 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 final readonly class Data
 {
+    /**
+     * @param mixed[] $value
+     */
     public function __construct(public array $value)
     {
     }

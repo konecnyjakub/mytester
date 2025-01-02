@@ -36,6 +36,7 @@ final class Job
     private \Throwable|null $exception = null;
 
     /**
+     * @param mixed[] $params
      * @param callable[] $onAfterExecute
      */
     public function __construct(

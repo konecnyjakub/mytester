@@ -12,11 +12,14 @@ use ReflectionException;
  */
 abstract class BaseTestSuitesFinder implements ITestSuitesFinder
 {
+    /**
+     * @param class-string $class
+     */
     protected function isTestSuite(string $class): bool
     {
         try {
-            $reflection = new ReflectionClass($class); // @phpstan-ignore argument.type
-        } catch (ReflectionException) {
+            $reflection = new ReflectionClass($class);
+        } catch (ReflectionException) { // @phpstan-ignore catch.neverThrown
             return false;
         }
         return !$reflection->isAbstract() && $reflection->isSubclassOf(TestCase::class);

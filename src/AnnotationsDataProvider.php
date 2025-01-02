@@ -24,6 +24,7 @@ final readonly class AnnotationsDataProvider implements IDataProvider
     }
 
     /**
+     * @inheritDoc
      * @throws InvalidDataProviderException
      * @throws \ReflectionException
      */
@@ -35,7 +36,7 @@ final readonly class AnnotationsDataProvider implements IDataProvider
         }
 
         if ($this->annotationsReader->hasAnnotation(self::ANNOTATION_SIMPLE_NAME, $class, $method)) {
-            /** @var array[] $result */
+            /** @var array<string|int, mixed>[] $result */
             $result = $this->annotationsReader->getAnnotationMulti(self::ANNOTATION_SIMPLE_NAME, $class, $method);
             return $result;
         }
@@ -56,7 +57,7 @@ final readonly class AnnotationsDataProvider implements IDataProvider
                         "Method $className::$dataProvider has to return an array or an iterable object."
                     );
                 }
-                /** @var iterable[] $result */
+                /** @var iterable<string|int, mixed>[] $result */
                 return $result;
             } catch (\ReflectionException $e) {
                 throw new InvalidDataProviderException("Method $className::$dataProvider does not exist.", 0, $e);
@@ -85,7 +86,7 @@ final readonly class AnnotationsDataProvider implements IDataProvider
                         "Method $dataProviderExternal has to return an array or an iterable object."
                     );
                 }
-                /** @var iterable[] $result */
+                /** @var iterable<string|int, mixed>[] $result */
                 return $result;
             } catch (\ReflectionException $e) {
                 throw new InvalidDataProviderException("Method $dataProviderExternal does not exist.", 0, $e);

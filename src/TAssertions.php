@@ -175,6 +175,9 @@ trait TAssertions
 
     /**
      * Does $actual contain $needle?
+     *
+     * @param string|mixed[] $needle
+     * @param string|mixed[] $actual
      */
     protected function assertContains(string|array $needle, string|array $actual): void
     {
@@ -193,6 +196,9 @@ trait TAssertions
 
     /**
      * Does $actual not contain $needle?
+     *
+     * @param string|mixed[] $needle
+     * @param string|mixed[] $actual
      */
     protected function assertNotContains(string|array $needle, string|array $actual): void
     {
@@ -211,6 +217,8 @@ trait TAssertions
 
     /**
      * Does $value contain $count items?
+     *
+     * @param mixed[]|Countable $value
      */
     protected function assertCount(int $count, array|Countable $value): void
     {
@@ -222,6 +230,8 @@ trait TAssertions
 
     /**
      * Does $value not contain $count items?
+     *
+     * @param mixed[]|Countable $value
      */
     protected function assertNotCount(int $count, array|Countable $value): void
     {
@@ -347,6 +357,7 @@ trait TAssertions
      * Is $actual an array consisting only of instances of $className
      *
      * @param class-string $className
+     * @param object[] $actual
      */
     protected function assertArrayOfClass(string $className, array $actual): void
     {
@@ -401,6 +412,9 @@ trait TAssertions
         $this->testResult($message, $success);
     }
 
+    /**
+     * @param mixed[]|ArrayAccess $array
+     */
     protected function assertArrayHasKey(string|int $key, array|ArrayAccess $array): void
     {
         $success = ($array instanceof ArrayAccess ? $array->offsetExists($key) : array_key_exists($key, $array));
@@ -408,6 +422,9 @@ trait TAssertions
         $this->testResult($message, $success);
     }
 
+    /**
+     * @param mixed[]|ArrayAccess $array
+     */
     protected function assertArrayNotHasKey(string|int $key, array|ArrayAccess $array): void
     {
         $success = ($array instanceof ArrayAccess ? !$array->offsetExists($key) : !array_key_exists($key, $array));
@@ -415,6 +432,10 @@ trait TAssertions
         $this->testResult($message, $success);
     }
 
+    /**
+     * @param Countable|mixed[] $expected
+     * @param Countable|mixed[] $actual
+     */
     protected function assertSameSize(Countable|array $expected, Countable|array $actual): void
     {
         $success = (count($expected) === count($actual));

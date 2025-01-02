@@ -12,9 +12,6 @@ parameters:
     ignoreErrors:
         -
             identifier: method.unused
-        -
-            identifier: missingType.iterableValue
+            path: %rootDir%/../../../tests/*
         -
             identifier: missingType.generics
-        -
-            identifier: varTag.nativeType

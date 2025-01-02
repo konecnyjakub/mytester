@@ -25,6 +25,9 @@ trait TCompiledContainer
         return $this->getContainer()->getByType($class);
     }
 
+    /**
+     * @param mixed[] $config
+     */
     protected function refreshContainer(array $config = []): Container
     {
         return ContainerFactory::create(true, $config);

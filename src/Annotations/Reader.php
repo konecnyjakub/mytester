@@ -50,6 +50,7 @@ final class Reader
      * Each value in the array is from one annotation
      *
      * @param class-string|object $class
+     * @return mixed[]
      */
     public function getAnnotationMulti(string $name, string|object $class, ?string $method = null): array
     {

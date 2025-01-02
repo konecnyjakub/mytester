@@ -24,6 +24,8 @@ final class TestJobs
 
     /**
      * Test params for job
+     *
+     * @param mixed[] $params
      */
     public function testParams(array $params, string $text): void
     {

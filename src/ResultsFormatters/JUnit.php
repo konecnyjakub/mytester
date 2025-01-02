@@ -77,7 +77,9 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
                 $testSuiteTime += $job->totalTime;
                 $testSuiteAssertions += $job->totalAssertions;
                 $totalAssertions += $job->totalAssertions;
-                $reflectionCallback = $this->createReflectionFromCallback($job->callback);
+                /** @var callable&array{0: class-string, 1: string} $callback */
+                $callback = $job->callback;
+                $reflectionCallback = $this->createReflectionFromCallback($callback);
 
                 $testCaseElement = $document->createElement("testcase");
                 $testCaseElement->setAttribute("name", $job->name);
@@ -130,12 +132,14 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
         $this->baseFileName = $baseFileName;
     }
 
+    /**
+     * @param callable&(array{0: class-string, 1: string}|string) $callback
+     */
     private function createReflectionFromCallback(callable $callback): ReflectionFunctionAbstract
     {
         if (is_array($callback)) {
-            return new ReflectionMethod($callback[0], $callback[1]); // @phpstan-ignore argument.type, argument.type
+            return new ReflectionMethod($callback[0], $callback[1]);
         }
-        /** @var string $callback */
         if (str_contains($callback, "::")) {
             return new ReflectionMethod(...explode("::", $callback));
         } else {
