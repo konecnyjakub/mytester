@@ -25,7 +25,7 @@ final class InfoExtension implements ITesterExtension
     {
         return [
             Events\ExtensionsLoaded::class => [
-                ["onExtensionsLoaded", ],
+                ["storeExtensionNames", ],
             ],
             Events\RunnerStarted::class => [
                 ["printInfo", ],
@@ -33,9 +33,9 @@ final class InfoExtension implements ITesterExtension
         ];
     }
 
-    public function onExtensionsLoaded(Events\ExtensionsLoaded $event): void
+    public function storeExtensionNames(Events\ExtensionsLoaded $event): void
     {
-        $this->extensionNames = array_map(function (ITesterExtension $extension) {
+        $this->extensionNames = array_map(function (ITesterExtension $extension): string {
             return $extension->getName();
         }, $event->extensions);
     }
