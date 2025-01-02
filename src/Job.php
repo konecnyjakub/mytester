@@ -8,7 +8,7 @@ use Throwable;
 use TypeError;
 
 /**
- * One job of the test suite
+ * One job of a test suite
  *
  * @author Jakub Konečný
  * @property-read callable $callback

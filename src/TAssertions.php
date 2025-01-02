@@ -6,6 +6,11 @@ namespace MyTester;
 use ArrayAccess;
 use Countable;
 
+/**
+ * Default assertions and helper methods for {@see TestCase}
+ *
+ * @author Jakub Konečný
+ */
 trait TAssertions
 {
     private int $taskCount = 0;

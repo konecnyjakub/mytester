@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace MyTester\Annotations;
 
 /**
+ * Engine for {@see Reader}
+ *
  * @author Jakub Konečný
  */
 interface IAnnotationsReaderEngine

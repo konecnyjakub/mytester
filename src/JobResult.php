@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+/**
+ * Possible results of {@see Job}
+ *
+ * @author Jakub Konečný
+ */
 enum JobResult
 {
     case PASSED;

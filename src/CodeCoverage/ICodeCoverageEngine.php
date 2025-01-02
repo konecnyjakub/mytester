@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace MyTester\CodeCoverage;
 
 /**
+ * Code coverage engine for {@see Collector}
+ * Is responsible for collecting raw code coverage data
+ *
  * @author Jakub Konečný
  */
 interface ICodeCoverageEngine

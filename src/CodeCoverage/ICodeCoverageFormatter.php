@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace MyTester\CodeCoverage;
 
 /**
+ * Code coverage formatter for {@see Collector}
+ * Is responsible for generating a code coverage report and returning it as a string
+ *
  * @author Jakub Konečný
  */
 interface ICodeCoverageFormatter

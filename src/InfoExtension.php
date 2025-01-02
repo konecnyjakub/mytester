@@ -5,6 +5,11 @@ namespace MyTester;
 
 use Composer\InstalledVersions;
 
+/**
+ * Extension for automated tests runner that prints useful info about environment
+ *
+ * @author Jakub Konečný
+ */
 final class InfoExtension implements ITesterExtension
 {
     private const string PACKAGE_NAME = "konecnyjakub/mytester";
