@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use Konecnyjakub\EventDispatcher\DummyEventDispatcher;
 use MyTester\Attributes\TestSuite;
 use MyTester\ConsoleColors;
-use MyTester\DummyEventDispatcher;
 use MyTester\Events\TestSuiteFinished;
 use MyTester\Events\TestsFinished;
 use MyTester\Events\TestsStarted;
