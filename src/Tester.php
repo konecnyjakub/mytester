@@ -73,15 +73,11 @@ final readonly class Tester
         }
 
         $this->eventDispatcher->dispatch(new Events\TestsStarted($testSuites));
-
         foreach ($testSuites as $testSuite) {
-            $this->eventDispatcher->dispatch(new Events\TestSuiteStarted($testSuite));
             if (!$testSuite->run()) {
                 $failed = true;
             }
-            $this->eventDispatcher->dispatch(new Events\TestSuiteFinished($testSuite));
         }
-
         $this->eventDispatcher->dispatch(new Events\TestsFinished($testSuites));
 
         $this->eventDispatcher->dispatch(new Events\RunnerFinished());
