@@ -48,7 +48,7 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
         return $values;
     }
 
-    public function getAnnotationValue(object $attribute): mixed
+    private function getAnnotationValue(object $attribute): mixed
     {
         if (property_exists($attribute, "value")) {
             return $attribute->value;
