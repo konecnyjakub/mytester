@@ -7,7 +7,6 @@ namespace MyTester;
  * Criteria for selecting tests suites in {@see ITestSuitesFinder}
  *
  * @author Jakub Konečný
- * @internal
  */
 final readonly class TestSuitesSelectionCriteria
 {
