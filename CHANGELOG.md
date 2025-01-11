@@ -21,6 +21,7 @@ Version 8.0.0-dev
 - BC break: method ITestSuitesFinder::getSuites now takes new class TestSuitesSelectionCriteria as its first and only parameter
 - BC break: Tester's constructor now takes new class TestSuitesSelectionCriteria as its first parameter
 - deprecated ITestSuitesFinder::FILENAME_SUFFIX
+- BC break: made TestCase::METHOD_PATTERN protected
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

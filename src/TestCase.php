@@ -20,7 +20,7 @@ abstract class TestCase
     use \Nette\SmartObject;
     use TAssertions;
 
-    public const string METHOD_PATTERN = '#^test[A-Z0-9_]#';
+    protected const string METHOD_PATTERN = '#^test[A-Z0-9_]#';
 
     /** @internal */
     public const string ANNOTATION_TEST = "test";
