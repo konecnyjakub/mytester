@@ -16,7 +16,7 @@ final class ComposerTestSuitesFinderTest extends TestCase
     public function testGetSuites(): void
     {
         $testSuitesFinder = new ComposerTestSuitesFinder();
-        $suites = $testSuitesFinder->getSuites(__DIR__);
+        $suites = $testSuitesFinder->getSuites(new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__)));
         $this->assertCount(38, $suites);
     }
 }

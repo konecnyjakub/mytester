@@ -16,4 +16,6 @@ Attribute RequiresPhpExtension can be used multiple times on one method. It is p
 
 Term test suite is now used at a lot of places instead of test case, this causes quite a few BC breaks.
 
+Test suites finders now receive new class TestSuitesSelectionCriteria instead of just the tests folder. This will make it easier in the future to add option to run only some test suites.
+
 For complete list of changes since previous version, see CHANGELOG.md.

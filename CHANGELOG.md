@@ -18,6 +18,9 @@ Version 8.0.0-dev
 - allowed using attribute RequiresPhpExtension multiple times on one test method
 - BC break: used term test suite instead of test case whenever possible (events TestCaseStarted and TestCaseFinished renamed to TestSuiteStarted and TestSuiteFinished respectively, exception InvalidTestCaseException to InvalidTestSuiteException, some class properties too)
 - allowed skipping a test if a Composer package is not installed (in a version)
+- BC break: method ITestSuitesFinder::getSuites now takes new class TestSuitesSelectionCriteria as its first and only parameter
+- BC break: Tester's constructor now takes new class TestSuitesSelectionCriteria as its first parameter
+- deprecated ITestSuitesFinder::FILENAME_SUFFIX
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

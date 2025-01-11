@@ -8,10 +8,13 @@ namespace MyTester;
  */
 interface ITestSuitesFinder
 {
+    /**
+     * @deprecated
+     */
     public const string FILENAME_SUFFIX = "Test.php";
 
     /**
      * @return class-string[]
      */
-    public function getSuites(string $folder): array;
+    public function getSuites(TestSuitesSelectionCriteria $criteria): array;
 }

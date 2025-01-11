@@ -84,6 +84,7 @@ if (isset($options["--resultsFormat"])) {
 }
 
 $folderProvider = new TestsFolderProvider($options["path"]);
+$testSuitesSelectionCriteria = new \MyTester\TestSuitesSelectionCriteria($folderProvider);
 
 $testSuitesFinder = new ChainTestSuitesFinder();
 $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder());
@@ -99,7 +100,7 @@ $extensions = [
 ];
 
 $params = [
-    "folderProvider" => $folderProvider,
+    "testSuitesSelectionCriteria" => $testSuitesSelectionCriteria,
     "testSuitesFinder" => $testSuitesFinder,
     "extensions" => $extensions,
     "console" => $console,

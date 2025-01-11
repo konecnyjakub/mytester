@@ -18,7 +18,7 @@ final class ChainTestSuitesFinderTest extends TestCase
         $testSuitesFinder = new ChainTestSuitesFinder();
         $testSuitesFinder->registerFinder(new class implements ITestSuitesFinder
         {
-            public function getSuites(string $folder): array
+            public function getSuites(TestSuitesSelectionCriteria $criteria): array
             {
                 return [
                     \stdClass::class, \Closure::class, \Generator::class,
@@ -27,7 +27,7 @@ final class ChainTestSuitesFinderTest extends TestCase
         });
         $testSuitesFinder->registerFinder(new class implements ITestSuitesFinder
         {
-            public function getSuites(string $folder): array
+            public function getSuites(TestSuitesSelectionCriteria $criteria): array
             {
                 return [
                     \stdClass::class, \Fiber::class,
@@ -36,7 +36,7 @@ final class ChainTestSuitesFinderTest extends TestCase
         });
         $this->assertSame(
             [\stdClass::class, \Closure::class, \Generator::class, \Fiber::class, ],
-            $testSuitesFinder->getSuites("")
+            $testSuitesFinder->getSuites(new TestSuitesSelectionCriteria(new TestsFolderProvider("")))
         );
     }
 }

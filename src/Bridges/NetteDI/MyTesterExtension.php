@@ -17,6 +17,7 @@ use MyTester\ITesterExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
+use MyTester\TestSuitesSelectionCriteria;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nette\DI\Helpers;
 use Nette\Schema\Expect;
@@ -34,6 +35,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     public const string TAG_COVERAGE_ENGINE = "mytester.coverage.engine";
     public const string TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
     private const string SERVICE_RUNNER = "runner";
+    private const string SERVICE_TEST_SUITES_SELECTION_CRITERIA = "testSuitesSelectionCriteria";
     private const string SERVICE_TEST_SUITES_FINDER = "testSuitesFinder";
     private const string SERVICE_SUITE_FACTORY = "suiteFactory";
     private const string SERVICE_RESULTS_FORMATTER = "resultsFormatter";
@@ -105,9 +107,14 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->addTag(self::TAG_EXTENSION);
         }
 
+        $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_SELECTION_CRITERIA))
+            ->setType(TestSuitesSelectionCriteria::class);
+
         $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_FINDER))
             ->setType(TestSuitesFinder::class);
-        $suites = (new TestSuitesFinder())->getSuites($config["folder"]);
+        $suites = (new TestSuitesFinder())->getSuites(
+            new TestSuitesSelectionCriteria(new TestsFolderProvider($config["folder"]))
+        );
         foreach ($suites as $index => $suite) {
             $builder->addDefinition($this->prefix("test." . ($index + 1)))
                 ->setType($suite)

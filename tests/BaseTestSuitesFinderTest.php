@@ -17,7 +17,7 @@ final class BaseTestSuitesFinderTest extends TestCase
     {
         $testSuitesFinder = new class extends BaseTestSuitesFinder
         {
-            public function getSuites(string $folder): array
+            public function getSuites(TestSuitesSelectionCriteria $criteria): array
             {
                 return [];
             }

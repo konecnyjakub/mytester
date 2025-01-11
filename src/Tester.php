@@ -21,7 +21,7 @@ final readonly class Tester
      * @param ITesterExtension[] $extensions
      */
     public function __construct(
-        private TestsFolderProvider $folderProvider,
+        private TestSuitesSelectionCriteria $testSuitesSelectionCriteria,
         public ITestSuitesFinder $testSuitesFinder,
         public ITestSuiteFactory $testSuiteFactory = new SimpleTestSuiteFactory(),
         private array $extensions = [],
@@ -65,7 +65,7 @@ final readonly class Tester
 
         /** @var TestCase[] $testSuites */
         $testSuites = [];
-        $suites = $this->testSuitesFinder->getSuites($this->folderProvider->folder);
+        $suites = $this->testSuitesFinder->getSuites($this->testSuitesSelectionCriteria);
         foreach ($suites as $suite) {
             $testSuite = $this->testSuiteFactory->create($suite);
             $testSuite->setEventDispatcher($this->eventDispatcher);

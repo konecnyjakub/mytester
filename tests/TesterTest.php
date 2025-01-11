@@ -31,7 +31,7 @@ final class TesterTest extends TestCase
             }
         };
         $tester = new Tester(
-            folderProvider: new TestsFolderProvider(__DIR__),
+            testSuitesSelectionCriteria: new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__)),
             testSuitesFinder: new ChainTestSuitesFinder(),
             resultsFormatter: $resultsFormatter
         );

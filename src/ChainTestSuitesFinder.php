@@ -19,11 +19,11 @@ final class ChainTestSuitesFinder implements ITestSuitesFinder
         $this->finders[] = $finder;
     }
 
-    public function getSuites(string $folder): array
+    public function getSuites(TestSuitesSelectionCriteria $criteria): array
     {
         $suites = [];
         foreach ($this->finders as $finder) {
-            $suites = array_unique(array_merge($suites, $finder->getSuites($folder)));
+            $suites = array_unique(array_merge($suites, $finder->getSuites($criteria)));
         }
         return array_values($suites);
     }
