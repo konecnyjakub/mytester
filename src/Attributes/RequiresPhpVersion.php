@@ -15,14 +15,19 @@ use MyTester\ISkipAttribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 final readonly class RequiresPhpVersion implements ISkipAttribute
 {
-    public function __construct(public string $value)
+    public function __construct(private string $version)
     {
+    }
+
+    public function getValue(): string
+    {
+        return $this->version;
     }
 
     public function getSkipValue(): ?string
     {
-        if (version_compare(PHP_VERSION, $this->value, "<")) {
-            return "PHP version is lesser than $this->value";
+        if (version_compare(PHP_VERSION, $this->version, "<")) {
+            return "PHP version is lesser than $this->version";
         }
         return null;
     }

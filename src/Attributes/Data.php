@@ -15,9 +15,17 @@ use Attribute;
 final readonly class Data
 {
     /**
-     * @param mixed[] $value
+     * @param mixed[] $data
      */
-    public function __construct(public array $value)
+    public function __construct(private array $data)
     {
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function getValue(): array
+    {
+        return $this->data;
     }
 }

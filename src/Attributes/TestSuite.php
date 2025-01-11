@@ -14,7 +14,12 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 final readonly class TestSuite
 {
-    public function __construct(public string $value)
+    public function __construct(private string $name)
     {
+    }
+
+    public function getValue(): string
+    {
+        return $this->name;
     }
 }

@@ -16,14 +16,19 @@ use MyTester\ISkipAttribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 final readonly class RequiresOsFamily implements ISkipAttribute
 {
-    public function __construct(public string $value)
+    public function __construct(private string $osFamilyName)
     {
+    }
+
+    public function getValue(): string
+    {
+        return $this->osFamilyName;
     }
 
     public function getSkipValue(): ?string
     {
-        if (PHP_OS_FAMILY !== $this->value) {
-            return "os family is not $this->value";
+        if (PHP_OS_FAMILY !== $this->osFamilyName) {
+            return "os family is not $this->osFamilyName";
         }
         return null;
     }

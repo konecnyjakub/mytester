@@ -15,15 +15,13 @@ use MyTester\ISkipAttribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 final readonly class Skip implements ISkipAttribute
 {
-    public string $value;
-
-    public function __construct()
+    public function getValue(): string
     {
-        $this->value = "";
+        return "";
     }
 
     public function getSkipValue(): string
     {
-        return $this->value;
+        return $this->getValue();
     }
 }

@@ -16,14 +16,19 @@ use MyTester\ISkipAttribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 final readonly class RequiresSapi implements ISkipAttribute
 {
-    public function __construct(public string $value)
+    public function __construct(private string $sapiName)
     {
+    }
+
+    public function getValue(): string
+    {
+        return $this->sapiName;
     }
 
     public function getSkipValue(): ?string
     {
-        if (PHP_SAPI !== $this->value) {
-            return "the sapi is not $this->value";
+        if (PHP_SAPI !== $this->sapiName) {
+            return "the sapi is not $this->sapiName";
         }
         return null;
     }
