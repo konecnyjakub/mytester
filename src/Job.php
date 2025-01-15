@@ -16,7 +16,7 @@ use TypeError;
  * @property-read JobResult $result
  * @property-read string $output @internal
  * @property-read int $totalTime Total elapsed time in milliseconds
- * @property-read \Throwable|null $exception
+ * @property-read Throwable|null $exception
  * @property-read string $nameWithDataSet Job's name + data set (or its custom name)
  */
 final class Job
@@ -33,7 +33,7 @@ final class Job
      * @internal
      */
     public int $totalAssertions = 0;
-    private \Throwable|null $exception = null;
+    private Throwable|null $exception = null;
 
     /**
      * @param mixed[] $params
