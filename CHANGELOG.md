@@ -23,6 +23,8 @@ Version 8.0.0-dev
 - deprecated ITestSuitesFinder::FILENAME_SUFFIX
 - BC break: made TestCase::METHOD_PATTERN protected
 - BC break: renamed and made private attributes' properties, added method getValue instead
+- added option to run only test suites from named groups/all test suites except those in named groups
+- added BaseTestSuitesFinder to public api
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

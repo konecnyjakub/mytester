@@ -13,6 +13,16 @@ final class Reader
     /** @var IAnnotationsReaderEngine[] */
     private array $engines = [];
 
+    /**
+     * Creates an instance with default engines registered
+     */
+    public static function create(): self
+    {
+        $reader = new self();
+        $reader->registerEngine(new PhpAttributesEngine());
+        return $reader;
+    }
+
     public function registerEngine(IAnnotationsReaderEngine $engine): void
     {
         $this->engines[] = $engine;

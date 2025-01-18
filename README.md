@@ -308,6 +308,39 @@ The easiest way to run your test cases is to use the provided script *vendor/bin
 
 If you have correctly configured Composer to autoload your test suites and use optimized autoloader, you are all set. If Composer cannot find them, install package nette/robot-loader and it will be used to find and load them.
 
+By default, all test suites found in the folder are run but it is possible to choose only some to run. Currently the only way is through groups, you assign a test suite to one or more groups and then name the group(s) that should be run or omitted. Examples:
+
+```php
+declare(strict_types=1);
+
+use MyTester\Attributes\Group;
+
+#[Group("one")]
+#[Group("abc")]
+final class FirstTest extends \MyTester\TestCase
+{
+}
+
+#[Group("two")]
+#[Group("abc")]
+final class SecondTest extends \MyTester\TestCase
+{
+}
+
+#[Group("def")]
+final class ThirdTest extends \MyTester\TestCase
+{
+}
+```
+
+```bash
+./vendor/bin/mytester tests/unit --filterOnlyGroups one # only FirstTest is run
+./vendor/bin/mytester tests/unit --filterOnlyGroups abc # only FirstTest and SecondTest are run
+./vendor/bin/mytester tests/unit --filterOnlyGroups one,two # only FirstTest and SecondTest are run
+./vendor/bin/mytester tests/unit --filterExceptGroups def # only FirstTest and SecondTest are run
+./vendor/bin/mytester tests/unit --filterExceptGroups one,two # only ThirdTest is run
+```
+
 ### Colorized output
 
 Automated tests runner can print results with colors, but it is not enabled by default. To use colors just pass argument *--colors* to the script.
@@ -390,6 +423,18 @@ The extension expects your test cases to be place in *your_project_root/tests*. 
 ```neon
 mytester:
     folder: %wwwDir%/tests
+```
+
+You can also run test suites only from named groups or run all test suites except those in named groups.
+
+```neon
+mytester:
+    filterOnlyGroups:
+        - one
+        - two
+    filterExceptGroups:
+        - abc
+        - def
 ```
 
 . And if you need to do some tasks before/after your tests, you can use automated tests runner extensions. Just register them with option extensions.

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\CodeCoverage\CodeCoverageException as Exception;
 use MyTester\CodeCoverage\Engines\DummyEngine;
@@ -14,6 +15,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Code coverage collector")]
+#[Group("codeCoverage")]
 final class CollectorTest extends TestCase
 {
     public function testStart(): void

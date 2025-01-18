@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
-use MyTester\InvalidTestSuiteException;
 use MyTester\TestCase;
 use MyTester\Tester;
 
@@ -14,6 +14,8 @@ use MyTester\Tester;
  * @author Jakub Konečný
  */
 #[TestSuite("ContainerFactory")]
+#[Group("nette")]
+#[Group("netteDI")]
 final class ContainerFactoryTest extends TestCase
 {
     use TCompiledContainer;

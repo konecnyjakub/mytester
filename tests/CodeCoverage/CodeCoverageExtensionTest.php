@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\CodeCoverage\Engines\DummyEngine;
 use MyTester\Events\RunnerStarted;
@@ -15,6 +16,8 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Code coverage extension")]
+#[Group("codeCoverage")]
+#[Group("extensions")]
 final class CodeCoverageExtensionTest extends TestCase
 {
     public function testSetupCodeCoverage(): void

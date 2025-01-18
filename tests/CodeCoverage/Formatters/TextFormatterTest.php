@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage\Formatters;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\CodeCoverage\Engines\DummyEngine;
 use MyTester\CodeCoverage\Report;
@@ -14,6 +15,8 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Code coverage text formatter")]
+#[Group("codeCoverage")]
+#[Group("codeCoverageFormatters")]
 class TextFormatterTest extends TestCase
 {
     public function testRender(): void

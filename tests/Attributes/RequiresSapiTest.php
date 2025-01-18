@@ -11,6 +11,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("RequiresSapi")]
+#[Group("attributes")]
 final class RequiresSapiTest extends TestCase
 {
     public function testGetSkipValue(): void

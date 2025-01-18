@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\Reader;
+
 /**
  * Test suites finder for {@see Tester}
  *
@@ -12,6 +14,11 @@ namespace MyTester;
  */
 final class ComposerTestSuitesFinder extends BaseTestSuitesFinder
 {
+    public function __construct(Reader $annotationsReader)
+    {
+        $this->annotationsReader = $annotationsReader;
+    }
+
     public function getSuites(TestSuitesSelectionCriteria $criteria): array
     {
         $suites = [];
@@ -27,6 +34,6 @@ final class ComposerTestSuitesFinder extends BaseTestSuitesFinder
                 $suites[] = $class;
             }
         }
-        return $suites;
+        return $this->applyFilters($suites, $criteria);
     }
 }

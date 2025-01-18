@@ -4,11 +4,14 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\Attributes\DataProvider;
+use MyTester\Attributes\Group;
 use MyTester\TestCase;
 
 /**
  * @author Jakub Konečný
  */
+#[Group("three")]
+#[Group("test")]
 final class TestCaseThree extends TestCase
 {
     public function testOne(): void

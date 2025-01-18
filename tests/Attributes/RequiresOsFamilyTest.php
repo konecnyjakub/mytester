@@ -11,6 +11,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("RequiresOsFamily")]
+#[Group("attributes")]
 final class RequiresOsFamilyTest extends TestCase
 {
     public function testGetSkipValue(): void

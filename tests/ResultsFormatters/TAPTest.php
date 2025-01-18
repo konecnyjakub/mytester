@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use Konecnyjakub\EventDispatcher\DummyEventDispatcher;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\Events\TestSuiteFinished;
 use MyTester\Events\TestsFinished;
@@ -16,6 +17,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Results formatter TAP")]
+#[Group("resultsFormatters")]
 final class TAPTest extends TestCase
 {
     public function testRender(): void

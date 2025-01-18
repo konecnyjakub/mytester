@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\CodeCoverage\Engines\DummyEngine;
 use MyTester\TestCase;
@@ -13,6 +14,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Code coverage report")]
+#[Group("codeCoverage")]
 final class ReportTest extends TestCase
 {
     public function testReport(): void

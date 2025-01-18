@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteRobotLoader;
 
+use MyTester\Annotations\Reader;
 use MyTester\BaseTestSuitesFinder;
 use MyTester\TestSuitesSelectionCriteria;
 use Nette\Loaders\RobotLoader;
@@ -16,6 +17,11 @@ use Nette\Utils\FileSystem;
  */
 final class TestSuitesFinder extends BaseTestSuitesFinder
 {
+    public function __construct(Reader $annotationsReader)
+    {
+        $this->annotationsReader = $annotationsReader;
+    }
+
     public function getSuites(TestSuitesSelectionCriteria $criteria): array
     {
         if (!$this->isAvailable()) {
@@ -40,7 +46,7 @@ final class TestSuitesFinder extends BaseTestSuitesFinder
                 $suites[] = $class;
             }
         }
-        return $suites;
+        return $this->applyFilters($suites, $criteria);
     }
 
     private function isAvailable(): bool

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\InvalidTestSuiteException;
 use MyTester\TestCase;
@@ -13,6 +14,9 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("ContainerSuiteFactoryTest")]
+#[Group("nette")]
+#[Group("netteDI")]
+#[Group("testSuitesFactories")]
 final class ContainerSuiteFactoryTest extends TestCase
 {
     public function testCreate(): void

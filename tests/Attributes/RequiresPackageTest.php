@@ -11,6 +11,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("RequiresPackage")]
+#[Group("attributes")]
 final class RequiresPackageTest extends TestCase
 {
     public function testGetSkipValue(): void

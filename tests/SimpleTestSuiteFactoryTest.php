@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 
 /**
@@ -11,6 +12,7 @@ use MyTester\Attributes\TestSuite;
  * @author Jakub Konečný
  */
 #[TestSuite("SimpleTestSuiteFactoryTest")]
+#[Group("testSuitesFactories")]
 final class SimpleTestSuiteFactoryTest extends TestCase
 {
     public function testCreate(): void

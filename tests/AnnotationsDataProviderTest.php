@@ -7,6 +7,7 @@ use Generator;
 use MyTester\Attributes\Data;
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Attributes\DataProviderExternal;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 
 /**
@@ -15,6 +16,7 @@ use MyTester\Attributes\TestSuite;
  * @author Jakub Konečný
  */
 #[TestSuite("AnnotationsDataProvider")]
+#[Group("annotations")]
 final class AnnotationsDataProviderTest extends TestCase
 {
     public function testGetData(): void

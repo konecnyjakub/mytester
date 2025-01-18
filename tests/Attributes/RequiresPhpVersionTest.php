@@ -11,6 +11,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("RequiresPhpVersion")]
+#[Group("attributes")]
 final class RequiresPhpVersionTest extends TestCase
 {
     public function testGetSkipValue(): void

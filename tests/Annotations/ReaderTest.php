@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Annotations;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
@@ -13,6 +14,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Reader")]
+#[Group("annotations")]
 final class ReaderTest extends TestCase
 {
     private function getAnnotationsReader(): Reader

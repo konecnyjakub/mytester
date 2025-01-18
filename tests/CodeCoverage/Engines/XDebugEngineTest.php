@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage\Engines;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\RequiresPhpExtension;
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
@@ -13,6 +14,8 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("XDebug engine")]
+#[Group("codeCoverage")]
+#[Group("codeCoverageEngines")]
 final class XDebugEngineTest extends TestCase
 {
     public function testGetName(): void

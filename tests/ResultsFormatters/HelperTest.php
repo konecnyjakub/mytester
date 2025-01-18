@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
 
@@ -12,6 +13,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Results formatter helper")]
+#[Group("resultsFormatters")]
 final class HelperTest extends TestCase
 {
     public function testIsFileOutput(): void

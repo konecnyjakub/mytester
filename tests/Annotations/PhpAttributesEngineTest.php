@@ -5,6 +5,7 @@ namespace MyTester\Annotations;
 
 use MyTester\Attributes\Data;
 use MyTester\Attributes\DataProviderExternal;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\TestSuite;
 use MyTester\AnnotationsDataProvider;
@@ -17,6 +18,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("PhpAttributesEngine")]
+#[Group("annotations")]
 final class PhpAttributesEngineTest extends TestCase
 {
     public function testHasAnnotation(): void

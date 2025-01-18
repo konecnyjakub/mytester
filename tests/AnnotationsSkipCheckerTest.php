@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\RequiresOsFamily;
 use MyTester\Attributes\RequiresPhpExtension;
 use MyTester\Attributes\RequiresPhpVersion;
@@ -15,6 +16,7 @@ use MyTester\Attributes\TestSuite;
  * @author Jakub Konečný
  */
 #[TestSuite("AnnotationsSkipChecker")]
+#[Group("annotations")]
 final class AnnotationsSkipCheckerTest extends TestCase
 {
     private function getSkipChecker(): AnnotationsSkipChecker

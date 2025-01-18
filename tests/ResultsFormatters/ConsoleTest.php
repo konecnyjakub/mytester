@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use Konecnyjakub\EventDispatcher\DummyEventDispatcher;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\ConsoleColors;
 use MyTester\Events\TestSuiteFinished;
@@ -17,6 +18,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("Results formatter console")]
+#[Group("resultsFormatters")]
 final class ConsoleTest extends TestCase
 {
     public function testRender(): void

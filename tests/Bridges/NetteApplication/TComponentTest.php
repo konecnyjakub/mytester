@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteApplication;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
 use Nette\Application\IPresenter;
@@ -14,6 +15,7 @@ use Nette\InvalidStateException;
  * @author Jakub Konečný
  */
 #[TestSuite("TComponent")]
+#[Group("nette")]
 final class TComponentTest extends TestCase
 {
     use TComponent;

@@ -5,6 +5,7 @@ require_once __DIR__ . "/functions.php";
 
 require findVendorDirectory() . "/autoload.php";
 
+use MyTester\Annotations\Reader;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ChainTestSuitesFinder;
 use MyTester\CodeCoverage\CodeCoverageExtension;
@@ -45,11 +46,21 @@ $cmd = new Parser("", [
         Parser::Argument => true,
         Parser::Optional => true,
     ],
+    "--filterOnlyGroups" => [
+        Parser::Argument => true,
+        Parser::Optional => true,
+        Parser::Default => "",
+    ],
+    "--filterExceptGroups" => [
+        Parser::Argument => true,
+        Parser::Optional => true,
+        Parser::Default => "",
+    ],
     "--version" => [
         Parser::Optional => true,
     ],
 ]);
-/** @var array{path: string, "--colors"?: bool, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--version"?: bool} $options */
+/** @var array{path: string, "--colors"?: bool, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string, "--version"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
@@ -83,12 +94,27 @@ if (isset($options["--resultsFormat"])) {
     }
 }
 
-$folderProvider = new TestsFolderProvider($options["path"]);
-$testSuitesSelectionCriteria = new \MyTester\TestSuitesSelectionCriteria($folderProvider);
+$getArrayFromList = function (string $value): array {
+    if ($value === "") {
+        return [];
+    }
+    if (!str_contains($value, ",")) {
+        return [$value];
+    }
+    return explode(",", $value);
+};
 
+$folderProvider = new TestsFolderProvider($options["path"]);
+$testSuitesSelectionCriteria = new \MyTester\TestSuitesSelectionCriteria(
+    $folderProvider,
+    onlyGroups: $getArrayFromList($options["--filterOnlyGroups"]),
+    exceptGroups: $getArrayFromList($options["--filterExceptGroups"]),
+);
+
+$annotationsReader = Reader::create();
 $testSuitesFinder = new ChainTestSuitesFinder();
-$testSuitesFinder->registerFinder(new ComposerTestSuitesFinder());
-$testSuitesFinder->registerFinder(new TestSuitesFinder());
+$testSuitesFinder->registerFinder(new ComposerTestSuitesFinder($annotationsReader));
+$testSuitesFinder->registerFinder(new TestSuitesFinder($annotationsReader));
 
 $console = new ConsoleColors();
 $console->useColors = isset($options["--colors"]);

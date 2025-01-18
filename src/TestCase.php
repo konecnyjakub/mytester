@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use MyTester\Annotations\PhpAttributesEngine;
 use MyTester\Annotations\Reader;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use ReflectionClass;
@@ -42,8 +41,7 @@ abstract class TestCase
 
     public function __construct()
     {
-        $this->annotationsReader = new Reader();
-        $this->annotationsReader->registerEngine(new PhpAttributesEngine());
+        $this->annotationsReader = Reader::create();
         $this->skipChecker = new AnnotationsSkipChecker($this->annotationsReader);
         $this->dataProvider = new AnnotationsDataProvider($this->annotationsReader);
     }

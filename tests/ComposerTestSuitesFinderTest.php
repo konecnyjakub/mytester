@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Annotations\Reader;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 
 /**
@@ -11,12 +13,19 @@ use MyTester\Attributes\TestSuite;
  * @author Jakub Konečný
  */
 #[TestSuite("ComposerTestSuitesFinder")]
+#[Group("testSuitesFinders")]
 final class ComposerTestSuitesFinderTest extends TestCase
 {
     public function testGetSuites(): void
     {
-        $testSuitesFinder = new ComposerTestSuitesFinder();
+        $testSuitesFinder = new ComposerTestSuitesFinder(Reader::create());
+
         $suites = $testSuitesFinder->getSuites(new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__)));
         $this->assertCount(38, $suites);
+
+        $suites = $testSuitesFinder->getSuites(
+            new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__), onlyGroups: ["test", ])
+        );
+        $this->assertCount(0, $suites);
     }
 }

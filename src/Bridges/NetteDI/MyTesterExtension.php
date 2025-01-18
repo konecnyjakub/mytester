@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Bridges\NetteDI;
 
 use Exception;
+use MyTester\Annotations\Reader;
 use MyTester\Bridges\NetteApplication\PresenterMock;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\CodeCoverage\CodeCoverageExtension;
@@ -35,6 +36,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     public const string TAG_COVERAGE_ENGINE = "mytester.coverage.engine";
     public const string TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
     private const string SERVICE_RUNNER = "runner";
+    private const string SERVICE_ANNOTATIONS_READER = "annotationsReader";
     private const string SERVICE_TEST_SUITES_SELECTION_CRITERIA = "testSuitesSelectionCriteria";
     private const string SERVICE_TEST_SUITES_FINDER = "testSuitesFinder";
     private const string SERVICE_SUITE_FACTORY = "suiteFactory";
@@ -72,6 +74,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 null,
                 ...array_keys(ResultsHelper::$availableFormatters)
             )->default(null),
+            "filterOnlyGroups" => Expect::arrayOf("string")->default([]),
+            "filterExceptGroups" => Expect::arrayOf("string")->default([]),
         ])->castTo("array");
     }
 
@@ -80,7 +84,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
      */
     public function loadConfiguration(): void
     {
-        /** @var array{extensions: class-string<ITesterExtension>[], folder: string, coverageFormat: string, resultsFormat: string, colors: bool} $config */
+        /** @var array{extensions: class-string<ITesterExtension>[], folder: string, coverageFormat: string, resultsFormat: string, colors: bool, filterOnlyGroups: string[], filterExceptGroups: string[]} $config */
         $config = $this->getConfig();
         $builder = $this->getContainerBuilder();
 
@@ -107,12 +111,17 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->addTag(self::TAG_EXTENSION);
         }
 
+        $builder->addDefinition($this->prefix(self::SERVICE_ANNOTATIONS_READER))
+            ->setFactory(Reader::class . "::create");
+
         $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_SELECTION_CRITERIA))
-            ->setType(TestSuitesSelectionCriteria::class);
+            ->setType(TestSuitesSelectionCriteria::class)
+            ->setArgument("onlyGroups", $config["filterOnlyGroups"])
+            ->setArgument("exceptGroups", $config["filterExceptGroups"]);
 
         $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_FINDER))
             ->setType(TestSuitesFinder::class);
-        $suites = (new TestSuitesFinder())->getSuites(
+        $suites = (new TestSuitesFinder(Reader::create()))->getSuites(
             new TestSuitesSelectionCriteria(new TestsFolderProvider($config["folder"]))
         );
         foreach ($suites as $index => $suite) {

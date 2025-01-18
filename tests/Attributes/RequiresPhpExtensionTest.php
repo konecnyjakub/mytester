@@ -11,6 +11,7 @@ use MyTester\TestCase;
  * @author Jakub Konečný
  */
 #[TestSuite("RequiresPhpExtension")]
+#[Group("attributes")]
 final class RequiresPhpExtensionTest extends TestCase
 {
     public function testGetSkipValue(): void

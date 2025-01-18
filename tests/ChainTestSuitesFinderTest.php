@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 
 /**
@@ -11,6 +12,7 @@ use MyTester\Attributes\TestSuite;
  * @author Jakub Konečný
  */
 #[TestSuite("ChainTestSuitesFinderTest")]
+#[Group("testSuitesFinders")]
 final class ChainTestSuitesFinderTest extends TestCase
 {
     public function testGetSuites(): void
