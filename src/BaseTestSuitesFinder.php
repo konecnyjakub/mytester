@@ -24,7 +24,7 @@ abstract class BaseTestSuitesFinder implements ITestSuitesFinder
         } catch (ReflectionException) { // @phpstan-ignore catch.neverThrown
             return false;
         }
-        return !$reflection->isAbstract() && $reflection->isSubclassOf(TestCase::class);
+        return !$reflection->isAbstract() && is_subclass_of($class, TestCase::class);
     }
 
     /**
