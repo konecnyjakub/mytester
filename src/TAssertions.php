@@ -77,7 +77,7 @@ trait TAssertions
      */
     protected function assertSame(mixed $expected, mixed $actual): void
     {
-        $success = ($expected == $actual); // @phpstan-ignore equal.notAllowed
+        $success = ($expected === $actual);
         $message = "";
         if (!$success) {
             $message = sprintf("The value is not %s but %s.", $this->showValue($expected), $this->showValue($actual));

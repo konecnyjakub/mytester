@@ -24,6 +24,7 @@ Version 8.0.0-dev
 - BC break: renamed and made private attributes' properties, added method getValue instead
 - added option to run only test suites from named groups/all test suites except those in named groups
 - added BaseTestSuitesFinder to public api
+- made assertion assertSame more strict (just like assertNotSame)
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2
