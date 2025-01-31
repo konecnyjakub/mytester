@@ -21,7 +21,7 @@ final class ComposerTestSuitesFinderTest extends TestCase
         $testSuitesFinder = new ComposerTestSuitesFinder(Reader::create());
 
         $suites = $testSuitesFinder->getSuites(new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__)));
-        $this->assertCount(38, $suites);
+        $this->assertCount(39, $suites);
 
         $suites = $testSuitesFinder->getSuites(
             new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__), onlyGroups: ["test", ])

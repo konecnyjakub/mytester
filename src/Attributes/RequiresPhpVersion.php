@@ -8,11 +8,11 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires PHP version attribute
- * Defines minimal PHP version required for a test
+ * Defines minimal PHP version required for a test (suite)
  *
  * @author Jakub Konečný
  */
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 final readonly class RequiresPhpVersion implements ISkipAttribute
 {
     public function __construct(private string $version)

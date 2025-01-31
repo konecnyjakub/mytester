@@ -10,11 +10,11 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires package attribute
- * Defines a Composer package required for a test
+ * Defines a Composer package required for a test (suite)
  *
  * @author Jakub Konečný
  */
-#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 final readonly class RequiresPackage implements ISkipAttribute
 {
     public function __construct(public string $packageName, public ?string $version = null)

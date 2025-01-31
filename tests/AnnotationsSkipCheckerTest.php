@@ -42,6 +42,8 @@ final class AnnotationsSkipCheckerTest extends TestCase
             "os family is not Solaris",
             $this->getSkipChecker()->shouldSkip(self::class, "skipOsFamily")
         );
+        $this->assertSame(true, $this->getSkipChecker()->shouldSkip(SkippingTest::class, "testOne"));
+        $this->assertSame(true, $this->getSkipChecker()->shouldSkip(SkippingTest::class, "testTwo"));
     }
 
     private function notSkip(): void

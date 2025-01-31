@@ -25,6 +25,7 @@ Version 8.0.0-dev
 - added option to run only test suites from named groups/all test suites except those in named groups
 - added BaseTestSuitesFinder to public api
 - made assertion assertSame more strict (just like assertNotSame)
+- made it possible to skip a whole test suite (with default skip checker)
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

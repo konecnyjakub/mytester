@@ -8,11 +8,11 @@ use MyTester\ISkipAttribute;
 
 /**
  * Skip attribute
- * Allows skipping a test unconditionally
+ * Allows skipping a test (suite) unconditionally
  *
  * @author Jakub Konečný
  */
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 final readonly class Skip implements ISkipAttribute
 {
     public function getValue(): string

@@ -18,4 +18,6 @@ Term test suite is now used at a lot of places instead of test case, this causes
 
 Test suites finders now receive new class TestSuitesSelectionCriteria instead of just the tests folder. Test suites can be organized in groups now, groups can be used to limit which test suites are run. Custom test suites finders can extend from BaseTestSuitesFinder, its method applyFilters makes it easier to filter test suites to run.
 
+It is now possible to skip a whole test suite with attributes (when using default skip checker).
+
 For complete list of changes since previous version, see CHANGELOG.md.

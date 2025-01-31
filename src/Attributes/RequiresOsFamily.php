@@ -8,12 +8,12 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires os family attribute
- * Defines os family required for a test
+ * Defines os family required for a test (suite)
  *
  * @author Jakub Konečný
  * @see PHP_OS_FAMILY
  */
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 final readonly class RequiresOsFamily implements ISkipAttribute
 {
     public function __construct(private string $osFamilyName)

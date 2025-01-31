@@ -32,17 +32,36 @@ final class AnnotationsSkipChecker implements ISkipChecker
     public function shouldSkip(string $class, string $method): bool|string
     {
         foreach ($this->skipAnnotations as $annotationName => $classname) {
+            $values = $this->annotationsReader->getAnnotationMulti($annotationName, $class);
+            $skipValue = $this->getSkipValue($values, $classname);
+            if ($skipValue !== false) {
+                return $skipValue;
+            }
+
             $values = $this->annotationsReader->getAnnotationMulti($annotationName, $class, $method);
-            foreach ($values as $value) {
-                if (is_string($value)) {
-                    $attribute = new $classname($value);
-                    $skipValue = $attribute->getSkipValue();
-                    if (is_string($skipValue)) {
-                        if ($skipValue === "") {
-                            return true;
-                        }
-                        return $skipValue;
+            $skipValue = $this->getSkipValue($values, $classname);
+            if ($skipValue !== false) {
+                return $skipValue;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param mixed[] $values
+     * @param class-string<ISkipAttribute> $classname
+     */
+    private function getSkipValue(array $values, string $classname): bool|string
+    {
+        foreach ($values as $value) {
+            if (is_string($value)) {
+                $attribute = new $classname($value);
+                $skipValue = $attribute->getSkipValue();
+                if (is_string($skipValue)) {
+                    if ($skipValue === "") {
+                        return true;
                     }
+                    return $skipValue;
                 }
             }
         }

@@ -8,11 +8,11 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires PHP extension attribute
- * Defines a PHP extension required  for a test
+ * Defines a PHP extension required  for a test (suite)
  *
  * @author Jakub Konečný
  */
-#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 final readonly class RequiresPhpExtension implements ISkipAttribute
 {
     public function __construct(private string $extensionName)

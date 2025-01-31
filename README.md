@@ -245,6 +245,24 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
+If you want to skip all test methods in a test suite (both unconditionally and based on conditions), just use the above mentioned attributes on the class.
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\Skip;
+
+#[Skip]
+final class Tests extends MyTester\TestCase
+{
+    public function testTestName(): void
+    {
+        $this->assertTrue(false);
+    }
+}
+```
+
 #### Incomplete tests
 
 If a test is not completely written yet, you can mark it as incomplete and it will be passed with warning. Just call method markTestIncomplete. You can optionally pass it a message explaining why it is incomplete. Once the method is called, no other assertions will be performed in the method where it is called.

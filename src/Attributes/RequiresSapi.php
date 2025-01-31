@@ -8,12 +8,12 @@ use MyTester\ISkipAttribute;
 
 /**
  * Requires sapi attribute
- * Defines PHP sapi required for a test
+ * Defines PHP sapi required for a test (suite)
  *
  * @author Jakub Konečný
  * @see PHP_SAPI
  */
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 final readonly class RequiresSapi implements ISkipAttribute
 {
     public function __construct(private string $sapiName)
