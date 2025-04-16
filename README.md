@@ -359,6 +359,14 @@ final class ThirdTest extends \MyTester\TestCase
 ./vendor/bin/mytester tests/unit --filterExceptGroups one,two # only ThirdTest is run
 ```
 
+### PHPT tests
+
+Automated tests runner can also run .phpt files in the provided folder, you just need to add package *konecnyjakub/phpt-runner* to your (dev) dependencies.
+
+All .phpt files are considered one test suite, each file is reported as a test just like a method in a TestCase descendant.
+
+For description of the file format, see https://php.github.io/php-src/miscellaneous/writing-tests.html.
+
 ### Colorized output
 
 Automated tests runner can print results with colors, but it is not enabled by default. To use colors just pass argument *--colors* to the script.

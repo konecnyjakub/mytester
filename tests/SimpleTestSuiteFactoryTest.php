@@ -5,6 +5,7 @@ namespace MyTester;
 
 use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
+use MyTester\PHPT\PHPTTestCase;
 
 /**
  * Test suite for class SimpleTestSuiteFactory
@@ -19,6 +20,7 @@ final class SimpleTestSuiteFactoryTest extends TestCase
     {
         $factory = new SimpleTestSuiteFactory();
         $this->assertType(self::class, $factory->create(self::class));
+        $this->assertNull($factory->create(PHPTTestCase::class));
         $this->assertThrowsException(function () use ($factory) {
             $factory->create(\stdClass::class);
         }, InvalidTestSuiteException::class, "stdClass is not a descendant of " . TestCase::class . ".");

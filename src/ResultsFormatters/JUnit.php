@@ -140,7 +140,7 @@ final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
         if (is_array($callback)) {
             return new ReflectionMethod($callback[0], $callback[1]);
         }
-        if (str_contains($callback, "::")) {
+        if (is_string($callback) && str_contains($callback, "::")) {
             return new ReflectionMethod(...explode("::", $callback));
         } else {
             return new ReflectionFunction($callback);

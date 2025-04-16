@@ -49,6 +49,14 @@ abstract class TestCase
     /**
      * @internal
      */
+    final protected function getEventDispatcher(): EventDispatcherInterface
+    {
+        return $this->eventDispatcher;
+    }
+
+    /**
+     * @internal
+     */
     final public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;

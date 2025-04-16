@@ -3,6 +3,7 @@ Version 8.1.0-dev
 - deprecated Job::$onAfterExecute in favor of new event TestJobFinished
 - allowed returning null from ITestSuiteFactory::create()
 - it is possible to use multiple test suite factories with ChainTestSuiteFactory
+- added support for running .phpt files
 
 Version 8.0.0
 - dropped support for Composer 2.0 and 2.1

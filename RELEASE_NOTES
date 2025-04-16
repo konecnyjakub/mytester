@@ -4,4 +4,6 @@ Job::$onAfterExecute is deprecated in favor of new event TestJobFinished, the fo
 
 It is now possible to use multiple test suite factories to create a test suite with ChainTestSuiteFactory, it tries all available factories until one returns an instance of TestCase. Test suite factories can now return null to indicate that they are not meant to create an instance of provided class.
 
+Automated tests runner can now .phpt files in the folder, see README.md for details.
+
 For complete list of changes since previous version, see CHANGELOG.md.

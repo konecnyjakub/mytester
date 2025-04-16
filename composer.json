@@ -34,19 +34,23 @@
         "php-parallel-lint/php-console-highlighter": "^0.5",
         "squizlabs/php_codesniffer": "^3.13",
         "phpstan/phpstan-strict-rules": "^2.0",
-        "phpstan/phpstan-deprecation-rules": "^2.0"
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "konecnyjakub/phpt-runner": "^0.1",
+        "psr/log": "^3.0"
     },
     "suggest": {
         "ext-pcov": "For generating code coverage reports",
         "ext-dom": "For generating Cobertura code coverage reports and/or JUnit reports",
         "ext-xdebug": "Alternative engine for generating code coverage reports",
-        "composer/semver": "To skip a test method based on package version"
+        "composer/semver": "To skip a test method based on package version",
+        "konecnyjakub/phpt-runner": "To run .phpt files"
     },
     "conflict": {
         "nette/robot-loader": "<4.0.3",
         "nette/di": "<3.2",
         "nette/application": "<3.2",
-        "composer/semver": "<3.0"
+        "composer/semver": "<3.0",
+        "konecnyjakub/phpt-runner": "<0.1"
     },
     "autoload": {
         "psr-4": {

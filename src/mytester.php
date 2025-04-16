@@ -5,6 +5,8 @@ require_once __DIR__ . "/functions.php";
 
 require findVendorDirectory() . "/autoload.php";
 
+use Konecnyjakub\PHPTRunner\PhpRunner;
+use Konecnyjakub\PHPTRunner\PhptRunner;
 use MyTester\Annotations\Reader;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ChainTestSuiteFactory;
@@ -17,6 +19,8 @@ use MyTester\ComposerTestSuitesFinder;
 use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\InfoExtension;
+use MyTester\PHPT\PHPTTestSuiteFactory;
+use MyTester\PHPT\PHPTTestSuitesFinder;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\SimpleTestSuiteFactory;
 use MyTester\Tester;
@@ -117,8 +121,13 @@ $annotationsReader = Reader::create();
 $testSuitesFinder = new ChainTestSuitesFinder();
 $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder($annotationsReader));
 $testSuitesFinder->registerFinder(new TestSuitesFinder($annotationsReader));
+$testSuitesFinder->registerFinder(new PHPTTestSuitesFinder());
 
 $testSuiteFactory = new ChainTestSuiteFactory();
+$testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
+    new PhptRunner(new \Konecnyjakub\PHPTRunner\Parser(), new PhpRunner()),
+    $folderProvider
+));
 $testSuiteFactory->registerFactory(new SimpleTestSuiteFactory());
 
 $console = new ConsoleColors();
