@@ -27,7 +27,7 @@ final class TestSuitesFinderTest extends TestCase
         $suites = $testSuitesFinder->getSuites(
             new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__ . "/../../"))
         );
-        $this->assertCount(39, $suites);
+        $this->assertCount(40, $suites);
 
         $suites = $testSuitesFinder->getSuites(
             new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__ . "/../../"), onlyGroups: ["test", ])
