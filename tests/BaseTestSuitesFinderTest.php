@@ -9,6 +9,7 @@ use MyTester\Attributes\TestSuite;
 use MyTester\ResultsFormatters\TestCaseOne;
 use MyTester\ResultsFormatters\TestCaseThree;
 use MyTester\ResultsFormatters\TestCaseTwo;
+use ReflectionMethod;
 
 /**
  * Test suite for class BaseTestSuitesFinder
@@ -27,16 +28,11 @@ final class BaseTestSuitesFinderTest extends TestCase
             {
                 return [];
             }
-
-            // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod
-            public function isTestSuite(string $class): bool
-            {
-                return parent::isTestSuite($class);
-            }
         };
-        $this->assertFalse($testSuitesFinder->isTestSuite("abcdefg")); // @phpstan-ignore argument.type
-        $this->assertFalse($testSuitesFinder->isTestSuite(TestSuite::class));
-        $this->assertTrue($testSuitesFinder->isTestSuite(self::class));
+        $rm = new ReflectionMethod($testSuitesFinder, "isTestSuite");
+        $this->assertFalse((bool) $rm->invoke($testSuitesFinder, "abcdefg"));
+        $this->assertFalse((bool) $rm->invoke($testSuitesFinder, TestSuite::class));
+        $this->assertTrue((bool) $rm->invoke($testSuitesFinder, self::class));
     }
 
     public function testApplyFilters(): void
