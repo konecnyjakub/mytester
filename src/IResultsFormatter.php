@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace MyTester;
 
-use Konecnyjakub\EventDispatcher\IEventSubscriber;
+use Konecnyjakub\EventDispatcher\EventSubscriber;
 
 /**
  * Results formatter for {@see Tester}
  *
  * @author Jakub Konečný
  */
-interface IResultsFormatter extends IEventSubscriber
+interface IResultsFormatter extends EventSubscriber
 {
     /**
      * Generates results of Tester run and outputs it to set file/console
