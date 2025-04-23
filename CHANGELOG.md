@@ -2,7 +2,7 @@ Version 8.0.0-dev
 - dropped support for Composer 2.0 and 2.1
 - BC break: removed support for old way of providing 1 parameter to a test method via data provided
 - BC break: removed support for using conditions with attribute Skip
-- added events ExtensionsLoaded, RunnerStarted, RunnerFinished, TestStarted, TestFinished, TestPassed, TestPassedWithWarning, TestFailed and TestSkipped
+- added events ExtensionsLoaded, RunnerStarted, RunnerFinished, TestStarted, TestFinished, TestPassed, TestPassedWithWarning, TestFailed, TestSkipped and DeprecationTriggered
 - BC break: added methods getName and getSubscribedEvents to interface ITesterExtension, removed methods on* (it is now an event subscriber)
 - InfoExtension (when added to automated tests runner) prints active extensions
 - BC break: added method getSubscribedEvents to interface IResultsFormatter, removed methods report* (it is now an event subscriber)

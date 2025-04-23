@@ -175,6 +175,11 @@ abstract class TestCase
                 }
             }
         }
+
+        foreach ($this->jobs as $job) {
+            $job->setEventDispatcher($this->eventDispatcher);
+        }
+
         return $this->jobs;
     }
 

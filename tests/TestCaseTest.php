@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester;
 
+use Konecnyjakub\EventDispatcher\EventDispatcher;
 use MyTester\Attributes\Data;
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
 use MyTester\Attributes\DataProviderExternal;
@@ -209,9 +210,13 @@ final class TestCaseTest extends TestCase
     #[IgnoreDeprecations]
     public function testDeprecation(): void
     {
+        $rp = new \ReflectionProperty(TestCase::class, "eventDispatcher");
+        /** @var EventDispatcher $eventDispatcher */
+        $eventDispatcher = $rp->getValue($this);
         $job = new Job("Test deprecation", function () {
             $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
         });
+        $job->setEventDispatcher($eventDispatcher);
         $job->execute();
         $this->assertSame(JobResult::WARNING, $job->result);
         $this->assertContains("deprecated", $job->output);

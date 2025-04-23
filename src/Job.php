@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Ayesh\PHP_Timer\Timer;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 use TypeError;
 
@@ -34,6 +35,7 @@ final class Job
      */
     public int $totalAssertions = 0;
     private Throwable|null $exception = null;
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param mixed[] $params
@@ -95,6 +97,14 @@ final class Job
         return $jobName;
     }
 
+    /**
+     * @internal
+     */
+    final public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     private function onAfterExecute(): void
     {
         foreach ($this->onAfterExecute as $callback) {
@@ -114,7 +124,7 @@ final class Job
             set_error_handler(
                 function (int $errno, string $errstr, string $errfile, int $errline): bool {
                     if ($this->reportDeprecations) {
-                        echo "Warning: deprecated \"$errstr\" on $errfile:$errline\n";
+                        $this->eventDispatcher->dispatch(new Events\DeprecationTriggered($errstr, $errfile, $errline));
                     }
                     return true;
                 },

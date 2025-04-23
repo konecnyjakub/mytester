@@ -45,6 +45,10 @@ final readonly class Tester
 
         $listenerProvider->addSubscriber($this->resultsFormatter);
 
+        $listenerProvider->addListener(function (Events\DeprecationTriggered $event): void {
+            printf("Warning: deprecated \"%s\" on %s:%d", $event->message, $event->fileName, $event->fileLine);
+        });
+
         $listenerProvider->addListener(
             #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH - 1)]
             function (Events\TestsFinished $event): void {
