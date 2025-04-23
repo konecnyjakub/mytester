@@ -100,7 +100,7 @@ final class Job
     /**
      * @internal
      */
-    final public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;
     }
