@@ -115,6 +115,11 @@ abstract class TestCase
         return $reportDeprecationsClass && $reportDeprecationsMethod;
     }
 
+    protected function shouldSkip(string $methodName): bool|string
+    {
+        return $this->skipChecker->shouldSkip(static::class, $methodName);
+    }
+
     /**
      * Get list of jobs with parameters for current test suite
      *
@@ -131,7 +136,7 @@ abstract class TestCase
                     "name" => $this->getJobName(static::class, $method),
                     "callback" => $callback,
                     "params" => [],
-                    "skip" => $this->skipChecker->shouldSkip(static::class, $method),
+                    "skip" => $this->shouldSkip($method),
                     "onAfterExecute" => $this->getJobAfterExecuteCallbacks($method),
                     "dataSetName" => "",
                     "reportDeprecations" => $this->shouldReportDeprecations($method),
