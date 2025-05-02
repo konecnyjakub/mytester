@@ -27,7 +27,7 @@ use Nette\Schema\Expect;
  * MyTester Extension for Nette DIC
  *
  * @author Jakub Konečný
- * @method array<string, mixed> getConfig()
+ * @method Config getConfig()
  */
 final class MyTesterExtension extends \Nette\DI\CompilerExtension
 {
@@ -76,7 +76,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             )->default(null),
             "filterOnlyGroups" => Expect::arrayOf("string")->default([]),
             "filterExceptGroups" => Expect::arrayOf("string")->default([]),
-        ])->castTo("array");
+        ])->castTo(Config::class);
     }
 
     /**
@@ -84,12 +84,11 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
      */
     public function loadConfiguration(): void
     {
-        /** @var array{extensions: class-string<ITesterExtension>[], folder: string, coverageFormat: string, resultsFormat: string, colors: bool, filterOnlyGroups: string[], filterExceptGroups: string[]} $config */
         $config = $this->getConfig();
         $builder = $this->getContainerBuilder();
 
         $builder->addDefinition($this->prefix(self::SERVICE_TESTS_FOLDER_PROVIDER))
-            ->setFactory(TestsFolderProvider::class, [$config["folder"]]);
+            ->setFactory(TestsFolderProvider::class, [$config->folder]);
 
         $builder->addDefinition($this->prefix(self::SERVICE_RUNNER))
             ->setType(Tester::class);
@@ -103,7 +102,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 
         $extensions = array_merge(
             [CodeCoverageExtension::class, ErrorsFilesExtension::class, InfoExtension::class, ],
-            $config["extensions"]
+            $config->extensions
         );
         foreach ($extensions as $index => $extension) {
             $builder->addDefinition($this->prefix(self::SERVICE_EXTENSION_PREFIX . ($index + 1)))
@@ -116,13 +115,13 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 
         $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_SELECTION_CRITERIA))
             ->setType(TestSuitesSelectionCriteria::class)
-            ->setArgument("onlyGroups", $config["filterOnlyGroups"])
-            ->setArgument("exceptGroups", $config["filterExceptGroups"]);
+            ->setArgument("onlyGroups", $config->filterOnlyGroups)
+            ->setArgument("exceptGroups", $config->filterExceptGroups);
 
         $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_FINDER))
             ->setType(TestSuitesFinder::class);
         $suites = (new TestSuitesFinder(Reader::create()))->getSuites(
-            new TestSuitesSelectionCriteria(new TestsFolderProvider($config["folder"]))
+            new TestSuitesSelectionCriteria(new TestsFolderProvider($config->folder))
         );
         foreach ($suites as $index => $suite) {
             $builder->addDefinition($this->prefix("test." . ($index + 1)))
@@ -137,7 +136,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->setType($className)
                 ->addTag(self::TAG_COVERAGE_ENGINE);
         }
-        $coverageFormat = $config["coverageFormat"];
+        $coverageFormat = $config->coverageFormat;
         if ($coverageFormat !== null) {
             $this->codeCoverageFormatters[$coverageFormat] = CodeCoverageHelper::$availableFormatters[$coverageFormat];
         }
@@ -147,14 +146,14 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->addTag(self::TAG_COVERAGE_FORMATTER);
         }
 
-        if ($config["resultsFormat"] !== null) {
+        if ($config->resultsFormat !== null) {
             $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER))
-                ->setType(ResultsHelper::$availableFormatters[$config["resultsFormat"]]);
+                ->setType(ResultsHelper::$availableFormatters[$config->resultsFormat]);
         }
 
         $builder->addDefinition($this->prefix(self::SERVICE_CONSOLE_WRITER))
             ->setType(ConsoleColors::class)
-            ->addSetup('$service->useColors = ?', [$config["colors"]]);
+            ->addSetup('$service->useColors = ?', [$config->colors]);
     }
 
     public function beforeCompile(): void
