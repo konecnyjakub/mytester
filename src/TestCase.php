@@ -292,14 +292,12 @@ abstract class TestCase
     public function run(): bool
     {
         $this->eventDispatcher->dispatch(new Events\TestSuiteStarted($this));
-        $this->startUp();
         $jobs = $this->getJobs();
         $passed = true;
         foreach ($jobs as $job) {
             $this->runJob($job);
             $passed = $passed && $job->result !== JobResult::FAILED;
         }
-        $this->shutDown();
         $this->eventDispatcher->dispatch(new Events\TestSuiteFinished($this));
         return $passed;
     }
