@@ -268,13 +268,11 @@ abstract class TestCase
     {
         $this->resetCounter();
         if ($job->skip === false) {
-            $this->setUp();
             $this->eventDispatcher->dispatch(new Events\TestStarted($job));
         }
         $job->execute();
         if ($job->skip === false) {
             $this->eventDispatcher->dispatch(new Events\TestFinished($job));
-            $this->tearDown();
         }
         $this->eventDispatcher->dispatch(match ($job->result) {
             JobResult::PASSED => new Events\TestPassed($job),

@@ -23,6 +23,12 @@ final class TestCaseEvents implements EventSubscriber
             Events\TestSuiteFinished::class => [
                 ["onTestSuiteFinished", ],
             ],
+            Events\TestStarted::class => [
+                ["onTestStarted", ],
+            ],
+            Events\TestFinished::class => [
+                ["onTestFinished", ],
+            ],
         ];
     }
 
@@ -36,5 +42,23 @@ final class TestCaseEvents implements EventSubscriber
     public function onTestSuiteFinished(Events\TestSuiteFinished $event): void
     {
         $event->testSuite->shutDown();
+    }
+
+    #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
+    public function onTestStarted(Events\TestStarted $event): void
+    {
+        $callback = $event->test->callback;
+        if (is_array($callback) && isset($callback[0]) && $callback[0] instanceof TestCase) {
+            $callback[0]->setUp();
+        }
+    }
+
+    #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
+    public function onTestFinished(Events\TestFinished $event): void
+    {
+        $callback = $event->test->callback;
+        if (is_array($callback) && isset($callback[0]) && $callback[0] instanceof TestCase) {
+            $callback[0]->tearDown();
+        }
     }
 }
