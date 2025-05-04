@@ -245,7 +245,8 @@ final class AssertTest extends TestCase
         }, AssertionFailedException::class, "Test 63 failed. The array does not contain only values of type string.");
         $this->assertThrowsException(function () {
             $this->assertMatchesFile(__DIR__ . "/non_existing.txt", "");
-        }, AssertionFailedException::class, "Test 65 failed. File " . __DIR__ . "/non_existing.txt could not be loaded.");
+        }, AssertionFailedException::class,
+            "Test 65 failed. File " . __DIR__ . "/non_existing.txt could not be loaded.");
         $this->assertThrowsException(function () {
             $this->assertMatchesFile(__DIR__ . "/test.txt", "");
         }, AssertionFailedException::class, "Test 67 failed. The value is not 'abc\n' but ''.");
