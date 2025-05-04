@@ -26,6 +26,7 @@ Version 8.0.0-dev
 - added BaseTestSuitesFinder to public api
 - made assertion assertSame more strict (just like assertNotSame)
 - made it possible to skip a whole test suite (with default skip checker)
+- BC break: replaced assertion assertArrayOfClass with more general assertArrayOfType
 
 Version 7.3.1
 - allowed installation konecnyjakub/event-dispatcher 2

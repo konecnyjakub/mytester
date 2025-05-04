@@ -20,4 +20,6 @@ Test suites finders now receive new class TestSuitesSelectionCriteria instead of
 
 It is now possible to skip a whole test suite with attributes (when using default skip checker).
 
+Assertion assertArrayOfClass was replaced with more general assertArrayOfType.
+
 For complete list of changes since previous version, see CHANGELOG.md.

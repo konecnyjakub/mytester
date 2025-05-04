@@ -13,6 +13,10 @@ use Countable;
  */
 trait TAssertions
 {
+    private const array PRIMITIVE_TYPES = [
+        "array", "bool", "float", "int", "string", "null", "object", "resource", "scalar", "iterable", "callable",
+    ];
+
     private int $taskCount = 0;
 
     /**
@@ -251,12 +255,7 @@ trait TAssertions
      */
     protected function assertType(string|object $expected, mixed $value): void
     {
-        if (
-            in_array($expected, [
-            "array", "bool", "float", "int", "string", "null", "object", "resource",
-            "scalar", "iterable", "callable",
-            ], true)
-        ) {
+        if (in_array($expected, self::PRIMITIVE_TYPES, true)) {
             $success = (call_user_func("is_$expected", $value));
             $actual = gettype($value);
             $message = ($success) ? "" : "The variable is of type $actual not $expected.";
@@ -359,20 +358,23 @@ trait TAssertions
     }
 
     /**
-     * Is $actual an array consisting only of instances of $className
+     * Is $actual an array consisting only of values of type $actual
      *
-     * @param class-string $className
-     * @param object[] $actual
+     * @param mixed[] $actual
      */
-    protected function assertArrayOfClass(string $className, array $actual): void
+    protected function assertArrayOfType(string|object $expected, array $actual): void
     {
         if (count($actual) === 0) {
             $this->testResult("The array is empty.", false);
         }
-        $success = array_all($actual, function (mixed $value) use ($className) {
-            return $value instanceof $className;
+        $success = array_all($actual, function (mixed $value) use ($expected) {
+            if (in_array($expected, self::PRIMITIVE_TYPES, true)) {
+                return (call_user_func("is_$expected", $value));
+            }
+            return ($value instanceof $expected);
         });
-        $message = ($success) ? "" : "The array does not contain only instances of $className.";
+        $type = get_debug_type($expected);
+        $message = ($success) ? "" : "The array does not contain only values of type $type.";
         $this->testResult($message, $success);
     }
 
