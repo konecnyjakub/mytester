@@ -276,20 +276,12 @@ abstract class TestCase
             $this->eventDispatcher->dispatch(new Events\TestFinished($job));
             $this->tearDown();
         }
-        switch ($job->result) {
-            case JobResult::PASSED:
-                $this->eventDispatcher->dispatch(new Events\TestPassed($job));
-                break;
-            case JobResult::WARNING:
-                $this->eventDispatcher->dispatch(new Events\TestPassedWithWarning($job));
-                break;
-            case JobResult::FAILED:
-                $this->eventDispatcher->dispatch(new Events\TestFailed($job));
-                break;
-            case JobResult::SKIPPED:
-                $this->eventDispatcher->dispatch(new Events\TestSkipped($job));
-                break;
-        }
+        $this->eventDispatcher->dispatch(match ($job->result) {
+            JobResult::PASSED => new Events\TestPassed($job),
+            JobResult::WARNING => new Events\TestPassedWithWarning($job),
+            JobResult::FAILED => new Events\TestFailed($job),
+            JobResult::SKIPPED => new Events\TestSkipped($job),
+        });
         $this->resetCounter();
         return $job->result->output();
     }
