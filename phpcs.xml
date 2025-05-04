@@ -37,6 +37,9 @@
   <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
   <rule ref="Squiz.PHP.NonExecutableCode"/>
   <rule ref="Squiz.Scope"/>
+  <rule ref="Squiz.Scope.MemberVarScope.AsymReadMissing">
+    <severity>0</severity>
+  </rule>
   <rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
   <rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
   <rule ref="PSR12">

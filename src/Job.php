@@ -14,26 +14,24 @@ use TypeError;
  * One job of a test suite
  *
  * @author Jakub Konečný
- * @property-read bool|string $skip
- * @property-read JobResult $result
- * @property-read string $output @internal
- * @property-read int $totalTime Total elapsed time in milliseconds
- * @property-read Throwable|null $exception
  * @property-read string $nameWithDataSet Job's name + data set (or its custom name)
  */
 final class Job
 {
     use \Nette\SmartObject;
 
-    private JobResult $result = JobResult::PASSED;
-    private string $output = "";
+    private(set) JobResult $result = JobResult::PASSED;
+    /**
+     * @internal
+     */
+    private(set) string $output = "";
     /** @var int Total elapsed time in milliseconds */
-    private int $totalTime = 0;
+    private(set) int $totalTime = 0;
     /**
      * @internal
      */
     public int $totalAssertions = 0;
-    private Throwable|null $exception = null;
+    private(set) Throwable|null $exception = null;
     private EventDispatcherInterface $eventDispatcher;
 
     /**
@@ -44,36 +42,11 @@ final class Job
         public readonly string $name,
         public readonly Closure $callback,
         public readonly array $params = [],
-        private bool|string $skip = false,
+        private(set) bool|string $skip = false,
         public readonly string $dataSetName = "",
         public readonly bool $reportDeprecations = true,
         public readonly int $maxRetries = 0
     ) {
-    }
-
-    protected function getSkip(): bool|string
-    {
-        return $this->skip;
-    }
-
-    protected function getResult(): JobResult
-    {
-        return $this->result;
-    }
-
-    protected function getOutput(): string
-    {
-        return $this->output;
-    }
-
-    protected function getTotalTime(): int
-    {
-        return $this->totalTime;
-    }
-
-    protected function getException(): ?\Throwable
-    {
-        return $this->exception;
     }
 
     protected function getNameWithDataSet(): string
