@@ -8,6 +8,7 @@ Version 9.0.0-dev
 - BC break: Job::$callback accepts only Closure (first class callable syntax) now
 - BC break: removed TestCase::METHOD_PATTERN
 - BC break: ContainerFactory::$onCreate accepts only Closure or null now
+- raised minimal version of PHP to 8.4
 
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings
