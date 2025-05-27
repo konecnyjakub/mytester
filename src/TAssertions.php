@@ -420,7 +420,7 @@ trait TAssertions
     }
 
     /**
-     * @param mixed[]|ArrayAccess $array
+     * @param mixed[]|ArrayAccess<mixed, mixed> $array
      */
     protected function assertArrayHasKey(string|int $key, array|ArrayAccess $array): void
     {
@@ -430,7 +430,7 @@ trait TAssertions
     }
 
     /**
-     * @param mixed[]|ArrayAccess $array
+     * @param mixed[]|ArrayAccess<mixed, mixed> $array
      */
     protected function assertArrayNotHasKey(string|int $key, array|ArrayAccess $array): void
     {
