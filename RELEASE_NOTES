@@ -1,25 +1,3 @@
-A new version of My Tester is out. It is only for Composer 2.2 or later. It removes previously deprecated stuff. It is possible to suppress warnings about no performed assertion on a test method/test case with attribute NoAssertions.
-
-Data providers can now also return iterable objects not just arrays. Data providers can now also be static methods from other classes, just use attribute DataProviderExternal. It is also possible to define data sets without a method with attribute Data.
-
-Interface ITesterExtension was changed - it has new method getName and was changed into an event subscriber.
-
-Interface IResultsFormatter was changed into an event subscriber. You can extend from class MyTester\ResultsFormatters\AbstractResultsFormatter to make updating a bit easier.
-
-There are new events ExtensionsLoaded, RunnerStarted, RunnerFinished, TestStarted, TestFinished, TestPassed, TestPassedWithWarning, TestFailed, TestSkipped and DeprecationTriggered which event subscribers (extensions and result formatters) can now add listeners for.
-
-Automated tests runner can now print list of active extensions along My Tester and PHP version (all of that is handled by InfoExtension).
-
-It adds new assertions assertFileExists, assertFileNotExists, assertDirectoryExists and assertDirectoryNotExists.
-
-Attribute RequiresPhpExtension can be used multiple times on one method. It is possible to skip a test if a Composer package is not installed (in a version)
-
-Term test suite is now used at a lot of places instead of test case, this causes quite a few BC breaks.
-
-Test suites finders now receive new class TestSuitesSelectionCriteria instead of just the tests folder. Test suites can be organized in groups now, groups can be used to limit which test suites are run. Custom test suites finders can extend from BaseTestSuitesFinder, its method applyFilters makes it easier to filter test suites to run.
-
-It is now possible to skip a whole test suite with attributes (when using default skip checker).
-
-Assertion assertArrayOfClass was replaced with more general assertArrayOfType.
+A new version of My Tester is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
