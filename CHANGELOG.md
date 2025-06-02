@@ -1,3 +1,6 @@
+Version 8.1.0-dev
+- allowed using different methods for running code before/after test case/method
+
 Version 8.0.0
 - dropped support for Composer 2.0 and 2.1
 - BC break: removed support for old way of providing 1 parameter to a test method via data provided

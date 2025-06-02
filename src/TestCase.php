@@ -222,6 +222,8 @@ abstract class TestCase
 
     /**
      * Called at start of the suite
+     *
+     * @deprecated This method will not be run automatically in the next major version
      */
     public function startUp(): void
     {
@@ -229,6 +231,8 @@ abstract class TestCase
 
     /**
      * Called at end of the suite
+     *
+     * @deprecated This method will not be run automatically in the next major version
      */
     public function shutDown(): void
     {
@@ -236,6 +240,8 @@ abstract class TestCase
 
     /**
      * Called before each job
+     *
+     * @deprecated This method will not be run automatically in the next major version
      */
     public function setUp(): void
     {
@@ -243,6 +249,8 @@ abstract class TestCase
 
     /**
      * Called after each job
+     *
+     * @deprecated This method will not be run automatically in the next major version
      */
     public function tearDown(): void
     {

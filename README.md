@@ -313,7 +313,7 @@ If you do not want to have deprecations reported in a test method or a whole Tes
 
 #### Setup and clean up
 
-If you need to do some things before/after each test in TestCase, you can define methods setUp/tearDown. And if you define methods startUp/shutDown, they will be automatically called at start/end of suite.
+If you need to do some things before/after each test in TestCase, create a non-static public method in the class and add attribute MyTester\Attributes\BeforeTest or MyTester\Attributes\AfterTest. And if you add attribute MyTester\Attributes\BeforeTestSuite or MyTester\Attributes\AfterTestSuite, they will be automatically called at start/end of suite.
 
 Running tests
 -------------

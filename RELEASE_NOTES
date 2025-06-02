@@ -1,3 +1,3 @@
-A new version of My Tester is out.
+A new version of My Tester is out. It is now possible to use different methods for running code before/after test case/method. The previously used methods will not be automatically called in the next major version unless they have the new corresponding attribute.
 
 For complete list of changes since previous version, see CHANGELOG.md.
