@@ -7,7 +7,7 @@ use Attribute;
 
 /**
  * After test attribute
- * Marks a method to run after each test in the test case
+ * Marks a method to run after each test in the test suite
  *
  * @author Jakub Konečný
  */
