@@ -25,5 +25,6 @@ final class TestCaseTwo extends TestCase
 
     public function testThree(): void
     {
+        echo "Warning: No assertions were performed.\n";
     }
 }

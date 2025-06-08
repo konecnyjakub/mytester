@@ -1,5 +1,6 @@
 Version 8.1.0-dev
 - allowed using different methods for running code before/after test case/method
+- deprecated Job::$onAfterExecute in favor of new event TestJobFinished
 
 Version 8.0.0
 - dropped support for Composer 2.0 and 2.1

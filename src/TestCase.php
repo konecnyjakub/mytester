@@ -80,25 +80,25 @@ abstract class TestCase
     /**
      * Get list of callbacks that should be called after a job finishes
      *
+     * @deprecated
      * @return callable[]
      */
     protected function getJobAfterExecuteCallbacks(string $methodName): array
     {
-        return [
-            function (Job $job) use ($methodName): void {
-                $job->totalAssertions = $this->getCounter();
-                $checkAssertions =
-                    !$this->annotationsReader->hasAnnotation(static::ANNOTATION_NO_ASSERTIONS, static::class) &&
-                    !$this->annotationsReader->hasAnnotation(
-                        static::ANNOTATION_NO_ASSERTIONS,
-                        static::class,
-                        $methodName
-                    );
-                if ($checkAssertions && $job->totalAssertions === 0) {
-                    echo "Warning: No assertions were performed.\n";
-                }
-            },
-        ];
+        return [];
+    }
+
+    /**
+     * @internal
+     */
+    public function shouldCheckAssertions(string $methodName): bool
+    {
+        return !$this->annotationsReader->hasAnnotation(static::ANNOTATION_NO_ASSERTIONS, static::class) &&
+            !$this->annotationsReader->hasAnnotation(
+                static::ANNOTATION_NO_ASSERTIONS,
+                static::class,
+                $methodName
+            );
     }
 
     protected function shouldReportDeprecations(string $methodName): bool
@@ -137,7 +137,7 @@ abstract class TestCase
                     "callback" => $callback,
                     "params" => [],
                     "skip" => $this->shouldSkip($method),
-                    "onAfterExecute" => $this->getJobAfterExecuteCallbacks($method),
+                    "onAfterExecute" => $this->getJobAfterExecuteCallbacks($method), // @phpstan-ignore method.deprecated
                     "dataSetName" => "",
                     "reportDeprecations" => $this->shouldReportDeprecations($method),
                 ];

@@ -219,6 +219,12 @@ final class TestCaseTest extends TestCase
     {
     }
 
+    public function testShouldCheckAssertions(): void
+    {
+        $this->assertTrue($this->shouldCheckAssertions(__FUNCTION__));
+        $this->assertFalse($this->shouldCheckAssertions("testNoAssertions"));
+    }
+
     #[Test("Deprecation")]
     #[RequiresPhpVersion("8.4")]
     #[IgnoreDeprecations]
@@ -276,6 +282,7 @@ final class TestCaseTest extends TestCase
                 "testSkipOsFamily",
                 "testSkipPackage",
                 "testNoAssertions",
+                "testShouldCheckAssertions",
                 "testDeprecation",
                 "testGetSuiteName",
                 "testGetJobName",
@@ -299,14 +306,14 @@ final class TestCaseTest extends TestCase
     public function testGetJobs(): void
     {
         $jobs = $this->getJobs();
-        $this->assertCount(30, $jobs);
+        $this->assertCount(31, $jobs);
 
         $job = $jobs[0];
         $this->assertSame("TestCase::testState", $job->name);
         $this->assertSame([$this, "testState", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -315,7 +322,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParams", ], $job->callback);
         $this->assertSame(["abc", ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -324,7 +331,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParams", ], $job->callback);
         $this->assertSame(["adef", ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -333,7 +340,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsNoneProvided", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertSame("Method requires at least 1 parameter but data provider does not provide any.", $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -342,7 +349,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsNotEnough", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertSame("Method requires at least 2 parameter(s) but data provider provides only 1.", $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -351,7 +358,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsMulti", ], $job->callback);
         $this->assertSame(["abc", 1, ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("first", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -360,7 +367,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsMulti", ], $job->callback);
         $this->assertSame(["abcd", 2, ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -369,7 +376,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsIterator", ], $job->callback);
         $this->assertSame([1, ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("first", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -378,7 +385,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsIterator", ], $job->callback);
         $this->assertSame([2, ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -387,7 +394,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsExternal", ], $job->callback);
         $this->assertSame(["abc", 1, ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("first", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -396,7 +403,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsExternal", ], $job->callback);
         $this->assertSame(["abcd", 2, ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -405,7 +412,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsData", ], $job->callback);
         $this->assertSame(["abc", ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -414,7 +421,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testParamsData", ], $job->callback);
         $this->assertSame(["abcd", ], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -423,7 +430,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testTestName", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -432,7 +439,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testSkip", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -441,7 +448,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testSkipPhpVersion", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -450,7 +457,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testCgiSapi", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -459,7 +466,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testSkipExtension", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -468,7 +475,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testSkipOsFamily", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -477,7 +484,7 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testSkipPackage", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
@@ -486,11 +493,20 @@ final class TestCaseTest extends TestCase
         $this->assertSame([$this, "testNoAssertions", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
         $job = $jobs[21];
+        $this->assertSame("TestCase::testShouldCheckAssertions", $job->name);
+        $this->assertSame([$this, "testShouldCheckAssertions", ], $job->callback);
+        $this->assertSame([], $job->params);
+        $this->assertFalse((bool) $job->skip);
+        $this->assertCount(0, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
+        $this->assertTrue($job->reportDeprecations);
+
+        $job = $jobs[22];
         $this->assertSame("Deprecation", $job->name);
         $this->assertSame([$this, "testDeprecation", ], $job->callback);
         $this->assertSame([], $job->params);
@@ -499,79 +515,79 @@ final class TestCaseTest extends TestCase
         } else {
             $this->assertSame("PHP version is lesser than 8.4", $job->skip);
         }
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertFalse($job->reportDeprecations);
 
-        $job = $jobs[22];
+        $job = $jobs[23];
         $this->assertSame("TestCase::testGetSuiteName", $job->name);
         $this->assertSame([$this, "testGetSuiteName", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
-        $this->assertSame("", $job->dataSetName);
-        $this->assertTrue($job->reportDeprecations);
-
-        $job = $jobs[23];
-        $this->assertSame("TestCase::testGetJobName", $job->name);
-        $this->assertSame([$this, "testGetJobName", ], $job->callback);
-        $this->assertSame([], $job->params);
-        $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
         $job = $jobs[24];
-        $this->assertSame("TestCase::testGetTestMethodsNames", $job->name);
-        $this->assertSame([$this, "testGetTestMethodsNames", ], $job->callback);
+        $this->assertSame("TestCase::testGetJobName", $job->name);
+        $this->assertSame([$this, "testGetJobName", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
         $job = $jobs[25];
-        $this->assertSame("TestCase::testShouldReportDeprecations", $job->name);
-        $this->assertSame([$this, "testShouldReportDeprecations", ], $job->callback);
+        $this->assertSame("TestCase::testGetTestMethodsNames", $job->name);
+        $this->assertSame([$this, "testGetTestMethodsNames", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
         $job = $jobs[26];
-        $this->assertSame("TestCase::testGetJobs", $job->name);
-        $this->assertSame([$this, "testGetJobs", ], $job->callback);
+        $this->assertSame("TestCase::testShouldReportDeprecations", $job->name);
+        $this->assertSame([$this, "testShouldReportDeprecations", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
         $job = $jobs[27];
-        $this->assertSame("TestCase::testIncomplete", $job->name);
-        $this->assertSame([$this, "testIncomplete", ], $job->callback);
+        $this->assertSame("TestCase::testGetJobs", $job->name);
+        $this->assertSame([$this, "testGetJobs", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
         $job = $jobs[28];
-        $this->assertSame("TestCase::testSkipInside", $job->name);
-        $this->assertSame([$this, "testSkipInside", ], $job->callback);
+        $this->assertSame("TestCase::testIncomplete", $job->name);
+        $this->assertSame([$this, "testIncomplete", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
 
         $job = $jobs[29];
+        $this->assertSame("TestCase::testSkipInside", $job->name);
+        $this->assertSame([$this, "testSkipInside", ], $job->callback);
+        $this->assertSame([], $job->params);
+        $this->assertFalse((bool) $job->skip);
+        $this->assertCount(0, $job->onAfterExecute);
+        $this->assertSame("", $job->dataSetName);
+        $this->assertTrue($job->reportDeprecations);
+
+        $job = $jobs[30];
         $this->assertSame("TestCase::testWhatever", $job->name);
         $this->assertSame([$this, "testWhatever", ], $job->callback);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
-        $this->assertCount(1, $job->onAfterExecute);
+        $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);
         $this->assertTrue($job->reportDeprecations);
     }

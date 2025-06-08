@@ -22,24 +22,28 @@ final class JobResultTest extends TestCase
 
         $job = new Job("Test Job", function () {
         });
+        $job->setEventDispatcher($eventDispatcher);
         $job->execute();
         $this->assertSame(JobResult::PASSED, JobResult::fromJob($job));
 
         $job = new Job("Test Job", function () {
             echo "Test failed. Reason";
         });
+        $job->setEventDispatcher($eventDispatcher);
         $job->execute();
         $this->assertSame(JobResult::FAILED, JobResult::fromJob($job));
 
         $job = new Job("Test Job", function () {
             throw new \Exception();
         });
+        $job->setEventDispatcher($eventDispatcher);
         $job->execute();
         $this->assertSame(JobResult::FAILED, JobResult::fromJob($job));
 
         $job = new Job("Test Job", function () {
             echo "Warning: Text";
         });
+        $job->setEventDispatcher($eventDispatcher);
         $job->execute();
         $this->assertSame(JobResult::WARNING, JobResult::fromJob($job));
 
@@ -61,6 +65,7 @@ final class JobResultTest extends TestCase
 
         $job = new Job("Test Job", function () {
         }, [], true);
+        $job->setEventDispatcher($eventDispatcher);
         $job->execute();
         $this->assertSame(JobResult::SKIPPED, JobResult::fromJob($job));
     }

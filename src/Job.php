@@ -50,6 +50,9 @@ final class Job
         public readonly string $dataSetName = "",
         public readonly bool $reportDeprecations = true
     ) {
+        if (count($this->onAfterExecute) > 0) {
+            trigger_error("Using " . self::class . "::]\$onAfterExecute is deprecated, add a listener for event " . Events\TestJobFinished::class . " instead", E_USER_DEPRECATED);
+        }
         $this->callback = $callback;
     }
 
@@ -105,6 +108,9 @@ final class Job
         $this->eventDispatcher = $eventDispatcher;
     }
 
+    /**
+     * @deprecated
+     */
     private function onAfterExecute(): void
     {
         foreach ($this->onAfterExecute as $callback) {
@@ -162,7 +168,11 @@ final class Job
                 echo "Trace:\n" . $e->getTraceAsString() . "\n";
                 $this->exception = $e;
             }
-            $this->onAfterExecute();
+            if (is_array($this->callback) && isset($this->callback[0]) && $this->callback[0] instanceof TestCase) {
+                $this->totalAssertions = $this->callback[0]->getCounter();
+            }
+            $this->eventDispatcher->dispatch(new Events\TestJobFinished($this));
+            $this->onAfterExecute(); // @phpstan-ignore method.deprecated
             restore_error_handler();
             $this->output = (string) ob_get_clean();
             Timer::stop($timerName);

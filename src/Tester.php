@@ -47,6 +47,8 @@ final readonly class Tester
 
         $listenerProvider->addSubscriber(new TestCaseEvents());
 
+        $listenerProvider->addSubscriber(new JobEvents());
+
         $listenerProvider->addListener(function (Events\DeprecationTriggered $event): void {
             printf("Warning: deprecated \"%s\" on %s:%d", $event->message, $event->fileName, $event->fileLine);
         });
