@@ -7,6 +7,7 @@ require findVendorDirectory() . "/autoload.php";
 
 use MyTester\Annotations\Reader;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\ChainTestSuiteFactory;
 use MyTester\ChainTestSuitesFinder;
 use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
@@ -17,6 +18,7 @@ use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\InfoExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
+use MyTester\SimpleTestSuiteFactory;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
 use Nette\CommandLine\Parser;
@@ -116,6 +118,9 @@ $testSuitesFinder = new ChainTestSuitesFinder();
 $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder($annotationsReader));
 $testSuitesFinder->registerFinder(new TestSuitesFinder($annotationsReader));
 
+$testSuiteFactory = new ChainTestSuiteFactory();
+$testSuiteFactory->registerFactory(new SimpleTestSuiteFactory());
+
 $console = new ConsoleColors();
 $console->useColors = isset($options["--colors"]);
 
@@ -128,6 +133,7 @@ $extensions = [
 $params = [
     "testSuitesSelectionCriteria" => $testSuitesSelectionCriteria,
     "testSuitesFinder" => $testSuitesFinder,
+    "testSuiteFactory" => $testSuiteFactory,
     "extensions" => $extensions,
     "console" => $console,
 ];
