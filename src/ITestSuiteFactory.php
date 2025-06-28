@@ -11,5 +11,5 @@ interface ITestSuiteFactory
     /**
      * @param class-string $className
      */
-    public function create(string $className): TestCase;
+    public function create(string $className): ?TestCase;
 }

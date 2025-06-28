@@ -76,6 +76,9 @@ final readonly class Tester
         $suites = $this->testSuitesFinder->getSuites($this->testSuitesSelectionCriteria);
         foreach ($suites as $suite) {
             $testSuite = $this->testSuiteFactory->create($suite);
+            if ($testSuite === null) {
+                throw new TestSuiteNotCreatedException("Test suite " . $suite . " could not be created.");
+            }
             $testSuite->setEventDispatcher($this->eventDispatcher);
             $testSuites[] = $testSuite;
         }

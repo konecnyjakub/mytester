@@ -2,4 +2,6 @@ A new version of My Tester is out. It is now possible to use different methods f
 
 Job::$onAfterExecute is deprecated in favor of new event TestJobFinished, the former will be removed in the next major version.
 
+It is now possible to use multiple test suite factories to create a test suite with ChainTestSuiteFactory, it tries all available factories until one returns an instance of TestCase. Test suite factories can now return null to indicate that they are not meant to create an instance of provided class.
+
 For complete list of changes since previous version, see CHANGELOG.md.
