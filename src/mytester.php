@@ -124,10 +124,12 @@ $testSuitesFinder->registerFinder(new TestSuitesFinder($annotationsReader));
 $testSuitesFinder->registerFinder(new PHPTTestSuitesFinder());
 
 $testSuiteFactory = new ChainTestSuiteFactory();
-$testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
-    new PhptRunner(new \Konecnyjakub\PHPTRunner\Parser(), new PhpRunner()),
-    $folderProvider
-));
+if (class_exists(PhptRunner::class)) {
+    $testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
+        new PhptRunner(new \Konecnyjakub\PHPTRunner\Parser(), new PhpRunner()),
+        $folderProvider
+    ));
+}
 $testSuiteFactory->registerFactory(new SimpleTestSuiteFactory());
 
 $console = new ConsoleColors();

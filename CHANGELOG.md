@@ -1,3 +1,6 @@
+Version 8.1.1-dev
+- fixed error in mytester.php when package konecnyjakub/phpt-runner is not installed
+
 Version 8.1.0
 - allowed using different methods for running code before/after test case/method
 - deprecated Job::$onAfterExecute in favor of new event TestJobFinished
