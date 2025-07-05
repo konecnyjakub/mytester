@@ -1,9 +1,3 @@
-A new version of My Tester is out. It is now possible to use different methods for running code before/after test case/method. The previously used methods will not be automatically called in the next major version unless they have the new corresponding attribute.
-
-Job::$onAfterExecute is deprecated in favor of new event TestJobFinished, the former will be removed in the next major version.
-
-It is now possible to use multiple test suite factories to create a test suite with ChainTestSuiteFactory, it tries all available factories until one returns an instance of TestCase. Test suite factories can now return null to indicate that they are not meant to create an instance of provided class.
-
-Automated tests runner can now .phpt files in the folder, see README.md for details.
+A new version of My Tester is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
