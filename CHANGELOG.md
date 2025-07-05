@@ -1,4 +1,4 @@
-Version 8.1.1-dev
+Version 8.1.1
 - fixed error in mytester.php when package konecnyjakub/phpt-runner is not installed
 
 Version 8.1.0
