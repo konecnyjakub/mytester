@@ -1,4 +1,4 @@
-Version 8.1.0-dev
+Version 8.1.0
 - allowed using different methods for running code before/after test case/method
 - deprecated Job::$onAfterExecute in favor of new event TestJobFinished
 - allowed returning null from ITestSuiteFactory::create()
