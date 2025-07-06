@@ -24,7 +24,7 @@ final class PHPTTestSuitesFinderTest extends TestCase
         $testSuitesFinder = new PHPTTestSuitesFinder();
 
         $suites = $testSuitesFinder->getSuites(
-            new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__ . "/../../tests_phpt"))
+            new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__))
         );
         $this->assertSame([PHPTTestCase::class, ], $suites);
 
@@ -34,7 +34,7 @@ final class PHPTTestSuitesFinderTest extends TestCase
         $this->assertSame([PHPTTestCase::class, ], $suites);
 
         $suites = $testSuitesFinder->getSuites(
-            new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__))
+            new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__ . "/../Attributes"))
         );
         $this->assertSame([], $suites);
     }

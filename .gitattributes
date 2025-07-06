@@ -1,5 +1,4 @@
 /tests              export-ignore
-/tests_phpt         export-ignore
 .git*               export-ignore
 /phpstan.neon       export-ignore
 /phpcs.xml          export-ignore

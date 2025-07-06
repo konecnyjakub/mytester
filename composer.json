@@ -68,7 +68,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "8.1.x-dev"
+            "dev-master": "8.2.x-dev"
         }
     },
     "bin": [

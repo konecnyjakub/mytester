@@ -65,8 +65,11 @@ $cmd = new Parser("", [
     "--version" => [
         Parser::Optional => true,
     ],
+    "--noPhpt" => [
+        Parser::Optional => true,
+    ],
 ]);
-/** @var array{path: string, "--colors"?: bool, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string, "--version"?: bool} $options */
+/** @var array{path: string, "--colors"?: bool, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string, "--version"?: bool, "--noPhpt"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
@@ -121,10 +124,13 @@ $annotationsReader = Reader::create();
 $testSuitesFinder = new ChainTestSuitesFinder();
 $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder($annotationsReader));
 $testSuitesFinder->registerFinder(new TestSuitesFinder($annotationsReader));
-$testSuitesFinder->registerFinder(new PHPTTestSuitesFinder());
+$includePhptTests = !isset($options["--noPhpt"]);
+if ($includePhptTests) {
+    $testSuitesFinder->registerFinder(new PHPTTestSuitesFinder());
+}
 
 $testSuiteFactory = new ChainTestSuiteFactory();
-if (class_exists(PhptRunner::class)) {
+if ($includePhptTests && class_exists(PhptRunner::class)) {
     $testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
         new PhptRunner(new \Konecnyjakub\PHPTRunner\Parser(), new PhpRunner()),
         $folderProvider

@@ -37,7 +37,7 @@ final class PHPTTestCaseTest extends TestCase
 
     public function testGetJobs(): void
     {
-        $testCase = $this->createTestCase(__DIR__ . "/../../tests_phpt");
+        $testCase = $this->createTestCase(__DIR__);
         $rm = new ReflectionMethod($testCase, "getJobs");
         /** @var Job[] $result */
         $result = $rm->invoke($testCase);
@@ -52,27 +52,27 @@ final class PHPTTestCaseTest extends TestCase
     public function testRunFile(): void
     {
         $this->assertThrowsException(function () {
-            $testCase = $this->createTestCase(__DIR__ . "/../../tests_phpt");
-            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "/../../tests_phpt/skipped_test.phpt");
+            $testCase = $this->createTestCase(__DIR__);
+            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "skipped_test.phpt");
         }, SkippedTestException::class, "skip");
         $this->assertOutput(function () {
-            $testCase = $this->createTestCase(__DIR__ . "/../../tests_phpt");
-            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "/../../tests_phpt/test.phpt");
+            $testCase = $this->createTestCase(__DIR__);
+            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "test.phpt");
         }, "");
         $this->assertOutput(function () {
-            $testCase = $this->createTestCase(__DIR__ . "/../../tests_phpt");
-            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "/../../tests_phpt/test_env.phpt");
+            $testCase = $this->createTestCase(__DIR__);
+            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "test_env.phpt");
         }, "");
         $this->assertThrowsException(function () {
-            $testCase = $this->createTestCase(__DIR__ . "/../../tests_phpt");
-            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "/../../tests_phpt/failing_test.phpt");
+            $testCase = $this->createTestCase(__DIR__);
+            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "failing_test.phpt");
         }, AssertionFailedException::class, "Test 1 failed. Output is not 'test1234' but 'test123'.");
     }
 
     public function testRun(): void
     {
         $eventDispatcher = new DebugEventDispatcher(new DummyEventDispatcher(), new NullLogger());
-        $testCase = $this->createTestCase(__DIR__ . "/../../tests_phpt", $eventDispatcher);
+        $testCase = $this->createTestCase(__DIR__, $eventDispatcher);
         $testCase->run();
         $this->assertTrue($eventDispatcher->dispatched(Events\TestStarted::class, 4));
         $this->assertFalse($eventDispatcher->dispatched(Events\TestStarted::class, 5));

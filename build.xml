@@ -52,15 +52,18 @@
          <arg value="--colors"/>
          <arg value="--resultsFormat"/>
          <arg value="junit"/>
+         <arg value="--noPhpt"/>
        </exec>
      </then>
      <else>
        <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true" osFamily="unix">
          <arg value="--colors"/>
+         <arg value="--noPhpt"/>
        </exec>
        <exec executable="php" logoutput="true" passthru="true" checkreturn="true" osFamily="windows">
          <arg value="src/mytester"/>
          <arg value="--colors"/>
+         <arg value="--noPhpt"/>
        </exec>
      </else>
    </if>
