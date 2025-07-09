@@ -19,6 +19,7 @@ abstract class TestCase
     use \Nette\SmartObject;
     use TAssertions;
 
+    /** @deprecated */
     protected const string METHOD_PATTERN = '#^test[A-Z0-9_]#';
 
     /** @internal */
@@ -70,19 +71,12 @@ abstract class TestCase
     protected function getTestMethodsNames(): array
     {
         $r = new ReflectionClass(static::class);
-        /** @var string[] $result */
-        $result = array_values(
-            (array) preg_grep(
-                static::METHOD_PATTERN,
-                array_map(
-                    function (ReflectionMethod $rm) {
-                        return $rm->getName();
-                    },
-                    $r->getMethods(ReflectionMethod::IS_PUBLIC)
-                )
+        return array_values(
+            array_filter(
+                array_map(fn(ReflectionMethod $rm) => $rm->getName(), $r->getMethods(ReflectionMethod::IS_PUBLIC)),
+                fn(string $method) => str_starts_with($method, "test")
             )
         );
-        return $result;
     }
 
     /**
