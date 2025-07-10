@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Bridges\NetteDI;
 
 use MyTester\Attributes\Group;
+use MyTester\Attributes\RequiresEnvVariable;
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
 use MyTester\Tester;
@@ -16,15 +17,13 @@ use MyTester\Tester;
 #[TestSuite("ContainerFactory")]
 #[Group("nette")]
 #[Group("netteDI")]
+#[RequiresEnvVariable("MYTESTER_NETTE_DI")]
 final class ContainerFactoryTest extends TestCase
 {
     use TCompiledContainer;
 
     public function testCreate(): void
     {
-        if (!isset($_ENV["MYTESTER_NETTE_DI"])) {
-            $this->markTestSkipped("This test needs Nette DI container.");
-        }
         $oldCallback = ContainerFactory::$onCreate;
         $oldParameters = ContainerFactory::create()->getParameters();
 

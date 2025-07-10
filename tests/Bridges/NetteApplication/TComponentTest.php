@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Bridges\NetteApplication;
 
 use MyTester\Attributes\Group;
+use MyTester\Attributes\RequiresEnvVariable;
 use MyTester\Attributes\TestSuite;
 use MyTester\TestCase;
 use Nette\Application\IPresenter;
@@ -16,15 +17,13 @@ use Nette\InvalidStateException;
  */
 #[TestSuite("TComponent")]
 #[Group("nette")]
+#[RequiresEnvVariable("MYTESTER_NETTE_DI")]
 final class TComponentTest extends TestCase
 {
     use TComponent;
 
     public function testAttachToPresenter(): void
     {
-        if (!isset($_ENV["MYTESTER_NETTE_DI"])) {
-            $this->markTestSkipped("This test needs Nette DI container.");
-        }
         $control = new Component();
         $this->assertThrowsException(
             function () use ($control) {
@@ -39,9 +38,6 @@ final class TComponentTest extends TestCase
 
     public function testAssertRenderOutput(): void
     {
-        if (!isset($_ENV["MYTESTER_NETTE_DI"])) {
-            $this->markTestSkipped("This test needs Nette DI container.");
-        }
         $control = new Component();
         $this->assertRenderOutput($control, "<div>abc</div>");
         $this->assertRenderOutput($control, "<div>abc12</div>", ["one" => 1, "two" => 2, ]);
@@ -49,9 +45,6 @@ final class TComponentTest extends TestCase
 
     public function testAssertRenderOutputFile(): void
     {
-        if (!isset($_ENV["MYTESTER_NETTE_DI"])) {
-            $this->markTestSkipped("This test needs Nette DI container.");
-        }
         $control = new Component();
         $this->assertRenderOutputFile($control, __DIR__ . "/component.txt");
         $this->assertRenderOutputFile($control, __DIR__ . "/component_params.txt", ["one" => 1, "two" => 2, ]);

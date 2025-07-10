@@ -198,13 +198,14 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
-. You can also add conditions when the test should be skipped. For that you need to use a specific attribute. One supported is RequiresPhpVersion, if your version of PHP is lesser than its value, the test is skipped. You can also use attribute RequiresPhpExtension where the test will be skipped when that extension is not loaded. If you use attribute RequiresSapi, the test will not be executed if the current sapi is different. With attribute RequiresOsFamily, you can skip a test if tests are run on a different OS family (taken from constant PHP_OS_FAMILY). With attribute RequiresPackage you can skip a test if a Composer package is not installed; if you have installed package composer/semver, you can also pass a version constraint as second parameter. Skipped tests are shown in output. Examples:
+. You can also add conditions when the test should be skipped. For that you need to use a specific attribute. One supported is RequiresPhpVersion, if your version of PHP is lesser than its value, the test is skipped. You can also use attribute RequiresPhpExtension where the test will be skipped when that extension is not loaded. If you use attribute RequiresSapi, the test will not be executed if the current sapi is different. With attribute RequiresOsFamily, you can skip a test if tests are run on a different OS family (taken from constant PHP_OS_FAMILY). With attribute RequiresPackage you can skip a test if a Composer package is not installed; if you have installed package composer/semver, you can also pass a version constraint as second parameter. Attribute RequiresEnvVariable allows skipping a test if an env variable is not set, optionally you can also provide value that it should have. Skipped tests are shown in output. Examples:
 
 ```php
 <?php
 declare(strict_types=1);
 
 use MyTester\Attributes\Skip;
+use MyTester\Attributes\RequiresEnvVariable;
 use MyTester\Attributes\RequiresOsFamily;
 use MyTester\Attributes\RequiresPackage;
 use MyTester\Attributes\RequiresPhpVersion;
@@ -218,6 +219,7 @@ final class Tests extends MyTester\TestCase
     #[RequiresSapi("cgi")]
     #[RequiresOsFamily("Solaris")]
     #[RequiresPackage("phpstan/phpstan")]
+    #[RequiresEnvVariable("TEST")]
     public function testTestName(): void
     {
         $this->assertTrue(false);
@@ -225,7 +227,7 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
-Attribute RequiresPhpExtension can be used multiple times on one method, in that case if any of those extensions is not loaded, the test is skipped.
+Attributes RequiresPhpExtension and RequiresEnvVariable can be used multiple times on one method/class. If multiple conditions are provided, all have to be met, otherwise the test will be skipped.
 
 If the condition is too complicated (or you don't want to use an attribute for any reason), use can call method markTestSkipped from the test method. It optionally accepts a message explaining why it is skipped.
 

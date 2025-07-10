@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use MyTester\Attributes\Group;
+use MyTester\Attributes\RequiresEnvVariable;
 use MyTester\Attributes\RequiresOsFamily;
 use MyTester\Attributes\RequiresPhpExtension;
 use MyTester\Attributes\RequiresPhpVersion;
@@ -42,6 +43,10 @@ final class AnnotationsSkipCheckerTest extends TestCase
             "os family is not Solaris",
             $this->getSkipChecker()->shouldSkip(self::class, "skipOsFamily")
         );
+        $this->assertSame(
+            "env variable ENV is not set",
+            $this->getSkipChecker()->shouldSkip(self::class, "skipEnvVariable")
+        );
         $this->assertSame(true, $this->getSkipChecker()->shouldSkip(SkippingTest::class, "testOne"));
         $this->assertSame(true, $this->getSkipChecker()->shouldSkip(SkippingTest::class, "testTwo"));
     }
@@ -78,6 +83,11 @@ final class AnnotationsSkipCheckerTest extends TestCase
 
     #[RequiresOsFamily("Solaris")]
     private function skipOsFamily(): void
+    {
+    }
+
+    #[RequiresEnvVariable("ENV")]
+    private function skipEnvVariable(): void
     {
     }
 }
