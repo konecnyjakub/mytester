@@ -26,7 +26,7 @@ final class ComposerTestSuitesFinder extends BaseTestSuitesFinder
         /** @var array<class-string, string> $classMap */
         $classMap = require \findVendorDirectory() . "/composer/autoload_classmap.php";
         $excludedFolders = array_map(
-            fn(string $value) => $folder . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR,
+            fn(string $value) => $folder . DIRECTORY_SEPARATOR . $value,
             $criteria->exceptFolders
         );
         foreach ($classMap as $class => $file) {
@@ -35,7 +35,8 @@ final class ComposerTestSuitesFinder extends BaseTestSuitesFinder
                 continue;
             }
             foreach ($excludedFolders as $excludedFolder) {
-                if (str_starts_with($file, $excludedFolder)) {
+                $excludedFolder = realpath($excludedFolder) . DIRECTORY_SEPARATOR;
+                if (str_starts_with($file, $excludedFolder) && $excludedFolder !== DIRECTORY_SEPARATOR) {
                     continue 2;
                 }
             }
