@@ -24,6 +24,14 @@ final class ComposerTestSuitesFinderTest extends TestCase
         $this->assertCount(44, $suites);
 
         $suites = $testSuitesFinder->getSuites(
+            new TestSuitesSelectionCriteria(
+                new TestsFolderProvider(__DIR__),
+                exceptFolders: ["CodeCoverage/Engines", "Annotations", ]
+            )
+        );
+        $this->assertCount(40, $suites);
+
+        $suites = $testSuitesFinder->getSuites(
             new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__), onlyGroups: ["test", ])
         );
         $this->assertCount(0, $suites);

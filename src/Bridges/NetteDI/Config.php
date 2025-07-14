@@ -21,4 +21,6 @@ final class Config
     public array $filterOnlyGroups = [];
     /** @var string[] */
     public array $filterExceptGroups = [];
+    /** @var string[] */
+    public array $filterExceptFolders = [];
 }

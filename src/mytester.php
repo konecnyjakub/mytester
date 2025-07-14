@@ -62,6 +62,11 @@ $cmd = new Parser("", [
         Parser::Optional => true,
         Parser::Default => "",
     ],
+    "--filterExceptFolders" => [
+        Parser::Argument => true,
+        Parser::Optional => true,
+        Parser::Default => "",
+    ],
     "--version" => [
         Parser::Optional => true,
     ],
@@ -69,7 +74,7 @@ $cmd = new Parser("", [
         Parser::Optional => true,
     ],
 ]);
-/** @var array{path: string, "--colors"?: bool, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string, "--version"?: bool, "--noPhpt"?: bool} $options */
+/** @var array{path: string, "--colors"?: bool, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
@@ -118,6 +123,7 @@ $testSuitesSelectionCriteria = new \MyTester\TestSuitesSelectionCriteria(
     $folderProvider,
     onlyGroups: $getArrayFromList($options["--filterOnlyGroups"]),
     exceptGroups: $getArrayFromList($options["--filterExceptGroups"]),
+    exceptFolders: $getArrayFromList($options["--filterExceptFolders"]),
 );
 
 $annotationsReader = Reader::create();

@@ -2,6 +2,7 @@ Version 8.2.0-dev
 - added option to disable .phpt tests in mytester.php with --noPhpt
 - deprecated TestCase::METHOD_PATTERN
 - allowed skipping test when env variable is not set (to a value)
+- allowed not loading and running test suite from certain subfolders
 
 Version 8.1.1
 - fixed error in mytester.php when package konecnyjakub/phpt-runner is not installed

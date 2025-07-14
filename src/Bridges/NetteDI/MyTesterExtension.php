@@ -76,6 +76,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             )->default(null),
             "filterOnlyGroups" => Expect::arrayOf("string")->default([]),
             "filterExceptGroups" => Expect::arrayOf("string")->default([]),
+            "filterExceptFolders" => Expect::arrayOf("string")->default([]),
         ])->castTo(Config::class);
     }
 
@@ -116,7 +117,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_SELECTION_CRITERIA))
             ->setType(TestSuitesSelectionCriteria::class)
             ->setArgument("onlyGroups", $config->filterOnlyGroups)
-            ->setArgument("exceptGroups", $config->filterExceptGroups);
+            ->setArgument("exceptGroups", $config->filterExceptGroups)
+            ->setArgument("exceptFolders", $config->filterExceptFolders);
 
         $builder->addDefinition($this->prefix(self::SERVICE_TEST_SUITES_FINDER))
             ->setType(TestSuitesFinder::class);

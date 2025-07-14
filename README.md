@@ -328,7 +328,7 @@ The easiest way to run your test cases is to use the provided script *vendor/bin
 
 If you have correctly configured Composer to autoload your test suites and use optimized autoloader, you are all set. If Composer cannot find them, install package nette/robot-loader and it will be used to find and load them.
 
-By default, all test suites found in the folder are run but it is possible to choose only some to run. Currently the only way is through groups, you assign a test suite to one or more groups and then name the group(s) that should be run or omitted. Examples:
+By default, all test suites found in the folder are run but it is possible to choose only some to run. One way is through groups, you assign a test suite to one or more groups and then name the group(s) that should be run or omitted. Examples:
 
 ```php
 declare(strict_types=1);
@@ -361,9 +361,15 @@ final class ThirdTest extends \MyTester\TestCase
 ./vendor/bin/mytester tests/unit --filterExceptGroups one,two # only ThirdTest is run
 ```
 
+It is also possible to exclude test suites from specified subfolders. This is done via argument *--filterExceptFolders*; it can be passed multiple times and each value is interpreted as subfolder of the provided or guessed base folder.
+
+```bash
+./vendor/bin/mytester tests/unit --filterExceptFolders feature1
+```
+
 ### PHPT tests
 
-Automated tests runner can also run .phpt files in the provided folder, you just need to add package *konecnyjakub/phpt-runner* to your (dev) dependencies. If you want to (temporarily) disable .phpt tests, pass *--noPhpt* to the script.
+Automated tests runner can also run .phpt files in the provided folder, you just need to add package *konecnyjakub/phpt-runner* to your (dev) dependencies. If you want to (temporarily) disable .phpt tests, pass *--noPhpt* to the script. It is not possible to disable tests in specific subfolders with *--filterExceptFolders* at the moment.
 
 All .phpt files are considered one test suite, each file is reported as a test just like a method in a TestCase descendant.
 
@@ -465,7 +471,16 @@ mytester:
         - def
 ```
 
-. And if you need to do some tasks before/after your tests, you can use automated tests runner extensions. Just register them with option extensions.
+. If you want to exclude test suite from certain subfolders of the base folder, just use parameter filterExceptFolders.
+
+```neon
+mytester:
+    filterExceptFolders:
+        - feature1
+        - feature3
+```
+
+If you need to do some tasks before/after your tests, you can use automated tests runner extensions. Just register them with option extensions.
 
 ```neon
 mytester:
