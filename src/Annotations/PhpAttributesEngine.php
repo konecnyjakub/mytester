@@ -50,11 +50,11 @@ final class PhpAttributesEngine implements IAnnotationsReaderEngine
 
     private function getAnnotationValue(object $attribute): mixed
     {
-        if (property_exists($attribute, "value")) {
-            return $attribute->value;
-        }
         if (method_exists($attribute, "getValue")) {
             return $attribute->getValue();
+        }
+        if (property_exists($attribute, "value")) {
+            return $attribute->value;
         }
         return null;
     }
