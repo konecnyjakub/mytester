@@ -14,7 +14,7 @@ use MyTester\JobResult;
  *
  * @author Jakub Konečný
  */
-final class Tap extends AbstractResultsFormatter implements IResultsFormatter
+final class Tap extends AbstractResultsFormatter
 {
     public const int TAP_VERSION = 14;
 

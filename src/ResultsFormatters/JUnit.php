@@ -22,7 +22,7 @@ use ReflectionMethod;
  *
  * @author Jakub Konečný
  */
-final class JUnit extends AbstractResultsFormatter implements IResultsFormatter
+final class JUnit extends AbstractResultsFormatter
 {
     protected string $baseFileName = "junit.xml";
 
