@@ -30,6 +30,8 @@ abstract class TestCase
     public const string ANNOTATION_IGNORE_DEPRECATIONS = "ignoreDeprecations";
     /** @internal */
     public const string ANNOTATION_NO_ASSERTIONS = "noAssertions";
+    /** @internal */
+    public const string ANNOTATION_FLAKY_TEST = "flakyTest";
 
     protected ISkipChecker $skipChecker;
     protected IDataProvider $dataProvider;
@@ -122,6 +124,15 @@ abstract class TestCase
         return $this->skipChecker->shouldSkip(static::class, $methodName);
     }
 
+    protected function getMaxRetries(string $methodName): int
+    {
+        $value = $this->annotationsReader->getAnnotation(static::ANNOTATION_FLAKY_TEST, static::class, $methodName);
+        if (!is_int($value)) {
+            return 0;
+        }
+        return $value;
+    }
+
     /**
      * Get list of jobs with parameters for current test suite
      *
@@ -142,6 +153,7 @@ abstract class TestCase
                     "onAfterExecute" => $this->getJobAfterExecuteCallbacks($method), // @phpstan-ignore method.deprecated
                     "dataSetName" => "",
                     "reportDeprecations" => $this->shouldReportDeprecations($method),
+                    "maxRetries" => $this->getMaxRetries($method),
                 ];
 
                 $requiredParameters = (new ReflectionMethod($this, $method))->getNumberOfParameters();

@@ -178,6 +178,26 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
+#### Flaky tests
+
+By default, all tests are only run 1 time. There might be tests that are known to occasionally fail (they are called flaky), it is possible to mark with attribute FlakyTest so they will be retried on failure. It is possible to specify max times that they can be retried, the default is 2 times.
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\FlakyTest;
+
+final class Tests extends MyTester\TestCase
+{
+    #[FlakyTest(1)]
+    public function testFlaky(): void
+    {
+        $this->assertSame(1, rand(0, 1));
+    }
+}
+```
+
 #### Skipping tests
 
 It is possible to unconditionally skip a test. Just use attribute Skip. Example:

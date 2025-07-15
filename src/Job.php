@@ -48,7 +48,8 @@ final class Job
         private bool|string $skip = false,
         public array $onAfterExecute = [],
         public readonly string $dataSetName = "",
-        public readonly bool $reportDeprecations = true
+        public readonly bool $reportDeprecations = true,
+        public readonly int $maxRetries = 0
     ) {
         if (count($this->onAfterExecute) > 0) {
             trigger_error("Using " . self::class . "::]\$onAfterExecute is deprecated, add a listener for event " . Events\TestJobFinished::class . " instead", E_USER_DEPRECATED);
@@ -123,62 +124,71 @@ final class Job
      */
     public function execute(): void
     {
-        if ($this->skip === false) {
-            $timerName = $this->name . time();
-            Timer::start($timerName);
-            ob_start();
-            set_error_handler(
-                function (int $errno, string $errstr, string $errfile, int $errline): bool {
-                    if ($this->reportDeprecations) {
-                        $this->eventDispatcher->dispatch(new Events\DeprecationTriggered($errstr, $errfile, $errline));
-                    }
-                    return true;
-                },
-                E_USER_DEPRECATED
-            );
-            try {
-                try {
-                    call_user_func_array($this->callback, $this->params);
-                } catch (TypeError $e) {
-                    if (
-                        isset($e->getTrace()[0]) &&
-                        isset($e->getTrace()[0]["class"]) && $e->getTrace()[0]["class"] === TestCase::class &&
-                        isset($e->getTrace()[0]["function"]) && str_starts_with($e->getTrace()[0]["function"], "assert")
-                    ) {
-                        /** @var array{0: TestCase, 1: string}&callable $callback */
-                        $callback = $this->callback;
-                        throw new AssertionFailedException(
-                            "Invalid value passed to an assertion.",
-                            $callback[0]->getCounter() + 1,
-                            $e
-                        );
-                    }
-                    throw $e;
+        for ($attemptNumber = 0; $attemptNumber <= $this->maxRetries; $attemptNumber++) {
+            if ($this->skip === false) {
+                $previousAttemptsAssertions = 0;
+                if (is_array($this->callback) && isset($this->callback[0]) && $this->callback[0] instanceof TestCase) {
+                    $previousAttemptsAssertions = $this->callback[0]->getCounter();
                 }
-            } catch (SkippedTestException $e) {
-                $this->skip = ($e->getMessage() !== "") ? $e->getMessage() : true;
-            } catch (IncompleteTestException $e) {
-                $message = $e->getMessage() !== "" ? $e->getMessage() : "incomplete";
-                echo "Warning: $message\n";
-            } catch (AssertionFailedException $e) {
-                echo $e->getMessage();
-                $this->exception = $e;
-            } catch (Throwable $e) {
-                echo "Error: " . ($e->getMessage() !== "" ? $e->getMessage() : $e::class) . "\n";
-                echo "Trace:\n" . $e->getTraceAsString() . "\n";
-                $this->exception = $e;
+                $timerName = $this->name . time();
+                Timer::start($timerName);
+                ob_start();
+                set_error_handler(
+                    function (int $errno, string $errstr, string $errfile, int $errline): bool {
+                        if ($this->reportDeprecations) {
+                            $this->eventDispatcher->dispatch(new Events\DeprecationTriggered($errstr, $errfile, $errline));
+                        }
+                        return true;
+                    },
+                    E_USER_DEPRECATED
+                );
+                try {
+                    try {
+                        call_user_func_array($this->callback, $this->params);
+                    } catch (TypeError $e) {
+                        if (
+                            isset($e->getTrace()[0]) &&
+                            isset($e->getTrace()[0]["class"]) && $e->getTrace()[0]["class"] === TestCase::class &&
+                            isset($e->getTrace()[0]["function"]) && str_starts_with($e->getTrace()[0]["function"], "assert")
+                        ) {
+                            /** @var array{0: TestCase, 1: string}&callable $callback */
+                            $callback = $this->callback;
+                            throw new AssertionFailedException(
+                                "Invalid value passed to an assertion.",
+                                $callback[0]->getCounter() + 1,
+                                $e
+                            );
+                        }
+                        throw $e;
+                    }
+                } catch (SkippedTestException $e) {
+                    $this->skip = ($e->getMessage() !== "") ? $e->getMessage() : true;
+                } catch (IncompleteTestException $e) {
+                    $message = $e->getMessage() !== "" ? $e->getMessage() : "incomplete";
+                    echo "Warning: $message\n";
+                } catch (AssertionFailedException $e) {
+                    echo $e->getMessage();
+                    $this->exception = $e;
+                } catch (Throwable $e) {
+                    echo "Error: " . ($e->getMessage() !== "" ? $e->getMessage() : $e::class) . "\n";
+                    echo "Trace:\n" . $e->getTraceAsString() . "\n";
+                    $this->exception = $e;
+                }
+                if (is_array($this->callback) && isset($this->callback[0]) && $this->callback[0] instanceof TestCase) {
+                    $this->totalAssertions = $this->callback[0]->getCounter() - $previousAttemptsAssertions;
+                }
+                $this->eventDispatcher->dispatch(new Events\TestJobFinished($this));
+                $this->onAfterExecute(); // @phpstan-ignore method.deprecated
+                restore_error_handler();
+                $this->output = (string) ob_get_clean();
+                Timer::stop($timerName);
+                // @phpstan-ignore argument.type, cast.int
+                $this->totalTime = (int) Timer::read($timerName, Timer::FORMAT_PRECISE);
             }
-            if (is_array($this->callback) && isset($this->callback[0]) && $this->callback[0] instanceof TestCase) {
-                $this->totalAssertions = $this->callback[0]->getCounter();
+            $this->result = JobResult::fromJob($this);
+            if ($this->result !== JobResult::FAILED) {
+                break;
             }
-            $this->eventDispatcher->dispatch(new Events\TestJobFinished($this));
-            $this->onAfterExecute(); // @phpstan-ignore method.deprecated
-            restore_error_handler();
-            $this->output = (string) ob_get_clean();
-            Timer::stop($timerName);
-            // @phpstan-ignore argument.type, cast.int
-            $this->totalTime = (int) Timer::read($timerName, Timer::FORMAT_PRECISE);
         }
-        $this->result = JobResult::fromJob($this);
     }
 }
