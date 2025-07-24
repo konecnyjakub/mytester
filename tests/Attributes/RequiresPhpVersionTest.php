@@ -20,6 +20,9 @@ final class RequiresPhpVersionTest extends TestCase
         $this->assertNull($attribute->getSkipValue());
 
         $attribute = new RequiresPhpVersion("666");
-        $this->assertSame("PHP version is lesser than 666", $attribute->getSkipValue());
+        $this->assertSame("PHP >=666 is required", $attribute->getSkipValue());
+
+        $attribute = new RequiresPhpVersion("8.3.0", "<");
+        $this->assertSame("PHP <8.3.0 is required", $attribute->getSkipValue());
     }
 }

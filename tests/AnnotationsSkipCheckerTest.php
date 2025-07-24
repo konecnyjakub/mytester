@@ -30,7 +30,7 @@ final class AnnotationsSkipCheckerTest extends TestCase
         $this->assertSame(false, $this->getSkipChecker()->shouldSkip(self::class, "notSkip"));
         $this->assertSame(true, $this->getSkipChecker()->shouldSkip(self::class, "skip"));
         $this->assertSame(
-            "PHP version is lesser than 666",
+            "PHP >=666 is required",
             $this->getSkipChecker()->shouldSkip(self::class, "skipPhpVersion")
         );
         $this->assertSame(false, $this->getSkipChecker()->shouldSkip(self::class, "notSkipPhpVersion"));

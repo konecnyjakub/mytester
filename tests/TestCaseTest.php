@@ -573,7 +573,7 @@ final class TestCaseTest extends TestCase
         if (version_compare(PHP_VERSION, "8.4.0") >= 0) {
             $this->assertFalse((bool) $job->skip);
         } else {
-            $this->assertSame("PHP version is lesser than 8.4", $job->skip);
+            $this->assertSame("PHP >=8.4 is required", $job->skip);
         }
         $this->assertCount(0, $job->onAfterExecute);
         $this->assertSame("", $job->dataSetName);

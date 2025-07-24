@@ -2,4 +2,6 @@ A new version of My Tester is out. It is now possible to disable .phpt tests in 
 
 Tests can be marked as flaky, they will be retry on failure, up to specified max times.
 
+It is now possible to specify operator for attribute RequiresPhpVersion. It is passed to function version_compare and default value is ">=".
+
 For complete list of changes since previous version, see CHANGELOG.md.
