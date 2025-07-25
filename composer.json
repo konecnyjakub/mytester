@@ -12,10 +12,6 @@
           "role": "Developer"
         }
     ],
-    "support": {
-        "source": "https://gitlab.com/konecnyjakub/mytester",
-        "issues": "https://gitlab.com/konecnyjakub/mytester/-/issues"
-   },
     "require": {
         "php": ">=8.3.0",
         "composer-runtime-api": "^2.2",
