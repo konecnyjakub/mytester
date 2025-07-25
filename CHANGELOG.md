@@ -1,4 +1,4 @@
-Version 8.2.0-dev
+Version 8.2.0
 - added option to disable .phpt tests in mytester.php with --noPhpt
 - deprecated TestCase::METHOD_PATTERN
 - allowed skipping test when env variable is not set (to a value)
