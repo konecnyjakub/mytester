@@ -33,7 +33,7 @@ final readonly class Report
         $this->sourcePath = Strings::findPrefix($filenames);
 
         $allClassNames = array_merge(get_declared_classes(), get_declared_traits());
-        /** @var ReflectionClass[] $allClasses */
+        /** @var ReflectionClass<object>[] $allClasses */
         $allClasses = [];
         foreach ($allClassNames as $className) {
             $rc = new ReflectionClass($className);

@@ -16,7 +16,7 @@ final readonly class ReportFile
     public int $coveragePercent;
 
     /**
-     * @param \ReflectionClass[] $classes
+     * @param \ReflectionClass<object>[] $classes
      * @param \ReflectionFunction[] $functions
      * @param array<int, int> $data
      */

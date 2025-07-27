@@ -171,6 +171,7 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
     }
 
     /**
+     * @param \ReflectionClass<object>|\ReflectionFunctionAbstract $reflection
      * @param array<int, int> $data
      * @return array<int, int>
      */
