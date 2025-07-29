@@ -33,7 +33,7 @@ final class ContainerFactory
             if (self::$tempDir !== "") {
                 $configurator->setTempDirectory(self::$tempDir);
             }
-            $configurator->onCompile[] = function (Configurator $configurator, Compiler $compiler): void {
+            $configurator->onCompile[] = static function (Configurator $configurator, Compiler $compiler): void {
                 $compiler->addExtension("mytester", new MyTesterExtension());
             };
             if (is_callable(self::$onCreate)) {

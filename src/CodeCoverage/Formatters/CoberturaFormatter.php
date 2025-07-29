@@ -187,7 +187,7 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
      */
     private function getCoveredLineCount(array $lines): int
     {
-        return count(array_filter($lines, function (int $value): bool {
+        return count(array_filter($lines, static function (int $value): bool {
             return $value > 0;
         }));
     }

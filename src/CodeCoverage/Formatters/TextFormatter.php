@@ -29,7 +29,7 @@ final class TextFormatter implements ICodeCoverageCustomFileNameFormatter
         $result .= "Code coverage per file:\n";
 
         $files = $report->files;
-        usort($files, function (ReportFile $a, ReportFile $b): int {
+        usort($files, static function (ReportFile $a, ReportFile $b): int {
             return $a->name <=> $b->name;
         });
         foreach ($files as $reportFile) {

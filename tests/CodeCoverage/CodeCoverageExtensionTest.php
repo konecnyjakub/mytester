@@ -22,7 +22,7 @@ final class CodeCoverageExtensionTest extends TestCase
 {
     public function testSetupCodeCoverage(): void
     {
-        $this->assertNoException(function () {
+        $this->assertNoException(static function () {
             $extension = new CodeCoverageExtension(new Collector());
             $extension->onRunnerStarted(new RunnerStarted());
         });
@@ -30,11 +30,11 @@ final class CodeCoverageExtensionTest extends TestCase
 
     public function testReportCodeCoverage(): void
     {
-        $this->assertNoException(function () {
+        $this->assertNoException(static function () {
             $extension = new CodeCoverageExtension(new Collector());
             $extension->onTestsFinished(new TestsFinished());
         });
-        $this->assertNoException(function () {
+        $this->assertNoException(static function () {
             $collector = new Collector();
             $collector->registerEngine(new DummyEngine());
             $extension = new CodeCoverageExtension($collector);

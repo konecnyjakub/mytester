@@ -20,7 +20,7 @@ final class CollectorTest extends TestCase
 {
     public function testStart(): void
     {
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             $collector = new Collector();
             $collector->start();
         }, Exception::class, "No code coverage engine is available.", Exception::NO_ENGINE_AVAILABLE);
@@ -32,7 +32,7 @@ final class CollectorTest extends TestCase
 
     public function testFinish(): void
     {
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             $collector = new Collector();
             $collector->finish();
         }, Exception::class, "Code coverage collector has not been started.", Exception::COLLECTOR_NOT_STARTED);
@@ -46,7 +46,7 @@ final class CollectorTest extends TestCase
 
     public function testGetEngineName(): void
     {
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             $collector = new Collector();
             $collector->getEngineName();
         }, Exception::class, "No code coverage engine is available.", Exception::NO_ENGINE_AVAILABLE);

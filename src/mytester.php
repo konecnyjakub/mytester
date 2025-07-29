@@ -108,7 +108,7 @@ if (isset($options["--resultsFormat"])) {
     }
 }
 
-$getArrayFromList = function (string $value): array {
+$getArrayFromList = static function (string $value): array {
     if ($value === "") {
         return [];
     }

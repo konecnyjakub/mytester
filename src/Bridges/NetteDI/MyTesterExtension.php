@@ -62,7 +62,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->assert("is_dir", "Invalid folder"),
             "extensions" => Expect::arrayOf("class")
                 ->default([])
-                ->assert(function (string $classname) {
+                ->assert(static function (string $classname) {
                     return is_subclass_of($classname, ITesterExtension::class);
                 }),
             "colors" => Expect::bool(false),

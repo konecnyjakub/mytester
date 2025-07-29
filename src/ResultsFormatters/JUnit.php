@@ -48,15 +48,15 @@ final class JUnit extends AbstractResultsFormatter
         foreach ($this->testSuites as $testSuite) {
             $testSuiteTests = count($testSuite->jobs);
             $totalTests += $testSuiteTests;
-            $testSuiteFailures = count(array_filter($testSuite->jobs, function (Job $job) {
+            $testSuiteFailures = count(array_filter($testSuite->jobs, static function (Job $job) {
                 return $job->result === JobResult::FAILED;
             }));
             $totalFailures += $testSuiteFailures;
-            $testSuiteSkipped = count(array_filter($testSuite->jobs, function (Job $job) {
+            $testSuiteSkipped = count(array_filter($testSuite->jobs, static function (Job $job) {
                 return $job->result === JobResult::SKIPPED;
             }));
             $totalSkipped += $testSuiteSkipped;
-            $testSuiteWarnings = count(array_filter($testSuite->jobs, function (Job $job) {
+            $testSuiteWarnings = count(array_filter($testSuite->jobs, static function (Job $job) {
                 return $job->result === JobResult::WARNING;
             }));
             $totalWarnings += $testSuiteWarnings;

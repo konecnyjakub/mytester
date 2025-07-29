@@ -35,7 +35,7 @@ final class InfoExtension implements ITesterExtension
 
     public function storeExtensionNames(Events\ExtensionsLoaded $event): void
     {
-        $this->extensionNames = array_map(function (ITesterExtension $extension): string {
+        $this->extensionNames = array_map(static function (ITesterExtension $extension): string {
             return $extension->getName();
         }, $event->extensions);
     }

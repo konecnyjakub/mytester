@@ -44,28 +44,28 @@ final class AssertTest extends TestCase
         $this->assertType("null", null);
         $this->assertType("object", new stdClass());
         $this->assertType("scalar", 42);
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             throw new \RuntimeException("abc", 1);
         }, \RuntimeException::class);
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             throw new \RuntimeException("abc");
         }, \RuntimeException::class);
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             throw new \RuntimeException("abc", 1);
         }, \RuntimeException::class);
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             throw new \RuntimeException("abc");
         }, \RuntimeException::class, "abc");
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             throw new \RuntimeException("abc", 1);
         }, \RuntimeException::class, "abc");
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             throw new \RuntimeException("abc", 1);
         }, \RuntimeException::class, "abc", 1);
-        $this->assertNoException(function () {
+        $this->assertNoException(static function () {
             time();
         });
-        $this->assertOutput(function () {
+        $this->assertOutput(static function () {
             echo "abc";
         }, "abc");
         $this->assertMatchesRegExp('/abc/', "1abc2");
@@ -78,10 +78,10 @@ final class AssertTest extends TestCase
             "float",
             [1.5, 2.0, ]
         );
-        $this->assertTriggersDeprecation(function () {
+        $this->assertTriggersDeprecation(static function () {
             trigger_error("test", E_USER_DEPRECATED);
         });
-        $this->assertTriggersDeprecation(function () {
+        $this->assertTriggersDeprecation(static function () {
             trigger_error("test", E_USER_DEPRECATED);
         }, "test");
         if (version_compare(PHP_VERSION, "8.4.0") >= 0) {
@@ -92,7 +92,7 @@ final class AssertTest extends TestCase
                 $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
             }, "Method MyTester\AssertTest::deprecatedMethod() is deprecated, test");
         }
-        $this->assertTriggersNoDeprecation(function () {
+        $this->assertTriggersNoDeprecation(static function () {
         });
         $this->assertArrayHasKey("abc", ["abc" => 1, "def" => 2, ]);
         $this->assertArrayHasKey(2, [0, 5, 10, ]);

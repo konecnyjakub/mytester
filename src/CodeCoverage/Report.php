@@ -59,10 +59,10 @@ final readonly class Report
         $totalLines = 0;
         $coveredLines = 0;
         foreach ($data as $filename => $file) {
-            $classes = array_values(array_filter($allClasses, function (ReflectionClass $rc) use ($filename) {
+            $classes = array_values(array_filter($allClasses, static function (ReflectionClass $rc) use ($filename) {
                 return ((string) $rc->getFileName() === $filename);
             }));
-            $functions = array_values(array_filter($allFunctions, function (ReflectionFunction $rf) use ($filename) {
+            $functions = array_values(array_filter($allFunctions, static function (ReflectionFunction $rf) use ($filename) {
                 return ((string) $rf->getFileName() === $filename);
             }));
             $files[] = new ReportFile(
