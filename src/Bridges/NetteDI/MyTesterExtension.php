@@ -57,27 +57,22 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     public function getConfigSchema(): \Nette\Schema\Schema
     {
         $params = $this->getContainerBuilder()->parameters;
-        return Expect::structure([
+        return Expect::from(new Config(), [
             "folder" => Expect::string(Helpers::expand("%appDir%/../tests", $params))
                 ->assert("is_dir", "Invalid folder"),
             "extensions" => Expect::arrayOf("class")
-                ->default([])
                 ->assert(static function (string $classname) {
                     return is_subclass_of($classname, ITesterExtension::class);
                 }),
-            "colors" => Expect::bool(false),
             "coverageFormat" => Expect::anyOf(
                 null,
                 ...array_keys(CodeCoverageHelper::$availableFormatters)
-            )->default(null),
+            ),
             "resultsFormat" => Expect::anyOf(
                 null,
                 ...array_keys(ResultsHelper::$availableFormatters)
-            )->default(null),
-            "filterOnlyGroups" => Expect::arrayOf("string")->default([]),
-            "filterExceptGroups" => Expect::arrayOf("string")->default([]),
-            "filterExceptFolders" => Expect::arrayOf("string")->default([]),
-        ])->castTo(Config::class);
+            ),
+        ]);
     }
 
     /**
