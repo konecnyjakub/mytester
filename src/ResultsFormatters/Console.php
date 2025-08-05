@@ -41,7 +41,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
         foreach ($event->testSuite->jobs as $job) {
             switch ($job->result) {
                 case JobResult::SKIPPED:
-                    $this->skipped[] = new SkippedTest($job->name, (is_string($job->skip) ? $job->skip : ""));
+                    $this->skipped[] = new SkippedTest($job->nameWithDataSet, (is_string($job->skip) ? $job->skip : ""));
                     break;
                 case JobResult::FAILED:
                     $output = $job->output;
@@ -52,7 +52,7 @@ final class Console extends AbstractResultsFormatter implements IConsoleAwareRes
                 case JobResult::WARNING:
                     $output = $job->output;
                     $output = str_replace("Warning: ", "", $output);
-                    $this->warnings[] = new TestWarning($job->name, $output);
+                    $this->warnings[] = new TestWarning($job->nameWithDataSet, $output);
                     break;
             }
             $this->results .= $job->result->output();
