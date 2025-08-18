@@ -1,4 +1,4 @@
-Version 8.2.0+dev
+Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings
 
 Version 8.2.0
