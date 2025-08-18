@@ -31,7 +31,7 @@ trait TComponent
             $this->presenterMock = $presenterMock;
         }
 
-        $this->presenterMock->onStartup[] = function (PresenterMock $presenter) use ($component, $name): void {
+        $this->presenterMock->onStartup[] = static function (PresenterMock $presenter) use ($component, $name): void {
             try {
                 $presenter->removeComponent($presenter->getComponent($name));
             } catch (InvalidArgumentException) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement

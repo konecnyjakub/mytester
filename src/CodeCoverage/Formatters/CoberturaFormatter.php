@@ -177,7 +177,7 @@ final class CoberturaFormatter implements ICodeCoverageCustomFileNameFormatter
      */
     private function getElementLines(\ReflectionClass|\ReflectionFunctionAbstract $reflection, array $data): array
     {
-        return array_filter($data, function (int $line) use ($reflection): bool {
+        return array_filter($data, static function (int $line) use ($reflection): bool {
             return ($line >= $reflection->getStartLine() && $line <= $reflection->getEndLine());
         }, ARRAY_FILTER_USE_KEY);
     }

@@ -367,7 +367,7 @@ trait TAssertions
         if (count($actual) === 0) {
             $this->testResult("The array is empty.", false);
         }
-        $success = array_all($actual, function (mixed $value) use ($expected) {
+        $success = array_all($actual, static function (mixed $value) use ($expected) {
             if (in_array($expected, self::PRIMITIVE_TYPES, true)) {
                 return (call_user_func("is_$expected", $value));
             }
@@ -382,7 +382,7 @@ trait TAssertions
     {
         $deprecation = "";
         set_error_handler(
-            function (int $errno, string $errstr, string $errfile, int $errline) use (&$deprecation) {
+            static function (int $errno, string $errstr, string $errfile, int $errline) use (&$deprecation) {
                 $deprecation = $errstr;
                 return true;
             },
@@ -404,7 +404,7 @@ trait TAssertions
     {
         $deprecation = "";
         set_error_handler(
-            function (int $errno, string $errstr, string $errfile, int $errline) use (&$deprecation) {
+            static function (int $errno, string $errstr, string $errfile, int $errline) use (&$deprecation) {
                 $deprecation = $errstr;
                 return true;
             },

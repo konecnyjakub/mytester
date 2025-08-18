@@ -10,7 +10,7 @@ function findVendorDirectory(): string
         return dirname($GLOBALS["_composer_autoload_path"]);
     }
     $recursionLimit = 10;
-    $findVendor = function (string $dirName = "vendor/bin", string $dir = __DIR__) use (&$findVendor, &$recursionLimit): string {
+    $findVendor = static function (string $dirName = "vendor/bin", string $dir = __DIR__) use (&$findVendor, &$recursionLimit): string {
         $recursionLimit--;
         if ($recursionLimit === 0) {
             throw new Exception("Cannot find vendor directory.");
