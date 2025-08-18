@@ -1,5 +1,5 @@
 Version 8.2.0+dev
-- data set is shown skipped jobs or jobs passed with warnings
+- data set is shown for skipped jobs or jobs passed with warnings
 
 Version 8.2.0
 - added option to disable .phpt tests in mytester.php with --noPhpt
