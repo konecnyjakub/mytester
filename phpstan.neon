@@ -15,9 +15,3 @@ parameters:
             path: %rootDir%/../../../tests/*
         -
             identifier: missingType.generics
-        -
-            message: '#Property MyTester\\Job::\$[a-zA-Z]+ is not writable#'
-            path: %rootDir%/../../../src/Job.php
-        -
-            message: '#Property MyTester\\TestCase::\$[a-zA-Z]+ is not writable#'
-            path: %rootDir%/../../../src/TestCase.php
