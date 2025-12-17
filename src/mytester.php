@@ -139,7 +139,8 @@ $testSuiteFactory = new ChainTestSuiteFactory();
 if ($includePhptTests && class_exists(PhptRunner::class)) {
     $testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
         new PhptRunner(new \Konecnyjakub\PHPTRunner\Parser(), new PhpRunner()),
-        $folderProvider
+        $folderProvider,
+        $testSuitesSelectionCriteria
     ));
 }
 $testSuiteFactory->registerFactory(new SimpleTestSuiteFactory());

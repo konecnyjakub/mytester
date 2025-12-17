@@ -9,6 +9,7 @@ use Konecnyjakub\PHPTRunner\PhptRunner;
 use MyTester\Job;
 use MyTester\TestCase;
 use MyTester\TestsFolderProvider;
+use MyTester\TestSuitesSelectionCriteria;
 use Nette\Utils\Finder;
 
 /**
@@ -20,7 +21,8 @@ final class PHPTTestCase extends TestCase
 {
     public function __construct(
         private readonly PhptRunner $runner,
-        private readonly TestsFolderProvider $testsFolderProvider
+        private readonly TestsFolderProvider $testsFolderProvider,
+        private readonly TestSuitesSelectionCriteria $testSuitesSelectionCriteria
     ) {
         parent::__construct();
     }
@@ -36,7 +38,11 @@ final class PHPTTestCase extends TestCase
         static $jobs = [];
         if (count($jobs) === 0) {
             $parser = new Parser();
-            $files = Finder::findFiles("*.phpt")->from($this->testsFolderProvider->folder)->sortByName()->collect();
+            $files = Finder::findFiles("*.phpt")
+                ->from($this->testsFolderProvider->folder)
+                ->exclude($this->testSuitesSelectionCriteria->exceptFolders)
+                ->sortByName()
+                ->collect();
             foreach ($files as $file) {
                 $parsedFile = $parser->parse($file->getPathname(), false);
                 $jobs[] = new Job(

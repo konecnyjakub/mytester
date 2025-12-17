@@ -16,6 +16,7 @@ use MyTester\Job;
 use MyTester\SkippedTestException;
 use MyTester\TestCase;
 use MyTester\TestsFolderProvider;
+use MyTester\TestSuitesSelectionCriteria;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\NullLogger;
 use ReflectionMethod;
@@ -90,7 +91,8 @@ final class PHPTTestCaseTest extends TestCase
     ): PHPTTestCase {
         $testCase = new PHPTTestCase(
             new PhptRunner(new Parser(), new PhpRunner()),
-            new TestsFolderProvider($folder)
+            new TestsFolderProvider($folder),
+            new TestSuitesSelectionCriteria(new TestsFolderProvider(""))
         );
         $testCase->setEventDispatcher($eventDispatcher);
         return $testCase;

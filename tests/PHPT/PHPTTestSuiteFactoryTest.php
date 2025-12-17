@@ -11,6 +11,7 @@ use MyTester\Attributes\TestSuite;
 use MyTester\InvalidTestSuiteException;
 use MyTester\TestCase;
 use MyTester\TestsFolderProvider;
+use MyTester\TestSuitesSelectionCriteria;
 
 /**
  * Test suite for class PHPTTestSuiteFactory
@@ -24,9 +25,11 @@ final class PHPTTestSuiteFactoryTest extends TestCase
 {
     public function testCreate(): void
     {
+        $testsFolderProvider = new TestsFolderProvider(__DIR__);
         $factory = new PHPTTestSuiteFactory(
             new PhptRunner(new Parser(), new PhpRunner()),
-            new TestsFolderProvider(__DIR__)
+            $testsFolderProvider,
+            new TestSuitesSelectionCriteria($testsFolderProvider)
         );
         $this->assertType(PHPTTestCase::class, $factory->create(PHPTTestCase::class));
         $this->assertNull($factory->create(self::class));

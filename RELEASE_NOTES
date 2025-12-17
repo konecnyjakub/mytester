@@ -1,3 +1,5 @@
 A new version of My Tester is out. It removes stuff deprecated in 8.x series. Names of all interfaces were changed: they no longer start with I.
 
+Argument --filterExceptFolders in mytester.php now applies also to .phpt files.
+
 For complete list of changes since previous version, see CHANGELOG.md.

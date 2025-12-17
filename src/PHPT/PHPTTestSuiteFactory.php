@@ -8,11 +8,15 @@ use MyTester\InvalidTestSuiteException;
 use MyTester\TestSuiteFactory;
 use MyTester\TestCase;
 use MyTester\TestsFolderProvider;
+use MyTester\TestSuitesSelectionCriteria;
 
 final readonly class PHPTTestSuiteFactory implements TestSuiteFactory
 {
-    public function __construct(private PhptRunner $runner, private TestsFolderProvider $testsFolderProvider)
-    {
+    public function __construct(
+        private PhptRunner $runner,
+        private TestsFolderProvider $testsFolderProvider,
+        private TestSuitesSelectionCriteria $testSuitesSelectionCriteria
+    ) {
     }
 
     public function create(string $className): ?TestCase
@@ -23,6 +27,6 @@ final readonly class PHPTTestSuiteFactory implements TestSuiteFactory
         if ($className !== PHPTTestCase::class) {
             return null;
         }
-        return new PHPTTestCase($this->runner, $this->testsFolderProvider);
+        return new PHPTTestCase($this->runner, $this->testsFolderProvider, $this->testSuitesSelectionCriteria);
     }
 }
