@@ -8,7 +8,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-interface IDataProvider
+interface DataProvider
 {
     /**
      * Get data for a test method

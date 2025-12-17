@@ -10,7 +10,7 @@ use Konecnyjakub\EventDispatcher\EventSubscriber;
  *
  * @author Jakub Konečný
  */
-interface IResultsFormatter extends EventSubscriber
+interface ResultsFormatter extends EventSubscriber
 {
     /**
      * Generates results of Tester run and outputs it to set file/console

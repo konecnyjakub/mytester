@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage\Formatters;
 
-use MyTester\CodeCoverage\ICodeCoverageFormatter;
+use MyTester\CodeCoverage\CodeCoverageFormatter;
 use MyTester\CodeCoverage\Report;
 
 /**
@@ -12,7 +12,7 @@ use MyTester\CodeCoverage\Report;
  *
  * @author Jakub Konečný
  */
-final class PercentFormatter implements ICodeCoverageFormatter
+final class PercentFormatter implements CodeCoverageFormatter
 {
     public function render(Report $report): string
     {

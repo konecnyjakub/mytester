@@ -10,12 +10,12 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-final class ChainTestSuiteFactory implements ITestSuiteFactory
+final class ChainTestSuiteFactory implements TestSuiteFactory
 {
-    /** @var ITestSuiteFactory[] */
+    /** @var TestSuiteFactory[] */
     private array $factories = [];
 
-    public function registerFactory(ITestSuiteFactory $factory): void
+    public function registerFactory(TestSuiteFactory $factory): void
     {
         $this->factories[] = $factory;
     }

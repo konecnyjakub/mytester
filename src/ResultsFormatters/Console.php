@@ -5,7 +5,7 @@ namespace MyTester\ResultsFormatters;
 
 use MyTester\ConsoleColors;
 use MyTester\Events\TestSuiteFinished;
-use MyTester\IConsoleAwareResultsFormatter;
+use MyTester\ConsoleAwareResultsFormatter;
 use MyTester\JobResult;
 use MyTester\SkippedTest;
 use MyTester\TestWarning;
@@ -16,7 +16,7 @@ use MyTester\TestWarning;
  *
  * @author Jakub Konečný
  */
-final class Console extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
+final class Console extends AbstractResultsFormatter implements ConsoleAwareResultsFormatter
 {
     private ConsoleColors $console;
 

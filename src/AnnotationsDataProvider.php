@@ -11,7 +11,7 @@ use ReflectionMethod;
  *
  * @author Jakub Konečný
  */
-final readonly class AnnotationsDataProvider implements IDataProvider
+final readonly class AnnotationsDataProvider implements DataProvider
 {
     public const string ANNOTATION_NAME = "dataProvider";
 

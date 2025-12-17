@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage\Engines;
 
-use MyTester\CodeCoverage\ICodeCoverageEngine;
+use MyTester\CodeCoverage\CodeCoverageEngine;
 
 /**
  * Pcov engine for code coverage collector
@@ -11,7 +11,7 @@ use MyTester\CodeCoverage\ICodeCoverageEngine;
  *
  * @author Jakub Konečný
  */
-final class PcovEngine implements ICodeCoverageEngine
+final class PcovEngine implements CodeCoverageEngine
 {
     public function getName(): string
     {

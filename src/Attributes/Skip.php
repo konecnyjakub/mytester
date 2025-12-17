@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Attributes;
 
 use Attribute;
-use MyTester\ISkipAttribute;
+use MyTester\SkipAttribute;
 
 /**
  * Skip attribute
@@ -13,7 +13,7 @@ use MyTester\ISkipAttribute;
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class Skip implements ISkipAttribute
+final readonly class Skip implements SkipAttribute
 {
     public function getValue(): string
     {

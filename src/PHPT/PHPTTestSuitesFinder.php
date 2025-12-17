@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\PHPT;
 
 use Konecnyjakub\PHPTRunner\PhptRunner;
-use MyTester\ITestSuitesFinder;
+use MyTester\TestSuitesFinder;
 use MyTester\TestSuitesSelectionCriteria;
 use Nette\Utils\Finder;
 
@@ -15,7 +15,7 @@ use Nette\Utils\Finder;
  *
  * @author Jakub Konečný
  */
-final class PHPTTestSuitesFinder implements ITestSuitesFinder
+final class PHPTTestSuitesFinder implements TestSuitesFinder
 {
     public function getSuites(TestSuitesSelectionCriteria $criteria): array
     {

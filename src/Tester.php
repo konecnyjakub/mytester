@@ -18,17 +18,17 @@ final readonly class Tester
     private EventDispatcherInterface $eventDispatcher;
 
     /**
-     * @param ITesterExtension[] $extensions
+     * @param TesterExtension[] $extensions
      */
     public function __construct(
         private TestSuitesSelectionCriteria $testSuitesSelectionCriteria,
-        public ITestSuitesFinder $testSuitesFinder,
-        public ITestSuiteFactory $testSuiteFactory = new SimpleTestSuiteFactory(),
+        public TestSuitesFinder $testSuitesFinder,
+        public TestSuiteFactory $testSuiteFactory = new SimpleTestSuiteFactory(),
         private array $extensions = [],
-        private IResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
+        private ResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
         private ConsoleColors $console = new ConsoleColors()
     ) {
-        if (is_subclass_of($this->resultsFormatter, IConsoleAwareResultsFormatter::class)) {
+        if (is_subclass_of($this->resultsFormatter, ConsoleAwareResultsFormatter::class)) {
             $this->resultsFormatter->setConsole($this->console);
         }
         $this->eventDispatcher = $this->createEventDispatcher();

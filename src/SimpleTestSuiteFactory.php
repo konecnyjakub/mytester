@@ -12,7 +12,7 @@ use MyTester\PHPT\PHPTTestCase;
  *
  * @author Jakub Konečný
  */
-final class SimpleTestSuiteFactory implements ITestSuiteFactory
+final class SimpleTestSuiteFactory implements TestSuiteFactory
 {
     public function create(string $className): ?TestCase
     {

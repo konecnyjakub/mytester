@@ -9,7 +9,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-interface IConsoleAwareResultsFormatter extends IResultsFormatter
+interface ConsoleAwareResultsFormatter extends ResultsFormatter
 {
     public function setConsole(ConsoleColors $console): void;
 }

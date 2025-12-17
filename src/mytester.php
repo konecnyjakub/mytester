@@ -90,7 +90,7 @@ $codeCoverageCollector->registerFormatter(new PercentFormatter());
 if (isset($options["--coverageFormat"])) {
     $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$options["--coverageFormat"]]();
     if (
-        $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
+        $codeCoverageFormatter instanceof \MyTester\CodeCoverage\CodeCoverageCustomFileNameFormatter &&
         isset($options["--coverageFile"])
     ) {
         $codeCoverageFormatter->setOutputFileName($options["--coverageFile"]);
@@ -101,7 +101,7 @@ if (isset($options["--coverageFormat"])) {
 $resultsFormatter = null;
 if (isset($options["--resultsFormat"])) {
     $type = ResultsHelper::$availableFormatters[$options["--resultsFormat"]];
-    /** @var \MyTester\IResultsFormatter $resultsFormatter */
+    /** @var \MyTester\ResultsFormatter $resultsFormatter */
     $resultsFormatter = new $type();
     if (isset($options["--resultsFile"])) {
         $resultsFormatter->setOutputFileName($options["--resultsFile"]);

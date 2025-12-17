@@ -17,7 +17,7 @@ final class Helper
     use \Nette\StaticClass;
 
     /**
-     * @var array<string, class-string<ICodeCoverageEngine>>
+     * @var array<string, class-string<CodeCoverageEngine>>
      */
     public static array $defaultEngines = [
         "pcov" => PcovEngine::class,
@@ -25,7 +25,7 @@ final class Helper
     ];
 
     /**
-     * @var array<string, class-string<ICodeCoverageFormatter>>
+     * @var array<string, class-string<CodeCoverageFormatter>>
      */
     public static array $availableFormatters = [
         "cobertura" => CoberturaFormatter::class,

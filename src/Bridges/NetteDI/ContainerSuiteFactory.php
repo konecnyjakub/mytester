@@ -13,7 +13,7 @@ use MyTester\TestCase;
  *
  * @author Jakub Konečný
  */
-final readonly class ContainerSuiteFactory implements \MyTester\ITestSuiteFactory
+final readonly class ContainerSuiteFactory implements \MyTester\TestSuiteFactory
 {
     /**
      * @param TestCase[] $suites

@@ -10,7 +10,7 @@ use ReflectionFunction;
 /**
  * Report for code coverage
  * Contains all relevant data in a convenient form
- * Is a passed to {@see ICodeCoverageFormatter} to generate output
+ * Is a passed to {@see CodeCoverageFormatter} to generate output
  *
  * @author Jakub Konečný
  */
@@ -24,7 +24,7 @@ final readonly class Report
     public array $files;
 
     /**
-     * @see ICodeCoverageEngine::collect()
+     * @see CodeCoverageEngine::collect()
      * @param array<string, array<int, int>> $data Raw code coverage data
      */
     public function __construct(array $data)

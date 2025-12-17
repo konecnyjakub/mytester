@@ -9,7 +9,7 @@ namespace MyTester\CodeCoverage;
  *
  * @author Jakub Konečný
  */
-interface ICodeCoverageEngine
+interface CodeCoverageEngine
 {
     public function getName(): string;
 

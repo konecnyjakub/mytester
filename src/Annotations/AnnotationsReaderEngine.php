@@ -8,7 +8,7 @@ namespace MyTester\Annotations;
  *
  * @author Jakub Konečný
  */
-interface IAnnotationsReaderEngine
+interface AnnotationsReaderEngine
 {
     /**
      * @param class-string|object $class

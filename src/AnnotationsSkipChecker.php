@@ -10,9 +10,9 @@ use MyTester\Annotations\Reader;
  *
  * @author Jakub Konečný
  */
-final class AnnotationsSkipChecker implements ISkipChecker
+final class AnnotationsSkipChecker implements SkipChecker
 {
-    /** @var array<string, class-string<ISkipAttribute>>  */
+    /** @var array<string, class-string<SkipAttribute>>  */
     private array $skipAnnotations = [
         "skip" => Attributes\Skip::class,
         "requiresPhpVersion" => Attributes\RequiresPhpVersion::class,
@@ -50,7 +50,7 @@ final class AnnotationsSkipChecker implements ISkipChecker
 
     /**
      * @param mixed[] $values
-     * @param class-string<ISkipAttribute> $classname
+     * @param class-string<SkipAttribute> $classname
      */
     private function getSkipValue(array $values, string $classname): bool|string
     {

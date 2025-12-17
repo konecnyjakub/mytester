@@ -9,7 +9,7 @@ use MyTester\Events\TestSuiteFinished;
 use MyTester\Events\TestSuiteStarted;
 use MyTester\Events\TestsFinished;
 use MyTester\Events\TestsStarted;
-use MyTester\IResultsFormatter;
+use MyTester\ResultsFormatter;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\TestCase;
 
@@ -19,7 +19,7 @@ use MyTester\TestCase;
  *
  * @author Jakub Konečný
  */
-abstract class AbstractResultsFormatter implements IResultsFormatter
+abstract class AbstractResultsFormatter implements ResultsFormatter
 {
     private const string TIMER_NAME = "My Tester";
 

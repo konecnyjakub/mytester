@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage\Formatters;
 
-use MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter;
+use MyTester\CodeCoverage\CodeCoverageCustomFileNameFormatter;
 use MyTester\CodeCoverage\Report;
 use MyTester\CodeCoverage\ReportFile;
 
@@ -13,7 +13,7 @@ use MyTester\CodeCoverage\ReportFile;
  *
  * @author Jakub Konečný
  */
-final class TextFormatter implements ICodeCoverageCustomFileNameFormatter
+final class TextFormatter implements CodeCoverageCustomFileNameFormatter
 {
     private string $baseFileName = "coverage.txt";
 

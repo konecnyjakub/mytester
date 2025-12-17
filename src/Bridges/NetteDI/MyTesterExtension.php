@@ -14,7 +14,7 @@ use MyTester\CodeCoverage\Formatters\PercentFormatter;
 use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\InfoExtension;
-use MyTester\ITesterExtension;
+use MyTester\TesterExtension;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
@@ -62,7 +62,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->assert("is_dir", "Invalid folder"),
             "extensions" => Expect::arrayOf("class")
                 ->assert(static function (string $classname) {
-                    return is_subclass_of($classname, ITesterExtension::class);
+                    return is_subclass_of($classname, TesterExtension::class);
                 }),
             "coverageFormat" => Expect::anyOf(
                 null,

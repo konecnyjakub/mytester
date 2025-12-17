@@ -6,7 +6,7 @@ namespace MyTester;
 /**
  * @author Jakub Konečný
  */
-interface ITestSuitesFinder
+interface TestSuitesFinder
 {
     /**
      * @return class-string[]

@@ -21,7 +21,7 @@ final class ChainTestSuiteFactoryTest extends TestCase
         $this->assertNull($factory->create(self::class));
         $this->assertNull($factory->create(\stdClass::class));
 
-        $factory->registerFactory(new class implements ITestSuiteFactory
+        $factory->registerFactory(new class implements TestSuiteFactory
         {
             public function create(string $className): ?TestCase
             {

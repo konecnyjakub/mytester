@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\ResultsFormatters;
 
-use MyTester\IResultsFormatter;
+use MyTester\ResultsFormatter;
 
 /**
  * @author Jakub Konečný
@@ -13,7 +13,7 @@ final class Helper
 {
     use \Nette\StaticClass;
 
-    /** @var array<string, class-string<IResultsFormatter>>  */
+    /** @var array<string, class-string<ResultsFormatter>>  */
     public static array $availableFormatters = [
         "junit" => JUnit::class,
         "tap" => Tap::class,
@@ -21,7 +21,7 @@ final class Helper
     ];
 
     /**
-     * @param string $filename {@see IResultsFormatter::getOutputFileName()}
+     * @param string $filename {@see ResultsFormatter::getOutputFileName()}
      */
     public static function isFileOutput(string $filename): bool
     {

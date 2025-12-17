@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Attributes;
 
 use Attribute;
-use MyTester\ISkipAttribute;
+use MyTester\SkipAttribute;
 
 /**
  * Requires sapi attribute
@@ -14,7 +14,7 @@ use MyTester\ISkipAttribute;
  * @see PHP_SAPI
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class RequiresSapi implements ISkipAttribute
+final readonly class RequiresSapi implements SkipAttribute
 {
     public function __construct(private string $sapiName)
     {

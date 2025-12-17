@@ -16,7 +16,7 @@ final class TesterTest extends TestCase
 {
     public function testSetUp(): void
     {
-        $resultsFormatter = new class extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
+        $resultsFormatter = new class extends AbstractResultsFormatter implements ConsoleAwareResultsFormatter
         {
             public ConsoleColors $console;
 

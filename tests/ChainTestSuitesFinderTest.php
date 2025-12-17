@@ -18,7 +18,7 @@ final class ChainTestSuitesFinderTest extends TestCase
     public function testGetSuites(): void
     {
         $testSuitesFinder = new ChainTestSuitesFinder();
-        $testSuitesFinder->registerFinder(new class implements ITestSuitesFinder
+        $testSuitesFinder->registerFinder(new class implements TestSuitesFinder
         {
             public function getSuites(TestSuitesSelectionCriteria $criteria): array
             {
@@ -27,7 +27,7 @@ final class ChainTestSuitesFinderTest extends TestCase
                 ];
             }
         });
-        $testSuitesFinder->registerFinder(new class implements ITestSuitesFinder
+        $testSuitesFinder->registerFinder(new class implements TestSuitesFinder
         {
             public function getSuites(TestSuitesSelectionCriteria $criteria): array
             {

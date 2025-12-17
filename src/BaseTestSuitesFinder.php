@@ -10,7 +10,7 @@ use ReflectionException;
 /**
  * @author Jakub Konečný
  */
-abstract class BaseTestSuitesFinder implements ITestSuitesFinder
+abstract class BaseTestSuitesFinder implements TestSuitesFinder
 {
     protected Reader $annotationsReader;
 

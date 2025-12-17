@@ -9,7 +9,7 @@ namespace MyTester\CodeCoverage;
  *
  * @author Jakub Konečný
  */
-interface ICodeCoverageFormatter
+interface CodeCoverageFormatter
 {
     /**
      * Generates and returns a code coverage report as a string

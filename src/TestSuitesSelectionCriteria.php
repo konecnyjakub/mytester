@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 /**
- * Criteria for selecting tests suites in {@see ITestSuitesFinder}
+ * Criteria for selecting tests suites in {@see TestSuitesFinder}
  *
  * @author Jakub Konečný
  */

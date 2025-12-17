@@ -8,7 +8,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-interface ISkipChecker
+interface SkipChecker
 {
     /**
      * Check whether to skip a test method

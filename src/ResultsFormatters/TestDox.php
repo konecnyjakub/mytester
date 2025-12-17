@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\ConsoleColors;
-use MyTester\IConsoleAwareResultsFormatter;
+use MyTester\ConsoleAwareResultsFormatter;
 use MyTester\JobResult;
 
 /**
@@ -13,7 +13,7 @@ use MyTester\JobResult;
  *
  * @author Jakub Konečný
  */
-final class TestDox extends AbstractResultsFormatter implements IConsoleAwareResultsFormatter
+final class TestDox extends AbstractResultsFormatter implements ConsoleAwareResultsFormatter
 {
     private ConsoleColors $console;
 

@@ -33,8 +33,8 @@ abstract class TestCase
     /** @internal */
     public const string ANNOTATION_FLAKY_TEST = "flakyTest";
 
-    protected ISkipChecker $skipChecker;
-    protected IDataProvider $dataProvider;
+    protected SkipChecker $skipChecker;
+    protected DataProvider $dataProvider;
     protected Reader $annotationsReader;
 
     /** @var Job[] */

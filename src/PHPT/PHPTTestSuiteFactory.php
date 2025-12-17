@@ -5,11 +5,11 @@ namespace MyTester\PHPT;
 
 use Konecnyjakub\PHPTRunner\PhptRunner;
 use MyTester\InvalidTestSuiteException;
-use MyTester\ITestSuiteFactory;
+use MyTester\TestSuiteFactory;
 use MyTester\TestCase;
 use MyTester\TestsFolderProvider;
 
-final readonly class PHPTTestSuiteFactory implements ITestSuiteFactory
+final readonly class PHPTTestSuiteFactory implements TestSuiteFactory
 {
     public function __construct(private PhptRunner $runner, private TestsFolderProvider $testsFolderProvider)
     {

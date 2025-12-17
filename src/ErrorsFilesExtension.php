@@ -12,7 +12,7 @@ use Nette\Utils\Finder;
  *
  * @author Jakub Konečný
  */
-final readonly class ErrorsFilesExtension implements ITesterExtension
+final readonly class ErrorsFilesExtension implements TesterExtension
 {
     public function __construct(private TestsFolderProvider $folderProvider)
     {

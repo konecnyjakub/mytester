@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Events;
 
-use MyTester\ITesterExtension;
+use MyTester\TesterExtension;
 
 /**
  * Triggers when extensions for automated tests runner are loaded
@@ -13,7 +13,7 @@ use MyTester\ITesterExtension;
 final readonly class ExtensionsLoaded
 {
     /**
-     * @param ITesterExtension[] $extensions
+     * @param TesterExtension[] $extensions
      */
     public function __construct(public array $extensions = [])
     {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
-use MyTester\ITesterExtension;
+use MyTester\TesterExtension;
 
 /**
  * @author Jakub Konečný
@@ -12,7 +12,7 @@ use MyTester\ITesterExtension;
 final class Config
 {
     public string $folder;
-    /** @var class-string<ITesterExtension>[] */
+    /** @var class-string<TesterExtension>[] */
     public array $extensions = [];
     public bool $colors = false;
     public ?string $coverageFormat = null;

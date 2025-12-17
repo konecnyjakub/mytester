@@ -10,7 +10,7 @@ use Composer\InstalledVersions;
  *
  * @author Jakub Konečný
  */
-final class InfoExtension implements ITesterExtension
+final class InfoExtension implements TesterExtension
 {
     private const string PACKAGE_NAME = "konecnyjakub/mytester";
 
@@ -35,7 +35,7 @@ final class InfoExtension implements ITesterExtension
 
     public function storeExtensionNames(Events\ExtensionsLoaded $event): void
     {
-        $this->extensionNames = array_map(static function (ITesterExtension $extension): string {
+        $this->extensionNames = array_map(static function (TesterExtension $extension): string {
             return $extension->getName();
         }, $event->extensions);
     }

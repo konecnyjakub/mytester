@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\ResultsFormatters;
 
 use MyTester\Events\TestsStarted;
-use MyTester\IResultsFormatter;
+use MyTester\ResultsFormatter;
 use MyTester\JobResult;
 
 /**

@@ -10,7 +10,7 @@ use Konecnyjakub\EventDispatcher\EventSubscriber;
  *
  * @author Jakub Konečný
  */
-interface ITesterExtension extends EventSubscriber
+interface TesterExtension extends EventSubscriber
 {
     public function getName(): string;
 }

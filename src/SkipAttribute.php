@@ -8,7 +8,7 @@ namespace MyTester;
  *
  * @author Jakub Konečný
  */
-interface ISkipAttribute
+interface SkipAttribute
 {
     /**
      * @return string|null Null or reason why the test should be skipped

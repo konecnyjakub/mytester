@@ -10,7 +10,7 @@ namespace MyTester\Annotations;
  */
 final class Reader
 {
-    /** @var IAnnotationsReaderEngine[] */
+    /** @var AnnotationsReaderEngine[] */
     private array $engines = [];
 
     /**
@@ -23,7 +23,7 @@ final class Reader
         return $reader;
     }
 
-    public function registerEngine(IAnnotationsReaderEngine $engine): void
+    public function registerEngine(AnnotationsReaderEngine $engine): void
     {
         $this->engines[] = $engine;
     }

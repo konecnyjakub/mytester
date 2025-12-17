@@ -12,7 +12,7 @@ use ReflectionMethod;
  *
  * @author Jakub Konečný
  */
-final class PhpAttributesEngine implements IAnnotationsReaderEngine
+final class PhpAttributesEngine implements AnnotationsReaderEngine
 {
     /**
      * @param class-string|object $class

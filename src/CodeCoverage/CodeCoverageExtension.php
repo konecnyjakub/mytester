@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace MyTester\CodeCoverage;
 
 use MyTester\Events;
-use MyTester\ITesterExtension;
+use MyTester\TesterExtension;
 
 /**
  * Code coverage extension for automated tests runner
  *
  * @author Jakub Konečný
  */
-final readonly class CodeCoverageExtension implements ITesterExtension
+final readonly class CodeCoverageExtension implements TesterExtension
 {
     public function __construct(private Collector $collector)
     {

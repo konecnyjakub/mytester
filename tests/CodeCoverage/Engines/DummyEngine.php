@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace MyTester\CodeCoverage\Engines;
 
-use MyTester\CodeCoverage\ICodeCoverageEngine;
+use MyTester\CodeCoverage\CodeCoverageEngine;
 
-class DummyEngine implements ICodeCoverageEngine
+class DummyEngine implements CodeCoverageEngine
 {
     public function getName(): string
     {

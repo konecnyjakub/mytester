@@ -8,7 +8,7 @@ namespace MyTester\CodeCoverage;
  *
  * @author Jakub Konečný
  */
-interface ICodeCoverageCustomFileNameFormatter extends ICodeCoverageFormatter
+interface CodeCoverageCustomFileNameFormatter extends CodeCoverageFormatter
 {
     /**
      * Set file name for output that should be used instead of the default one

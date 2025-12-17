@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Attributes;
 
 use Attribute;
-use MyTester\ISkipAttribute;
+use MyTester\SkipAttribute;
 
 /**
  * Requires PHP version attribute
@@ -13,7 +13,7 @@ use MyTester\ISkipAttribute;
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class RequiresPhpVersion implements ISkipAttribute
+final readonly class RequiresPhpVersion implements SkipAttribute
 {
     public function __construct(private string $version, private string $operator = ">=")
     {

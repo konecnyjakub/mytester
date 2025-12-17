@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace MyTester\Attributes;
 
 use Attribute;
-use MyTester\ISkipAttribute;
+use MyTester\SkipAttribute;
 
 /**
  * Requires os family attribute
@@ -14,7 +14,7 @@ use MyTester\ISkipAttribute;
  * @see PHP_OS_FAMILY
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class RequiresOsFamily implements ISkipAttribute
+final readonly class RequiresOsFamily implements SkipAttribute
 {
     public function __construct(private string $osFamilyName)
     {

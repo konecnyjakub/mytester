@@ -6,7 +6,7 @@ namespace MyTester\Attributes;
 use Attribute;
 use Composer\InstalledVersions;
 use Composer\Semver\VersionParser;
-use MyTester\ISkipAttribute;
+use MyTester\SkipAttribute;
 
 /**
  * Requires package attribute
@@ -15,7 +15,7 @@ use MyTester\ISkipAttribute;
  * @author Jakub Konečný
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final readonly class RequiresPackage implements ISkipAttribute
+final readonly class RequiresPackage implements SkipAttribute
 {
     public function __construct(public string $packageName, public ?string $version = null)
     {

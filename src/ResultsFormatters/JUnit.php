@@ -5,7 +5,7 @@ namespace MyTester\ResultsFormatters;
 
 use DOMDocument;
 use MyTester\AssertionFailedException;
-use MyTester\IResultsFormatter;
+use MyTester\ResultsFormatter;
 use MyTester\Job;
 use MyTester\JobResult;
 use MyTester\TAssertions;

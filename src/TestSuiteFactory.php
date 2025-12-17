@@ -6,7 +6,7 @@ namespace MyTester;
 /**
  * @author Jakub Konečný
  */
-interface ITestSuiteFactory
+interface TestSuiteFactory
 {
     /**
      * @param class-string $className

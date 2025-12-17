@@ -12,18 +12,18 @@ use MyTester\CodeCoverage\CodeCoverageException as Exception;
  */
 final class Collector
 {
-    /** @var ICodeCoverageEngine[] */
+    /** @var CodeCoverageEngine[] */
     private array $engines = [];
-    private ?ICodeCoverageEngine $currentEngine = null;
+    private ?CodeCoverageEngine $currentEngine = null;
     private ?Report $report = null;
-    /** @var ICodeCoverageFormatter[] */
+    /** @var CodeCoverageFormatter[] */
     private array $formatters = [];
 
     /**
      * Registers a new possible engine
      * The first registered engine that is available will be used
      */
-    public function registerEngine(ICodeCoverageEngine $engine): void
+    public function registerEngine(CodeCoverageEngine $engine): void
     {
         $this->engines[] = $engine;
     }
@@ -33,7 +33,7 @@ final class Collector
      * All formatters will be used
      * @see self::write()
      */
-    public function registerFormatter(ICodeCoverageFormatter $formatter): void
+    public function registerFormatter(CodeCoverageFormatter $formatter): void
     {
         $this->formatters[] = $formatter;
     }
@@ -105,7 +105,7 @@ final class Collector
     /**
      * @throws Exception
      */
-    private function selectEngine(): ICodeCoverageEngine
+    private function selectEngine(): CodeCoverageEngine
     {
         if ($this->currentEngine !== null) {
             return $this->currentEngine;
