@@ -52,18 +52,23 @@
          <arg value="--colors"/>
          <arg value="--resultsFormat"/>
          <arg value="junit"/>
-         <arg value="--noPhpt"/>
+         <arg value="--colors"/>
+         <arg value="--filterExceptFolders"/>
+         <arg value="failing"/>
        </exec>
      </then>
      <else>
        <exec executable="src/mytester" logoutput="true" passthru="true" checkreturn="true" osFamily="unix">
          <arg value="--colors"/>
-         <arg value="--noPhpt"/>
+         <arg value="--filterExceptFolders"/>
+         <arg value="failing"/>
        </exec>
        <exec executable="php" logoutput="true" passthru="true" checkreturn="true" osFamily="windows">
          <arg value="src/mytester"/>
          <arg value="--colors"/>
-         <arg value="--noPhpt"/>
+         <arg value="--colors"/>
+         <arg value="--filterExceptFolders"/>
+         <arg value="failing"/>
        </exec>
      </else>
    </if>

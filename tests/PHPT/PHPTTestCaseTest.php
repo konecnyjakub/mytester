@@ -66,7 +66,7 @@ final class PHPTTestCaseTest extends TestCase
         }, "");
         $this->assertThrowsException(function () {
             $testCase = $this->createTestCase(__DIR__);
-            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "failing_test.phpt");
+            $testCase->runFile(__DIR__ . DIRECTORY_SEPARATOR . "failing" . DIRECTORY_SEPARATOR . "failing_test.phpt");
         }, AssertionFailedException::class, "Test 1 failed. Output is not 'test1234' but 'test123'.");
     }
 
