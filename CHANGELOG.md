@@ -1,5 +1,6 @@
 Version 9.0.0-dev
 - BC break: methods startUp/shutDown/setUp/tearDown are not automatically run
+- BC break: removed Job::$onAfterExecute
 
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings

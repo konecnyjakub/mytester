@@ -39,21 +39,16 @@ final class Job
 
     /**
      * @param mixed[] $params
-     * @param callable[] $onAfterExecute
      */
     public function __construct(
         public readonly string $name,
         callable $callback,
         public readonly array $params = [],
         private bool|string $skip = false,
-        public array $onAfterExecute = [],
         public readonly string $dataSetName = "",
         public readonly bool $reportDeprecations = true,
         public readonly int $maxRetries = 0
     ) {
-        if (count($this->onAfterExecute) > 0) {
-            trigger_error("Using " . self::class . "::]\$onAfterExecute is deprecated, add a listener for event " . Events\TestJobFinished::class . " instead", E_USER_DEPRECATED);
-        }
         $this->callback = $callback;
     }
 
@@ -107,16 +102,6 @@ final class Job
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;
-    }
-
-    /**
-     * @deprecated
-     */
-    private function onAfterExecute(): void
-    {
-        foreach ($this->onAfterExecute as $callback) {
-            $callback($this);
-        }
     }
 
     /**
@@ -178,7 +163,6 @@ final class Job
                     $this->totalAssertions = $this->callback[0]->getCounter() - $previousAttemptsAssertions;
                 }
                 $this->eventDispatcher->dispatch(new Events\TestJobFinished($this));
-                $this->onAfterExecute(); // @phpstan-ignore method.deprecated
                 restore_error_handler();
                 $this->output = (string) ob_get_clean();
                 Timer::stop($timerName);

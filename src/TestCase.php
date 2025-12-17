@@ -82,17 +82,6 @@ abstract class TestCase
     }
 
     /**
-     * Get list of callbacks that should be called after a job finishes
-     *
-     * @deprecated
-     * @return callable[]
-     */
-    protected function getJobAfterExecuteCallbacks(string $methodName): array
-    {
-        return [];
-    }
-
-    /**
      * @internal
      */
     public function shouldCheckAssertions(string $methodName): bool
@@ -150,7 +139,6 @@ abstract class TestCase
                     "callback" => $callback,
                     "params" => [],
                     "skip" => $this->shouldSkip($method),
-                    "onAfterExecute" => $this->getJobAfterExecuteCallbacks($method), // @phpstan-ignore method.deprecated
                     "dataSetName" => "",
                     "reportDeprecations" => $this->shouldReportDeprecations($method),
                     "maxRetries" => $this->getMaxRetries($method),
