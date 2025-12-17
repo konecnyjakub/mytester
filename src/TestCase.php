@@ -235,42 +235,6 @@ abstract class TestCase
     }
 
     /**
-     * Called at start of the suite
-     *
-     * @deprecated This method will not be run automatically in the next major version
-     */
-    public function startUp(): void
-    {
-    }
-
-    /**
-     * Called at end of the suite
-     *
-     * @deprecated This method will not be run automatically in the next major version
-     */
-    public function shutDown(): void
-    {
-    }
-
-    /**
-     * Called before each job
-     *
-     * @deprecated This method will not be run automatically in the next major version
-     */
-    public function setUp(): void
-    {
-    }
-
-    /**
-     * Called after each job
-     *
-     * @deprecated This method will not be run automatically in the next major version
-     */
-    public function tearDown(): void
-    {
-    }
-
-    /**
      * Interrupts the job's run, it is reported as passed with warning
      */
     protected function markTestIncomplete(string $message = ""): void

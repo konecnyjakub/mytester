@@ -20,10 +20,6 @@ final class TestCaseEvents implements EventSubscriber
     private const string EVENT_BEFORE_TEST = "beforeTest";
     private const string EVENT_AFTER_TEST = "afterTest";
 
-    private const array DEFAULT_METHODS = [
-        "startUp", "shutDown", "setUp", "tearDown",
-    ];
-
     /** @var array<string, string> */
     private array $eventToAttributeMap = [
         self::EVENT_BEFORE_TEST_SUITE => Attributes\BeforeTestSuite::class,
@@ -53,7 +49,6 @@ final class TestCaseEvents implements EventSubscriber
     #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
     public function onTestSuiteStarted(Events\TestSuiteStarted $event): void
     {
-        $event->testSuite->startUp(); // @phpstan-ignore method.deprecated
         foreach ($this->getCustomMethods(self::EVENT_BEFORE_TEST_SUITE, $event->testSuite) as $method) {
             [$event->testSuite, $method](); // @phpstan-ignore callable.nonCallable
         }
@@ -62,7 +57,6 @@ final class TestCaseEvents implements EventSubscriber
     #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
     public function onTestSuiteFinished(Events\TestSuiteFinished $event): void
     {
-        $event->testSuite->shutDown(); // @phpstan-ignore method.deprecated
         foreach ($this->getCustomMethods(self::EVENT_AFTER_TEST_SUITE, $event->testSuite) as $method) {
             [$event->testSuite, $method](); // @phpstan-ignore callable.nonCallable
         }
@@ -73,7 +67,6 @@ final class TestCaseEvents implements EventSubscriber
     {
         $callback = $event->test->callback;
         if (is_array($callback) && isset($callback[0]) && $callback[0] instanceof TestCase) {
-            $callback[0]->setUp(); // @phpstan-ignore method.deprecated
             foreach ($this->getCustomMethods(self::EVENT_BEFORE_TEST, $callback[0]) as $method) {
                 [$callback[0], $method](); // @phpstan-ignore callable.nonCallable
             }
@@ -85,7 +78,6 @@ final class TestCaseEvents implements EventSubscriber
     {
         $callback = $event->test->callback;
         if (is_array($callback) && isset($callback[0]) && $callback[0] instanceof TestCase) {
-            $callback[0]->tearDown(); // @phpstan-ignore method.deprecated
             foreach ($this->getCustomMethods(self::EVENT_AFTER_TEST, $callback[0]) as $method) {
                 [$callback[0], $method](); // @phpstan-ignore callable.nonCallable
             }
@@ -104,7 +96,6 @@ final class TestCaseEvents implements EventSubscriber
             $rm = new ReflectionMethod($class, $method);
             return $rm->isPublic() &&
                 !$rm->isStatic() &&
-                !in_array($method, self::DEFAULT_METHODS, true) &&
                 count($rm->getAttributes($attribute)) > 0;
         });
     }

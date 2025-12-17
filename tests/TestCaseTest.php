@@ -5,6 +5,7 @@ namespace MyTester;
 
 use Konecnyjakub\EventDispatcher\EventDispatcher;
 use MyTester\Attributes\AfterTest;
+use MyTester\Attributes\AfterTestSuite;
 use MyTester\Attributes\BeforeTest;
 use MyTester\Attributes\Data;
 use MyTester\Attributes\DataProvider as DataProviderAttribute;
@@ -33,28 +34,19 @@ final class TestCaseTest extends TestCase
     private int $one = 0;
     private int $flakyTest = 0;
 
+    #[BeforeTest]
     public function setUp(): void
     {
         $this->one++;
     }
 
-    #[BeforeTest]
-    public function customSetUp(): void
-    {
-        $this->one++;
-    }
-
-    public function tearDown(): void
-    {
-        $this->one--;
-    }
-
     #[AfterTest]
-    public function customTearDown(): void
+    public function tearDown(): void
     {
         $this->one = 0;
     }
 
+    #[AfterTestSuite]
     public function shutDown(): void
     {
         $this->assertSame(0, $this->one);
@@ -152,7 +144,7 @@ final class TestCaseTest extends TestCase
     #[Test("Custom name")]
     public function testTestName(): void
     {
-        $this->assertSame(2, $this->one);
+        $this->assertSame(1, $this->one);
     }
 
     /**
