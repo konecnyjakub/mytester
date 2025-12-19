@@ -46,7 +46,7 @@
         "nette/di": "<3.2",
         "nette/application": "<3.2",
         "composer/semver": "<3.0",
-        "konecnyjakub/phpt-runner": "<0.3"
+        "konecnyjakub/phpt-runner": "<0.4"
     },
     "autoload": {
         "psr-4": {
