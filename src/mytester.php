@@ -13,9 +13,11 @@ use MyTester\ChainTestSuiteFactory;
 use MyTester\ChainTestSuitesFinder;
 use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
-use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
+use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\ComposerTestSuitesFinder;
+use MyTester\Config\CliArgumentsConfigAdapter;
+use MyTester\Config\ConfigResolver;
 use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\InfoExtension;
@@ -24,14 +26,13 @@ use MyTester\PHPT\PHPTTestSuitesFinder;
 use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\SimpleTestSuiteFactory;
 use MyTester\Tester;
-use MyTester\TestsFolderProvider;
 use Nette\CommandLine\Parser;
 
 $cmd = new Parser("", [
-    "path" => [
+    CliArgumentsConfigAdapter::ARGUMENT_PATH => [
         Parser::Default => getcwd() . "/tests",
     ],
-    "--colors" => [
+    CliArgumentsConfigAdapter::ARGUMENT_COLORS => [
         Parser::Optional => true,
     ],
     "--coverage" => [
@@ -42,17 +43,17 @@ $cmd = new Parser("", [
         Parser::Argument => true,
         Parser::Optional => true,
     ],
-    "--filterOnlyGroups" => [
+    CliArgumentsConfigAdapter::ARGUMENT_FILTER_ONLY_GROUPS => [
         Parser::Argument => true,
         Parser::Optional => true,
         Parser::Default => "",
     ],
-    "--filterExceptGroups" => [
+    CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_GROUPS => [
         Parser::Argument => true,
         Parser::Optional => true,
         Parser::Default => "",
     ],
-    "--filterExceptFolders" => [
+    CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_FOLDERS => [
         Parser::Argument => true,
         Parser::Optional => true,
         Parser::Default => "",
@@ -60,7 +61,7 @@ $cmd = new Parser("", [
     "--version" => [
         Parser::Optional => true,
     ],
-    "--noPhpt" => [
+    CliArgumentsConfigAdapter::ARGUMENT_NO_PHPT => [
         Parser::Optional => true,
     ],
 ]);
@@ -80,7 +81,7 @@ $codeCoverageCollector->registerFormatter(new PercentFormatter());
 if (isset($options["--coverage"])) {
     $coverage = explode(":", $options["--coverage"], 2);
     if (!array_key_exists($coverage[0], CodeCoverageHelper::$availableFormatters)) {
-        throw new \ValueError("Unknown code coverage formatter " . $coverage[0]);
+        throw new ValueError("Unknown code coverage formatter " . $coverage[0]);
     }
     $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$coverage[0]]();
     if (
@@ -96,7 +97,7 @@ $resultsFormatter = null;
 if (isset($options["--results"])) {
     $results = explode(":", $options["--results"], 2);
     if (!array_key_exists($results[0], ResultsHelper::$availableFormatters)) {
-        throw new \ValueError("Unknown results formatter " . $results[0]);
+        throw new ValueError("Unknown results formatter " . $results[0]);
     }
     /** @var \MyTester\ResultsFormatter $resultsFormatter */
     $resultsFormatter = new ResultsHelper::$availableFormatters[$results[0]]();
@@ -105,35 +106,21 @@ if (isset($options["--results"])) {
     }
 }
 
-$getArrayFromList = static function (string $value): array {
-    if ($value === "") {
-        return [];
-    }
-    if (!str_contains($value, ",")) {
-        return [$value];
-    }
-    return explode(",", $value);
-};
-
-$folderProvider = new TestsFolderProvider($options["path"]);
-$testSuitesSelectionCriteria = new \MyTester\TestSuitesSelectionCriteria(
-    $folderProvider,
-    onlyGroups: $getArrayFromList($options["--filterOnlyGroups"]),
-    exceptGroups: $getArrayFromList($options["--filterExceptGroups"]),
-    exceptFolders: $getArrayFromList($options["--filterExceptFolders"]),
-);
+$config = new ConfigResolver();
+$config->addAdapter(new CliArgumentsConfigAdapter($options));
+$folderProvider = $config->getTestsFolderProvider();
+$testSuitesSelectionCriteria = $config->getTestSuitesSelectionCriteria();
 
 $annotationsReader = Reader::create();
 $testSuitesFinder = new ChainTestSuitesFinder();
 $testSuitesFinder->registerFinder(new ComposerTestSuitesFinder($annotationsReader));
 $testSuitesFinder->registerFinder(new TestSuitesFinder($annotationsReader));
-$includePhptTests = !isset($options["--noPhpt"]);
-if ($includePhptTests) {
+if ($config->getIncludePhptTests()) {
     $testSuitesFinder->registerFinder(new PHPTTestSuitesFinder());
 }
 
 $testSuiteFactory = new ChainTestSuiteFactory();
-if ($includePhptTests && class_exists(PhptRunner::class)) {
+if ($config->getIncludePhptTests() && class_exists(PhptRunner::class)) {
     $testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
         new PhptRunner(new \Konecnyjakub\PHPTRunner\Parser(), new PhpRunner()),
         $folderProvider,
@@ -143,7 +130,7 @@ if ($includePhptTests && class_exists(PhptRunner::class)) {
 $testSuiteFactory->registerFactory(new SimpleTestSuiteFactory());
 
 $console = new ConsoleColors();
-$console->useColors = isset($options["--colors"]);
+$console->useColors = $config->getUseColors();
 
 $extensions = [
     new CodeCoverageExtension($codeCoverageCollector),
