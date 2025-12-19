@@ -3,6 +3,7 @@ Version 9.0.0-dev
 - BC break: removed Job::$onAfterExecute
 - BC break: removed prefix I from interfaces' names
 - argument --filterExceptFolders in mytester.php now applies also to .phpt files
+- BC break: replaced mytester.php's arguments --coverageFormat and --coverageFile with --coverage, --resultsFormat and --resultsFile with --results
 
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings

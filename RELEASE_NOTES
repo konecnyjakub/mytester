@@ -2,4 +2,6 @@ A new version of My Tester is out. It removes stuff deprecated in 8.x series. Na
 
 Argument --filterExceptFolders in mytester.php now applies also to .phpt files.
 
+The script mytester.php now uses only 1 argument for changing code coverage/results formatter and setting custom file name.
+
 For complete list of changes since previous version, see CHANGELOG.md.
