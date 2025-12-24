@@ -424,7 +424,7 @@ JUnit prints the results into file junit.xml, TAP and TestBox by default show th
 If you want to change the file for output with format JUnit or want to print the results into a file with formats TAP and TestBox, just append it after the formatter's name.
 
 ```bash
-./vendor/bin/mytester tests/unit --resultsFormat junit:custom_name.xml
+./vendor/bin/mytester tests/unit --results junit:custom_name.xml
 ```
 
 ### Code coverage
