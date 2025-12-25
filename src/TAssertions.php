@@ -350,7 +350,7 @@ trait TAssertions
      */
     protected function assertMatchesFile(string $filename, string $actual): void
     {
-        $expected = @file_get_contents($filename);
+        $expected = @file_get_contents($filename); // phpcs:ignore Generic.PHP.NoSilencedErrors
         if ($expected === false) {
             $this->testResult("File $filename could not be loaded.", false);
         }
