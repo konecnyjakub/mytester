@@ -62,9 +62,11 @@ final readonly class Report
             $classes = array_values(array_filter($allClasses, static function (ReflectionClass $rc) use ($filename) {
                 return ((string) $rc->getFileName() === $filename);
             }));
-            $functions = array_values(array_filter($allFunctions, static function (ReflectionFunction $rf) use ($filename) {
-                return ((string) $rf->getFileName() === $filename);
-            }));
+            $functions = array_values(
+                array_filter($allFunctions, static function (ReflectionFunction $rf) use ($filename) {
+                    return ((string) $rf->getFileName() === $filename);
+                })
+            );
             $files[] = new ReportFile(
                 (string) Strings::after($filename, $this->sourcePath),
                 $classes,
