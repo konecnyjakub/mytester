@@ -447,6 +447,11 @@ It is possible to change the name for output for formats Cobertura and text, jus
 ./vendor/bin/mytester tests/unit --coverage cobertura:cobertura.xml
 ```
 
+You can pass the option multiple times if you want to generate multiple code coverage reports.
+```bash
+./vendor/bin/mytester tests/unit --coverage cobertura:cobertura.xml --coverage text
+```
+
 ### Automated tests runner extensions
 
 Automated tests runner's functionality can be extended by extensions. Extensions have to implement the *MyTester\TesterExtension* interface, they can add listeners to events that are fired during automated tests runner's life cycle. Listeners are set in method getSubscribedEvents, it is possible to add them only for events that are necessary. Every event has a class in namespace MyTester\Events. For now, custom extensions cannot be registered when using the script *vendor/bin/mytester*.
