@@ -135,8 +135,10 @@ final class Job
                     } catch (TypeError $e) {
                         if (
                             isset($e->getTrace()[0]) &&
-                            isset($e->getTrace()[0]["class"]) && $e->getTrace()[0]["class"] === TestCase::class &&
-                            isset($e->getTrace()[0]["function"]) && str_starts_with($e->getTrace()[0]["function"], "assert")
+                            isset($e->getTrace()[0]["class"]) &&
+                            $e->getTrace()[0]["class"] === TestCase::class &&
+                            isset($e->getTrace()[0]["function"]) &&
+                            str_starts_with($e->getTrace()[0]["function"], "assert")
                         ) {
                             /** @var array{0: TestCase, 1: string}&callable $callback */
                             $callback = $this->callback;

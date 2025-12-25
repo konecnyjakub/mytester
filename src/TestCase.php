@@ -75,7 +75,10 @@ abstract class TestCase
         $r = new ReflectionClass(static::class);
         return array_values(
             array_filter(
-                array_map(static fn(ReflectionMethod $rm) => $rm->getName(), $r->getMethods(ReflectionMethod::IS_PUBLIC)),
+                array_map(
+                    static fn(ReflectionMethod $rm) => $rm->getName(),
+                    $r->getMethods(ReflectionMethod::IS_PUBLIC)
+                ),
                 static fn(string $method) => str_starts_with($method, "test")
             )
         );
