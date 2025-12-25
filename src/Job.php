@@ -121,7 +121,9 @@ final class Job
                 set_error_handler(
                     function (int $errno, string $errstr, string $errfile, int $errline): bool {
                         if ($this->reportDeprecations) {
-                            $this->eventDispatcher->dispatch(new Events\DeprecationTriggered($errstr, $errfile, $errline));
+                            $this->eventDispatcher->dispatch(
+                                new Events\DeprecationTriggered($errstr, $errfile, $errline)
+                            );
                         }
                         return true;
                     },

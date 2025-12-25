@@ -41,7 +41,10 @@ final class Console extends AbstractResultsFormatter implements ConsoleAwareResu
         foreach ($event->testSuite->jobs as $job) {
             switch ($job->result) {
                 case JobResult::SKIPPED:
-                    $this->skipped[] = new SkippedTest($job->nameWithDataSet, (is_string($job->skip) ? $job->skip : ""));
+                    $this->skipped[] = new SkippedTest(
+                        $job->nameWithDataSet,
+                        (is_string($job->skip) ? $job->skip : "")
+                    );
                     break;
                 case JobResult::FAILED:
                     $output = $job->output;
