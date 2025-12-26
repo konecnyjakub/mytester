@@ -11,14 +11,16 @@ use MyTester\ResultsFormatter;
  */
 final class Helper
 {
-    use \Nette\StaticClass;
-
     /** @var array<string, class-string<ResultsFormatter>>  */
     public static array $availableFormatters = [
         "junit" => JUnit::class,
         "tap" => Tap::class,
         "testdox" => TestDox::class,
     ];
+
+    private function __construct()
+    {
+    }
 
     /**
      * @param string $filename {@see ResultsFormatter::getOutputFileName()}

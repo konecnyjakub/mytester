@@ -12,14 +12,16 @@ use Nette\DI\Container;
  */
 final class ContainerFactory
 {
-    use \Nette\StaticClass;
-
     public static string $tempDir = "";
 
     /** @var callable|null */
     public static $onCreate = null;
 
     private static ?Container $container = null;
+
+    private function __construct()
+    {
+    }
 
     /**
      * @param mixed[] $config

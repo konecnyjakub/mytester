@@ -14,8 +14,6 @@ use MyTester\CodeCoverage\Formatters\TextFormatter;
  */
 final class Helper
 {
-    use \Nette\StaticClass;
-
     /**
      * @var array<string, class-string<CodeCoverageEngine>>
      */
@@ -31,4 +29,8 @@ final class Helper
         "cobertura" => CoberturaFormatter::class,
         "text" => TextFormatter::class,
     ];
+
+    private function __construct()
+    {
+    }
 }

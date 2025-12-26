@@ -5,7 +5,9 @@ namespace MyTester;
 
 final class ExternalDataProvider
 {
-    use \Nette\StaticClass;
+    private function __construct()
+    {
+    }
 
     /**
      * @return array<int|string, array{0: string, 1: int}>
