@@ -30,7 +30,7 @@ use Nette\CommandLine\Parser;
 
 $cmd = new Parser("", [
     CliArgumentsConfigAdapter::ARGUMENT_PATH => [
-        Parser::Default => getcwd() . "/tests",
+        Parser::Optional => true,
     ],
     CliArgumentsConfigAdapter::ARGUMENT_COLORS => [
         Parser::Optional => true,
@@ -66,7 +66,7 @@ $cmd = new Parser("", [
         Parser::Optional => true,
     ],
 ]);
-/** @var array{path: string, "--colors"?: bool, "--coverage": string[], "--results"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
+/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
