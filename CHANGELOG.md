@@ -5,6 +5,7 @@ Version 9.0.0-dev
 - argument --filterExceptFolders in mytester.php now applies also to .phpt files
 - BC break: replaced mytester.php's arguments --coverageFormat and --coverageFile with --coverage, --resultsFormat and --resultsFile with --results
 - made it possible to generate multiple code coverage reports at once in mytester.php
+- BC break: Job::$callback accepts only Closure (first class callable syntax) now
 
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings

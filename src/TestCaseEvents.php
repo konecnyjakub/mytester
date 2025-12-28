@@ -65,10 +65,10 @@ final class TestCaseEvents implements EventSubscriber
     #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
     public function onTestStarted(Events\TestStarted $event): void
     {
-        $callback = $event->test->callback;
-        if (is_array($callback) && isset($callback[0]) && $callback[0] instanceof TestCase) {
-            foreach ($this->getCustomMethods(self::EVENT_BEFORE_TEST, $callback[0]) as $method) {
-                [$callback[0], $method](); // @phpstan-ignore callable.nonCallable
+        $rm = $event->test->getCallbackReflection();
+        if ($rm !== null && $rm->getClosureThis() instanceof TestCase) {
+            foreach ($this->getCustomMethods(self::EVENT_BEFORE_TEST, $rm->getClosureThis()) as $method) {
+                [$rm->getClosureThis(), $method](); // @phpstan-ignore callable.nonCallable
             }
         }
     }
@@ -76,10 +76,10 @@ final class TestCaseEvents implements EventSubscriber
     #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH)]
     public function onTestFinished(Events\TestFinished $event): void
     {
-        $callback = $event->test->callback;
-        if (is_array($callback) && isset($callback[0]) && $callback[0] instanceof TestCase) {
-            foreach ($this->getCustomMethods(self::EVENT_AFTER_TEST, $callback[0]) as $method) {
-                [$callback[0], $method](); // @phpstan-ignore callable.nonCallable
+        $rm = $event->test->getCallbackReflection();
+        if ($rm !== null && $rm->getClosureThis() instanceof TestCase) {
+            foreach ($this->getCustomMethods(self::EVENT_AFTER_TEST, $rm->getClosureThis()) as $method) {
+                [$rm->getClosureThis(), $method](); // @phpstan-ignore callable.nonCallable
             }
         }
     }

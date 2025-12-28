@@ -22,6 +22,8 @@ use MyTester\Attributes\RequiresSapi;
 use MyTester\Attributes\Skip;
 use MyTester\Attributes\Test;
 use MyTester\Attributes\TestSuite;
+use ReflectionFunction;
+use ReflectionMethod;
 
 /**
  * Test suite for class TestCase
@@ -330,7 +332,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[0];
         $this->assertSame("TestCase::testState", $job->name);
-        $this->assertSame([$this, "testState", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testState", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -339,7 +345,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[1];
         $this->assertSame("TestCase::testParams", $job->name);
-        $this->assertSame([$this, "testParams", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParams", $rm->name);
         $this->assertSame(["abc", ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -348,7 +358,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[2];
         $this->assertSame("TestCase::testParams", $job->name);
-        $this->assertSame([$this, "testParams", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParams", $rm->name);
         $this->assertSame(["adef", ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -357,7 +371,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[3];
         $this->assertSame("TestCase::testParamsNoneProvided", $job->name);
-        $this->assertSame([$this, "testParamsNoneProvided", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsNoneProvided", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertSame("Method requires at least 1 parameter but data provider does not provide any.", $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -366,7 +384,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[4];
         $this->assertSame("TestCase::testParamsNotEnough", $job->name);
-        $this->assertSame([$this, "testParamsNotEnough", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsNotEnough", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertSame("Method requires at least 2 parameter(s) but data provider provides only 1.", $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -375,7 +397,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[5];
         $this->assertSame("TestCase::testParamsMulti", $job->name);
-        $this->assertSame([$this, "testParamsMulti", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsMulti", $rm->name);
         $this->assertSame(["abc", 1, ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("first", $job->dataSetName);
@@ -384,7 +410,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[6];
         $this->assertSame("TestCase::testParamsMulti", $job->name);
-        $this->assertSame([$this, "testParamsMulti", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsMulti", $rm->name);
         $this->assertSame(["abcd", 2, ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -393,7 +423,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[7];
         $this->assertSame("TestCase::testParamsIterator", $job->name);
-        $this->assertSame([$this, "testParamsIterator", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsIterator", $rm->name);
         $this->assertSame([1, ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("first", $job->dataSetName);
@@ -402,7 +436,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[8];
         $this->assertSame("TestCase::testParamsIterator", $job->name);
-        $this->assertSame([$this, "testParamsIterator", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsIterator", $rm->name);
         $this->assertSame([2, ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -411,7 +449,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[9];
         $this->assertSame("TestCase::testParamsExternal", $job->name);
-        $this->assertSame([$this, "testParamsExternal", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsExternal", $rm->name);
         $this->assertSame(["abc", 1, ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("first", $job->dataSetName);
@@ -420,7 +462,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[10];
         $this->assertSame("TestCase::testParamsExternal", $job->name);
-        $this->assertSame([$this, "testParamsExternal", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsExternal", $rm->name);
         $this->assertSame(["abcd", 2, ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -429,7 +475,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[11];
         $this->assertSame("TestCase::testParamsData", $job->name);
-        $this->assertSame([$this, "testParamsData", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsData", $rm->name);
         $this->assertSame(["abc", ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -438,7 +488,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[12];
         $this->assertSame("TestCase::testParamsData", $job->name);
-        $this->assertSame([$this, "testParamsData", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsData", $rm->name);
         $this->assertSame(["abcd", ], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -447,7 +501,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[13];
         $this->assertSame("Custom name", $job->name);
-        $this->assertSame([$this, "testTestName", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testTestName", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -456,7 +514,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[14];
         $this->assertSame("Skip", $job->name);
-        $this->assertSame([$this, "testSkip", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testSkip", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -465,7 +527,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[15];
         $this->assertSame("PHP version", $job->name);
-        $this->assertSame([$this, "testSkipPhpVersion", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testSkipPhpVersion", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -474,7 +540,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[16];
         $this->assertSame("CGI sapi", $job->name);
-        $this->assertSame([$this, "testCgiSapi", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testCgiSapi", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -483,7 +553,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[17];
         $this->assertSame("Extension", $job->name);
-        $this->assertSame([$this, "testSkipExtension", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testSkipExtension", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -492,7 +566,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[18];
         $this->assertSame("OS family", $job->name);
-        $this->assertSame([$this, "testSkipOsFamily", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testSkipOsFamily", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -501,7 +579,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[19];
         $this->assertSame("Package", $job->name);
-        $this->assertSame([$this, "testSkipPackage", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testSkipPackage", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -510,7 +592,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[20];
         $this->assertSame("Env variable", $job->name);
-        $this->assertSame([$this, "testSkipEnvVariable", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testSkipEnvVariable", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertTrue((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -519,7 +605,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[21];
         $this->assertSame("No assertions", $job->name);
-        $this->assertSame([$this, "testNoAssertions", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testNoAssertions", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -528,7 +618,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[22];
         $this->assertSame("TestCase::testShouldCheckAssertions", $job->name);
-        $this->assertSame([$this, "testShouldCheckAssertions", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testShouldCheckAssertions", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -537,7 +631,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[23];
         $this->assertSame("Deprecation", $job->name);
-        $this->assertSame([$this, "testDeprecation", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testDeprecation", $rm->name);
         $this->assertSame([], $job->params);
         if (version_compare(PHP_VERSION, "8.4.0") >= 0) {
             $this->assertFalse((bool) $job->skip);
@@ -550,7 +648,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[24];
         $this->assertSame("TestCase::testGetSuiteName", $job->name);
-        $this->assertSame([$this, "testGetSuiteName", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testGetSuiteName", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -559,7 +661,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[25];
         $this->assertSame("TestCase::testGetJobName", $job->name);
-        $this->assertSame([$this, "testGetJobName", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testGetJobName", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -568,7 +674,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[26];
         $this->assertSame("TestCase::testGetTestMethodsNames", $job->name);
-        $this->assertSame([$this, "testGetTestMethodsNames", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testGetTestMethodsNames", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -577,7 +687,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[27];
         $this->assertSame("TestCase::testShouldReportDeprecations", $job->name);
-        $this->assertSame([$this, "testShouldReportDeprecations", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testShouldReportDeprecations", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -586,7 +700,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[28];
         $this->assertSame("TestCase::testGetMaxRetries", $job->name);
-        $this->assertSame([$this, "testGetMaxRetries", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testGetMaxRetries", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -595,7 +713,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[29];
         $this->assertSame("TestCase::testFlakyTest", $job->name);
-        $this->assertSame([$this, "testFlakyTest", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testFlakyTest", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -604,7 +726,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[30];
         $this->assertSame("TestCase::testGetJobs", $job->name);
-        $this->assertSame([$this, "testGetJobs", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testGetJobs", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -613,7 +739,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[31];
         $this->assertSame("TestCase::testIncomplete", $job->name);
-        $this->assertSame([$this, "testIncomplete", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testIncomplete", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -622,7 +752,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[32];
         $this->assertSame("TestCase::testSkipInside", $job->name);
-        $this->assertSame([$this, "testSkipInside", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testSkipInside", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
@@ -631,7 +765,11 @@ final class TestCaseTest extends TestCase
 
         $job = $jobs[33];
         $this->assertSame("TestCase::testWhatever", $job->name);
-        $this->assertSame([$this, "testWhatever", ], $job->callback);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testWhatever", $rm->name);
         $this->assertSame([], $job->params);
         $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);

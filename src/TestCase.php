@@ -135,11 +135,9 @@ abstract class TestCase
         if (count($this->jobs) === 0) {
             $methods = $this->getTestMethodsNames();
             foreach ($methods as $method) {
-                /** @var callable $callback */
-                $callback = [$this, $method];
                 $job = [
                     "name" => $this->getJobName(static::class, $method),
-                    "callback" => $callback,
+                    "callback" => $this->$method(...), // @phpstan-ignore method.dynamicName
                     "params" => [],
                     "skip" => $this->shouldSkip($method),
                     "dataSetName" => "",

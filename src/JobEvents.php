@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Konecnyjakub\EventDispatcher\EventSubscriber;
+use Nette\Utils\Strings;
 
 final class JobEvents implements EventSubscriber
 {
@@ -18,12 +19,16 @@ final class JobEvents implements EventSubscriber
 
     public function checkAssertions(Events\TestJobFinished $event): void
     {
-        $callback = $event->job->callback;
-        if (!is_array($callback) || !isset($callback[0]) || !$callback[0] instanceof TestCase) {
+        $rf = $event->job->getCallbackReflection();
+        if ($rf === null || !$rf->getClosureThis() instanceof TestCase) {
             return;
         }
-        /** @var callable&array{0: TestCase, 1: string} $callback */
-        if ($callback[0]->shouldCheckAssertions($callback[1]) && $event->job->totalAssertions === 0) {
+        $methodName = $rf->name;
+        if (str_starts_with($methodName, "{closure:")) {
+            $methodName = str_replace("{closure:" . $rf->getClosureThis()::class . "::", "", $methodName);
+            $methodName = (string) Strings::before($methodName, "()");
+        }
+        if ($rf->getClosureThis()->shouldCheckAssertions($methodName) && $event->job->totalAssertions === 0) {
             echo "Warning: No assertions were performed.\n";
         }
     }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace MyTester;
 
 use Ayesh\PHP_Timer\Timer;
+use Closure;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use ReflectionFunction;
 use Throwable;
 use TypeError;
 
@@ -12,7 +14,6 @@ use TypeError;
  * One job of a test suite
  *
  * @author Jakub Konečný
- * @property-read callable $callback
  * @property-read bool|string $skip
  * @property-read JobResult $result
  * @property-read string $output @internal
@@ -24,8 +25,6 @@ final class Job
 {
     use \Nette\SmartObject;
 
-    /** @var callable Task */
-    private $callback;
     private JobResult $result = JobResult::PASSED;
     private string $output = "";
     /** @var int Total elapsed time in milliseconds */
@@ -38,23 +37,18 @@ final class Job
     private EventDispatcherInterface $eventDispatcher;
 
     /**
+     * @param Closure $callback Task
      * @param mixed[] $params
      */
     public function __construct(
         public readonly string $name,
-        callable $callback,
+        public readonly Closure $callback,
         public readonly array $params = [],
         private bool|string $skip = false,
         public readonly string $dataSetName = "",
         public readonly bool $reportDeprecations = true,
         public readonly int $maxRetries = 0
     ) {
-        $this->callback = $callback;
-    }
-
-    protected function getCallback(): callable
-    {
-        return $this->callback;
     }
 
     protected function getSkip(): bool|string
@@ -105,6 +99,19 @@ final class Job
     }
 
     /**
+     * @internal
+     */
+    public function getCallbackReflection(): ?ReflectionFunction
+    {
+        $rf = new ReflectionFunction($this->callback);
+        $object = $rf->getClosureThis();
+        if (!$object instanceof TestCase) {
+            return null;
+        }
+        return $rf;
+    }
+
+    /**
      * Executes the task
      */
     public function execute(): void
@@ -112,8 +119,11 @@ final class Job
         for ($attemptNumber = 0; $attemptNumber <= $this->maxRetries; $attemptNumber++) {
             if ($this->skip === false) {
                 $previousAttemptsAssertions = 0;
-                if (is_array($this->callback) && isset($this->callback[0]) && $this->callback[0] instanceof TestCase) {
-                    $previousAttemptsAssertions = $this->callback[0]->getCounter();
+                $rm = $this->getCallbackReflection();
+                /** @var TestCase|null $testCase */
+                $testCase = ($rm !== null && $rm->getClosureThis() !== null) ? $rm->getClosureThis() : null;
+                if ($testCase !== null) {
+                    $previousAttemptsAssertions = $testCase->getCounter();
                 }
                 $timerName = $this->name . time();
                 Timer::start($timerName);
@@ -140,11 +150,9 @@ final class Job
                             isset($e->getTrace()[0]["function"]) &&
                             str_starts_with($e->getTrace()[0]["function"], "assert")
                         ) {
-                            /** @var array{0: TestCase, 1: string}&callable $callback */
-                            $callback = $this->callback;
                             throw new AssertionFailedException(
                                 "Invalid value passed to an assertion.",
-                                $callback[0]->getCounter() + 1,
+                                (int) $testCase?->getCounter() + 1,
                                 $e
                             );
                         }
@@ -163,8 +171,8 @@ final class Job
                     echo "Trace:\n" . $e->getTraceAsString() . "\n";
                     $this->exception = $e;
                 }
-                if (is_array($this->callback) && isset($this->callback[0]) && $this->callback[0] instanceof TestCase) {
-                    $this->totalAssertions = $this->callback[0]->getCounter() - $previousAttemptsAssertions;
+                if ($testCase !== null) {
+                    $this->totalAssertions = $testCase->getCounter() - $previousAttemptsAssertions;
                 }
                 $this->eventDispatcher->dispatch(new Events\TestJobFinished($this));
                 restore_error_handler();

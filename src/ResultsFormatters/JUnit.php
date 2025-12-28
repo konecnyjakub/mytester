@@ -5,14 +5,12 @@ namespace MyTester\ResultsFormatters;
 
 use DOMDocument;
 use MyTester\AssertionFailedException;
-use MyTester\ResultsFormatter;
 use MyTester\Job;
 use MyTester\JobResult;
 use MyTester\TAssertions;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
-use ReflectionMethod;
 
 /**
  * JUnit results formatter for Tester
@@ -77,9 +75,7 @@ final class JUnit extends AbstractResultsFormatter
                 $testSuiteTime += $job->totalTime;
                 $testSuiteAssertions += $job->totalAssertions;
                 $totalAssertions += $job->totalAssertions;
-                /** @var callable&array{0: class-string, 1: string} $callback */
-                $callback = $job->callback;
-                $reflectionCallback = $this->createReflectionFromCallback($callback);
+                $reflectionCallback = $job->getCallbackReflection() ?? new ReflectionFunction($job->callback);
 
                 $testCaseElement = $document->createElement("testcase");
                 $testCaseElement->setAttribute("name", $job->name);
@@ -130,21 +126,6 @@ final class JUnit extends AbstractResultsFormatter
     public function setOutputFileName(string $baseFileName): void
     {
         $this->baseFileName = $baseFileName;
-    }
-
-    /**
-     * @param callable&(array{0: class-string, 1: string}|string) $callback
-     */
-    private function createReflectionFromCallback(callable $callback): ReflectionFunctionAbstract
-    {
-        if (is_array($callback)) {
-            return new ReflectionMethod($callback[0], $callback[1]);
-        }
-        if (is_string($callback) && str_contains($callback, "::")) {
-            return new ReflectionMethod(...explode("::", $callback));
-        } else {
-            return new ReflectionFunction($callback);
-        }
     }
 
     private function getFailureLine(\Throwable|null $exception, ReflectionFunctionAbstract $reflection): int

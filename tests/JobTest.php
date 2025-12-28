@@ -25,14 +25,14 @@ final class JobTest extends TestCase
         $rp = new \ReflectionProperty(TestCase::class, "eventDispatcher");
         /** @var EventDispatcher $eventDispatcher */
         $eventDispatcher = $rp->getValue($this);
-        $job = new Job("Test Job", [$test, "test"]);
+        $job = new Job("Test Job", $test->test(...));
         $job->setEventDispatcher($eventDispatcher);
         $params = [
             ["abc"], "def"
         ];
-        $job2 = new Job("Test Job with Params", [$test, "testParams"], $params);
+        $job2 = new Job("Test Job with Params", $test->testParams(...), $params);
         $job2->setEventDispatcher($eventDispatcher);
-        $job3 = new Job("Test Skipped Job", [$test, "test"], [], true);
+        $job3 = new Job("Test Skipped Job", $test->test(...), [], true);
         $job3->setEventDispatcher($eventDispatcher);
         return [$job, $job2, $job3];
     }
