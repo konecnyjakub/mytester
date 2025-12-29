@@ -6,6 +6,7 @@ namespace MyTester;
 use Konecnyjakub\EventDispatcher\AutoListenerProvider;
 use Konecnyjakub\EventDispatcher\EventDispatcher;
 use Konecnyjakub\EventDispatcher\Listener;
+use MyTester\ResultsFormatters\Console;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -19,17 +20,20 @@ final readonly class Tester
 
     /**
      * @param TesterExtension[] $extensions
+     * @param ResultsFormatter[] $resultsFormatters
      */
     public function __construct(
         private TestSuitesSelectionCriteria $testSuitesSelectionCriteria,
         public TestSuitesFinder $testSuitesFinder,
         public TestSuiteFactory $testSuiteFactory = new SimpleTestSuiteFactory(),
         private array $extensions = [],
-        private ResultsFormatter $resultsFormatter = new ResultsFormatters\Console(),
+        private array $resultsFormatters = [new Console(),],
         private ConsoleColors $console = new ConsoleColors()
     ) {
-        if (is_subclass_of($this->resultsFormatter, ConsoleAwareResultsFormatter::class)) {
-            $this->resultsFormatter->setConsole($this->console);
+        foreach ($this->resultsFormatters as $resultsFormatter) {
+            if (is_subclass_of($resultsFormatter, ConsoleAwareResultsFormatter::class)) {
+                $resultsFormatter->setConsole($this->console);
+            }
         }
         $this->eventDispatcher = $this->createEventDispatcher();
         $this->eventDispatcher->dispatch(new Events\ExtensionsLoaded($this->extensions));
@@ -43,7 +47,9 @@ final readonly class Tester
             $listenerProvider->addSubscriber($extension);
         }
 
-        $listenerProvider->addSubscriber($this->resultsFormatter);
+        foreach ($this->resultsFormatters as $resultsFormatter) {
+            $listenerProvider->addSubscriber($resultsFormatter);
+        }
 
         $listenerProvider->addSubscriber(new TestCaseEvents());
 
@@ -56,7 +62,9 @@ final readonly class Tester
         $listenerProvider->addListener(
             #[Listener(priority: AutoListenerProvider::PRIORITY_HIGH - 1)]
             function (Events\TestsFinished $event): void {
-                $this->resultsFormatter->outputResults((string) getcwd());
+                foreach ($this->resultsFormatters as $resultsFormatter) {
+                    $resultsFormatter->outputResults((string) getcwd());
+                }
             }
         );
 

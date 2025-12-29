@@ -13,6 +13,7 @@ final class Helper
 {
     /** @var array<string, class-string<ResultsFormatter>>  */
     public static array $availableFormatters = [
+        "console" => Console::class,
         "junit" => JUnit::class,
         "tap" => Tap::class,
         "testdox" => TestDox::class,

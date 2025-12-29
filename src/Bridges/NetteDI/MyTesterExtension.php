@@ -69,9 +69,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ...array_keys(CodeCoverageHelper::$availableFormatters)
             ),
             "resultsFormat" => Expect::anyOf(
-                null,
                 ...array_keys(ResultsHelper::$availableFormatters)
-            ),
+            )->default("console"),
         ]);
     }
 
@@ -143,10 +142,8 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
                 ->addTag(self::TAG_COVERAGE_FORMATTER);
         }
 
-        if ($config->resultsFormat !== null) {
-            $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER))
-                ->setType(ResultsHelper::$availableFormatters[$config->resultsFormat]);
-        }
+        $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER))
+            ->setType(ResultsHelper::$availableFormatters[$config->resultsFormat]);
 
         $builder->addDefinition($this->prefix(self::SERVICE_CONSOLE_WRITER))
             ->setType(ConsoleColors::class)

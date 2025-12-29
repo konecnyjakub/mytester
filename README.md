@@ -427,6 +427,12 @@ If you want to change the file for output with format JUnit or want to print the
 ./vendor/bin/mytester tests/unit --results junit:custom_name.xml
 ```
 
+You can use the argument multiple times to for example write the results into console and also generate a machine-readable report.
+
+```bash
+./vendor/bin/mytester tests/unit --results console --results junit:custom_name.xml
+```
+
 ### Code coverage
 
 My Tester automatically generates report % of code coverage when possible. It is done in class MyTester\Tester, so it is available in the provided script *vendor/bin/mytester* and our extension for Nette DI container (see below). You just need to run the script with pcov or (alternatively) xdebug extension enabled. pcov is highly recommended as it was created specifically for this purpose and does not have the overhead of a debugger. 
@@ -447,7 +453,8 @@ It is possible to change the name for output for formats Cobertura and text, jus
 ./vendor/bin/mytester tests/unit --coverage cobertura:cobertura.xml
 ```
 
-You can pass the option multiple times if you want to generate multiple code coverage reports.
+You can pass the argument multiple times if you want to generate multiple code coverage reports.
+
 ```bash
 ./vendor/bin/mytester tests/unit --coverage cobertura:cobertura.xml --coverage text
 ```

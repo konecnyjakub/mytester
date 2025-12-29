@@ -43,6 +43,7 @@ $cmd = new Parser("", [
     "--results" => [
         Parser::Argument => true,
         Parser::Optional => true,
+        Parser::Repeatable => true,
     ],
     CliArgumentsConfigAdapter::ARGUMENT_FILTER_ONLY_GROUPS => [
         Parser::Argument => true,
@@ -66,7 +67,7 @@ $cmd = new Parser("", [
         Parser::Optional => true,
     ],
 ]);
-/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
+/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results": string[], "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
@@ -94,17 +95,15 @@ foreach ($options["--coverage"] as $coverage) {
     $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
 }
 
-$resultsFormatter = null;
-if (isset($options["--results"])) {
-    $results = explode(":", $options["--results"], 2);
+$resultsFormatters = [];
+foreach ($options["--results"] as $results) {
+    $results = explode(":", $results, 2);
     if (!array_key_exists($results[0], ResultsHelper::$availableFormatters)) {
         throw new ValueError("Unknown results formatter " . $results[0]);
     }
     /** @var \MyTester\ResultsFormatter $resultsFormatter */
     $resultsFormatter = new ResultsHelper::$availableFormatters[$results[0]]();
-    if (isset($results[1])) {
-        $resultsFormatter->setOutputFileName($results[1]);
-    }
+    $resultsFormatters[] = $resultsFormatter;
 }
 
 $config = new ConfigResolver();
@@ -146,8 +145,8 @@ $params = [
     "extensions" => $extensions,
     "console" => $console,
 ];
-if ($resultsFormatter !== null) {
-    $params["resultsFormatter"] = $resultsFormatter;
+if (count($resultsFormatters) > 0) {
+    $params["resultsFormatters"] = $resultsFormatters;
 }
 $tester = new Tester(...$params);
 $tester->execute();
