@@ -267,7 +267,7 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
-If you want to skip all test methods in a test suite (both unconditionally and based on conditions), just use the above mentioned attributes on the class.
+If you want to skip all test methods in a test suite (both unconditionally and based on conditions), just use the above-mentioned attributes on the class.
 
 ```php
 <?php
@@ -327,11 +327,11 @@ If an unexpected Error or Exception is thrown, it is reported as a failure for t
 
 #### Deprecations
 
-If a test method triggers deprecation, it is reported as a warning for the test method. It can be caused by calling function **trigger_error** with level _E_USER_DEPRECATED_ or on PHP 8.4 and later by using anything that is marked with attribute **Deprecated**, e. g. calling a method/function or using a class constant.
+If a test method triggers deprecation, it is reported as a warning for the test method. It can be caused by calling function **trigger_error** with level _E_USER_DEPRECATED_ or on PHP 8.4 and later by using anything that is marked with attribute **Deprecated**, e.g. calling a method/function or using a class constant.
 
-It is possible to check that code in a test method triggers a deprecation with method assertTriggersDeprecation, you can even check for a specific message; in that case it is not reported by My Tester (but still might be by other tools that check your code, e. g. PHPStan with deprecation rules). Conversely with method assertTriggersNoDeprecation you can check that code triggers no deprecation.
+It is possible to check that code in a test method triggers a deprecation with method assertTriggersDeprecation, you can even check for a specific message; in that case it is not reported by My Tester (but still might be by other tools that check your code, e.g. PHPStan with deprecation rules). Conversely with method assertTriggersNoDeprecation you can check that code triggers no deprecation.
 
-If you do not want to have deprecations reported in a test method or a whole TestCase (because you are e. g. deliberately testing deprecated code), you can suppress those warnings if you add attribute MyTester\Attributes\IgnoreDeprecations to the method/class. Then if the test method successfully completes without any other warnings/errors/assertion failures, it is reported as passed.
+If you do not want to have deprecations reported in a test method or a whole TestCase (because you are e.g. deliberately testing deprecated code), you can suppress those warnings if you add attribute MyTester\Attributes\IgnoreDeprecations to the method/class. Then if the test method successfully completes without any other warnings/errors/assertion failures, it is reported as passed.
 
 #### Setup and clean up
 
@@ -463,7 +463,7 @@ You can pass the argument multiple times if you want to generate multiple code c
 
 Automated tests runner's functionality can be extended by extensions. Extensions have to implement the *MyTester\TesterExtension* interface, they can add listeners to events that are fired during automated tests runner's life cycle. Listeners are set in method getSubscribedEvents, it is possible to add them only for events that are necessary. Every event has a class in namespace MyTester\Events. For now, custom extensions cannot be registered when using the script *vendor/bin/mytester*.
 
-Some automated tests runner's functionality (printing My Tester and PHP version, generating code coverage reports, saving errors into files) is actually implemented via extensions. They have to be added manually which means that custom scripts do not have use that functionality (and do not by default). The script *vendor/bin/mytester* and Nette DI container (see below) extension have all of them enabled.
+Some automated tests runner's functionality (printing My Tester and PHP version, generating code coverage reports, saving errors into files) is actually implemented via extensions. They have to be added manually which means that custom scripts do not have to use that functionality (and do not by default). The script *vendor/bin/mytester* and Nette DI container (see below) extension have all of them enabled.
 
 Nette applications
 ------------------

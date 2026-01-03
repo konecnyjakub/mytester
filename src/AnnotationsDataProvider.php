@@ -54,7 +54,7 @@ final readonly class AnnotationsDataProvider implements DataProvider
     }
 
     /**
-     * @return iterable<string|int, mixed>[] Values for consecutive calls of the the method
+     * @return iterable<string|int, mixed>[] Values for consecutive calls of the method
      */
     private function getSimpleDataSets(ReflectionMethod $reflection): iterable
     {
@@ -69,7 +69,7 @@ final readonly class AnnotationsDataProvider implements DataProvider
     }
 
     /**
-     * @return iterable<string|int, mixed>[] Values for consecutive calls of the the method
+     * @return iterable<string|int, mixed>[] Values for consecutive calls of the method
      * @throws InvalidDataProviderException
      */
     private function getNormalDataSets(ReflectionMethod $reflection, object $object): iterable
@@ -102,7 +102,7 @@ final readonly class AnnotationsDataProvider implements DataProvider
     }
 
     /**
-     * @return iterable<string|int, mixed>[] Values for consecutive calls of the the method
+     * @return iterable<string|int, mixed>[] Values for consecutive calls of the method
      * @throws InvalidDataProviderException
      */
     private function getExternalDataSets(ReflectionMethod $reflection): iterable
