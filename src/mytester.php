@@ -23,7 +23,6 @@ use MyTester\ErrorsFilesExtension;
 use MyTester\InfoExtension;
 use MyTester\PHPT\PHPTTestSuiteFactory;
 use MyTester\PHPT\PHPTTestSuitesFinder;
-use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\SimpleTestSuiteFactory;
 use MyTester\Tester;
 use Nette\CommandLine\Parser;
@@ -40,7 +39,7 @@ $cmd = new Parser("", [
         Parser::Optional => true,
         Parser::Repeatable => true,
     ],
-    "--results" => [
+    CliArgumentsConfigAdapter::ARGUMENT_RESULTS => [
         Parser::Argument => true,
         Parser::Optional => true,
         Parser::Repeatable => true,
@@ -95,21 +94,11 @@ foreach ($options["--coverage"] as $coverage) {
     $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
 }
 
-$resultsFormatters = [];
-foreach ($options["--results"] as $results) {
-    $results = explode(":", $results, 2);
-    if (!array_key_exists($results[0], ResultsHelper::$availableFormatters)) {
-        throw new ValueError("Unknown results formatter " . $results[0]);
-    }
-    /** @var \MyTester\ResultsFormatter $resultsFormatter */
-    $resultsFormatter = new ResultsHelper::$availableFormatters[$results[0]]();
-    $resultsFormatters[] = $resultsFormatter;
-}
-
 $config = new ConfigResolver();
 $config->addAdapter(new CliArgumentsConfigAdapter($options));
 $folderProvider = $config->getTestsFolderProvider();
 $testSuitesSelectionCriteria = $config->getTestSuitesSelectionCriteria();
+$resultsFormatters = $config->getResultsFormatters();
 
 $annotationsReader = Reader::create();
 $testSuitesFinder = new ChainTestSuitesFinder();

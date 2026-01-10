@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Config;
 
+use MyTester\ResultsFormatter;
 use MyTester\TestsFolderProvider;
 use MyTester\TestSuitesSelectionCriteria;
 
@@ -95,5 +96,19 @@ final class ConfigResolver
         }
 
         return false;
+    }
+
+    /**
+     * @return ResultsFormatter[]
+     */
+    public function getResultsFormatters(): array
+    {
+        foreach ($this->getAdapters() as $adapter) {
+            $value = $adapter->getResultsFormatters();
+            if (count($value) > 0) {
+                return $value;
+            }
+        }
+        return [];
     }
 }

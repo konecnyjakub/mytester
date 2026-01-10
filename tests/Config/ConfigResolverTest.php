@@ -5,6 +5,7 @@ namespace MyTester\Config;
 
 use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
+use MyTester\ResultsFormatters\Console;
 use MyTester\TestCase;
 
 /**
@@ -69,6 +70,11 @@ final class ConfigResolverTest extends TestCase
             {
                 return ["failing",];
             }
+
+            public function getResultsFormatters(): array
+            {
+                return [new Console(),];
+            }
         });
         $config->addAdapter(new class implements ConfigAdapter
         {
@@ -106,6 +112,11 @@ final class ConfigResolverTest extends TestCase
             {
                 return [];
             }
+
+            public function getResultsFormatters(): array
+            {
+                return [];
+            }
         });
         $testsFolderProvider = $config->getTestsFolderProvider();
         $this->assertSame("abc", $testsFolderProvider->folder);
@@ -116,5 +127,9 @@ final class ConfigResolverTest extends TestCase
         $this->assertSame(["failing",], $testSuitesSelectionCriteria->exceptFolders);
         $this->assertFalse($config->getIncludePhptTests());
         $this->assertTrue($config->getUseColors());
+        $resultsFormatters = $config->getResultsFormatters();
+        $this->assertType("array", $resultsFormatters);
+        $this->assertCount(1, $resultsFormatters);
+        $this->assertType(Console::class, $resultsFormatters[0]);
     }
 }

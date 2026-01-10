@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace MyTester\Config;
 
+use MyTester\ResultsFormatter;
+
 /**
  * @author Jakub Konečný
  * @internal
@@ -28,4 +30,9 @@ interface ConfigAdapter
      * @return string[]
      */
     public function getExcludedFolders(): array;
+
+    /**
+     * @return ResultsFormatter[]
+     */
+    public function getResultsFormatters(): array;
 }
