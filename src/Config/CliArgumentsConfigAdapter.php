@@ -65,7 +65,7 @@ final readonly class CliArgumentsConfigAdapter implements ConfigAdapter
     public function getResultsFormatters(): array
     {
         $resultsFormatters = [];
-        foreach ($this->parsedOptions["--results"] as $results) {
+        foreach ($this->parsedOptions[self::ARGUMENT_RESULTS] as $results) {
             $results = explode(":", $results, 2);
             if (!array_key_exists($results[0], ResultsHelper::$availableFormatters)) {
                 throw new ValueError("Unknown results formatter " . $results[0]);
