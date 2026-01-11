@@ -16,3 +16,4 @@ temp/
 /coverage.*
 /junit.xml
 /phpstan.json
+/phpcs.json

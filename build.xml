@@ -28,20 +28,15 @@
        </exec>
        <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
          <arg value="."/>
-         <arg value="--colors"/>
        </exec>
-     </then>
-   </if>
-   <if>
-     <isset property="env.REPORTS"/>
-     <then>
        <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
-         <arg line="analyze --error-format=gitlab | tee phpstan.json"/>
+         <arg value="analyze"/>
        </exec>
      </then>
      <else>
-       <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
-         <arg value="analyze"/>
+       <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
+         <arg value="."/>
+         <arg value="--report-\\Micheh\\PhpCodeSniffer\\Report\\Gitlab=phpcs.json"/>
        </exec>
      </else>
    </if>

@@ -37,13 +37,13 @@ test:reports:
         paths:
             - coverage.xml
             - junit.xml
-            - phpstan.json
+            - phpcs.json
         reports:
             coverage_report:
                 coverage_format: cobertura
                 path: coverage.xml
             junit: junit.xml
-            codequality: phpstan.json
+            codequality: phpcs.json
 
 announce:gitlab:
     stage: announce
