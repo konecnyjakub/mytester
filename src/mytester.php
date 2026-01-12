@@ -27,52 +27,24 @@ use MyTester\SimpleTestSuiteFactory;
 use MyTester\Tester;
 use Nette\CommandLine\Parser;
 
-$cmd = new Parser("", [
-    CliArgumentsConfigAdapter::ARGUMENT_PATH => [
-        Parser::Optional => true,
-    ],
-    CliArgumentsConfigAdapter::ARGUMENT_COLORS => [
-        Parser::Optional => true,
-    ],
-    "--coverage" => [
-        Parser::Argument => true,
-        Parser::Optional => true,
-        Parser::Repeatable => true,
-    ],
-    CliArgumentsConfigAdapter::ARGUMENT_RESULTS => [
-        Parser::Argument => true,
-        Parser::Optional => true,
-        Parser::Repeatable => true,
-    ],
-    CliArgumentsConfigAdapter::ARGUMENT_FILTER_ONLY_GROUPS => [
-        Parser::Argument => true,
-        Parser::Optional => true,
-        Parser::Default => "",
-    ],
-    CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_GROUPS => [
-        Parser::Argument => true,
-        Parser::Optional => true,
-        Parser::Default => "",
-    ],
-    CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_FOLDERS => [
-        Parser::Argument => true,
-        Parser::Optional => true,
-        Parser::Default => "",
-    ],
-    "--version" => [
-        Parser::Optional => true,
-    ],
-    CliArgumentsConfigAdapter::ARGUMENT_NO_PHPT => [
-        Parser::Optional => true,
-    ],
-]);
-/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results": string[], "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
-$options = $cmd->parse();
+$cmd = new Parser();
+$cmd->addArgument(CliArgumentsConfigAdapter::ARGUMENT_PATH, optional: true)
+    ->addSwitch(CliArgumentsConfigAdapter::ARGUMENT_COLORS)
+    ->addOption("--coverage", repeatable: true)
+    ->addOption(CliArgumentsConfigAdapter::ARGUMENT_RESULTS, repeatable: true)
+    ->addOption(CliArgumentsConfigAdapter::ARGUMENT_FILTER_ONLY_GROUPS, optionalValue: true, fallback: "")
+    ->addOption(CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_GROUPS, optionalValue: true, fallback: "")
+    ->addOption(CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_FOLDERS, optionalValue: true, fallback: "")
+    ->addSwitch(CliArgumentsConfigAdapter::ARGUMENT_NO_PHPT)
+    ->addSwitch("--version");
 
-if (isset($options["--version"])) {
+if ($cmd->parseOnly(["--version"])["--version"] === true) {
     echo InfoExtension::getTesterVersion() . "\n";
     exit(0);
 }
+
+/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results": string[], "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
+$options = $cmd->parse();
 
 $codeCoverageCollector = new Collector();
 foreach (CodeCoverageHelper::$defaultEngines as $engine) {
