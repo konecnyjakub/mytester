@@ -38,7 +38,10 @@ final class ConsoleColors
         }
         return "\033[" .
             self::COLORS[$color] .
-            ($backgroundColor !== null && isset(self::COLORS[$backgroundColor]) ? ";4" . substr(self::COLORS[$backgroundColor], -1) : "") .
+            ($backgroundColor !== null && isset(self::COLORS[$backgroundColor]) ?
+                ";4" . substr(self::COLORS[$backgroundColor], -1) :
+                ""
+            ) .
             "m" .
             $text .
             "\033[0m";

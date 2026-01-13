@@ -21,7 +21,10 @@ final readonly class CliArgumentsConfigAdapter implements ConfigAdapter
     public const string ARGUMENT_FILTER_EXCEPT_FOLDERS = "--filterExceptFolders";
 
     /**
-     * @param array{path?: string, "--colors"?: bool, "--results": string[], "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--noPhpt"?: bool} $parsedOptions
+     * @param array{
+     *     path?: string, "--colors"?: bool, "--results": string[], "--filterOnlyGroups": string,
+     *     "--filterExceptGroups": string,"--filterExceptFolders": string, "--noPhpt"?: bool
+     * } $parsedOptions
      */
     public function __construct(private array $parsedOptions)
     {
