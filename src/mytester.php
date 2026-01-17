@@ -11,6 +11,7 @@ use MyTester\Annotations\Reader;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\ChainTestSuiteFactory;
 use MyTester\ChainTestSuitesFinder;
+use MyTester\CodeCoverage\CodeCoverageCustomFileNameFormatter;
 use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Formatters\PercentFormatter;
@@ -57,10 +58,7 @@ foreach ($options["--coverage"] as $coverage) {
         throw new ValueError("Unknown code coverage formatter " . $coverage[0]);
     }
     $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$coverage[0]]();
-    if (
-        $codeCoverageFormatter instanceof \MyTester\CodeCoverage\CodeCoverageCustomFileNameFormatter &&
-        isset($coverage[1])
-    ) {
+    if ($codeCoverageFormatter instanceof CodeCoverageCustomFileNameFormatter && isset($coverage[1])) {
         $codeCoverageFormatter->setOutputFileName($coverage[1]);
     }
     $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
