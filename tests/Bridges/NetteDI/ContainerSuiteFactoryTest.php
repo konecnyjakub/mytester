@@ -23,7 +23,7 @@ final class ContainerSuiteFactoryTest extends TestCase
     {
         // @phpstan-ignore argument.type
         $factory = new ContainerSuiteFactory([
-            new static(),
+            new self(),
             new \stdClass(),
         ]);
         $this->assertType(self::class, $factory->create(self::class));
