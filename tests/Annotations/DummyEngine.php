@@ -15,7 +15,7 @@ final class DummyEngine implements AnnotationsReaderEngine
         return true;
     }
 
-    public function getAnnotation(string $name, string|object $class, ?string $method = null): mixed
+    public function getAnnotation(string $name, string|object $class, ?string $method = null): string
     {
         return "abc";
     }
