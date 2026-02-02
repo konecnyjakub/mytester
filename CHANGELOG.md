@@ -7,6 +7,7 @@ Version 9.0.0-dev
 - made it possible to generate multiple (code coverage) reports at once in mytester.php
 - BC break: Job::$callback accepts only Closure (first class callable syntax) now
 - BC break: removed TestCase::METHOD_PATTERN
+- BC break: ContainerFactory::$onCreate accepts only Closure or null now
 
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings

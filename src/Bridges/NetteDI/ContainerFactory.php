@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteDI;
 
+use Closure;
 use Nette\Bootstrap\Configurator;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
@@ -14,8 +15,7 @@ final class ContainerFactory
 {
     public static string $tempDir = "";
 
-    /** @var callable|null */
-    public static $onCreate = null;
+    public static ?Closure $onCreate = null;
 
     private static ?Container $container = null;
 
@@ -38,7 +38,7 @@ final class ContainerFactory
             $configurator->onCompile[] = static function (Configurator $configurator, Compiler $compiler): void {
                 $compiler->addExtension("mytester", new MyTesterExtension());
             };
-            if (is_callable(self::$onCreate)) {
+            if (self::$onCreate !== null) {
                 call_user_func_array(self::$onCreate, [$configurator, ]);
             }
             self::$container = $configurator->createContainer();
