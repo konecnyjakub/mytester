@@ -11,9 +11,9 @@ namespace MyTester;
 final readonly class TestSuitesSelectionCriteria
 {
     /**
-     * @param string[] $onlyGroups
-     * @param string[] $exceptGroups
-     * @param string[] $exceptFolders
+     * @param list<string> $onlyGroups
+     * @param list<string> $exceptGroups
+     * @param list<string> $exceptFolders
      */
     public function __construct(
         public TestsFolderProvider $testsFolderProvider,

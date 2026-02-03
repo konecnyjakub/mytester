@@ -17,17 +17,17 @@ interface ConfigAdapter
     public function getPath(): ?string;
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     public function getOnlyGroups(): array;
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     public function getExcludedGroups(): array;
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     public function getExcludedFolders(): array;
 

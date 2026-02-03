@@ -84,7 +84,7 @@ final readonly class CliArgumentsConfigAdapter implements ConfigAdapter
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     private function getArrayFromList(string $value): array
     {
