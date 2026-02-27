@@ -59,11 +59,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
         $params = $this->getContainerBuilder()->parameters;
         return Expect::from(new Config(), [
             "folder" => Expect::string(Helpers::expand("%appDir%/../tests", $params))
-                ->assert("is_dir", "Invalid folder"),
+                ->assert(is_dir(...), "Invalid folder"), // @phpstan-ignore argument.type
             "extensions" => Expect::arrayOf("class")
-                ->assert(static function (string $classname) {
-                    return is_subclass_of($classname, TesterExtension::class);
-                }),
+                // @phpstan-ignore argument.type
+                ->assert(static fn(string $classname): bool => is_subclass_of($classname, TesterExtension::class)),
             "coverageFormat" => Expect::anyOf(
                 null,
                 ...array_keys(CodeCoverageHelper::$availableFormatters)
