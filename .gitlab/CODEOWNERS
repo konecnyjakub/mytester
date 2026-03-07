@@ -14,7 +14,6 @@
 [Continous integeration]
 /.gitlab-ci.yml     @konecnyjakub
 /.github/workflows/ @konecnyjakub
-/.scrutinizer.yml   @konecnyjakub
 /build.xml          @konecnyjakub
 
 [Quality Assurance]
