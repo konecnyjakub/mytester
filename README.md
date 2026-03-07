@@ -545,6 +545,7 @@ declare(strict_types=1);
 final class Tests extends MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;
+    
     public function testService(): void
     {
         $service = $this->getService(\App\Model\MyClass::class);
@@ -562,6 +563,7 @@ declare(strict_types=1);
 final class Tests extends MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;
+    
     public function testService(): void
     {
         $config = [...];
@@ -579,7 +581,8 @@ declare(strict_types=1);
 final class Tests extends MyTester\TestCase
 {
     use \MyTester\Bridges\NetteApplication\TComponent;
-    public function testService(): void
+    
+    public function testRender(): void
     {
         $component = new \Nette\Application\UI\Component();
         $this->attachToPresenter($component);
@@ -589,7 +592,37 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
-Using traits TCompiledContainer and TComponent requires setting up the container, see tests/NetteDI.php as an example.
+There is also a helper for log in and log out.
+
+```php
+<?php
+declare(strict_types=1);
+
+final class Tests extends MyTester\TestCase
+{
+    use \MyTester\Bridges\NetteSecurity\TUser;
+    public function testUser(): void
+    {
+        $this->assertFalse($this->isUserLoggedIn());
+
+        /** @var User $user */
+        $user = ContainerFactory::create(false)->getByType(User::class);
+        $this->login(1, ["tester",], ["one" => "abc", "two" => "def",]);
+        $this->assertTrue($this->isUserLoggedIn());
+        $this->assertSame(1, $user->id);
+        $this->assertSame(1, $user->identity->getId());
+        $this->assertSame(["tester",], $user->roles);
+        $this->assertSame(["tester",], $user->identity->getRoles());
+        $this->assertSame(["one" => "abc", "two" => "def",], $user->identity->getData());
+
+        $this->logout();
+        $this->assertFalse($this->isUserLoggedIn());
+        $this->assertNull($user->identity);
+    }
+}
+```
+
+Using traits TCompiledContainer, TComponent and TUser requires setting up the container, see tests/NetteDI.php as an example.
 
 More examples
 -------------

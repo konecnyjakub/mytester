@@ -9,6 +9,7 @@ Version 9.0.0-dev
 - BC break: removed TestCase::METHOD_PATTERN
 - BC break: ContainerFactory::$onCreate accepts only Closure or null now
 - raised minimal version of PHP to 8.4
+- added TUser
 
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings

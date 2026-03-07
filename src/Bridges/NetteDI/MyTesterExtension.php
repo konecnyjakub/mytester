@@ -6,6 +6,7 @@ namespace MyTester\Bridges\NetteDI;
 use Exception;
 use MyTester\Annotations\Reader;
 use MyTester\Bridges\NetteApplication\PresenterMock;
+use MyTester\Bridges\NetteHttp\FakeSession;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
 use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
@@ -21,6 +22,7 @@ use MyTester\TestsFolderProvider;
 use MyTester\TestSuitesSelectionCriteria;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nette\DI\Helpers;
+use Nette\Http\Session;
 use Nette\Schema\Expect;
 
 /**
@@ -161,6 +163,17 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 
         foreach ($builder->findByTag(self::TAG_COVERAGE_FORMATTER) as $serviceName => $tagValue) {
             $coverageCollector->addSetup("registerFormatter", ["@$serviceName", ]);
+        }
+
+        $originalSessionName = $builder->getByType(Session::class);
+        if (is_string($originalSessionName)) {
+            $originalSession = $builder->getDefinition($originalSessionName);
+            $builder->removeDefinition($originalSessionName);
+            $builder->addDefinition($this->prefix("originalSession"), clone $originalSession)
+                ->setAutowired(false);
+            $builder->addDefinition($originalSessionName)
+                ->setType(Session::class)
+                ->setFactory(FakeSession::class, [$this->prefix("@originalSession"),]);
         }
     }
 }

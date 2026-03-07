@@ -4,4 +4,6 @@ Argument --filterExceptFolders in mytester.php now applies also to .phpt files.
 
 The script mytester.php now uses only 1 argument for changing code coverage/results formatter and setting custom file name. It is also possible to use that argument multiple times to generate multiple reports at the same time.
 
+There is a new trait MyTester\Bridges\NetteSecurity\TUser that simplifies login and logout in Nette applications.
+
 For complete list of changes since previous version, see CHANGELOG.md.
