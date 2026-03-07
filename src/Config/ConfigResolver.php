@@ -29,7 +29,7 @@ final class ConfigResolver
     private function getAdapters(): array
     {
         $adapters = $this->adapters;
-        usort($adapters, fn(ConfigAdapter $a, ConfigAdapter $b): int => $b->getPriority() <=> $a->getPriority());
+        usort($adapters, static fn(ConfigAdapter $a, ConfigAdapter $b): int => $b->getPriority() <=> $a->getPriority());
         return $adapters;
     }
 
