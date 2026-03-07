@@ -37,29 +37,16 @@ abstract class TestCase
     /** @var Job[] */
     private array $jobs = [];
 
-    private EventDispatcherInterface $eventDispatcher;
+    /**
+     * @internal
+     */
+    public EventDispatcherInterface $eventDispatcher;
 
     public function __construct()
     {
         $this->annotationsReader = Reader::create();
         $this->skipChecker = new AnnotationsSkipChecker($this->annotationsReader);
         $this->dataProvider = new AnnotationsDataProvider($this->annotationsReader);
-    }
-
-    /**
-     * @internal
-     */
-    final protected function getEventDispatcher(): EventDispatcherInterface
-    {
-        return $this->eventDispatcher;
-    }
-
-    /**
-     * @internal
-     */
-    final public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
-    {
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**

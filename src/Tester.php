@@ -87,7 +87,7 @@ final readonly class Tester
             if ($testSuite === null) {
                 throw new TestSuiteNotCreatedException("Test suite " . $suite . " could not be created.");
             }
-            $testSuite->setEventDispatcher($this->eventDispatcher);
+            $testSuite->eventDispatcher = $this->eventDispatcher;
             $testSuites[] = $testSuite;
         }
 

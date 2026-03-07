@@ -88,7 +88,7 @@ final class PHPTTestCaseTest extends TestCase
             new TestsFolderProvider($folder),
             new TestSuitesSelectionCriteria(new TestsFolderProvider(""))
         );
-        $testCase->setEventDispatcher($eventDispatcher);
+        $testCase->eventDispatcher = $eventDispatcher;
         return $testCase;
     }
 }

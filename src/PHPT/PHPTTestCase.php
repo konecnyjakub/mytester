@@ -53,7 +53,7 @@ final class PHPTTestCase extends TestCase
                 );
             }
             foreach ($jobs as $job) {
-                $job->setEventDispatcher($this->getEventDispatcher());
+                $job->setEventDispatcher($this->eventDispatcher);
             }
         }
         return $jobs;

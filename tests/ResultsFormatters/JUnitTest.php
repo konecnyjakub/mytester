@@ -25,15 +25,15 @@ final class JUnitTest extends TestCase
         $outputFormatter = new JUnit();
         $outputFormatter->reportTestsStarted(new TestsStarted([]));
         $testCase1 = new TestCaseOne();
-        $testCase1->setEventDispatcher(new DummyEventDispatcher());
+        $testCase1->eventDispatcher = new DummyEventDispatcher();
         $testCase1->run();
         $outputFormatter->reportTestCaseFinished(new TestSuiteFinished($testCase1));
         $testCase2 = new TestCaseTwo();
-        $testCase2->setEventDispatcher(new DummyEventDispatcher());
+        $testCase2->eventDispatcher = new DummyEventDispatcher();
         $testCase2->run();
         $outputFormatter->reportTestCaseFinished(new TestSuiteFinished($testCase2));
         $testCase3 = new TestCaseThree();
-        $testCase3->setEventDispatcher(new DummyEventDispatcher());
+        $testCase3->eventDispatcher = new DummyEventDispatcher();
         $testCase3->run();
         $outputFormatter->reportTestCaseFinished(new TestSuiteFinished($testCase3));
         $outputFormatter->reportTestsFinished(new TestsFinished([]));
