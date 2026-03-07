@@ -12,14 +12,12 @@ use MyTester\AssertionFailedException;
 use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use MyTester\Events;
-use MyTester\Job;
 use MyTester\SkippedTestException;
 use MyTester\TestCase;
 use MyTester\TestsFolderProvider;
 use MyTester\TestSuitesSelectionCriteria;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\NullLogger;
-use ReflectionMethod;
 
 /**
  * Test suite for class PHPTTestCase
@@ -39,15 +37,11 @@ final class PHPTTestCaseTest extends TestCase
     public function testGetJobs(): void
     {
         $testCase = $this->createTestCase(__DIR__);
-        $rm = new ReflectionMethod($testCase, "getJobs");
-        /** @var Job[] $result */
-        $result = $rm->invoke($testCase);
-        $this->assertArrayOfType(Job::class, $result);
-        $this->assertCount(4, $result);
-        $this->assertSame("Failing test", $result[0]->name);
-        $this->assertSame("Skipped test", $result[1]->name);
-        $this->assertSame("Test", $result[2]->name);
-        $this->assertSame("Test env", $result[3]->name);
+        $this->assertCount(4, $testCase->jobs);
+        $this->assertSame("Failing test", $testCase->jobs[0]->name);
+        $this->assertSame("Skipped test", $testCase->jobs[1]->name);
+        $this->assertSame("Test", $testCase->jobs[2]->name);
+        $this->assertSame("Test env", $testCase->jobs[3]->name);
     }
 
     public function testRunFile(): void

@@ -43,8 +43,7 @@ final readonly class ErrorsFilesExtension implements TesterExtension
 
     public function onTestSuiteFinished(Events\TestSuiteFinished $event): void
     {
-        $jobs = $event->testSuite->jobs;
-        foreach ($jobs as $job) {
+        foreach ($event->testSuite->jobs as $job) {
             if ($job->result === JobResult::FAILED && strlen($job->output) > 0) {
                 file_put_contents(
                     $this->folderProvider->folder . DIRECTORY_SEPARATOR . $job->name . ".errors",

@@ -327,7 +327,7 @@ final class TestCaseTest extends TestCase
 
     public function testGetJobs(): void
     {
-        $jobs = $this->getJobs();
+        $jobs = $this->jobs;
         $this->assertCount(34, $jobs);
 
         $job = $jobs[0];
