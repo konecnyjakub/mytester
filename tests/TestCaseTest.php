@@ -233,7 +233,6 @@ final class TestCaseTest extends TestCase
     }
 
     #[Test("Deprecation")]
-    #[RequiresPhpVersion("8.4")]
     #[IgnoreDeprecations]
     public function testDeprecation(): void
     {
