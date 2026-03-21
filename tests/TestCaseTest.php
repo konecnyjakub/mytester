@@ -660,11 +660,7 @@ final class TestCaseTest extends TestCase
         $this->assertType(self::class, $rm->getClosureThis());
         $this->assertSame("testDeprecation", $rm->name);
         $this->assertSame([], $job->params);
-        if (version_compare(PHP_VERSION, "8.4.0") >= 0) {
-            $this->assertFalse((bool) $job->skip);
-        } else {
-            $this->assertSame("PHP >=8.4 is required", $job->skip);
-        }
+        $this->assertFalse((bool) $job->skip);
         $this->assertSame("", $job->dataSetName);
         $this->assertSame("Deprecation", $job->nameWithDataSet);
         $this->assertFalse($job->reportDeprecations);

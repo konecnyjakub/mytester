@@ -84,14 +84,12 @@ final class AssertTest extends TestCase
         $this->assertTriggersDeprecation(static function () {
             trigger_error("test", E_USER_DEPRECATED);
         }, "test");
-        if (version_compare(PHP_VERSION, "8.4.0") >= 0) {
-            $this->assertTriggersDeprecation(function () {
-                $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
-            });
-            $this->assertTriggersDeprecation(function () {
-                $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
-            }, "Method MyTester\AssertTest::deprecatedMethod() is deprecated, test");
-        }
+        $this->assertTriggersDeprecation(function () {
+            $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
+        });
+        $this->assertTriggersDeprecation(function () {
+            $this->deprecatedMethod(); // @phpstan-ignore method.deprecated
+        }, "Method MyTester\AssertTest::deprecatedMethod() is deprecated, test");
         $this->assertTriggersNoDeprecation(static function () {
         });
         $this->assertArrayHasKey("abc", ["abc" => 1, "def" => 2, ]);
