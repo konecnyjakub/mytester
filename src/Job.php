@@ -57,7 +57,7 @@ final class Job
             if ($this->dataSetName !== "") {
                 $jobName .= $this->dataSetName;
             } else {
-                $jobName .= "(" . implode(", ", $this->params) . ")";
+                $jobName .= "(" . implode(", ", $this->params) . ")"; // @phpstan-ignore argument.type
             }
         }
         return $jobName;
