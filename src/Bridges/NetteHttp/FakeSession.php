@@ -97,8 +97,12 @@ final class FakeSession extends Session
         return $this;
     }
 
-    public function setCookieParameters(string $path, ?string $domain = null, ?bool $secure = null, ?string $sameSite = null): static
-    {
+    public function setCookieParameters(
+        string $path,
+        ?string $domain = null,
+        ?bool $secure = null,
+        ?string $sameSite = null
+    ): static {
         $this->originalSession->setCookieParameters($path, $domain, $secure, $sameSite);
         return $this;
     }
