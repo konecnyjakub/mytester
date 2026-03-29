@@ -26,7 +26,7 @@ final class PresenterMock extends Presenter
         $this->onStartup($this);
     }
 
-    protected function afterRender(): void
+    protected function afterRender(): never
     {
         parent::afterRender();
         $this->sendPayload();
