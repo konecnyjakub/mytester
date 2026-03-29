@@ -33,12 +33,10 @@ final class Reader
      */
     public function hasAnnotation(string $name, string|object $class, ?string $method = null): bool
     {
-        foreach ($this->engines as $engine) {
-            if ($engine->hasAnnotation($name, $class, $method)) {
-                return true;
-            }
-        }
-        return false;
+        return array_any(
+            $this->engines,
+            static fn (AnnotationsReaderEngine $engine): bool => $engine->hasAnnotation($name, $class, $method)
+        );
     }
 
     /**
