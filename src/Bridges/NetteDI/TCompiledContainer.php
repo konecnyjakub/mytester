@@ -28,8 +28,8 @@ trait TCompiledContainer
     /**
      * @param mixed[] $config
      */
-    protected function refreshContainer(array $config = []): Container
+    protected function refreshContainer(array $config = [], bool $save = true): Container
     {
-        return ContainerFactory::create(true, $config);
+        return ContainerFactory::create(true, $config, $save);
     }
 }

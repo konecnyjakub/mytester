@@ -43,5 +43,11 @@ final class ContainerFactoryTest extends TestCase
 
         ContainerFactory::$onCreate = $oldCallback;
         ContainerFactory::create(true, $oldParameters);
+        $this->assertSame(1, $var);
+
+        $oldContainer = $this->getContainer();
+        $newContainer = $this->refreshContainer([], false);
+        $this->assertNotSame($oldContainer, $newContainer);
+        $this->assertSame($oldContainer, ContainerFactory::create());
     }
 }

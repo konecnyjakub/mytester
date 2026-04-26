@@ -572,6 +572,24 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
+If you want to create a new container but preserve the stored one, just pass false as second argument. This is useful if you want to check that a configuration works correctly (or throws an exception) but want to keep the stored container for later tests.
+
+```php
+<?php
+declare(strict_types=1);
+
+final class Tests extends MyTester\TestCase
+{
+    use \MyTester\Bridges\NetteDI\TCompiledContainer;
+    
+    public function testService(): void
+    {
+        $config = [...];
+        $newContainer = $this->refreshContainer($config, false);
+    }
+}
+```
+
 You can also test output of your components (either against a string or contents of a file) or just verify that it can be attached to a container.
 
 ```php

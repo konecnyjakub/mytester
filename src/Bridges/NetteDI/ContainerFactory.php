@@ -26,7 +26,7 @@ final class ContainerFactory
     /**
      * @param mixed[] $config
      */
-    public static function create(bool $new = false, array $config = []): Container
+    public static function create(bool $new = false, array $config = [], bool $save = true): Container
     {
         if (self::$container === null || $new) {
             $configurator = new Configurator();
@@ -41,7 +41,12 @@ final class ContainerFactory
             if (self::$onCreate !== null) {
                 call_user_func_array(self::$onCreate, [$configurator, ]);
             }
-            self::$container = $configurator->createContainer();
+            $container = $configurator->createContainer();
+            if ($save) {
+                self::$container = $container;
+            } else {
+                return $container;
+            }
         }
         return self::$container;
     }

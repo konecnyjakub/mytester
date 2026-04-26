@@ -10,6 +10,7 @@ Version 9.0.0-dev
 - BC break: ContainerFactory::$onCreate accepts only Closure or null now
 - raised minimal version of PHP to 8.4
 - added TUser
+- allowed generating a new Nette DI container without overriding the stored one
 
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings

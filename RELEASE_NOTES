@@ -6,4 +6,6 @@ The script mytester.php now uses only 1 argument for changing code coverage/resu
 
 There is a new trait MyTester\Bridges\NetteSecurity\TUser that simplifies login and logout in Nette applications.
 
+It is now possible to generate a new Nette DI container without overriding the stored one with TCompiledContainer::refreshContainer().
+
 For complete list of changes since previous version, see CHANGELOG.md.
