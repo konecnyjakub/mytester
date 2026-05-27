@@ -24,7 +24,7 @@ final class ContainerFactory
     }
 
     /**
-     * @param mixed[] $config
+     * @param array<string, mixed> $config
      */
     public static function create(bool $new = false, array $config = [], bool $save = true): Container
     {

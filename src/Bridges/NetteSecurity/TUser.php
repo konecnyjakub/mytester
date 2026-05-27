@@ -13,7 +13,7 @@ trait TUser
 {
     /**
      * @param list<string> $roles
-     * @param mixed[] $data
+     * @param array<string, mixed> $data
      * @throws AuthenticationException
      */
     protected function login(IIdentity|int $id, array $roles = [], array $data = []): void

@@ -26,7 +26,7 @@ trait TCompiledContainer
     }
 
     /**
-     * @param mixed[] $config
+     * @param array<string, mixed> $config
      */
     protected function refreshContainer(array $config = [], bool $save = true): Container
     {

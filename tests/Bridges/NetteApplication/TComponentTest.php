@@ -27,12 +27,13 @@ final class TComponentTest extends TestCase
         $control = new Component();
         $this->assertThrowsException(
             function () use ($control) {
-                $control->lookup(IPresenter::class);
+                $control->lookup(IPresenter::class); // @phpstan-ignore argument.type, argument.templateType
             },
             InvalidStateException::class,
             "Component of type '" . Component::class . "' is not attached to '" . IPresenter::class . "'."
         );
         $this->attachToPresenter($control);
+        // @phpstan-ignore argument.type, argument.templateType
         $this->assertType(IPresenter::class, $control->lookup(IPresenter::class));
     }
 

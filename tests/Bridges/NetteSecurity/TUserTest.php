@@ -8,6 +8,7 @@ use MyTester\Attributes\RequiresEnvVariable;
 use MyTester\Attributes\TestSuite;
 use MyTester\Bridges\NetteDI\ContainerFactory;
 use MyTester\TestCase;
+use Nette\Security\IIdentity;
 use Nette\Security\User;
 
 /**
@@ -30,11 +31,13 @@ final class TUserTest extends TestCase
         $user = ContainerFactory::create(false)->getByType(User::class);
         $this->login(1, ["tester",], ["one" => "abc", "two" => "def",]);
         $this->assertTrue($this->isUserLoggedIn());
+        /** @var IIdentity $identity */
+        $identity = $user->identity;
         $this->assertSame(1, $user->id);
-        $this->assertSame(1, $user->identity->getId());
+        $this->assertSame(1, $identity->getId());
         $this->assertSame(["tester",], $user->roles);
-        $this->assertSame(["tester",], $user->identity->getRoles());
-        $this->assertSame(["one" => "abc", "two" => "def",], $user->identity->getData());
+        $this->assertSame(["tester",], $identity->getRoles());
+        $this->assertSame(["one" => "abc", "two" => "def",], $identity->getData());
 
         $this->logout();
         $this->assertFalse($this->isUserLoggedIn());

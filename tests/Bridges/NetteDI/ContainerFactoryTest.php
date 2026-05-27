@@ -25,6 +25,7 @@ final class ContainerFactoryTest extends TestCase
     public function testCreate(): void
     {
         $oldCallback = ContainerFactory::$onCreate;
+        /** @var array<string, mixed> $oldParameters */
         $oldParameters = ContainerFactory::create()->getParameters();
 
         $var = 0;
