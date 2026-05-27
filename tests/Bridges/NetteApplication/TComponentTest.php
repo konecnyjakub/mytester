@@ -30,7 +30,7 @@ final class TComponentTest extends TestCase
                 $control->lookup(IPresenter::class); // @phpstan-ignore argument.type, argument.templateType
             },
             InvalidStateException::class,
-            "Component of type '" . Component::class . "' is not attached to '" . IPresenter::class . "'."
+            "Component type of '" . Component::class . "' is not attached to '" . IPresenter::class . "'."
         );
         $this->attachToPresenter($control);
         // @phpstan-ignore argument.type, argument.templateType
