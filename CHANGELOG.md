@@ -1,4 +1,4 @@
-Version 9.0.0-dev
+Version 9.0.0
 - BC break: methods startUp/shutDown/setUp/tearDown are not automatically run
 - BC break: removed Job::$onAfterExecute
 - BC break: removed prefix I from interfaces' names
