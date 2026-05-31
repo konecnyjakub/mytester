@@ -1,11 +1,3 @@
-A new version of My Tester is out. It requires PHP 8.4 and uses some of its new features. It removes stuff deprecated in 8.x series. Names of all interfaces were changed: they no longer start with I.
-
-Argument --filterExceptFolders in mytester.php now applies also to .phpt files.
-
-The script mytester.php now uses only 1 argument for changing code coverage/results formatter and setting custom file name. It is also possible to use that argument multiple times to generate multiple reports at the same time.
-
-There is a new trait MyTester\Bridges\NetteSecurity\TUser that simplifies login and logout in Nette applications.
-
-It is now possible to generate a new Nette DI container without overriding the stored one with TCompiledContainer::refreshContainer().
+A new version of My Tester is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
