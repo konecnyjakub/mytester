@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace MyTester\Bridges\NetteHttp;
 
+use Nette\Http\SameSite;
 use Nette\Http\Session;
 use Nette\Http\SessionSection;
 
@@ -101,7 +102,7 @@ final class FakeSession extends Session
         string $path,
         ?string $domain = null,
         ?bool $secure = null,
-        ?string $sameSite = null
+        string|null|SameSite $sameSite = null
     ): static {
         $this->originalSession->setCookieParameters($path, $domain, $secure, $sameSite);
         return $this;
