@@ -1,3 +1,6 @@
+Version 9.0.1
+- fixed compatibility with nette/http 3.4 in Nette DIC extension
+
 Version 9.0.0
 - BC break: methods startUp/shutDown/setUp/tearDown are not automatically run
 - BC break: removed Job::$onAfterExecute
