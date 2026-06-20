@@ -6,6 +6,8 @@ namespace MyTester\Bridges\NetteDI;
 use MyTester\Attributes\Group;
 use MyTester\Attributes\RequiresEnvVariable;
 use MyTester\Attributes\TestSuite;
+use MyTester\ResultsFormatters\Console;
+use MyTester\ResultsFormatters\Tap;
 use MyTester\TestCase;
 use MyTester\Tester;
 
@@ -25,8 +27,6 @@ final class ContainerFactoryTest extends TestCase
     public function testCreate(): void
     {
         $oldCallback = ContainerFactory::$onCreate;
-        /** @var array<string, mixed> $oldParameters */
-        $oldParameters = ContainerFactory::create()->getParameters();
 
         $var = 0;
         $callback = function () use (&$var) {
@@ -43,12 +43,20 @@ final class ContainerFactoryTest extends TestCase
         $this->assertSame(1, $var);
 
         ContainerFactory::$onCreate = $oldCallback;
-        ContainerFactory::create(true, $oldParameters);
+        ContainerFactory::create(true);
         $this->assertSame(1, $var);
 
         $oldContainer = $this->getContainer();
         $newContainer = $this->refreshContainer([], false);
         $this->assertNotSame($oldContainer, $newContainer);
         $this->assertSame($oldContainer, ContainerFactory::create());
+
+        $this->assertType(Console::class, $oldContainer->getService("mytester.resultsFormatter"));
+        $newContainer = $this->refreshContainer([
+            "mytester" => [
+                "resultsFormat" => "tap",
+            ],
+        ], false);
+        $this->assertType(Tap::class, $newContainer->getService("mytester.resultsFormatter"));
     }
 }

@@ -30,7 +30,7 @@ final class ContainerFactory
     {
         if (self::$container === null || $new) {
             $configurator = new Configurator();
-            $configurator->addStaticParameters($config);
+            $configurator->addConfig($config);
             $configurator->setDebugMode(true);
             if (self::$tempDir !== "") {
                 $configurator->setTempDirectory(self::$tempDir);
