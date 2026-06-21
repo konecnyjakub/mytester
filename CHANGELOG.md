@@ -1,4 +1,4 @@
-Version 9.0.1+dev
+Version 9.0.2
 - fixed parameter $config of ContainerFactory::create()/TCompiledContainer::refreshContainer() not working
 - fixed test methods being skipped if data provider did not provide optional parameters
 
