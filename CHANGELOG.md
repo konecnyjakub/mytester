@@ -1,5 +1,6 @@
 Version 9.0.1+dev
 - fixed parameter $config of ContainerFactory::create()/TCompiledContainer::refreshContainer() not working
+- fixed test methods being skipped if data provider did not provide optional parameters
 
 Version 9.0.1
 - fixed compatibility with nette/http 3.4 in Nette DIC extension

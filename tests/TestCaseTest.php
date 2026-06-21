@@ -85,6 +85,13 @@ final class TestCaseTest extends TestCase
         $this->assertTrue(false);
     }
 
+    #[DataProviderAttribute("dataProvider")]
+    public function testParamsOptional(string $text, int $number = 0): void
+    {
+        $this->assertTrue(str_starts_with($text, "a"));
+        $this->assertSame(0, $number);
+    }
+
     #[DataProviderAttribute("dataProviderMulti")]
     public function testParamsMulti(string $text, int $number): void
     {
@@ -276,6 +283,7 @@ final class TestCaseTest extends TestCase
                 "testParams",
                 "testParamsNoneProvided",
                 "testParamsNotEnough",
+                "testParamsOptional",
                 "testParamsMulti",
                 "testParamsIterator",
                 "testParamsExternal",
@@ -327,7 +335,7 @@ final class TestCaseTest extends TestCase
     public function testGetJobs(): void
     {
         $jobs = $this->jobs;
-        $this->assertCount(34, $jobs);
+        $this->assertCount(36, $jobs);
 
         $job = $jobs[0];
         $this->assertSame("TestCase::testState", $job->name);
@@ -400,6 +408,34 @@ final class TestCaseTest extends TestCase
         $this->assertSame(0, $job->maxRetries);
 
         $job = $jobs[5];
+        $this->assertSame("TestCase::testParamsOptional", $job->name);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsOptional", $rm->name);
+        $this->assertSame(["abc", ], $job->params);
+        $this->assertFalse((bool) $job->skip);
+        $this->assertSame("", $job->dataSetName);
+        $this->assertSame("TestCase::testParamsOptional with data set (abc)", $job->nameWithDataSet);
+        $this->assertTrue($job->reportDeprecations);
+        $this->assertSame(0, $job->maxRetries);
+
+        $job = $jobs[6];
+        $this->assertSame("TestCase::testParamsOptional", $job->name);
+        /** @var ReflectionFunction $rm */
+        $rm = $job->getCallbackReflection();
+        $this->assertType(ReflectionFunction::class, $rm);
+        $this->assertType(self::class, $rm->getClosureThis());
+        $this->assertSame("testParamsOptional", $rm->name);
+        $this->assertSame(["adef", ], $job->params);
+        $this->assertFalse((bool) $job->skip);
+        $this->assertSame("", $job->dataSetName);
+        $this->assertSame("TestCase::testParamsOptional with data set (adef)", $job->nameWithDataSet);
+        $this->assertTrue($job->reportDeprecations);
+        $this->assertSame(0, $job->maxRetries);
+
+        $job = $jobs[7];
         $this->assertSame("TestCase::testParamsMulti", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -413,7 +449,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[6];
+        $job = $jobs[8];
         $this->assertSame("TestCase::testParamsMulti", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -427,7 +463,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[7];
+        $job = $jobs[9];
         $this->assertSame("TestCase::testParamsIterator", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -441,7 +477,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[8];
+        $job = $jobs[10];
         $this->assertSame("TestCase::testParamsIterator", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -455,7 +491,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[9];
+        $job = $jobs[11];
         $this->assertSame("TestCase::testParamsExternal", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -469,7 +505,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[10];
+        $job = $jobs[12];
         $this->assertSame("TestCase::testParamsExternal", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -483,7 +519,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[11];
+        $job = $jobs[13];
         $this->assertSame("TestCase::testParamsData", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -497,7 +533,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[12];
+        $job = $jobs[14];
         $this->assertSame("TestCase::testParamsData", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -511,7 +547,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[13];
+        $job = $jobs[15];
         $this->assertSame("Custom name", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -525,7 +561,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[14];
+        $job = $jobs[16];
         $this->assertSame("Skip", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -539,7 +575,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[15];
+        $job = $jobs[17];
         $this->assertSame("PHP version", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -553,7 +589,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[16];
+        $job = $jobs[18];
         $this->assertSame("CGI sapi", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -567,7 +603,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[17];
+        $job = $jobs[19];
         $this->assertSame("Extension", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -581,7 +617,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[18];
+        $job = $jobs[20];
         $this->assertSame("OS family", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -595,7 +631,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[19];
+        $job = $jobs[21];
         $this->assertSame("Package", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -609,7 +645,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[20];
+        $job = $jobs[22];
         $this->assertSame("Env variable", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -623,7 +659,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[21];
+        $job = $jobs[23];
         $this->assertSame("No assertions", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -637,7 +673,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[22];
+        $job = $jobs[24];
         $this->assertSame("TestCase::testShouldCheckAssertions", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -651,7 +687,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[23];
+        $job = $jobs[25];
         $this->assertSame("Deprecation", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -665,7 +701,7 @@ final class TestCaseTest extends TestCase
         $this->assertFalse($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[24];
+        $job = $jobs[26];
         $this->assertSame("TestCase::testGetSuiteName", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -679,7 +715,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[25];
+        $job = $jobs[27];
         $this->assertSame("TestCase::testGetJobName", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -693,7 +729,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[26];
+        $job = $jobs[28];
         $this->assertSame("TestCase::testGetTestMethodsNames", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -707,7 +743,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[27];
+        $job = $jobs[29];
         $this->assertSame("TestCase::testShouldReportDeprecations", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -721,7 +757,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[28];
+        $job = $jobs[30];
         $this->assertSame("TestCase::testGetMaxRetries", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -735,7 +771,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[29];
+        $job = $jobs[31];
         $this->assertSame("TestCase::testFlakyTest", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -749,7 +785,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(1, $job->maxRetries);
 
-        $job = $jobs[30];
+        $job = $jobs[32];
         $this->assertSame("TestCase::testGetJobs", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -763,7 +799,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[31];
+        $job = $jobs[33];
         $this->assertSame("TestCase::testIncomplete", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -777,7 +813,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[32];
+        $job = $jobs[34];
         $this->assertSame("TestCase::testSkipInside", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();
@@ -791,7 +827,7 @@ final class TestCaseTest extends TestCase
         $this->assertTrue($job->reportDeprecations);
         $this->assertSame(0, $job->maxRetries);
 
-        $job = $jobs[33];
+        $job = $jobs[35];
         $this->assertSame("TestCase::testWhatever", $job->name);
         /** @var ReflectionFunction $rm */
         $rm = $job->getCallbackReflection();

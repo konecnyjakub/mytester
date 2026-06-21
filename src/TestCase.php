@@ -129,7 +129,7 @@ abstract class TestCase
                     "maxRetries" => $this->getMaxRetries($method),
                 ];
 
-                $requiredParameters = (new ReflectionMethod($this, $method))->getNumberOfParameters();
+                $requiredParameters = (new ReflectionMethod($this, $method))->getNumberOfRequiredParameters();
                 if ($requiredParameters === 0) {
                     $this->jobs[] = new Job(... $job);
                     continue;
