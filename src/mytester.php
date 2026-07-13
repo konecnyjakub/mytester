@@ -37,6 +37,7 @@ $cmd = new Parser("", [
     "--coverage" => [
         Parser::Argument => true,
         Parser::Optional => true,
+        Parser::Repeatable => true,
     ],
     "--results" => [
         Parser::Argument => true,
@@ -82,7 +83,7 @@ $cmd = new Parser("", [
         Parser::Optional => true,
     ],
 ]);
-/** @var array{path: string, "--colors"?: bool, "--coverage"?: string, "--results"?: string, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
+/** @var array{path: string, "--colors"?: bool, "--coverage"?: string[], "--results"?: string, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
@@ -95,19 +96,21 @@ foreach (CodeCoverageHelper::$defaultEngines as $engine) {
     $codeCoverageCollector->registerEngine(new $engine());
 }
 $codeCoverageCollector->registerFormatter(new PercentFormatter());
-if (isset($options["--coverage"])) {
-    $coverage = explode(":", $options["--coverage"], 2);
-    if (!array_key_exists($coverage[0], CodeCoverageHelper::$availableFormatters)) {
-        throw new \ValueError("Unknown code coverage formatter " . $coverage[0]);
+if (isset($options["--coverage"]) && count($options["--coverage"]) > 0) {
+    foreach ($options["--coverage"] as $coverage) {
+        $coverage = explode(":", $coverage, 2);
+        if (!array_key_exists($coverage[0], CodeCoverageHelper::$availableFormatters)) {
+            throw new \ValueError("Unknown code coverage formatter " . $coverage[0]);
+        }
+        $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$coverage[0]]();
+        if (
+            $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
+            isset($coverage[1])
+        ) {
+            $codeCoverageFormatter->setOutputFileName($coverage[1]);
+        }
+        $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
     }
-    $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$coverage[0]]();
-    if (
-        $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
-        isset($coverage[1])
-    ) {
-        $codeCoverageFormatter->setOutputFileName($coverage[1]);
-    }
-    $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
 } elseif (isset($options["--coverageFormat"])) {
     $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$options["--coverageFormat"]]();
     if (
