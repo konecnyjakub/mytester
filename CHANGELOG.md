@@ -1,6 +1,7 @@
 Version 8.3.0-dev
 - added arguments --coverage and --results for mytester.php
 - made it possible to generate multiple (code coverage) reports at once in mytester.php
+- allowed generating a new Nette DI container without overriding the stored one
 
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings
