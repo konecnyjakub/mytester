@@ -42,6 +42,7 @@ $cmd = new Parser("", [
     "--results" => [
         Parser::Argument => true,
         Parser::Optional => true,
+        Parser::Repeatable => true,
     ],
     "--coverageFormat" => [
         Parser::Argument => true,
@@ -83,7 +84,7 @@ $cmd = new Parser("", [
         Parser::Optional => true,
     ],
 ]);
-/** @var array{path: string, "--colors"?: bool, "--coverage"?: string[], "--results"?: string, "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
+/** @var array{path: string, "--colors"?: bool, "--coverage"?: string[], "--results"?: string[], "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
@@ -122,16 +123,16 @@ if (isset($options["--coverage"]) && count($options["--coverage"]) > 0) {
     $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
 }
 
-$resultsFormatter = null;
-if (isset($options["--results"])) {
-    $results = explode(":", $options["--results"], 2);
-    if (!array_key_exists($results[0], ResultsHelper::$availableFormatters)) {
-        throw new \ValueError("Unknown results formatter " . $results[0]);
-    }
-    /** @var \MyTester\IResultsFormatter $resultsFormatter */
-    $resultsFormatter = new ResultsHelper::$availableFormatters[$results[0]]();
-    if (isset($results[1])) {
-        $resultsFormatter->setOutputFileName($results[1]);
+$resultsFormatters = [];
+if (isset($options["--results"]) && count($options["--results"]) > 0) {
+    foreach ($options["--results"] as $results) {
+        $results = explode(":", $results, 2);
+        if (!array_key_exists($results[0], ResultsHelper::$availableFormatters)) {
+            throw new ValueError("Unknown results formatter " . $results[0]);
+        }
+        /** @var \MyTester\IResultsFormatter $resultsFormatter */
+        $resultsFormatter = new ResultsHelper::$availableFormatters[$results[0]]();
+        $resultsFormatters[] = $resultsFormatter;
     }
 } elseif (isset($options["--resultsFormat"])) {
     $type = ResultsHelper::$availableFormatters[$options["--resultsFormat"]];
@@ -140,6 +141,7 @@ if (isset($options["--results"])) {
     if (isset($options["--resultsFile"])) {
         $resultsFormatter->setOutputFileName($options["--resultsFile"]);
     }
+    $resultsFormatters[] = $resultsFormatter;
 }
 
 $getArrayFromList = static function (string $value): array {
@@ -194,8 +196,8 @@ $params = [
     "extensions" => $extensions,
     "console" => $console,
 ];
-if ($resultsFormatter !== null) {
-    $params["resultsFormatter"] = $resultsFormatter;
+if (count($resultsFormatters) > 0) {
+    $params["resultsFormatters"] = $resultsFormatters;
 }
 $tester = new Tester(...$params);
 $tester->execute();

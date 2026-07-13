@@ -33,7 +33,7 @@ final class TesterTest extends TestCase
         $tester = new Tester(
             testSuitesSelectionCriteria: new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__)),
             testSuitesFinder: new ChainTestSuitesFinder(),
-            resultsFormatter: $resultsFormatter
+            resultsFormatters: [$resultsFormatter]
         );
 
         $this->assertType(ConsoleColors::class, $resultsFormatter->console);
