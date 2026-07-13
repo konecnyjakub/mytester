@@ -1,3 +1,6 @@
+Version 8.3.0-dev
+- added arguments --coverage and --results for mytester.php
+
 Version 8.2.1
 - data set is shown for skipped jobs or jobs passed with warnings
 
