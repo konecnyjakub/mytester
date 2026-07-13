@@ -22,7 +22,7 @@ final class ContainerFactory
     private static ?Container $container = null;
 
     /**
-     * @param mixed[] $config
+     * @param array<string, mixed> $config
      */
     public static function create(bool $new = false, array $config = []): Container
     {

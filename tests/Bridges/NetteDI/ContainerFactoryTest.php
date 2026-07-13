@@ -42,6 +42,6 @@ final class ContainerFactoryTest extends TestCase
         $this->assertSame(1, $var);
 
         ContainerFactory::$onCreate = $oldCallback;
-        ContainerFactory::create(true, $oldParameters);
+        ContainerFactory::create(true, $oldParameters); // @phpstan-ignore argument.type
     }
 }
