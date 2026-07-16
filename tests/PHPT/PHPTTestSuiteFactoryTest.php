@@ -33,7 +33,7 @@ final class PHPTTestSuiteFactoryTest extends TestCase
         );
         $this->assertType(PHPTTestCase::class, $factory->create(PHPTTestCase::class));
         $this->assertNull($factory->create(self::class));
-        $this->assertThrowsException(function () use ($factory) {
+        $this->assertThrowsException(static function () use ($factory) {
             $factory->create(\stdClass::class);
         }, InvalidTestSuiteException::class, "stdClass is not a descendant of " . TestCase::class . ".");
     }

@@ -194,28 +194,28 @@ final class AssertTest extends TestCase
             "Test 45 failed. The variable is instance of stdClass not " . self::class . "."
         );
         $this->assertThrowsException(function () {
-            $this->assertThrowsException(function () {
+            $this->assertThrowsException(static function () {
             }, \Exception::class);
         }, AssertionFailedException::class, "Test 47 failed. The code does not throw any exception.");
         $this->assertThrowsException(function () {
-            $this->assertThrowsException(function () {
+            $this->assertThrowsException(static function () {
                 throw new \RuntimeException();
             }, \LogicException::class);
         }, AssertionFailedException::class,
             "Test 49 failed. The code does not throw LogicException but RuntimeException.");
         $this->assertThrowsException(function () {
-            $this->assertThrowsException(function () {
+            $this->assertThrowsException(static function () {
                 throw new \RuntimeException("def");
             }, \RuntimeException::class, "abc");
         }, AssertionFailedException::class,
             "Test 51 failed. The code does not throw an exception with message 'abc' but 'def'.");
         $this->assertThrowsException(function () {
-            $this->assertThrowsException(function () {
+            $this->assertThrowsException(static function () {
                 throw new \RuntimeException("abc", 2);
             }, \RuntimeException::class, "abc", 1);
         }, AssertionFailedException::class, "Test 53 failed. The code does not throw an exception with code 1 but 2.");
         $this->assertThrowsException(function () {
-            $this->assertNoException(function () {
+            $this->assertNoException(static function () {
                 throw new \RuntimeException();
             });
         }, AssertionFailedException::class,
@@ -249,16 +249,16 @@ final class AssertTest extends TestCase
             $this->assertMatchesFile(__DIR__ . "/test.txt", "");
         }, AssertionFailedException::class, "Test 67 failed. The value is not 'abc\n' but ''.");
         $this->assertThrowsException(function () {
-            $this->assertTriggersDeprecation(function () {
+            $this->assertTriggersDeprecation(static function () {
             });
         }, AssertionFailedException::class, "Test 69 failed. Expected a deprecation but none was triggered.");
         $this->assertThrowsException(function () {
-            $this->assertTriggersDeprecation(function () {
+            $this->assertTriggersDeprecation(static function () {
                 trigger_error("test", E_USER_DEPRECATED);
             }, "abc");
         }, AssertionFailedException::class, "Test 71 failed. Expected deprecation 'abc' but 'test' was triggered.");
         $this->assertThrowsException(function () {
-            $this->assertTriggersNoDeprecation(function () {
+            $this->assertTriggersNoDeprecation(static function () {
                 trigger_error("test", E_USER_DEPRECATED);
             });
         }, AssertionFailedException::class, "Test 73 failed. Expected no deprecation but 'test' was triggered.");

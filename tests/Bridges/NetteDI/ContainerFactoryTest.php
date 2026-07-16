@@ -29,7 +29,7 @@ final class ContainerFactoryTest extends TestCase
         $oldCallback = ContainerFactory::$onCreate;
 
         $var = 0;
-        $callback = function () use (&$var) {
+        $callback = static function () use (&$var) {
             $var++;
         };
 

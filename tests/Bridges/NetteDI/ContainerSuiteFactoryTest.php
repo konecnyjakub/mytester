@@ -27,10 +27,10 @@ final class ContainerSuiteFactoryTest extends TestCase
             new \stdClass(),
         ]);
         $this->assertType(self::class, $factory->create(self::class));
-        $this->assertThrowsException(function () use ($factory) {
+        $this->assertThrowsException(static function () use ($factory) {
             $factory->create(\stdClass::class);
         }, InvalidTestSuiteException::class, "stdClass is not a descendant of MyTester\\TestCase.");
-        $this->assertThrowsException(function () use ($factory) {
+        $this->assertThrowsException(static function () use ($factory) {
             // @phpstan-ignore argument.type
             $factory->create("abcd");
         }, InvalidTestSuiteException::class, "abcd is not a descendant of MyTester\\TestCase.");

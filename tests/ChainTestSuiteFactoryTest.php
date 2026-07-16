@@ -33,7 +33,7 @@ final class ChainTestSuiteFactoryTest extends TestCase
 
         $factory->registerFactory(new SimpleTestSuiteFactory());
         $this->assertType(self::class, $factory->create(self::class));
-        $this->assertThrowsException(function () use ($factory) {
+        $this->assertThrowsException(static function () use ($factory) {
             $factory->create(\stdClass::class);
         }, InvalidTestSuiteException::class, "stdClass is not a descendant of " . TestCase::class . ".");
     }

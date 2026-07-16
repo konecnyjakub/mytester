@@ -26,7 +26,7 @@ final class TComponentTest extends TestCase
     {
         $control = new Component();
         $this->assertThrowsException(
-            function () use ($control) {
+            static function () use ($control) {
                 $control->lookup(IPresenter::class); // @phpstan-ignore argument.type, argument.templateType
             },
             InvalidStateException::class,

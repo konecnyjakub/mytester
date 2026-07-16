@@ -36,7 +36,7 @@ final class TestSuitesFinder extends BaseTestSuitesFinder
         $robot->addDirectory($folder);
         $robot->acceptFiles = ["*" . $criteria->filenameSuffix, ];
         $robot->excludeDirectory(
-            ...array_map(fn(string $value) => $folder . DIRECTORY_SEPARATOR . $value, $criteria->exceptFolders)
+            ...array_map(static fn (string $value) => $folder . DIRECTORY_SEPARATOR . $value, $criteria->exceptFolders)
         );
         $robot->rebuild();
         $robot->register();

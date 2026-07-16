@@ -65,7 +65,7 @@ final class CliArgumentsConfigAdapterTest extends TestCase
 
     public function testInvalidConfig(): void
     {
-        $this->assertThrowsException(function () {
+        $this->assertThrowsException(static function () {
             $configAdapter = new CliArgumentsConfigAdapter([
                 CliArgumentsConfigAdapter::ARGUMENT_RESULTS => ["test", "junit:test.xml",],
                 CliArgumentsConfigAdapter::ARGUMENT_FILTER_ONLY_GROUPS => "one,two",
