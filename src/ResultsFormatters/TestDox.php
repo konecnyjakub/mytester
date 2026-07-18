@@ -40,9 +40,7 @@ final class TestDox extends AbstractResultsFormatter implements ConsoleAwareResu
             }
         }
 
-        /** @var string $result */
-        $result = ob_get_clean();
-        return $result;
+        return (string) ob_get_clean();
     }
 
     private function getOutput(JobResult $jobResult): string

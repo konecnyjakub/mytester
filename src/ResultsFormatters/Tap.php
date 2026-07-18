@@ -57,9 +57,7 @@ final class Tap extends AbstractResultsFormatter
             }
         }
 
-        /** @var string $result */
-        $result = ob_get_clean();
-        return $result;
+        return (string) ob_get_clean();
     }
 
     public function setOutputFileName(string $baseFileName): void

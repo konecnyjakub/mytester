@@ -103,9 +103,7 @@ final class Console extends AbstractResultsFormatter implements ConsoleAwareResu
         $resultsLine .= ", $time)";
         $resultsLine = $this->console->color($resultsLine, (!$failed) ? "green" : "red");
         echo $resultsLine . "\n";
-        /** @var string $result */
-        $result = ob_get_clean();
-        return $result;
+        return (string) ob_get_clean();
     }
 
     /**
