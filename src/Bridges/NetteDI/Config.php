@@ -23,4 +23,5 @@ final class Config
     public array $filterExceptGroups = [];
     /** @var string[] */
     public array $filterExceptFolders = [];
+    public string $url = "";
 }

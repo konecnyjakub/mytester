@@ -1,3 +1,6 @@
+Version 9.1.0-dev
+- allowed setting base url for Nette\Application\LinkGenerator from Nette DIC extension
+
 Version 9.0.2
 - fixed parameter $config of ContainerFactory::create()/TCompiledContainer::refreshContainer() not working
 - fixed test methods being skipped if data provider did not provide optional parameters

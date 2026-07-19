@@ -21,7 +21,7 @@ final class ComposerTestSuitesFinderTest extends TestCase
         $testSuitesFinder = new ComposerTestSuitesFinder(Reader::create());
 
         $suites = $testSuitesFinder->getSuites(new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__)));
-        $this->assertCount(47, $suites);
+        $this->assertCount(48, $suites);
 
         $suites = $testSuitesFinder->getSuites(
             new TestSuitesSelectionCriteria(
@@ -29,7 +29,7 @@ final class ComposerTestSuitesFinderTest extends TestCase
                 exceptFolders: ["CodeCoverage/Engines", "Annotations", ]
             )
         );
-        $this->assertCount(43, $suites);
+        $this->assertCount(44, $suites);
 
         $suites = $testSuitesFinder->getSuites(
             new TestSuitesSelectionCriteria(new TestsFolderProvider(__DIR__), onlyGroups: ["test", ])

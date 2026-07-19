@@ -20,10 +20,14 @@ use MyTester\ResultsFormatters\Helper as ResultsHelper;
 use MyTester\Tester;
 use MyTester\TestsFolderProvider;
 use MyTester\TestSuitesSelectionCriteria;
+use Nette\Application\LinkGenerator;
 use Nette\DI\Definitions\ServiceDefinition;
+use Nette\DI\Definitions\Statement;
 use Nette\DI\Helpers;
 use Nette\Http\Session;
+use Nette\Http\UrlScript;
 use Nette\Schema\Expect;
+use Nette\Utils\Validators;
 
 /**
  * MyTester Extension for Nette DIC
@@ -72,6 +76,9 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             "resultsFormat" => Expect::anyOf(
                 ...array_keys(ResultsHelper::$availableFormatters)
             )->default("console"),
+            "url" => Expect::string("")
+                // @phpstan-ignore argument.type
+                ->assert(static fn (string $url) => $url === "" || Validators::isUrl($url)),
         ]);
     }
 
@@ -153,6 +160,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 
     public function beforeCompile(): void
     {
+        $config = $this->getConfig();
         $builder = $this->getContainerBuilder();
         /** @var ServiceDefinition $coverageCollector */
         $coverageCollector = $builder->getDefinition($this->prefix(self::SERVICE_CC_COLLECTOR));
@@ -174,6 +182,13 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             $builder->addDefinition($originalSessionName)
                 ->setType(Session::class)
                 ->setFactory(FakeSession::class, [$this->prefix("@originalSession"),]);
+        }
+
+        $linkGeneratorName = $builder->getByType(LinkGenerator::class);
+        if ($config->url !== "" && $linkGeneratorName !== null) {
+            /** @var ServiceDefinition $linkGenerator */
+            $linkGenerator = $builder->getDefinition($linkGeneratorName);
+            $linkGenerator->setArgument("refUrl", new Statement(UrlScript::class, [$config->url]));
         }
     }
 }
