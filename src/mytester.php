@@ -37,6 +37,8 @@ $cmd->addArgument(CliArgumentsConfigAdapter::ARGUMENT_PATH, optional: true)
     ->addOption(CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_GROUPS, optionalValue: true, fallback: "")
     ->addOption(CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_FOLDERS, optionalValue: true, fallback: "")
     ->addSwitch(CliArgumentsConfigAdapter::ARGUMENT_NO_PHPT)
+    // @phpstan-ignore argument.type
+    ->addOption("--bootstrap", optionalValue: true, fallback: "", normalizer: Parser::normalizeRealPath(...))
     ->addSwitch("--version");
 
 if ($cmd->parseOnly(["--version"])["--version"] === true) {
@@ -44,7 +46,7 @@ if ($cmd->parseOnly(["--version"])["--version"] === true) {
     exit(0);
 }
 
-/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results": string[], "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
+/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results": string[], "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool, "--bootstrap": string} $options */
 $options = $cmd->parse();
 
 $codeCoverageCollector = new Collector();
@@ -108,4 +110,10 @@ if (count($resultsFormatters) > 0) {
     $params["resultsFormatters"] = $resultsFormatters;
 }
 $tester = new Tester(...$params);
+if ($options["--bootstrap"] !== "") {
+    // @phpstan-ignore arguments.count
+    (function (): void {
+        require func_get_arg(0);
+    })($options["--bootstrap"]);
+}
 $tester->execute();
