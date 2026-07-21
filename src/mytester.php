@@ -83,8 +83,14 @@ $cmd = new Parser("", [
     "--noPhpt" => [
         Parser::Optional => true,
     ],
+    "--bootstrap" => [
+        Parser::Argument => true,
+        Parser::Optional => true,
+        Parser::Default => "",
+        Parser::RealPath => true,
+    ],
 ]);
-/** @var array{path: string, "--colors"?: bool, "--coverage"?: string[], "--results"?: string[], "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool} $options */
+/** @var array{path: string, "--colors"?: bool, "--coverage"?: string[], "--results"?: string[], "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool, "--bootstrap": string} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
@@ -200,4 +206,10 @@ if (count($resultsFormatters) > 0) {
     $params["resultsFormatters"] = $resultsFormatters;
 }
 $tester = new Tester(...$params);
+if ($options["--bootstrap"] !== "") {
+    // @phpstan-ignore arguments.count
+    (function (): void {
+        require func_get_arg(0);
+    })($options["--bootstrap"]);
+}
 $tester->execute();

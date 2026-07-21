@@ -387,6 +387,12 @@ It is also possible to exclude test suites from specified subfolders. This is do
 ./vendor/bin/mytester tests/unit --filterExceptFolders feature1
 ```
 
+It is possible to execute a custom script before tests are run, just use argument *--bootstrap--*.
+
+```bash
+./vendor/bin/mytester tests/unit --bootstrap tests/bootstrap.php
+```
+
 ### PHPT tests
 
 Automated tests runner can also run .phpt files in the provided folder, you just need to add package *konecnyjakub/phpt-runner* to your (dev) dependencies. If you want to (temporarily) disable .phpt tests, pass *--noPhpt* to the script. It is not possible to disable tests in specific subfolders with *--filterExceptFolders* at the moment.
