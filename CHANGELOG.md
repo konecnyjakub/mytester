@@ -1,6 +1,7 @@
 Version 9.1.0-dev
 - allowed setting base url for Nette\Application\LinkGenerator from Nette DIC extension
 - added argument --bootstrap for mytester.php
+- added option to use a config file for mytester.php
 
 Version 9.0.2
 - fixed parameter $config of ContainerFactory::create()/TCompiledContainer::refreshContainer() not working

@@ -35,4 +35,6 @@ interface ConfigAdapter
      * @return ResultsFormatter[]
      */
     public function getResultsFormatters(): array;
+
+    public function getBootstrapFile(): ?string;
 }

@@ -471,6 +471,28 @@ Automated tests runner's functionality can be extended by extensions. Extensions
 
 Some automated tests runner's functionality (printing My Tester and PHP version, generating code coverage reports, saving errors into files) is actually implemented via extensions. They have to be added manually which means that custom scripts do not have to use that functionality (and do not by default). The script *vendor/bin/mytester* and Nette DI container (see below) extension have all of them enabled.
 
+### Configuration file
+
+If you do not want to repeat above-mentioned options every time you run the mytester script, you can use a configuration file from current working directory. They are tried in this order: mytester.neon, mytester.dist.neon, mytester.toml, mytester.dist.toml, mytester.yaml, mytester.dist.yaml, mytester.json, mytester.dist.json, mytester.ini, mytester.dist.ini. But if a configuration file is present and you also specify a command line option, the command line option overrides the value from file. All options in a file are optional, you can specify only those that you want to change from their default value.
+
+Not all command line options can be used in a file. The list of usable options and possible values follow.
+
+**colors**: true/false (whether to colorize output)
+
+**phptTests**: true/false (whether to run phpt tests)
+
+**folder**: string (where to look for tests)
+
+**filterOnlyGroups**: array of strings (to run only tests with specified groups)
+
+**filterExceptGroups**: array of strings (to run only tests without specified groups)
+
+**filterExceptFolders**: array of strings (to run only tests that are not in specified folders)
+
+**resultsFormatters**: array of strings (to use specified results formatters)
+
+**bootstrap**: string (script to run before tests)
+
 Nette applications
 ------------------
 

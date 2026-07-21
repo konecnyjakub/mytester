@@ -17,3 +17,7 @@ temp/
 /junit.xml
 /phpstan.json
 /phpcs.json
+
+# Local settings
+/mytester.*
+!/mytester.dist.*

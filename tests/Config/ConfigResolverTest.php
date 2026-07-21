@@ -29,6 +29,7 @@ final class ConfigResolverTest extends TestCase
         $this->assertSame([], $testSuitesSelectionCriteria->exceptFolders);
         $this->assertTrue($config->getIncludePhptTests());
         $this->assertFalse($config->getUseColors());
+        $this->assertSame(null, $config->getBootstrapFile());
     }
 
     public function testMultipleAdapters(): void
@@ -75,6 +76,11 @@ final class ConfigResolverTest extends TestCase
             {
                 return [new Console(),];
             }
+
+            public function getBootstrapFile(): string
+            {
+                return "tests/bootstrap.php";
+            }
         });
         $config->addAdapter(new class implements ConfigAdapter
         {
@@ -117,6 +123,11 @@ final class ConfigResolverTest extends TestCase
             {
                 return [];
             }
+
+            public function getBootstrapFile(): null
+            {
+                return null;
+            }
         });
         $testsFolderProvider = $config->getTestsFolderProvider();
         $this->assertSame("abc", $testsFolderProvider->folder);
@@ -131,5 +142,6 @@ final class ConfigResolverTest extends TestCase
         $this->assertType("array", $resultsFormatters);
         $this->assertCount(1, $resultsFormatters);
         $this->assertType(Console::class, $resultsFormatters[0]);
+        $this->assertSame("tests/bootstrap.php", $config->getBootstrapFile());
     }
 }

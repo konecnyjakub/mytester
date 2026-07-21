@@ -19,6 +19,7 @@ use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
 use MyTester\ComposerTestSuitesFinder;
 use MyTester\Config\CliArgumentsConfigAdapter;
 use MyTester\Config\ConfigResolver;
+use MyTester\Config\FileConfigAdapter;
 use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\InfoExtension;
@@ -38,7 +39,7 @@ $cmd->addArgument(CliArgumentsConfigAdapter::ARGUMENT_PATH, optional: true)
     ->addOption(CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_FOLDERS, optionalValue: true, fallback: "")
     ->addSwitch(CliArgumentsConfigAdapter::ARGUMENT_NO_PHPT)
     // @phpstan-ignore argument.type
-    ->addOption("--bootstrap", optionalValue: true, fallback: "", normalizer: Parser::normalizeRealPath(...))
+    ->addOption(CliArgumentsConfigAdapter::ARGUMENT_BOOTSTRAP, optionalValue: true, fallback: "", normalizer: Parser::normalizeRealPath(...))
     ->addSwitch("--version");
 
 if ($cmd->parseOnly(["--version"])["--version"] === true) {
@@ -68,6 +69,7 @@ foreach ($options["--coverage"] as $coverage) {
 
 $config = new ConfigResolver();
 $config->addAdapter(new CliArgumentsConfigAdapter($options));
+$config->addAdapter(new FileConfigAdapter((string) getcwd()));
 $folderProvider = $config->getTestsFolderProvider();
 $testSuitesSelectionCriteria = $config->getTestSuitesSelectionCriteria();
 $resultsFormatters = $config->getResultsFormatters();
@@ -110,10 +112,10 @@ if (count($resultsFormatters) > 0) {
     $params["resultsFormatters"] = $resultsFormatters;
 }
 $tester = new Tester(...$params);
-if ($options["--bootstrap"] !== "") {
+if ($config->getBootstrapFile() !== null) {
     // @phpstan-ignore arguments.count
     (function (): void {
         require func_get_arg(0);
-    })($options["--bootstrap"]);
+    })($config->getBootstrapFile());
 }
 $tester->execute();

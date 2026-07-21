@@ -26,6 +26,7 @@ final class CliArgumentsConfigAdapterTest extends TestCase
             CliArgumentsConfigAdapter::ARGUMENT_FILTER_ONLY_GROUPS => "",
             CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_GROUPS => "",
             CliArgumentsConfigAdapter::ARGUMENT_FILTER_EXCEPT_FOLDERS => "",
+            CliArgumentsConfigAdapter::ARGUMENT_BOOTSTRAP => "",
         ]);
         $this->assertSame(PHP_INT_MAX, $configAdapter->getPriority());
         $this->assertNull($configAdapter->getUseColors());
@@ -47,6 +48,7 @@ final class CliArgumentsConfigAdapterTest extends TestCase
             CliArgumentsConfigAdapter::ARGUMENT_COLORS => true,
             CliArgumentsConfigAdapter::ARGUMENT_NO_PHPT => true,
             CliArgumentsConfigAdapter::ARGUMENT_PATH => "abc",
+            CliArgumentsConfigAdapter::ARGUMENT_BOOTSTRAP => "",
         ]);
         $this->assertSame(PHP_INT_MAX, $configAdapter->getPriority());
         $this->assertSame(true, $configAdapter->getUseColors());
@@ -74,6 +76,7 @@ final class CliArgumentsConfigAdapterTest extends TestCase
                 CliArgumentsConfigAdapter::ARGUMENT_COLORS => true,
                 CliArgumentsConfigAdapter::ARGUMENT_NO_PHPT => true,
                 CliArgumentsConfigAdapter::ARGUMENT_PATH => "abc",
+                CliArgumentsConfigAdapter::ARGUMENT_BOOTSTRAP => "",
             ]);
             $configAdapter->getResultsFormatters();
         }, ValueError::class, "Unknown results formatter test");

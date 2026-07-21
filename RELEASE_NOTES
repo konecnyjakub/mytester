@@ -1,5 +1,5 @@
 A new version of My Tester is out. It allows setting base url for generating absolute URLs with Nette\Application\LinkGenerator from Nette DIC extension.
 
-The script mytester.php has a new option --bootstrap.
+The script mytester.php has a new option --bootstrap. It can also use a config file from current working directory (neither name nor location can be customized for now).
 
 For complete list of changes since previous version, see CHANGELOG.md.

@@ -5,6 +5,7 @@
 /build.xml          export-ignore
 /RELEASE_NOTES      export-ignore
 .editorconfig       export-ignore
+/mytester.dist.*    export-ignore
 
 *.php               text eol=lf
 *.txt               text eol=lf

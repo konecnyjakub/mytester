@@ -111,4 +111,16 @@ final class ConfigResolver
         }
         return [];
     }
+
+    public function getBootstrapFile(): ?string
+    {
+        foreach ($this->getAdapters() as $adapter) {
+            $value = $adapter->getBootstrapFile();
+            if ($value !== null) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
 }

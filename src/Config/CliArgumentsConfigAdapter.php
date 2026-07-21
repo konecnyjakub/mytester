@@ -19,11 +19,12 @@ final readonly class CliArgumentsConfigAdapter implements ConfigAdapter
     public const string ARGUMENT_FILTER_ONLY_GROUPS = "--filterOnlyGroups";
     public const string ARGUMENT_FILTER_EXCEPT_GROUPS = "--filterExceptGroups";
     public const string ARGUMENT_FILTER_EXCEPT_FOLDERS = "--filterExceptFolders";
+    public const string ARGUMENT_BOOTSTRAP = "--bootstrap";
 
     /**
      * @param array{
      *     path?: string, "--colors"?: bool, "--results": string[], "--filterOnlyGroups": string,
-     *     "--filterExceptGroups": string,"--filterExceptFolders": string, "--noPhpt"?: bool
+     *     "--filterExceptGroups": string,"--filterExceptFolders": string, "--noPhpt"?: bool, "--bootstrap": string
      * } $parsedOptions
      */
     public function __construct(private array $parsedOptions)
@@ -81,6 +82,13 @@ final readonly class CliArgumentsConfigAdapter implements ConfigAdapter
             $resultsFormatters[] = $resultsFormatter;
         }
         return $resultsFormatters;
+    }
+
+    public function getBootstrapFile(): ?string
+    {
+        return $this->parsedOptions[self::ARGUMENT_BOOTSTRAP] !== "" ?
+            $this->parsedOptions[self::ARGUMENT_BOOTSTRAP] :
+            null;
     }
 
     /**
