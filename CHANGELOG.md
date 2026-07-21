@@ -1,3 +1,6 @@
+Version 8.4.0-dev
+- allowed setting base url for Nette\Application\LinkGenerator from Nette DIC extension
+
 Version 8.3.0
 - added arguments --coverage and --results for mytester.php
 - made it possible to generate multiple (code coverage) reports at once in mytester.php

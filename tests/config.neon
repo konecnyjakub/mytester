@@ -1,3 +1,10 @@
 mytester:
     colors: true
     coverageFormat: cobertura
+application:
+    scanDirs: false
+    mapping:
+        *: MyTester\Bridges\NetteApplication\*Presenter
+routing:
+    routes:
+        "<presenter>[/<action>][/<id>]": "Test:default"
