@@ -40,15 +40,59 @@ $cmd->addArgument(CliArgumentsConfigAdapter::ARGUMENT_PATH, optional: true)
     ->addSwitch(CliArgumentsConfigAdapter::ARGUMENT_NO_PHPT)
     // @phpstan-ignore argument.type
     ->addOption(CliArgumentsConfigAdapter::ARGUMENT_BOOTSTRAP, optionalValue: true, fallback: "", normalizer: Parser::normalizeRealPath(...))
-    ->addSwitch("--version");
+    ->addSwitch("--version")
+    ->addSwitch("--list-test-suites");
 
 if ($cmd->parseOnly(["--version"])["--version"] === true) {
     echo InfoExtension::getTesterVersion() . "\n";
     exit(0);
 }
 
-/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results": string[], "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool, "--bootstrap": string} $options */
+/** @var array{path?: string, "--colors"?: bool, "--coverage": string[], "--results": string[], "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool, "--bootstrap": string, "--list-test-suites"?: bool} $options */
 $options = $cmd->parse();
+
+$config = new ConfigResolver();
+$config->addAdapter(new CliArgumentsConfigAdapter($options));
+$config->addAdapter(new FileConfigAdapter((string) getcwd()));
+$folderProvider = $config->getTestsFolderProvider();
+$testSuitesSelectionCriteria = $config->getTestSuitesSelectionCriteria();
+$resultsFormatters = $config->getResultsFormatters();
+
+$annotationsReader = Reader::create();
+$testSuitesFinder = new ChainTestSuitesFinder();
+$testSuitesFinder->registerFinder(new ComposerTestSuitesFinder($annotationsReader));
+$testSuitesFinder->registerFinder(new TestSuitesFinder($annotationsReader));
+if ($config->getIncludePhptTests()) {
+    $testSuitesFinder->registerFinder(new PHPTTestSuitesFinder());
+}
+
+if (isset($options["--list-test-suites"])) {
+    echo InfoExtension::getTesterVersion() . PHP_EOL . PHP_EOL;
+    echo "Filtered test suites:" . PHP_EOL . PHP_EOL;
+    foreach ($testSuitesFinder->getSuites($testSuitesSelectionCriteria) as $suite) {
+        echo $suite;
+        $rc = new ReflectionClass($suite);
+        $customName = $annotationsReader->getAnnotation(\MyTester\TestCase::ANNOTATION_TEST_SUITE, $suite);
+        if (is_string($customName)) {
+            echo " ($customName)";
+        }
+        echo PHP_EOL;
+    }
+    exit(0);
+}
+
+$testSuiteFactory = new ChainTestSuiteFactory();
+if ($config->getIncludePhptTests() && class_exists(PhptRunner::class)) {
+    $testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
+        new PhptRunner(new \Konecnyjakub\PHPTRunner\Parser(), new PhpRunner()),
+        $folderProvider,
+        $testSuitesSelectionCriteria
+    ));
+}
+$testSuiteFactory->registerFactory(new SimpleTestSuiteFactory());
+
+$console = new ConsoleColors();
+$console->useColors = $config->getUseColors();
 
 $codeCoverageCollector = new Collector();
 foreach (CodeCoverageHelper::$defaultEngines as $engine) {
@@ -66,34 +110,6 @@ foreach ($options["--coverage"] as $coverage) {
     }
     $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
 }
-
-$config = new ConfigResolver();
-$config->addAdapter(new CliArgumentsConfigAdapter($options));
-$config->addAdapter(new FileConfigAdapter((string) getcwd()));
-$folderProvider = $config->getTestsFolderProvider();
-$testSuitesSelectionCriteria = $config->getTestSuitesSelectionCriteria();
-$resultsFormatters = $config->getResultsFormatters();
-
-$annotationsReader = Reader::create();
-$testSuitesFinder = new ChainTestSuitesFinder();
-$testSuitesFinder->registerFinder(new ComposerTestSuitesFinder($annotationsReader));
-$testSuitesFinder->registerFinder(new TestSuitesFinder($annotationsReader));
-if ($config->getIncludePhptTests()) {
-    $testSuitesFinder->registerFinder(new PHPTTestSuitesFinder());
-}
-
-$testSuiteFactory = new ChainTestSuiteFactory();
-if ($config->getIncludePhptTests() && class_exists(PhptRunner::class)) {
-    $testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
-        new PhptRunner(new \Konecnyjakub\PHPTRunner\Parser(), new PhpRunner()),
-        $folderProvider,
-        $testSuitesSelectionCriteria
-    ));
-}
-$testSuiteFactory->registerFactory(new SimpleTestSuiteFactory());
-
-$console = new ConsoleColors();
-$console->useColors = $config->getUseColors();
 
 $extensions = [
     new CodeCoverageExtension($codeCoverageCollector),
