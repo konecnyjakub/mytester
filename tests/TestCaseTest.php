@@ -23,7 +23,6 @@ use MyTester\Attributes\Skip;
 use MyTester\Attributes\Test;
 use MyTester\Attributes\TestSuite;
 use ReflectionFunction;
-use ReflectionMethod;
 
 /**
  * Test suite for class TestCase
