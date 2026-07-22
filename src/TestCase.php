@@ -58,12 +58,13 @@ abstract class TestCase
     {
         $r = new ReflectionClass(static::class);
         return array_values(
-            array_filter(
-                array_map(
-                    static fn(ReflectionMethod $rm) => $rm->getName(),
-                    $r->getMethods(ReflectionMethod::IS_PUBLIC)
-                ),
-                static fn(string $method) => str_starts_with($method, "test")
+            array_map(
+                static fn (ReflectionMethod $rm) => $rm->getName(),
+                array_filter(
+                    $r->getMethods(ReflectionMethod::IS_PUBLIC),
+                    fn (ReflectionMethod $rm) => str_starts_with($rm->getName(), "test") ||
+                        $this->annotationsReader->hasAnnotation(static::ANNOTATION_TEST, static::class, $rm->getName())
+                )
             )
         );
     }

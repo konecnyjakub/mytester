@@ -2,4 +2,6 @@ A new version of My Tester is out. It allows setting base url for generating abs
 
 The script mytester.php has new options --bootstrap and --list-test-suites. It can also use a config file from current working directory (neither name nor location can be customized for now).
 
+Any method in a TestCase can be now treated as a test method with attribute Test.
+
 For complete list of changes since previous version, see CHANGELOG.md.
