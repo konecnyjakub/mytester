@@ -43,7 +43,7 @@ final class Console extends AbstractResultsFormatter implements ConsoleAwareResu
                 case JobResult::SKIPPED:
                     $this->skipped[] = new SkippedTest(
                         $job->nameWithDataSet,
-                        (is_string($job->skip) ? $job->skip : "")
+                        is_string($job->skip) ? $job->skip : ""
                     );
                     break;
                 case JobResult::FAILED:

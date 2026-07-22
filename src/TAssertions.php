@@ -127,7 +127,7 @@ trait TAssertions
      */
     protected function assertTrue(bool $actual): void
     {
-        $success = ($actual);
+        $success = $actual;
         $message = ($success) ? "" : "The value is not true.";
         $this->testResult($message, $success);
     }
@@ -147,7 +147,7 @@ trait TAssertions
      */
     protected function assertFalse(bool $actual): void
     {
-        $success = (!$actual);
+        $success = !$actual;
         $message = ($success) ? "" : "The value is not false.";
         $this->testResult($message, $success);
     }
@@ -195,7 +195,7 @@ trait TAssertions
             $message = ($success) ? "" : "$needle is not in the variable.";
             $this->testResult($message, $success);
         } elseif (is_array($actual)) {
-            $success = (in_array($needle, $actual, true));
+            $success = in_array($needle, $actual, true);
             $message = ($success) ? "" : $this->showValue($needle) . " is not in the variable.";
             $this->testResult($message, $success);
         } else {
@@ -216,7 +216,7 @@ trait TAssertions
             $message = ($success) ? "" : "$needle is in the variable.";
             $this->testResult($message, $success);
         } elseif (is_array($actual)) {
-            $success = (!in_array($needle, $actual, true));
+            $success = !in_array($needle, $actual, true);
             $message = ($success) ? "" : $this->showValue($needle) . " is in the variable.";
             $this->testResult($message, $success);
         } else {
@@ -452,28 +452,28 @@ trait TAssertions
 
     protected function assertFileExists(string $fileName): void
     {
-        $success = (is_file($fileName));
+        $success = is_file($fileName);
         $message = ($success) ? "" : "File $fileName does not exist.";
         $this->testResult($message, $success);
     }
 
     protected function assertFileNotExists(string $fileName): void
     {
-        $success = (!is_file($fileName));
+        $success = !is_file($fileName);
         $message = ($success) ? "" : "File $fileName exists.";
         $this->testResult($message, $success);
     }
 
     protected function assertDirectoryExists(string $directoryName): void
     {
-        $success = (is_dir($directoryName));
+        $success = is_dir($directoryName);
         $message = ($success) ? "" : "Directory $directoryName does not exist.";
         $this->testResult($message, $success);
     }
 
     protected function assertDirectoryNotExists(string $directoryName): void
     {
-        $success = (!is_dir($directoryName));
+        $success = !is_dir($directoryName);
         $message = ($success) ? "" : "Directory $directoryName exists.";
         $this->testResult($message, $success);
     }
