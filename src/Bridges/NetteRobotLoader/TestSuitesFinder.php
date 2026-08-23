@@ -32,7 +32,7 @@ final class TestSuitesFinder extends BaseTestSuitesFinder
         $robot = new RobotLoader();
         $tempDir = "$folder/temp/cache/Robot.Loader";
         FileSystem::createDir($tempDir);
-        $robot->setTempDirectory($tempDir);
+        $robot->setCacheDirectory($tempDir);
         $robot->addDirectory($folder);
         $robot->acceptFiles = ["*" . $criteria->filenameSuffix, ];
         $robot->excludeDirectory(

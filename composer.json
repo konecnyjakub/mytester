@@ -22,7 +22,7 @@
         "symfony/polyfill-php84": "^1.30"
     },
     "require-dev": {
-        "nette/robot-loader": "^4.1",
+        "nette/robot-loader": "^4.1.3",
         "nette/bootstrap": "^3.2.4",
         "nette/application": "^3.2",
         "nette/security": "^3.2.2",
@@ -44,7 +44,7 @@
         "konecnyjakub/phpt-runner": "To run .phpt files"
     },
     "conflict": {
-        "nette/robot-loader": "<4.1",
+        "nette/robot-loader": "<4.1.3",
         "nette/di": "<3.2",
         "nette/application": "<3.2",
         "nette/security": "<3.2.2",
