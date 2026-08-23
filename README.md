@@ -393,6 +393,10 @@ It is possible to execute a custom script before tests are run, just use argumen
 ./vendor/bin/mytester tests/unit --bootstrap tests/bootstrap.php
 ```
 
+### Listing filtered test suites
+
+If you only want to list test suites that match your filters (or all test suites if you do not provide any filters) without running them, you can pass argument **--list-test-suites**.
+
 ### PHPT tests
 
 Automated tests runner can also run .phpt files in the provided folder, you just need to add package *konecnyjakub/phpt-runner* to your (dev) dependencies. If you want to (temporarily) disable .phpt tests, pass *--noPhpt* to the script. It is not possible to disable tests in specific subfolders with *--filterExceptFolders* at the moment.

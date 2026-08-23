@@ -89,44 +89,16 @@ $cmd = new Parser("", [
         Parser::Default => "",
         Parser::RealPath => true,
     ],
+    "--list-test-suites" => [
+        Parser::Optional => true,
+    ],
 ]);
-/** @var array{path: string, "--colors"?: bool, "--coverage"?: string[], "--results"?: string[], "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool, "--bootstrap": string} $options */
+/** @var array{path: string, "--colors"?: bool, "--coverage"?: string[], "--results"?: string[], "--coverageFormat"?: string, "--coverageFile"?: string, "--resultsFormat"?: string, "--resultsFile"?: string, "--filterOnlyGroups": string, "--filterExceptGroups": string,"--filterExceptFolders": string, "--version"?: bool, "--noPhpt"?: bool, "--bootstrap": string, "--list-test-suites"?: bool} $options */
 $options = $cmd->parse();
 
 if (isset($options["--version"])) {
     echo InfoExtension::getTesterVersion() . "\n";
     exit(0);
-}
-
-$codeCoverageCollector = new Collector();
-foreach (CodeCoverageHelper::$defaultEngines as $engine) {
-    $codeCoverageCollector->registerEngine(new $engine());
-}
-$codeCoverageCollector->registerFormatter(new PercentFormatter());
-if (isset($options["--coverage"]) && count($options["--coverage"]) > 0) {
-    foreach ($options["--coverage"] as $coverage) {
-        $coverage = explode(":", $coverage, 2);
-        if (!array_key_exists($coverage[0], CodeCoverageHelper::$availableFormatters)) {
-            throw new \ValueError("Unknown code coverage formatter " . $coverage[0]);
-        }
-        $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$coverage[0]]();
-        if (
-            $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
-            isset($coverage[1])
-        ) {
-            $codeCoverageFormatter->setOutputFileName($coverage[1]);
-        }
-        $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
-    }
-} elseif (isset($options["--coverageFormat"])) {
-    $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$options["--coverageFormat"]]();
-    if (
-        $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
-        isset($options["--coverageFile"])
-    ) {
-        $codeCoverageFormatter->setOutputFileName($options["--coverageFile"]);
-    }
-    $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
 }
 
 $resultsFormatters = [];
@@ -177,6 +149,21 @@ if ($includePhptTests) {
     $testSuitesFinder->registerFinder(new PHPTTestSuitesFinder());
 }
 
+if (isset($options["--list-test-suites"])) {
+    echo InfoExtension::getTesterVersion() . PHP_EOL . PHP_EOL;
+    echo "Filtered test suites:" . PHP_EOL . PHP_EOL;
+    foreach ($testSuitesFinder->getSuites($testSuitesSelectionCriteria) as $suite) {
+        echo $suite;
+        $rc = new ReflectionClass($suite);
+        $customName = $annotationsReader->getAnnotation(\MyTester\TestCase::ANNOTATION_TEST_SUITE, $suite);
+        if (is_string($customName)) {
+            echo " ($customName)";
+        }
+        echo PHP_EOL;
+    }
+    exit(0);
+}
+
 $testSuiteFactory = new ChainTestSuiteFactory();
 if ($includePhptTests && class_exists(PhptRunner::class)) {
     $testSuiteFactory->registerFactory(new PHPTTestSuiteFactory(
@@ -188,6 +175,37 @@ $testSuiteFactory->registerFactory(new SimpleTestSuiteFactory());
 
 $console = new ConsoleColors();
 $console->useColors = isset($options["--colors"]);
+
+$codeCoverageCollector = new Collector();
+foreach (CodeCoverageHelper::$defaultEngines as $engine) {
+    $codeCoverageCollector->registerEngine(new $engine());
+}
+$codeCoverageCollector->registerFormatter(new PercentFormatter());
+if (isset($options["--coverage"]) && count($options["--coverage"]) > 0) {
+    foreach ($options["--coverage"] as $coverage) {
+        $coverage = explode(":", $coverage, 2);
+        if (!array_key_exists($coverage[0], CodeCoverageHelper::$availableFormatters)) {
+            throw new \ValueError("Unknown code coverage formatter " . $coverage[0]);
+        }
+        $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$coverage[0]]();
+        if (
+            $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
+            isset($coverage[1])
+        ) {
+            $codeCoverageFormatter->setOutputFileName($coverage[1]);
+        }
+        $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
+    }
+} elseif (isset($options["--coverageFormat"])) {
+    $codeCoverageFormatter = new CodeCoverageHelper::$availableFormatters[$options["--coverageFormat"]]();
+    if (
+        $codeCoverageFormatter instanceof \MyTester\CodeCoverage\ICodeCoverageCustomFileNameFormatter &&
+        isset($options["--coverageFile"])
+    ) {
+        $codeCoverageFormatter->setOutputFileName($options["--coverageFile"]);
+    }
+    $codeCoverageCollector->registerFormatter($codeCoverageFormatter);
+}
 
 $extensions = [
     new CodeCoverageExtension($codeCoverageCollector),
