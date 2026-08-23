@@ -9,7 +9,7 @@ namespace MyTester\Bridges\NetteHttp;
 class FakeSessionSection extends \Nette\Http\SessionSection
 {
     /**
-     * @var mixed[]
+     * @var array<string, mixed>
      */
     private array $data = [];
 
