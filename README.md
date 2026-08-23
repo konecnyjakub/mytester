@@ -33,6 +33,24 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
+Alternatively, any method can be also called if it is marked with attribute Test.
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\Test;
+
+final class Tests extends \MyTester\TestCase
+{
+    #[Test("Method")]
+    public function method(): void
+    {
+        $this->assertTrue(true);
+    }
+}
+```
+
 #### Parameters for test methods
 
 Test methods of TestCase descendants can take one or more parameters. You can provide a name of a public method from the class which returns an array or an iterable object with DataProvider attribute. Example:
