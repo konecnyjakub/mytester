@@ -1,6 +1,7 @@
 mytester:
     colors: true
-    coverageFormat: cobertura
+    coverage:
+        - cobertura
 application:
     scanDirs: false
     mapping:

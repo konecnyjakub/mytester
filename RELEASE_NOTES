@@ -4,4 +4,6 @@ The script mytester.php has new options --bootstrap and --list-test-suites. It c
 
 Any method in a TestCase can be now treated as a test method with attribute Test.
 
+Nette DIC extension has new options coverage and results, they are going to replace coverageFormat and resultsFormat in the next major version.
+
 For complete list of changes since previous version, see CHANGELOG.md.

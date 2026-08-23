@@ -3,6 +3,7 @@ Version 9.1.0-dev
 - added arguments --bootstrap and --list-test-suites for mytester.php
 - added option to use a config file for mytester.php
 - allowed using methods without test prefix as test methods in TestCase
+- deprecated options coverageFormat and resultsFormat of Nette DIC extension in favor of new coverage and results
 
 Version 9.0.2
 - fixed parameter $config of ContainerFactory::create()/TCompiledContainer::refreshContainer() not working

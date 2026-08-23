@@ -577,11 +577,13 @@ mytester:
     colors: true
 ```
 
-It is also possible to generate code coverage reports with the extension, just use setting coverageFormat. See section Code coverage for supported formats and values.
+It is also possible to generate code coverage reports with the extension, just use setting coverage. You can generate multiple reports at the same time, just add multiple elements to the array. You can also change the generated report's file name, just add : and the chosen file name. See section Code coverage for supported formats and values.
 
 ```neon
 mytester:
-    coverageFormat: cobertura
+    coverage:
+        - cobertura
+        - text:report.txt
 ```
 
 If no format is set, only the total percent of code coverage will be reported.

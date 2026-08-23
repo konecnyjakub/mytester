@@ -8,10 +8,10 @@ use MyTester\Annotations\Reader;
 use MyTester\Bridges\NetteApplication\PresenterMock;
 use MyTester\Bridges\NetteHttp\FakeSession;
 use MyTester\Bridges\NetteRobotLoader\TestSuitesFinder;
+use MyTester\CodeCoverage\CodeCoverageCustomFileNameFormatter;
 use MyTester\CodeCoverage\CodeCoverageExtension;
 use MyTester\CodeCoverage\Collector;
 use MyTester\CodeCoverage\Helper as CodeCoverageHelper;
-use MyTester\CodeCoverage\Formatters\PercentFormatter;
 use MyTester\ConsoleColors;
 use MyTester\ErrorsFilesExtension;
 use MyTester\InfoExtension;
@@ -28,6 +28,7 @@ use Nette\Http\Session;
 use Nette\Http\UrlScript;
 use Nette\Schema\Expect;
 use Nette\Utils\Validators;
+use ValueError;
 
 /**
  * MyTester Extension for Nette DIC
@@ -39,6 +40,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
 {
     public const string TAG_TEST = "mytester.test";
     public const string TAG_EXTENSION = "mytester.extension";
+    public const string TAG_RESULTS_FORMATTER = "mytester.resultsFormatter";
     public const string TAG_COVERAGE_ENGINE = "mytester.coverage.engine";
     public const string TAG_COVERAGE_FORMATTER = "mytester.coverage.formatter";
     private const string SERVICE_RUNNER = "runner";
@@ -46,7 +48,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     private const string SERVICE_TEST_SUITES_SELECTION_CRITERIA = "testSuitesSelectionCriteria";
     private const string SERVICE_TEST_SUITES_FINDER = "testSuitesFinder";
     private const string SERVICE_SUITE_FACTORY = "suiteFactory";
-    private const string SERVICE_RESULTS_FORMATTER = "resultsFormatter";
+    private const string SERVICE_RESULTS_FORMATTER_PREFIX = "resultsFormatter";
     private const string SERVICE_EXTENSION_PREFIX = "extension.";
     private const string SERVICE_CC_COLLECTOR = "coverage.collector";
     private const string SERVICE_CC_ENGINE_PREFIX = "coverage.engine.";
@@ -56,9 +58,7 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
     private const string SERVICE_CONSOLE_WRITER = "consoleWriter";
 
     /** @var array<string, class-string>  */
-    private array $codeCoverageFormatters = [
-        "percent" => PercentFormatter::class,
-    ];
+    private array $codeCoverageFormatters = [];
 
     public function getConfigSchema(): \Nette\Schema\Schema
     {
@@ -72,10 +72,12 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             "coverageFormat" => Expect::anyOf(
                 null,
                 ...array_keys(CodeCoverageHelper::$availableFormatters)
-            ),
+            )->deprecated("The item %path% is deprecated, use coverage instead."),
+            "coverage" => Expect::listOf("string")->default(["percent"]),
             "resultsFormat" => Expect::anyOf(
                 ...array_keys(ResultsHelper::$availableFormatters)
-            )->default("console"),
+            )->default("console")->deprecated("The item %path% is deprecated, use results instead."),
+            "results" => Expect::listOf("string"),
             "url" => Expect::string("")
                 // @phpstan-ignore argument.type
                 ->assert(static fn (string $url) => $url === "" || Validators::isUrl($url)),
@@ -145,13 +147,42 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             $this->codeCoverageFormatters[$coverageFormat] = CodeCoverageHelper::$availableFormatters[$coverageFormat];
         }
         foreach ($this->codeCoverageFormatters as $name => $className) {
-            $builder->addDefinition($this->prefix(self::SERVICE_CC_FORMATTER_PREFIX . $name))
+            $builder->addDefinition($this->prefix(self::SERVICE_CC_FORMATTER_PREFIX . "." . $name))
                 ->setType($className)
                 ->addTag(self::TAG_COVERAGE_FORMATTER);
         }
+        foreach ($config->coverage as $coverage) {
+            $coverage = explode(":", $coverage, 2);
+            if (!array_key_exists($coverage[0], CodeCoverageHelper::$availableFormatters)) {
+                throw new ValueError("Unknown code coverage formatter " . $coverage[0]);
+            }
+            $coverageClass = CodeCoverageHelper::$availableFormatters[$coverage[0]];
+            $codeCoverageFormatterService = $builder->addDefinition(
+                $this->prefix(self::SERVICE_CC_FORMATTER_PREFIX . "." . $coverage[0])
+            )
+                ->setType($coverageClass)
+                ->addTag(self::TAG_COVERAGE_FORMATTER);
+            if (is_a($coverageClass, CodeCoverageCustomFileNameFormatter::class, true) && isset($coverage[1])) {
+                $codeCoverageFormatterService->addSetup("setOutputFileName", [$coverage[1]]);
+            }
+        }
 
-        $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER))
-            ->setType(ResultsHelper::$availableFormatters[$config->resultsFormat]);
+        $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER_PREFIX))
+            ->setType(ResultsHelper::$availableFormatters[$config->resultsFormat])
+            ->addTag(self::TAG_RESULTS_FORMATTER);
+        foreach ($config->results as $results) {
+            $results = explode(":", $results, 2);
+            if (!array_key_exists($results[0], ResultsHelper::$availableFormatters)) {
+                throw new ValueError("Unknown results formatter " . $results[0]);
+            }
+            $resultsFormatterService = $builder->addDefinition(
+                $this->prefix(self::SERVICE_RESULTS_FORMATTER_PREFIX . "." . $results[0])
+            )->setType(ResultsHelper::$availableFormatters[$results[0]])
+                ->addTag(self::TAG_RESULTS_FORMATTER);
+            if (isset($results[1])) {
+                $resultsFormatterService->addSetup("setOutputFileName", [$results[1]]);
+            }
+        }
 
         $builder->addDefinition($this->prefix(self::SERVICE_CONSOLE_WRITER))
             ->setType(ConsoleColors::class)
