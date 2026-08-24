@@ -405,7 +405,7 @@ It is also possible to exclude test suites from specified subfolders. This is do
 ./vendor/bin/mytester tests/unit --filterExceptFolders feature1
 ```
 
-It is possible to execute a custom script before tests are run, just use argument *--bootstrap--*.
+It is possible to execute a custom script before tests are run, just use argument *--bootstrap*.
 
 ```bash
 ./vendor/bin/mytester tests/unit --bootstrap tests/bootstrap.php
