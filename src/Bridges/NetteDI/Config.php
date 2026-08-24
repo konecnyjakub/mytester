@@ -18,7 +18,7 @@ final class Config
     public ?string $coverageFormat = null;
     /** @var list<string> */
     public array $coverage = [];
-    public string $resultsFormat;
+    public ?string $resultsFormat = null;
     /** @var list<string> */
     public array $results = [];
     /** @var string[] */

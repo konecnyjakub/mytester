@@ -75,9 +75,10 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             )->deprecated("The item %path% is deprecated, use coverage instead."),
             "coverage" => Expect::listOf("string")->default(["percent"]),
             "resultsFormat" => Expect::anyOf(
+                null,
                 ...array_keys(ResultsHelper::$availableFormatters)
-            )->default("console")->deprecated("The item %path% is deprecated, use results instead."),
-            "results" => Expect::listOf("string"),
+            )->deprecated("The item %path% is deprecated, use results instead."),
+            "results" => Expect::listOf("string")->default(["console"]),
             "url" => Expect::string("")
                 // @phpstan-ignore argument.type
                 ->assert(static fn (string $url) => $url === "" || Validators::isUrl($url)),
@@ -167,9 +168,11 @@ final class MyTesterExtension extends \Nette\DI\CompilerExtension
             }
         }
 
-        $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER_PREFIX))
-            ->setType(ResultsHelper::$availableFormatters[$config->resultsFormat])
-            ->addTag(self::TAG_RESULTS_FORMATTER);
+        if ($config->resultsFormat !== null) {
+            $builder->addDefinition($this->prefix(self::SERVICE_RESULTS_FORMATTER_PREFIX))
+                ->setType(ResultsHelper::$availableFormatters[$config->resultsFormat])
+                ->addTag(self::TAG_RESULTS_FORMATTER);
+        }
         foreach ($config->results as $results) {
             $results = explode(":", $results, 2);
             if (!array_key_exists($results[0], ResultsHelper::$availableFormatters)) {

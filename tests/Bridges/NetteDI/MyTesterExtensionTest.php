@@ -97,7 +97,7 @@ final class MyTesterExtensionTest extends TestCase
         ], false);
         $formatters = $container->findByTag(MyTesterExtension::TAG_RESULTS_FORMATTER);
         $this->assertCount(2, $formatters);
-        $this->assertArrayHasKey("mytester.resultsFormatter", $formatters);
+        $this->assertArrayHasKey("mytester.resultsFormatter.console", $formatters);
         $this->assertArrayHasKey("mytester.resultsFormatter.tap", $formatters);
         $tapFormatter = $container->getByType(Tap::class);
         $this->assertSame("abc/report.txt", $tapFormatter->getOutputFileName("abc"));
