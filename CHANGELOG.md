@@ -1,4 +1,4 @@
-Version 9.1.0-dev
+Version 9.1.0
 - allowed setting base url for Nette\Application\LinkGenerator from Nette DIC extension
 - added arguments --bootstrap and --list-test-suites for mytester.php
 - added option to use a config file for mytester.php
