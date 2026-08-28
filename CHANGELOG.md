@@ -1,4 +1,4 @@
-Version 8.4.0-dev
+Version 8.4.0
 - allowed setting base url for Nette\Application\LinkGenerator from Nette DIC extension
 - added arguments --bootstrap and --list-test-suites for mytester.php
 - allowed using methods without test prefix as test methods in TestCase
