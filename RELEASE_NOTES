@@ -1,9 +1,3 @@
-A new version of My Tester is out. It allows setting base url for generating absolute URLs with Nette\Application\LinkGenerator from Nette DIC extension.
-
-The script mytester.php has new options --bootstrap and --list-test-suites. It can also use a config file from current working directory (neither name nor location can be customized for now).
-
-Any method in a TestCase can be now treated as a test method with attribute Test.
-
-Nette DIC extension has new options coverage and results, they are going to replace coverageFormat and resultsFormat in the next major version.
+A new version of My Tester is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
