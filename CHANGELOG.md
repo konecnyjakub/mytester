@@ -26,6 +26,12 @@ Version 9.0.0
 - added TUser
 - allowed generating a new Nette DI container without overriding the stored one
 
+Version 8.4.0
+- allowed setting base url for Nette\Application\LinkGenerator from Nette DIC extension
+- added arguments --bootstrap and --list-test-suites for mytester.php
+- allowed using methods without test prefix as test methods in TestCase
+- added options coverage and results for Nette DIC extension
+
 Version 8.3.0
 - added arguments --coverage and --results for mytester.php
 - made it possible to generate multiple (code coverage) reports at once in mytester.php
