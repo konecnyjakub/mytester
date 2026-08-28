@@ -16,7 +16,11 @@ final class Config
     public array $extensions = [];
     public bool $colors = false;
     public ?string $coverageFormat = null;
-    public string $resultsFormat;
+    /** @var list<string> */
+    public array $coverage = [];
+    public ?string $resultsFormat = null;
+    /** @var list<string> */
+    public array $results = [];
     /** @var string[] */
     public array $filterOnlyGroups = [];
     /** @var string[] */

@@ -51,12 +51,19 @@ final class ContainerFactoryTest extends TestCase
         $this->assertNotSame($oldContainer, $newContainer);
         $this->assertSame($oldContainer, ContainerFactory::create());
 
-        $this->assertType(Console::class, $oldContainer->getService("mytester.resultsFormatter"));
+        $formatters = $oldContainer->findByTag(MyTesterExtension::TAG_RESULTS_FORMATTER);
+        $this->assertCount(1, $formatters);
+        $this->assertArrayHasKey("mytester.resultsFormatter.console", $formatters);
         $newContainer = $this->refreshContainer([
             "mytester" => [
-                "resultsFormat" => "tap",
+                "results" => [
+                    "tap"
+                ],
             ],
         ], false);
-        $this->assertType(Tap::class, $newContainer->getService("mytester.resultsFormatter"));
+        $formatters = $newContainer->findByTag(MyTesterExtension::TAG_RESULTS_FORMATTER);
+        $this->assertCount(2, $formatters);
+        $this->assertArrayHasKey("mytester.resultsFormatter.console", $formatters);
+        $this->assertArrayHasKey("mytester.resultsFormatter.tap", $formatters);
     }
 }

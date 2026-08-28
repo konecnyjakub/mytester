@@ -6,6 +6,7 @@ namespace MyTester\CodeCoverage;
 use MyTester\CodeCoverage\Engines\PcovEngine;
 use MyTester\CodeCoverage\Engines\XDebugEngine;
 use MyTester\CodeCoverage\Formatters\CoberturaFormatter;
+use MyTester\CodeCoverage\Formatters\PercentFormatter;
 use MyTester\CodeCoverage\Formatters\TextFormatter;
 
 /**
@@ -26,6 +27,7 @@ final class Helper
      * @var array<string, class-string<ICodeCoverageFormatter>>
      */
     public static array $availableFormatters = [
+        "percent" => PercentFormatter::class,
         "cobertura" => CoberturaFormatter::class,
         "text" => TextFormatter::class,
     ];
