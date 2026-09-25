@@ -95,7 +95,7 @@ final class AssertTest extends TestCase
         $this->assertArrayHasKey("abc", ["abc" => 1, "def" => 2, ]);
         $this->assertArrayHasKey(2, [0, 5, 10, ]);
         $arrayObject = new ArrayObject();
-        $arrayObject->offsetSet("test", "abc");
+        $arrayObject->offsetSet("test", "abc"); // @phpstan-ignore argument.type
         $this->assertArrayHasKey("test", $arrayObject);
         $this->assertArrayNotHasKey("xyz", ["abc" => 1, "def" => 2, ]);
         $this->assertArrayNotHasKey(5, [0, 5, 10, ]);
@@ -279,7 +279,7 @@ final class AssertTest extends TestCase
         }, AssertionFailedException::class, "Test 83 failed. The array contains key 1.");
         $this->assertThrowsException(function () {
             $arrayObject = new ArrayObject();
-            $arrayObject->offsetSet("test", "abc");
+            $arrayObject->offsetSet("test", "abc"); // @phpstan-ignore argument.type
             $this->assertArrayNotHasKey("test", $arrayObject);
         }, AssertionFailedException::class, "Test 85 failed. The array contains key 'test'.");
         $this->assertThrowsException(function () {
@@ -287,7 +287,7 @@ final class AssertTest extends TestCase
         }, AssertionFailedException::class, "Test 87 failed. Actual count is 1 not 0.");
         $this->assertThrowsException(function () {
             $arrayObject = new ArrayObject();
-            $arrayObject->offsetSet("test", "abc");
+            $arrayObject->offsetSet("test", "abc"); // @phpstan-ignore argument.type
             $this->assertSameSize($arrayObject, []);
         }, AssertionFailedException::class, "Test 89 failed. Actual count is 0 not 1.");
         $this->assertThrowsException(function () {
