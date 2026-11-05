@@ -107,8 +107,9 @@ final class Job
                             $this->eventDispatcher->dispatch(
                                 new Events\DeprecationTriggered($errstr, $errfile, $errline)
                             );
+                            return true;
                         }
-                        return true;
+                        return false;
                     },
                     E_USER_DEPRECATED
                 );
