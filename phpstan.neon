@@ -15,4 +15,3 @@ parameters:
             path: %rootDir%/../../../tests/*
         -
             identifier: missingType.generics
-    tmpDir: tests/temp/cache/.phpstan-cache

@@ -28,7 +28,6 @@
        </exec>
        <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
          <arg value="."/>
-         <arg value="--cache=tests/temp/cache/.phpcs-cache"/>
        </exec>
        <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
          <arg value="analyze"/>
@@ -38,7 +37,6 @@
        <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
          <arg value="."/>
          <arg value="--report-\\Micheh\\PhpCodeSniffer\\Report\\Gitlab=phpcs.json"/>
-         <arg value="--cache=tests/temp/cache/.phpcs-cache"/>
        </exec>
      </else>
    </if>
