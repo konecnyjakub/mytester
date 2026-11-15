@@ -30,7 +30,7 @@ final class Job
     /**
      * @internal
      */
-    public int $totalAssertions = 0;
+    private(set) int $totalAssertions = 0;
     private(set) Throwable|null $exception = null;
     private EventDispatcherInterface $eventDispatcher;
 
