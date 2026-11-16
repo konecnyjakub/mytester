@@ -10,6 +10,54 @@ Installation
 
 The best way to install My Tester is via Composer. Just add konecnyjakub/mytester to your (dev) dependencies.
 
+Quick start
+-----------
+
+Setup PSR-4 autoload for *tests* and enable optimized autoloader in your project's *composer.json*:
+
+```json
+    "autoload-dev": {
+        "psr-4": {
+            "App\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+```
+
+Create file SomethingTest.php in folder *tests* in your project:
+
+```php
+<?php
+declare(strict_types=1);
+
+final class SomethingTest extends MyTester\TestCase
+{
+    public function testA(): void
+    {
+        $actual = someCall();
+        $text = anotherCall();
+        $this->assertSame("abc", $actual);
+        $this->assertSame("def", $text);
+    }
+}
+```
+
+Update Composer's autoloader:
+
+```bash
+composer dump-autoload
+```
+
+Run script mytester:
+
+```bash
+./vendor/bin/mytester
+```
+
+By default, My Tester reports total number of tests run; number of tests that passed, passed with warnings, failed or were skipped and the time it took to run all tests. If any tests failed or were skipped, the reason for it is shown. If PHP extension pcov or xdebug is enabled, it also reports % of source code that is covered by your tests.
+
 Usage
 -----
 
