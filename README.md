@@ -216,6 +216,24 @@ final class Tests extends MyTester\TestCase
 }
 ```
 
+If you want to discover which tests are flaky, you can use attribute Retry which repeats the test for specified number of times or until it fails.
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\Repeat;
+
+final class Tests extends MyTester\TestCase
+{
+    #[Repeat(2)]
+    public function testFlaky(): void
+    {
+        $this->assertSame(1, rand(0, 1));
+    }
+}
+```
+
 #### Skipping tests
 
 It is possible to unconditionally skip a test. Just use attribute Skip. Example:

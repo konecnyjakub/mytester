@@ -1,3 +1,6 @@
+Version 9.2.0-dev
+- added option to repeat a test until it fails
+
 Version 9.1.0
 - allowed setting base url for Nette\Application\LinkGenerator from Nette DIC extension
 - added arguments --bootstrap and --list-test-suites for mytester.php

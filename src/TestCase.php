@@ -29,6 +29,8 @@ abstract class TestCase
     public const string ANNOTATION_NO_ASSERTIONS = "noAssertions";
     /** @internal */
     public const string ANNOTATION_FLAKY_TEST = "flakyTest";
+    /** @internal */
+    public const string ANNOTATION_REPEAT_TEST = "repeat";
 
     protected SkipChecker $skipChecker;
     protected DataProvider $dataProvider;
@@ -104,10 +106,24 @@ abstract class TestCase
     protected function getMaxRetries(string $methodName): int
     {
         $value = $this->annotationsReader->getAnnotation(static::ANNOTATION_FLAKY_TEST, static::class, $methodName);
-        if (!is_int($value)) {
-            return 0;
+        if (is_int($value)) {
+            return $value;
         }
-        return $value;
+        $value = $this->annotationsReader->getAnnotation(static::ANNOTATION_REPEAT_TEST, static::class, $methodName);
+        if (is_int($value)) {
+            return $value;
+        }
+        return 0;
+    }
+
+    public function getRetryStrategy(string $methodName): ?RetryStrategy
+    {
+        if ($this->annotationsReader->hasAnnotation(static::ANNOTATION_FLAKY_TEST, static::class, $methodName)) {
+            return new UntilSuccessRetryStrategy();
+        } elseif ($this->annotationsReader->hasAnnotation(static::ANNOTATION_REPEAT_TEST, static::class, $methodName)) {
+            return new UntilFailureRetryStrategy();
+        }
+        return null;
     }
 
     /**
@@ -128,6 +144,7 @@ abstract class TestCase
                     "dataSetName" => "",
                     "reportDeprecations" => $this->shouldReportDeprecations($method),
                     "maxRetries" => $this->getMaxRetries($method),
+                    "retryStrategy" => $this->getRetryStrategy($method),
                 ];
 
                 $requiredParameters = (new ReflectionMethod($this, $method))->getNumberOfRequiredParameters();

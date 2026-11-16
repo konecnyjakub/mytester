@@ -45,7 +45,8 @@ final class Job
         private(set) bool|string $skip = false,
         public readonly string $dataSetName = "",
         public readonly bool $reportDeprecations = true,
-        public readonly int $maxRetries = 0
+        public readonly int $maxRetries = 0,
+        public readonly ?RetryStrategy $retryStrategy = new UntilSuccessRetryStrategy()
     ) {
     }
 
@@ -156,7 +157,10 @@ final class Job
                 $this->totalTime = (int) Timer::read($timerName, Timer::FORMAT_PRECISE);
             }
             $this->result = JobResult::fromJob($this);
-            if ($this->result !== JobResult::FAILED) {
+            if (
+                $this->retryStrategy === null ||
+                !$this->retryStrategy->shouldRetry($attemptNumber, $this->maxRetries, $this->result)
+            ) {
                 break;
             }
         }
