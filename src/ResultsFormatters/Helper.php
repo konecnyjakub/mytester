@@ -17,6 +17,7 @@ final class Helper
         "junit" => JUnit::class,
         "tap" => Tap::class,
         "testdox" => TestDox::class,
+        "gitlab-requirements" => GitLabRequirements::class,
     ];
 
     private function __construct()

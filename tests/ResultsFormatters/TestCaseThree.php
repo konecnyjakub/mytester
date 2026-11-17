@@ -14,6 +14,7 @@ use MyTester\TestCase;
 #[Group("test")]
 final class TestCaseThree extends TestCase
 {
+    #[\MyTester\Attributes\GitLabRequirements(4)]
     public function testOne(): void
     {
         $this->markTestSkipped("abc");

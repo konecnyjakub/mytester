@@ -1,5 +1,6 @@
 Version 9.2.0-dev
 - added option to repeat a test until it fails
+- added support for GitLab requirements (as results formatter)
 
 Version 9.1.0
 - allowed setting base url for Nette\Application\LinkGenerator from Nette DIC extension

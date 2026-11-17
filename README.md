@@ -515,6 +515,33 @@ JUnit prints the results into file junit.xml, TAP and TestBox by default show th
 ./vendor/bin/mytester tests/unit --results testdox
 ```
 
+It is also possible to generate a GitLab requirements report. Firstly, you have to specify which requirements a test method is supposed to check via attribute GitLabRequirements
+
+
+```php
+<?php
+declare(strict_types=1);
+
+use MyTester\Attributes\GitLabRequirements;
+
+final class Tests extends MyTester\TestCase
+{
+    #[GitLabRequirements(1 ,2)]
+    public function testTestName(): void
+    {
+        $this->assertTrue(false);
+    }
+}
+```
+
+and then you can use the results formatter
+
+```bash
+./vendor/bin/mytester tests/unit --results gitlab-requirements
+```
+
+By default, it creates a file named requirements.json. All tests for a requirement have to pass for the requirement to be marked as passed; if any test fails, it is marked as failed. Skipped tests are not taken into account except the situation where all tests for a requirement are skipped, then the requirement is not present in the report.
+
 If you want to change the file for output with format JUnit or want to print the results into a file with formats TAP and TestBox, just append it after the formatter's name.
 
 ```bash

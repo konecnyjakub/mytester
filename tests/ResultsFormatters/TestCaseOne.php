@@ -14,6 +14,7 @@ use MyTester\TestCase;
 #[Group("test")]
 final class TestCaseOne extends TestCase
 {
+    #[\MyTester\Attributes\GitLabRequirements(1, 2)]
     public function testOne(): void
     {
         $this->assertTrue(true);
@@ -25,6 +26,7 @@ final class TestCaseOne extends TestCase
     }
 
     #[Skip()]
+    #[\MyTester\Attributes\GitLabRequirements(1)]
     public function testThree(): void
     {
         $this->assertFalse(true);

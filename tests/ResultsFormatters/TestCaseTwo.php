@@ -13,11 +13,13 @@ use MyTester\TestCase;
 #[Group("test")]
 final class TestCaseTwo extends TestCase
 {
+    #[\MyTester\Attributes\GitLabRequirements(3)]
     public function testOne(): void
     {
         $this->assertTrue(true);
     }
 
+    #[\MyTester\Attributes\GitLabRequirements(3)]
     public function testTwo(): void
     {
         $this->assertTrue(false);
