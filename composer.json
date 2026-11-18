@@ -43,7 +43,7 @@
         "ext-xdebug": "Alternative engine for generating code coverage reports",
         "composer/semver": "To skip a test method based on package version",
         "konecnyjakub/phpt-runner": "To run .phpt files",
-        "nette/scheme": "To use config files (validation)",
+        "nette/schema": "To use config files (validation)",
         "nette/neon": "To use .neon config file",
         "symfony/yaml": "To use .yaml config file",
         "internal/toml": "To use .toml config file"
