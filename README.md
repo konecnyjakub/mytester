@@ -526,7 +526,7 @@ use MyTester\Attributes\GitLabRequirements;
 
 final class Tests extends MyTester\TestCase
 {
-    #[GitLabRequirements(1 ,2)]
+    #[GitLabRequirements(1, 2)]
     public function testTestName(): void
     {
         $this->assertTrue(false);
